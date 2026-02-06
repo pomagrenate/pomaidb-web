@@ -8,35 +8,40 @@ import styles from "./docs.module.css";
 const docsGroups = [
   {
     title: "Getting Started",
-    description: "Install, create your first collection, and run a local search.",
+    description: "Install PomaiDB, create your first collection, and run a local search.",
     links: [
       { label: "Quickstart", href: "/docs/get-started" },
-      { label: "Client setup", href: "/docs/get-started#client-setup" },
+      { label: "Operations runbook", href: "/docs/operations-runbook" },
     ],
   },
   {
-    title: "Concepts",
-    description: "Learn how shards, WAL, and manifests fit together.",
+    title: "Core semantics",
+    description: "Canonical behavior, snapshot rules, and system invariants.",
     links: [
-      { label: "Shard actors", href: "/docs#shards" },
-      { label: "Crash safety contract", href: "/docs#crash-safety" },
-      { label: "Search quality", href: "/docs#search-quality" },
+      { label: "Canonical semantics", href: "/docs/canonical-semantics" },
+      { label: "Consistency model", href: "/docs/consistency-model" },
+      { label: "Database contract", href: "/docs/database-contract" },
     ],
   },
   {
-    title: "Operations",
-    description: "Benchmarks, crash testing, and deployment guides.",
+    title: "Search & routing",
+    description: "Indexing plans, current pipeline gaps, and CBR-S routing details.",
     links: [
-      { label: "Running benchmarks", href: "/benchmarks" },
-      { label: "Crash testing", href: "/docs#crash-testing" },
+      { label: "Canonical search plan", href: "/docs/canonical-search-plan" },
+      {
+        label: "Search pipeline (current)",
+        href: "/docs/search-pipeline-current-state",
+      },
+      { label: "CBR-S routing", href: "/docs/cbr-s" },
     ],
   },
   {
-    title: "Reference",
-    description: "Deep dives into architecture, APIs, and guarantees.",
+    title: "Performance & APIs",
+    description: "Ingestion analysis, ABI contracts, and reference material.",
     links: [
+      { label: "Ingestion throughput", href: "/docs/ingestion-throughput" },
+      { label: "C API (stable ABI)", href: "/docs/c-api" },
       { label: "PomaiDB reference docs", href: "/docs/reference" },
-      { label: "C API contract", href: "/docs/reference#pomai-db-c-api-stable-abi" },
     ],
   },
 ];
@@ -49,15 +54,15 @@ export default function DocsPage() {
           <Badge label="Docs" tone="green" />
           <h1>PomaiDB documentation</h1>
           <p>
-            Everything you need to build crash-safe local vector search. Learn
-            the storage layout, routing design, and operational practices behind
-            PomaiDB.
+            Everything you need to build crash-safe local vector search. Explore
+            the canonical semantics, routing model, and operational playbooks
+            behind PomaiDB.
           </p>
         </div>
         <div className={styles.heroCard}>
           <span>MDX-ready</span>
           <p>
-            Docs live alongside the product. Add new MDX pages under
+            Each major spec lives in its own MDX page. Add new docs under
             <code> /docs</code> to grow the knowledge base.
           </p>
         </div>
@@ -66,7 +71,7 @@ export default function DocsPage() {
       <SectionHeading
         eyebrow="Documentation"
         title="Start with the fundamentals."
-        description="Each section mirrors PomaiDB components: crash-safe storage, routing, and operational discipline."
+        description="Browse PomaiDB's operating contracts, search architecture, and performance guidance."
       />
 
       <div className={styles.grid}>
@@ -86,34 +91,34 @@ export default function DocsPage() {
       </div>
 
       <div className={styles.sections}>
-        <div id="shards" className={styles.section}>
-          <h2>Shard actors</h2>
+        <div id="semantics" className={styles.section}>
+          <h2>Canonical semantics</h2>
           <p>
-            Each shard is an isolated actor that owns its WAL, segment files, and
-            index. Routed search fans out to the smallest viable shard set,
-            keeping tail latency low even on edge devices.
+            PomaiDB's identity is anchored in WAL-first durability and bounded
+            staleness. The canonical semantics doc defines the invariant write
+            and read paths.
           </p>
         </div>
-        <div id="crash-safety" className={styles.section}>
-          <h2>Crash safety contract</h2>
+        <div id="search" className={styles.section}>
+          <h2>Search architecture</h2>
           <p>
-            Writes land in the WAL first, followed by an atomic manifest update.
-            On recovery PomaiDB replays the WAL, truncates incomplete batches,
-            and rebuilds indexes deterministically.
+            The canonical plan describes the IVF pipeline, while the current
+            state report tracks what still runs brute force today.
           </p>
         </div>
-        <div id="search-quality" className={styles.section}>
-          <h2>Search quality</h2>
+        <div id="operations" className={styles.section}>
+          <h2>Operations playbook</h2>
           <p>
-            CBR-S routing keeps recall stable under dynamic data distributions by
-            probing the most relevant shards first and falling back when needed.
+            Build configurations, crash testing loops, and inspection commands
+            live in the operations runbook so you can validate durability end to
+            end.
           </p>
         </div>
-        <div id="crash-testing" className={styles.section}>
-          <h2>Crash testing</h2>
+        <div id="api" className={styles.section}>
+          <h2>Stable API contract</h2>
           <p>
-            Stress PomaiDB with repeated crash loops. The crash harness validates
-            WAL replay, manifest atomicity, and shard index rebuilds.
+            The C ABI page spells out ownership, thread safety, and versioning
+            rules to keep embedding integrations safe across releases.
           </p>
         </div>
       </div>
