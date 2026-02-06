@@ -1,0 +1,86 @@
+.hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  align-items: center;
+  margin: 3rem 0;
+}
+
+.hero h1 {
+  font-family: var(--font-sora), system-ui, sans-serif;
+  color: #fff;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  margin: 1rem 0;
+}
+
+.hero p {
+  color: var(--pomai-muted);
+  line-height: 1.6;
+}
+
+.heroCard {
+  background: rgba(57, 163, 107, 0.12);
+  border: 1px solid rgba(57, 163, 107, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  color: #e6fff3;
+}
+
+.heroCard span {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  color: var(--pomai-green);
+}
+
+.heroCard p {
+  margin-top: 0.75rem;
+  color: var(--pomai-slate);
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-bottom: 3rem;
+}
+
+.grid h3 {
+  color: #fff;
+  font-family: var(--font-sora), system-ui, sans-serif;
+  margin-bottom: 0.5rem;
+}
+
+.grid p {
+  color: var(--pomai-muted);
+  line-height: 1.6;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.links a {
+  color: var(--pomai-green);
+}
+
+.sections {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.section h2 {
+  color: #fff;
+  font-family: var(--font-sora), system-ui, sans-serif;
+  margin-bottom: 0.75rem;
+}
+
+.section p {
+  color: var(--pomai-muted);
+  line-height: 1.7;
+}

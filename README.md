@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PomaiDB Web
 
-## Getting Started
+Official marketing + documentation site for PomaiDB, the local-first embedded vector database.
 
-First, run the development server:
+## How to run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to edit content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Home + core pages**: Update files under `src/app/`.
+  - Home: `src/app/page.tsx`
+  - Docs landing: `src/app/docs/page.tsx`
+  - Benchmarks: `src/app/benchmarks/page.tsx`
+  - Architecture: `src/app/architecture/page.tsx`
+  - Examples: `src/app/examples/page.tsx`
+- **MDX docs**: Add MDX pages under `src/app/docs/` (example: `src/app/docs/get-started/page.mdx`).
+- **Design system**: Reusable components live in `src/components/`.
+- **Theme**: CSS variables and global styles are in `src/app/globals.css`.
 
-## Learn More
+## Build
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+```

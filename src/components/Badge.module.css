@@ -1,0 +1,28 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+}
+
+.red {
+  background: rgba(194, 43, 61, 0.18);
+  color: #ffd6dc;
+  border-color: rgba(194, 43, 61, 0.35);
+}
+
+.green {
+  background: rgba(57, 163, 107, 0.2);
+  color: #d7ffea;
+  border-color: rgba(57, 163, 107, 0.4);
+}
+
+.neutral {
+  background: rgba(199, 204, 214, 0.08);
+  color: var(--pomai-slate);
+  border-color: var(--pomai-border);
+}

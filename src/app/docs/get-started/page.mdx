@@ -1,0 +1,44 @@
+<div className="mdx">
+
+# Get started with PomaiDB
+
+PomaiDB is a local-first embedded vector database in C++20 designed for crash-safe, low-RAM environments. This guide walks through installing the client, creating a collection, and running your first search.
+
+## Client setup
+
+1. Install the Python package or build the C++ SDK.
+2. Point the client at a local directory to store WAL + segment files.
+3. Create a collection with the target vector dimensionality.
+
+## Python quickstart
+
+```python
+from pomaidb import Client
+
+client = Client("./pomai-data")
+client.create_collection("clips", dims=768)
+
+client.upsert(
+    "clips",
+    ids=["clip-001"],
+    vectors=[[0.12, 0.08, 0.33, 0.19]],
+    metadata=[{"scene": "studio"}],
+)
+
+results = client.search("clips", query=[0.12, 0.09, 0.29, 0.15], k=10)
+print(results)
+```
+
+## Crash-safe checklist
+
+- **WAL-first**: each upsert writes to the WAL before touching index files.
+- **Atomic manifest**: manifests are swapped with atomic rename + fsync on the directory.
+- **Deterministic replay**: restart replays WAL entries and rebuilds shard indexes.
+
+## Next steps
+
+- Explore [benchmarks](/benchmarks) to understand recall and latency goals.
+- Read [architecture](/architecture) for routing + shard internals.
+- Browse [examples](/examples) for multi-language snippets.
+
+</div>
