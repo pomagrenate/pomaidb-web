@@ -190,60 +190,64 @@ export default function Home() {
             title="Performance that stays stable under stress."
             description="Representative workloads capture recall, latency percentiles, and shard routing density. Replace the CSV at any time." 
           />
-          <div className={styles.benchmarkTable}>
-            <div className={styles.tableHeader}>
-              <span>Scenario</span>
-              <span>p50</span>
-              <span>p99</span>
-              <span>Recall@10</span>
-              <span>Routed shards avg</span>
-            </div>
-            {[
-              {
-                scenario: "overlap_hard",
-                p50: "7.2ms",
-                p99: "18.4ms",
-                recall: "0.942",
-                shards: "2.1",
-              },
-              {
-                scenario: "epoch_drift_hard",
-                p50: "8.1ms",
-                p99: "20.7ms",
-                recall: "0.936",
-                shards: "2.3",
-              },
-              {
-                scenario: "local_mix_50k",
-                p50: "6.4ms",
-                p99: "16.2ms",
-                recall: "0.951",
-                shards: "1.8",
-              },
-              {
-                scenario: "edge_rss_cap",
-                p50: "9.0ms",
-                p99: "22.1ms",
-                recall: "0.928",
-                shards: "2.5",
-              },
-              {
-                scenario: "embed_replay",
-                p50: "5.7ms",
-                p99: "14.8ms",
-                recall: "0.947",
-                shards: "1.6",
-              },
-            ].map((row) => (
-              <div key={row.scenario} className={styles.tableRow}>
-                <span>{row.scenario}</span>
-                <span>{row.p50}</span>
-                <span>{row.p99}</span>
-                <span>{row.recall}</span>
-                <span>{row.shards}</span>
-              </div>
-            ))}
-          </div>
+          <table className={styles.benchmarkTable}>
+            <thead className={styles.tableHeader}>
+              <tr>
+                <th scope="col">Scenario</th>
+                <th scope="col">p50</th>
+                <th scope="col">p99</th>
+                <th scope="col">Recall@10</th>
+                <th scope="col">Routed shards avg</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                {
+                  scenario: "overlap_hard",
+                  p50: "7.2ms",
+                  p99: "18.4ms",
+                  recall: "0.942",
+                  shards: "2.1",
+                },
+                {
+                  scenario: "epoch_drift_hard",
+                  p50: "8.1ms",
+                  p99: "20.7ms",
+                  recall: "0.936",
+                  shards: "2.3",
+                },
+                {
+                  scenario: "local_mix_50k",
+                  p50: "6.4ms",
+                  p99: "16.2ms",
+                  recall: "0.951",
+                  shards: "1.8",
+                },
+                {
+                  scenario: "edge_rss_cap",
+                  p50: "9.0ms",
+                  p99: "22.1ms",
+                  recall: "0.928",
+                  shards: "2.5",
+                },
+                {
+                  scenario: "embed_replay",
+                  p50: "5.7ms",
+                  p99: "14.8ms",
+                  recall: "0.947",
+                  shards: "1.6",
+                },
+              ].map((row) => (
+                <tr key={row.scenario} className={styles.tableRow}>
+                  <td>{row.scenario}</td>
+                  <td>{row.p50}</td>
+                  <td>{row.p99}</td>
+                  <td>{row.recall}</td>
+                  <td>{row.shards}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
           <p className={styles.benchmarkNote}>
             Run locally: <code>tools/bench/run_bench.py --quick</code>
           </p>
