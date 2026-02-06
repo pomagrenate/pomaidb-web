@@ -6,7 +6,7 @@
 
 .hero h1 {
     font-family: var(--font-sora), system-ui, sans-serif;
-    color: #fff;
+    color: var(--pomai-text-strong);
     font-size: clamp(2rem, 3.5vw, 3rem);
     margin: 1rem 0;
     line-height: 1.1;
@@ -30,7 +30,7 @@
 }
 
 .cardHeader {
-    color: #fff;
+    color: var(--pomai-text-strong);
     font-family: var(--font-sora);
     margin-bottom: 0.75rem;
     font-size: 1.1rem;
@@ -54,7 +54,7 @@
     border: 1px solid var(--pomai-border);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
-    background: rgba(15, 16, 22, 0.8);
+    background: var(--pomai-surface-strong);
     margin-bottom: 2rem;
     display: flex;
     justify-content: center;
@@ -82,13 +82,13 @@
     top: 0;
     width: 2rem;
     height: 2rem;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--pomai-surface-subtle);
     border: 1px solid var(--pomai-border);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--pomai-text-strong);
     font-weight: bold;
     font-family: var(--font-sora);
     font-size: 0.9rem;
@@ -96,11 +96,11 @@
 
 .fileStruct {
     font-family: monospace;
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--pomai-code-bg);
     padding: 1rem;
     border-radius: var(--radius-md);
     border-left: 3px solid var(--pomai-link);
-    color: #e2e8f0;
+    color: var(--pomai-text-strong);
     white-space: pre-wrap;
     font-size: 0.9rem;
     line-height: 1.5;

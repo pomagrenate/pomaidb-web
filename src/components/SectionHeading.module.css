@@ -15,7 +15,7 @@
   font-family: var(--font-sora), system-ui, sans-serif;
   font-size: clamp(1.75rem, 2.5vw, 2.4rem);
   margin-top: 0.75rem;
-  color: #fff;
+  color: var(--pomai-text-strong);
 }
 
 .description {

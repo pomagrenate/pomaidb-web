@@ -15,7 +15,10 @@ export default function Footer() {
               embedded deployments.
             </p>
           </div>
-          <Button href="https://github.com/pomai/pomaidb" variant="secondary">
+          <Button
+            href="https://github.com/AutoCookies/pomaidb/tree/main"
+            variant="secondary"
+          >
             View on GitHub
           </Button>
         </div>
@@ -25,7 +28,6 @@ export default function Footer() {
             <Link href="/docs">Docs</Link>
             <Link href="/benchmarks">Benchmarks</Link>
             <Link href="/architecture">Architecture</Link>
-            <Link href="/examples">Examples</Link>
           </div>
         </div>
       </Container>

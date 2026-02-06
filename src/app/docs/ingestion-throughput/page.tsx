@@ -98,7 +98,11 @@ export default function IngestionAnalysisPage() {
 
       <div className={styles.grid}>
         <Card>
-          <h3 style={{ color: '#fff', marginBottom: '1rem' }}>Identified Bottlenecks</h3>
+          <h3
+            style={{ color: "var(--pomai-text-strong)", marginBottom: "1rem" }}
+          >
+            Identified Bottlenecks
+          </h3>
           <ol className={styles.list} style={{ listStyle: 'decimal', paddingLeft: '1.2rem' }}>
             <li>
               <b>WAL writes (Biggest):</b> Single-threaded sequential writes per shard.
@@ -165,7 +169,9 @@ export default function IngestionAnalysisPage() {
       <div className={styles.grid}>
         <Card>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-            <h3 style={{ color: '#fff' }}>1. Batch Insertions</h3>
+            <h3 style={{ color: "var(--pomai-text-strong)" }}>
+              1. Batch Insertions
+            </h3>
             <Badge label="~35x Speedup" tone="green" />
           </div>
           <p className={styles.statDetail}>Reduce per-op overhead (lock contention, syscalls).</p>
@@ -174,7 +180,9 @@ export default function IngestionAnalysisPage() {
 
         <Card>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-            <h3 style={{ color: '#fff' }}>2. Parallel Sharding</h3>
+            <h3 style={{ color: "var(--pomai-text-strong)" }}>
+              2. Parallel Sharding
+            </h3>
             <Badge label="1.5-2x Speedup" tone="green" />
           </div>
           <p className={styles.statDetail}>Distribute inserts across shards explicitly.</p>
@@ -183,7 +191,9 @@ export default function IngestionAnalysisPage() {
 
         <Card>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-            <h3 style={{ color: '#fff' }}>3. Use tmpfs (RAM Disk)</h3>
+            <h3 style={{ color: "var(--pomai-text-strong)" }}>
+              3. Use tmpfs (RAM Disk)
+            </h3>
             <Badge label="1.5-2x Speedup" tone="green" />
           </div>
           <p className={styles.statDetail}>Eliminate disk I/O bottleneck for WAL.</p>
@@ -192,7 +202,9 @@ export default function IngestionAnalysisPage() {
 
         <Card>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-            <h3 style={{ color: '#fff' }}>4. Pre-allocation</h3>
+            <h3 style={{ color: "var(--pomai-text-strong)" }}>
+              4. Pre-allocation
+            </h3>
             <Badge label="1.1-1.3x Speedup" tone="green" />
           </div>
           <p className={styles.statDetail}>Reduce page faults during ingest.</p>
@@ -204,7 +216,15 @@ export default function IngestionAnalysisPage() {
       <div style={{ margin: "4rem 0" }}></div>
       <div className={styles.grid}>
         <div>
-          <h3 style={{ color: '#fff', marginBottom: '1rem', fontFamily: 'var(--font-sora)' }}>Immediate Actions</h3>
+          <h3
+            style={{
+              color: "var(--pomai-text-strong)",
+              marginBottom: "1rem",
+              fontFamily: "var(--font-sora)",
+            }}
+          >
+            Immediate Actions
+          </h3>
           <ul className={styles.checklist}>
             <li>Verify <code>fsync = kNever</code> is set.</li>
             <li>Try mounting DB path on <code>tmpfs</code>.</li>
@@ -212,7 +232,15 @@ export default function IngestionAnalysisPage() {
           </ul>
         </div>
         <div>
-          <h3 style={{ color: '#fff', marginBottom: '1rem', fontFamily: 'var(--font-sora)' }}>Long-term Roadmap</h3>
+          <h3
+            style={{
+              color: "var(--pomai-text-strong)",
+              marginBottom: "1rem",
+              fontFamily: "var(--font-sora)",
+            }}
+          >
+            Long-term Roadmap
+          </h3>
           <ul className={styles.checklist}>
             <li>Implement <code>PutBatch()</code> API.</li>
             <li>Async WAL writes (background thread).</li>

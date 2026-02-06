@@ -175,7 +175,11 @@ export default function ConsistencyPage() {
 
       <div className={styles.timelineGrid}>
         <div>
-          <h4 style={{ color: '#fff', marginBottom: '1rem' }}>Soft Freeze (Automatic)</h4>
+          <h4
+            style={{ color: "var(--pomai-text-strong)", marginBottom: "1rem" }}
+          >
+            Soft Freeze (Automatic)
+          </h4>
           <div className={styles.diagramContainer} style={{ padding: '1rem' }}>
             <Mermaid chart={DIAGRAM_TIMELINE_SOFT} />
           </div>
@@ -184,7 +188,11 @@ export default function ConsistencyPage() {
           </p>
         </div>
         <div>
-          <h4 style={{ color: '#fff', marginBottom: '1rem' }}>Explicit Freeze</h4>
+          <h4
+            style={{ color: "var(--pomai-text-strong)", marginBottom: "1rem" }}
+          >
+            Explicit Freeze
+          </h4>
           <div className={styles.diagramContainer} style={{ padding: '1rem' }}>
             <Mermaid chart={DIAGRAM_TIMELINE_EXPLICIT} />
           </div>

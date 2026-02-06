@@ -6,7 +6,7 @@
 
 .hero h1 {
   font-family: var(--font-sora), system-ui, sans-serif;
-  color: #fff;
+  color: var(--pomai-text-strong);
   font-size: clamp(2rem, 3.5vw, 3rem);
   margin: 1rem 0;
   line-height: 1.1;
@@ -60,7 +60,7 @@
 }
 
 .buildTitle {
-  color: #fff;
+  color: var(--pomai-text-strong);
   font-family: var(--font-sora);
   font-size: 1.1rem;
 }
@@ -113,7 +113,7 @@
 }
 
 .cliHeader {
-  color: #fff;
+  color: var(--pomai-text-strong);
   font-family: var(--font-sora);
   margin-bottom: 0.5rem;
 }

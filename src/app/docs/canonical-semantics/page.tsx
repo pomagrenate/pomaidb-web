@@ -182,7 +182,15 @@ export default function SemanticsPage() {
                 <li>Segment Readers (Manifest Order)</li>
              </ol>
              <div style={{ marginTop: '1.5rem' }}>
-               <h4 style={{ color: '#fff', fontSize: '1rem', marginBottom: '0.5rem' }}>Visibility Rules</h4>
+               <h4
+                 style={{
+                   color: "var(--pomai-text-strong)",
+                   fontSize: "1rem",
+                   marginBottom: "0.5rem",
+                 }}
+               >
+                 Visibility Rules
+               </h4>
                <ul className={styles.list}>
                  <li>First matching record defines result.</li>
                  <li><b>Tombstone</b> at any newer layer returns NotFound and blocks older data.</li>

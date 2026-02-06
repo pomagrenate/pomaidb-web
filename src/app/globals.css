@@ -5,12 +5,25 @@
 :root {
   --pomai-red: #c22b3d;
   --pomai-green: #39a36b;
+  --pomai-link: #6aa7ff;
   --pomai-slate: #c7ccd6;
   --pomai-bg: #0c0c10;
   --pomai-surface: #14151b;
   --pomai-muted: #9aa3b2;
   --pomai-border: #242633;
   --pomai-glow: rgba(194, 43, 61, 0.35);
+  --pomai-text-strong: #fff;
+  --pomai-dark-text: #6b7280;
+  --pomai-bg-gradient-1: rgba(194, 43, 61, 0.15);
+  --pomai-bg-gradient-2: rgba(57, 163, 107, 0.12);
+  --pomai-header-bg: rgba(12, 12, 16, 0.8);
+  --pomai-mobile-bg: rgba(12, 12, 16, 0.92);
+  --pomai-surface-subtle: rgba(255, 255, 255, 0.04);
+  --pomai-surface-strong: rgba(15, 16, 22, 0.8);
+  --pomai-surface-elevated: rgba(15, 16, 22, 0.7);
+  --pomai-surface-card: rgba(199, 204, 214, 0.06);
+  --pomai-code-bg: #0f1016;
+  --pomai-table-header-bg: rgba(199, 204, 214, 0.05);
   --radius-xl: 20px;
   --radius-lg: 16px;
   --radius-md: 12px;
@@ -29,10 +42,33 @@ html {
   scroll-behavior: smooth;
 }
 
+html[data-theme="light"] {
+  color-scheme: light;
+  --pomai-bg: #f4f5f9;
+  --pomai-surface: #ffffff;
+  --pomai-slate: #2a3340;
+  --pomai-muted: #5b6472;
+  --pomai-border: #d8dee8;
+  --pomai-glow: rgba(194, 43, 61, 0.2);
+  --pomai-text-strong: #1a1d25;
+  --pomai-dark-text: #4b5563;
+  --pomai-link: #2563eb;
+  --pomai-bg-gradient-1: rgba(194, 43, 61, 0.08);
+  --pomai-bg-gradient-2: rgba(57, 163, 107, 0.08);
+  --pomai-header-bg: rgba(255, 255, 255, 0.85);
+  --pomai-mobile-bg: rgba(255, 255, 255, 0.92);
+  --pomai-surface-subtle: rgba(17, 24, 39, 0.04);
+  --pomai-surface-strong: rgba(255, 255, 255, 0.92);
+  --pomai-surface-elevated: rgba(255, 255, 255, 0.9);
+  --pomai-surface-card: rgba(17, 24, 39, 0.04);
+  --pomai-code-bg: #f1f3f7;
+  --pomai-table-header-bg: rgba(17, 24, 39, 0.04);
+}
+
 body {
   min-height: 100vh;
-  background: radial-gradient(circle at 20% 20%, rgba(194, 43, 61, 0.15), transparent 55%),
-    radial-gradient(circle at 80% 10%, rgba(57, 163, 107, 0.12), transparent 45%),
+  background: radial-gradient(circle at 20% 20%, var(--pomai-bg-gradient-1), transparent 55%),
+    radial-gradient(circle at 80% 10%, var(--pomai-bg-gradient-2), transparent 45%),
     var(--pomai-bg);
   color: var(--pomai-slate);
   font-family: var(--font-inter), system-ui, sans-serif;
@@ -60,7 +96,7 @@ main {
 
 ::selection {
   background: rgba(194, 43, 61, 0.35);
-  color: #fff;
+  color: var(--pomai-text-strong);
 }
 
 .mdx {
@@ -73,7 +109,7 @@ main {
 .mdx h1,
 .mdx h2,
 .mdx h3 {
-  color: #fff;
+  color: var(--pomai-text-strong);
   font-family: var(--font-sora), system-ui, sans-serif;
   margin: 2rem 0 1rem;
 }
@@ -98,12 +134,12 @@ main {
 }
 
 .mdx pre {
-  background: #0f1016;
+  background: var(--pomai-code-bg);
   padding: 1.25rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--pomai-border);
   overflow-x: auto;
-  color: #f5f6f8;
+  color: var(--pomai-text-strong);
 }
 
 .mdx table {
@@ -121,5 +157,5 @@ main {
 }
 
 .mdx thead {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--pomai-table-header-bg);
 }

@@ -6,7 +6,7 @@
 
 .hero h1 {
     font-family: var(--font-sora), system-ui, sans-serif;
-    color: #fff;
+    color: var(--pomai-text-strong);
     font-size: clamp(2rem, 3.5vw, 3rem);
     margin: 1rem 0;
     line-height: 1.1;
@@ -30,7 +30,7 @@
 }
 
 .cardHeader {
-    color: #fff;
+    color: var(--pomai-text-strong);
     font-family: var(--font-sora);
     margin-bottom: 0.75rem;
     font-size: 1.1rem;
@@ -71,7 +71,7 @@
 
 .table th {
     background: rgba(255, 255, 255, 0.05);
-    color: #fff;
+    color: var(--pomai-text-strong);
     font-weight: 600;
     white-space: nowrap;
 }
@@ -87,7 +87,7 @@
     padding: 0.2rem 0.4rem;
     font-family: monospace;
     font-size: 0.85rem;
-    color: #fff;
+    color: var(--pomai-text-strong);
 }
 
 .highlightBox {
