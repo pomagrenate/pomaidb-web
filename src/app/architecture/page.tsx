@@ -177,7 +177,15 @@ export default function ArchitecturePage() {
 
       <div className={styles.grid}>
         <div>
-          <h3 style={{ color: '#fff', marginBottom: '1rem', fontFamily: 'var(--font-sora)' }}>Upsert (Put)</h3>
+          <h3
+            style={{
+              color: "var(--pomai-text-strong)",
+              marginBottom: "1rem",
+              fontFamily: "var(--font-sora)",
+            }}
+          >
+            Upsert (Put)
+          </h3>
           <div className={styles.diagram}>
             {/* Render hình ảnh sơ đồ Upsert */}
             <Mermaid chart={DIAGRAM_UPSERT} />
@@ -187,7 +195,15 @@ export default function ArchitecturePage() {
           </p>
         </div>
         <div>
-          <h3 style={{ color: '#fff', marginBottom: '1rem', fontFamily: 'var(--font-sora)' }}>Search (Query)</h3>
+          <h3
+            style={{
+              color: "var(--pomai-text-strong)",
+              marginBottom: "1rem",
+              fontFamily: "var(--font-sora)",
+            }}
+          >
+            Search (Query)
+          </h3>
           <div className={styles.diagram}>
             {/* Render hình ảnh sơ đồ Search */}
             <Mermaid chart={DIAGRAM_SEARCH} />

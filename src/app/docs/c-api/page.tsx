@@ -124,7 +124,16 @@ export default function CApiPage() {
                 description="Explicit rules for sharing handles across threads."
             />
 
-            <h3 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '1rem', fontFamily: 'var(--font-sora)' }}>Handle-Level Safety</h3>
+            <h3
+              style={{
+                color: "var(--pomai-text-strong)",
+                fontSize: "1.1rem",
+                marginBottom: "1rem",
+                fontFamily: "var(--font-sora)",
+              }}
+            >
+              Handle-Level Safety
+            </h3>
             <div className={styles.tableContainer}>
                 <table className={styles.table}>
                     <thead>
@@ -159,7 +168,17 @@ export default function CApiPage() {
                 </table>
             </div>
 
-            <h3 style={{ color: '#fff', fontSize: '1.1rem', marginTop: '2rem', marginBottom: '1rem', fontFamily: 'var(--font-sora)' }}>Function-Level Safety</h3>
+            <h3
+              style={{
+                color: "var(--pomai-text-strong)",
+                fontSize: "1.1rem",
+                marginTop: "2rem",
+                marginBottom: "1rem",
+                fontFamily: "var(--font-sora)",
+              }}
+            >
+              Function-Level Safety
+            </h3>
             <div className={styles.tableContainer}>
                 <table className={styles.table}>
                     <thead>

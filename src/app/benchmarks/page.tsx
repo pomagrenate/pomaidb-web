@@ -210,7 +210,13 @@ export default function BenchmarksPage() {
                 paddingBottom: "0.5rem",
               }}
             >
-              <h3 style={{ fontSize: "1.1rem", color: "#fff", margin: 0 }}>
+              <h3
+                style={{
+                  fontSize: "1.1rem",
+                  color: "var(--pomai-text-strong)",
+                  margin: 0,
+                }}
+              >
                 {dataset.name}
               </h3>
               <span
@@ -235,7 +241,15 @@ export default function BenchmarksPage() {
               </div>
               {dataset.scenarios.map((row) => (
                 <div key={row.mode} className={styles.tableRow}>
-                  <span style={{ fontWeight: 500, color: row.mode === 'fanout' ? '#fff' : 'var(--pomai-link)' }}>
+                  <span
+                    style={{
+                      fontWeight: 500,
+                      color:
+                        row.mode === "fanout"
+                          ? "var(--pomai-text-strong)"
+                          : "var(--pomai-link)",
+                    }}
+                  >
                     {row.mode}
                   </span>
                   <span style={{ color: row.recall < 0.9 ? "#ff4444" : "#4ade80" }}>

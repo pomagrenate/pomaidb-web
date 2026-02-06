@@ -182,7 +182,13 @@ export default function ContractPage() {
 
       {/* --- 4. SEMANTICS REFERENCE --- */}
       <section className={styles.section}>
-        <h2 style={{ color: '#fff', fontFamily: 'var(--font-sora)', marginBottom: '1.5rem' }}>
+        <h2
+          style={{
+            color: "var(--pomai-text-strong)",
+            fontFamily: "var(--font-sora)",
+            marginBottom: "1.5rem",
+          }}
+        >
           Semantics Reference
         </h2>
 
@@ -227,7 +233,14 @@ export default function ContractPage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginTop: '2rem' }}>
           <div>
-            <h4 style={{ color: '#fff', marginBottom: '0.5rem' }}>Visibility Timeline</h4>
+            <h4
+              style={{
+                color: "var(--pomai-text-strong)",
+                marginBottom: "0.5rem",
+              }}
+            >
+              Visibility Timeline
+            </h4>
             <div className={styles.timeline}>
               {`T0: Put(id=1) → WAL appended
 T1: Get(id=1) → NotFound (Active hidden)
@@ -236,7 +249,14 @@ T3: Get(id=1) → Found (In Snapshot)`}
             </div>
           </div>
           <div>
-            <h4 style={{ color: '#fff', marginBottom: '0.5rem' }}>Crash Recovery</h4>
+            <h4
+              style={{
+                color: "var(--pomai-text-strong)",
+                marginBottom: "0.5rem",
+              }}
+            >
+              Crash Recovery
+            </h4>
             <div className={styles.timeline}>
               {`Crash at T: Active MemTable lost
 Restart:
@@ -275,13 +295,29 @@ Restart:
 
       {/* --- 6. SUCCESS CRITERIA --- */}
       <section className={styles.section}>
-        <h2 style={{ color: '#fff', fontFamily: 'var(--font-sora)', marginBottom: '1.5rem' }}>
+        <h2
+          style={{
+            color: "var(--pomai-text-strong)",
+            fontFamily: "var(--font-sora)",
+            marginBottom: "1.5rem",
+          }}
+        >
           Success Criteria
         </h2>
         <div className={styles.successGrid}>
           <div>
-            <h3 style={{ color: '#fff', marginBottom: '1rem' }}>PomaiDB Succeeds If:</h3>
-            <ul className={styles.list} style={{ color: '#fff' }}>
+            <h3
+              style={{
+                color: "var(--pomai-text-strong)",
+                marginBottom: "1rem",
+              }}
+            >
+              PomaiDB Succeeds If:
+            </h3>
+            <ul
+              className={styles.list}
+              style={{ color: "var(--pomai-text-strong)" }}
+            >
               <li>It makes sense <b>without</b> ANN (indexes removed).</li>
               <li>WAL + Snapshot are the central architecture.</li>
               <li>It cannot be mistaken for FAISS.</li>

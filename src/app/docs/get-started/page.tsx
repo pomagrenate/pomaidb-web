@@ -719,7 +719,13 @@ export default function GetStartedPage() {
         </div>
 
         <div style={{ marginBottom: "2rem" }}>
-          <h4 style={{ color: "#fff", marginBottom: "0.5rem", fontFamily: "var(--font-sora)" }}>
+          <h4
+            style={{
+              color: "var(--pomai-text-strong)",
+              marginBottom: "0.5rem",
+              fontFamily: "var(--font-sora)",
+            }}
+          >
             {EXAMPLES[lang].desc}
           </h4>
 

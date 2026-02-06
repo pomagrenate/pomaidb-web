@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import Container from "./Container";
 import styles from "./Header.module.css";
@@ -11,12 +11,38 @@ const navItems = [
   { label: "Docs", href: "/docs" },
   { label: "Benchmarks", href: "/benchmarks" },
   { label: "Architecture", href: "/architecture" },
-  { label: "Examples", href: "/examples" },
-  { label: "GitHub", href: "https://github.com/pomai/pomaidb" },
+  { label: "GitHub", href: "https://github.com/AutoCookies/pomaidb/tree/main" },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const prefersLight = window.matchMedia(
+      "(prefers-color-scheme: light)",
+    ).matches;
+    const initial =
+      stored === "light" || stored === "dark"
+        ? stored
+        : prefersLight
+          ? "light"
+          : "dark";
+    setTheme(initial);
+    document.documentElement.dataset.theme = initial;
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme((current) => {
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem("theme", next);
+      return next;
+    });
+  };
+
+  const themeLabel = theme === "light" ? "Light" : "Dark";
 
   return (
     <header className={styles.header}>
@@ -43,6 +69,16 @@ export default function Header() {
             Get Started
           </Button>
           <button
+            type="button"
+            className={styles.themeToggle}
+            onClick={toggleTheme}
+            aria-label={`Switch to ${
+              theme === "light" ? "dark" : "light"
+            } mode`}
+          >
+            {themeLabel} mode
+          </button>
+          <button
             className={styles.mobileToggle}
             onClick={() => setOpen((prev) => !prev)}
             aria-expanded={open}
@@ -67,6 +103,13 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
+          <button
+            type="button"
+            className={`${styles.themeToggle} ${styles.mobileThemeToggle}`}
+            onClick={toggleTheme}
+          >
+            {themeLabel} mode
+          </button>
         </Container>
       </div>
     </header>

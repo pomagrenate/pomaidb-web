@@ -61,7 +61,7 @@ export default function Home() {
                 Run Benchmarks
               </Button>
               <Button
-                href="https://github.com/pomai/pomaidb"
+                href="https://github.com/AutoCookies/pomaidb/tree/main"
                 variant="secondary"
               >
                 View on GitHub
@@ -281,33 +281,6 @@ export default function Home() {
         </section>
       </Container>
 
-      <Container>
-        <section className={styles.examples}>
-          <SectionHeading
-            eyebrow="Examples"
-            title="SDK-ready samples in every language."
-            description="From Python notebooks to embedded C++ services, PomaiDB keeps the API surface consistent across ecosystems."
-          />
-          <div className={styles.examplesGrid}>
-            {[
-              { label: "Python", id: "python" },
-              { label: "JavaScript", id: "javascript" },
-              { label: "TypeScript", id: "typescript" },
-              { label: "Go", id: "go" },
-              { label: "C++", id: "cpp" },
-            ].map((language) => (
-              <Link
-                key={language.id}
-                href={`/examples#${language.id}`}
-                className={styles.exampleCard}
-              >
-                <h4>{language.label}</h4>
-                <p>Ready-to-run snippets with search + upsert flows.</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-      </Container>
     </div>
   );
 }
