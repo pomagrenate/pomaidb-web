@@ -1,0 +1,108 @@
+/* cbrs.module.css */
+
+.hero {
+    margin: 3rem 0 3rem;
+}
+
+.hero h1 {
+    font-family: var(--font-sora), system-ui, sans-serif;
+    color: #fff;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    margin: 1rem 0;
+    line-height: 1.1;
+}
+
+.hero p {
+    color: var(--pomai-muted);
+    line-height: 1.6;
+    max-width: 720px;
+    font-size: 1.1rem;
+}
+
+.section {
+    margin-bottom: 4rem;
+}
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.cardHeader {
+    color: #fff;
+    font-family: var(--font-sora);
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.list {
+    padding-left: 1.2rem;
+    margin: 0;
+    color: var(--pomai-muted);
+}
+
+.list li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.diagramContainer {
+    border: 1px solid var(--pomai-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    background: rgba(15, 16, 22, 0.8);
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.stepList {
+    counter-reset: step-counter;
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+}
+
+.stepList li {
+    position: relative;
+    padding-left: 3rem;
+    color: var(--pomai-muted);
+}
+
+.stepList li::before {
+    counter-increment: step-counter;
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--pomai-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    font-family: var(--font-sora);
+    font-size: 0.9rem;
+}
+
+.fileStruct {
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--pomai-link);
+    color: #e2e8f0;
+    white-space: pre-wrap;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-top: 1rem;
+}

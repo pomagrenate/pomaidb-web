@@ -1,0 +1,136 @@
+/* semantics.module.css */
+
+.hero {
+  margin: 3rem 0 3rem;
+}
+
+.hero h1 {
+  font-family: var(--font-sora), system-ui, sans-serif;
+  color: #fff;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  margin: 1rem 0;
+  line-height: 1.1;
+}
+
+.hero p {
+  color: var(--pomai-muted);
+  line-height: 1.6;
+  max-width: 720px;
+  font-size: 1.1rem;
+}
+
+.sotBox {
+  border: 1px solid rgba(248, 113, 113, 0.3); /* Red border */
+  background: rgba(248, 113, 113, 0.05);
+  border-left: 4px solid #f87171;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.sotIcon {
+  font-size: 1.5rem;
+}
+
+.sotContent strong {
+  display: block;
+  color: #f87171;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.sotContent p {
+  color: #fff;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.cardHeader {
+  color: #fff;
+  font-family: var(--font-sora);
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.list {
+  padding-left: 1.2rem;
+  margin: 0;
+  color: var(--pomai-muted);
+}
+
+.list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.diagramContainer {
+  border: 1px solid var(--pomai-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  background: rgba(15, 16, 22, 0.8);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.layerList {
+  counter-reset: layer-counter;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.layerList li {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--pomai-border);
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  border-radius: var(--radius-md);
+  position: relative;
+  color: #e2e8f0;
+}
+
+.layerList li::before {
+  counter-increment: layer-counter;
+  content: counter(layer-counter);
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--pomai-link);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.perfBox {
+  border: 1px solid var(--pomai-border);
+  background: rgba(16, 185, 129, 0.05); /* Green tint */
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+}
+
+.perfBox h3 {
+  color: #34d399;
+  margin-bottom: 1rem;
+  font-family: var(--font-sora);
+  font-size: 1.1rem;
+}

@@ -28,10 +28,6 @@ const docsGroups = [
     description: "Indexing plans, current pipeline gaps, and CBR-S routing details.",
     links: [
       { label: "Canonical search plan", href: "/docs/canonical-search-plan" },
-      {
-        label: "Search pipeline (current)",
-        href: "/docs/search-pipeline-current-state",
-      },
       { label: "CBR-S routing", href: "/docs/cbr-s" },
     ],
   },
@@ -41,7 +37,6 @@ const docsGroups = [
     links: [
       { label: "Ingestion throughput", href: "/docs/ingestion-throughput" },
       { label: "C API (stable ABI)", href: "/docs/c-api" },
-      { label: "PomaiDB reference docs", href: "/docs/reference" },
     ],
   },
 ];

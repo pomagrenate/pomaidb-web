@@ -5,6 +5,117 @@ import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 import styles from "./benchmarks.module.css";
 
+// --- STATIC DATA FROM BENCHMARKS ---
+
+type ScenarioResult = {
+  mode: string;
+  p99: number;
+  qps: number;
+  ingest_qps: number;
+  recall: number;
+  shards: number;
+  verdict: "PASS" | "WARN" | "FAIL";
+};
+
+type DatasetGroup = {
+  name: string;
+  specs: string; // e.g. "dim=256 n=150k"
+  scenarios: ScenarioResult[];
+};
+
+const BENCHMARK_DATA: DatasetGroup[] = [
+  {
+    name: "Small Uniform",
+    specs: "dim=128 n=60k q=800 topk=10 shards=4",
+    scenarios: [
+      { mode: "fanout", p99: 3740.5, qps: 103.8, ingest_qps: 67736.5, recall: 1.0, shards: 4.0, verdict: "PASS" },
+      { mode: "cbrs", p99: 8390.8, qps: 71.1, ingest_qps: 64853.2, recall: 1.0, shards: 1.06, verdict: "PASS" },
+      { mode: "cbrs_no_dual", p99: 8488.5, qps: 70.9, ingest_qps: 68678.1, recall: 1.0, shards: 1.06, verdict: "PASS" },
+    ],
+  },
+  {
+    name: "Medium Clustered",
+    specs: "dim=256 n=150k q=800 topk=10 shards=4",
+    scenarios: [
+      { mode: "fanout", p99: 13579.1, qps: 30.2, ingest_qps: 65240.8, recall: 1.0, shards: 4.0, verdict: "PASS" },
+      { mode: "cbrs", p99: 22433.8, qps: 25.3, ingest_qps: 46058.8, recall: 1.0, shards: 1.7, verdict: "PASS" },
+      { mode: "cbrs_no_dual", p99: 22626.6, qps: 25.2, ingest_qps: 44996.7, recall: 1.0, shards: 1.7, verdict: "PASS" },
+    ],
+  },
+  {
+    name: "Large Clustered",
+    specs: "dim=256 n=400k q=400 topk=10 shards=8",
+    scenarios: [
+      { mode: "fanout", p99: 29113.1, qps: 11.1, ingest_qps: 59317.8, recall: 1.0, shards: 8.0, verdict: "PASS" },
+      { mode: "cbrs", p99: 58733.7, qps: 10.3, ingest_qps: 36182.9, recall: 1.0, shards: 2.0, verdict: "PASS" },
+      { mode: "cbrs_no_dual", p99: 63280.6, qps: 10.6, ingest_qps: 29583.7, recall: 1.0, shards: 2.0, verdict: "PASS" },
+    ],
+  },
+  {
+    name: "High Dim (Top 1)",
+    specs: "dim=512 n=200k q=400 topk=1 shards=4",
+    scenarios: [
+      { mode: "fanout", p99: 30522.0, qps: 14.5, ingest_qps: 38356.8, recall: 0.1, shards: 4.0, verdict: "PASS" },
+      { mode: "cbrs", p99: 73674.3, qps: 9.4, ingest_qps: 25577.2, recall: 0.1, shards: 1.87, verdict: "PASS" },
+      { mode: "cbrs_no_dual", p99: 68675.5, qps: 9.6, ingest_qps: 24335.3, recall: 0.1, shards: 1.87, verdict: "PASS" },
+    ],
+  },
+  {
+    name: "High Dim (Top 100)",
+    specs: "dim=512 n=200k q=400 topk=100 shards=4",
+    scenarios: [
+      { mode: "fanout", p99: 30990.7, qps: 13.2, ingest_qps: 36105.1, recall: 1.0, shards: 4.0, verdict: "PASS" },
+      { mode: "cbrs", p99: 73776.8, qps: 10.1, ingest_qps: 23471.7, recall: 1.0, shards: 1.87, verdict: "PASS" },
+      { mode: "cbrs_no_dual", p99: 68051.1, qps: 10.6, ingest_qps: 27359.3, recall: 1.0, shards: 1.87, verdict: "PASS" },
+    ],
+  },
+  {
+    name: "Overlap",
+    specs: "dim=256 n=120k q=700 topk=10 shards=4",
+    scenarios: [
+      { mode: "fanout", p99: 13664.9, qps: 35.3, ingest_qps: 61464.0, recall: 1.0, shards: 4.0, verdict: "PASS" },
+      { mode: "cbrs", p99: 32502.7, qps: 24.3, ingest_qps: 34806.9, recall: 1.0, shards: 1.77, verdict: "PASS" },
+      { mode: "cbrs_no_dual", p99: 24080.0, qps: 25.3, ingest_qps: 47523.5, recall: 1.0, shards: 1.77, verdict: "PASS" },
+    ],
+  },
+  {
+    name: "Overlap Hard",
+    specs: "dim=256 n=120k q=700 topk=10 shards=4",
+    scenarios: [
+      { mode: "fanout", p99: 11061.3, qps: 37.4, ingest_qps: 63500.4, recall: 1.0, shards: 4.0, verdict: "PASS" },
+      { mode: "cbrs", p99: 25408.4, qps: 25.1, ingest_qps: 46158.1, recall: 1.0, shards: 1.74, verdict: "PASS" },
+      { mode: "cbrs_no_dual", p99: 25199.8, qps: 25.1, ingest_qps: 48665.7, recall: 1.0, shards: 1.74, verdict: "PASS" },
+    ],
+  },
+  {
+    name: "Skew",
+    specs: "dim=128 n=120k q=700 topk=10 shards=8",
+    scenarios: [
+      { mode: "fanout", p99: 6841.5, qps: 49.6, ingest_qps: 63700.1, recall: 1.0, shards: 8.0, verdict: "PASS" },
+      { mode: "cbrs", p99: 15420.3, qps: 36.7, ingest_qps: 40844.1, recall: 1.0, shards: 1.88, verdict: "PASS" },
+      { mode: "cbrs_no_dual", p99: 15741.7, qps: 36.7, ingest_qps: 54319.9, recall: 1.0, shards: 1.88, verdict: "PASS" },
+    ],
+  },
+  {
+    name: "Skew Hard",
+    specs: "dim=128 n=120k q=700 topk=10 shards=8",
+    scenarios: [
+      { mode: "fanout", p99: 6903.1, qps: 49.0, ingest_qps: 65547.6, recall: 1.0, shards: 8.0, verdict: "PASS" },
+      { mode: "cbrs", p99: 17544.6, qps: 34.7, ingest_qps: 55858.6, recall: 1.0, shards: 1.98, verdict: "PASS" },
+      { mode: "cbrs_no_dual", p99: 24248.9, qps: 33.0, ingest_qps: 62893.8, recall: 1.0, shards: 1.98, verdict: "PASS" },
+    ],
+  },
+  {
+    name: "Epoch Drift Hard",
+    specs: "dim=256 n=120k q=800 topk=10 shards=4",
+    scenarios: [
+      { mode: "fanout", p99: 17004.5, qps: 31.5, ingest_qps: 34104.4, recall: 1.0, shards: 4.0, verdict: "PASS" },
+      { mode: "cbrs", p99: 25772.1, qps: 28.1, ingest_qps: 31798.1, recall: 0.9703, shards: 1.0, verdict: "PASS" },
+      { mode: "cbrs_no_dual", p99: 24737.5, qps: 28.5, ingest_qps: 32466.4, recall: 0.5, shards: 1.0, verdict: "WARN" },
+    ],
+  },
+];
+
 const metricsJsonExample = `{
   "build": { "time_sec": 45.67, "memory_mb": 2929.69 },
   "search_latency_us": { "mean": 234.56, "p50": 221.34, "p90": 312.45, "p99": 456.78, "p999": 789.12 },
@@ -44,6 +155,9 @@ function MetricCard({
   );
 }
 
+// Helper to format numbers
+const fmtNum = (n: number) => n.toLocaleString(undefined, { maximumFractionDigits: 1 });
+
 export default function BenchmarksPage() {
   return (
     <Container>
@@ -75,6 +189,74 @@ export default function BenchmarksPage() {
           </div>
         </div>
       </section>
+
+      {/* --- NEW SECTION: LIVE BENCHMARK RESULTS --- */}
+      <SectionHeading
+        eyebrow="Live Data"
+        title="Comprehensive Benchmark Suite"
+        description="Results from the latest CI run. Comparing Fanout (Baseline) vs CBR-S (Smart Routing). Note how routing drastically reduces shards visited (routed_shards_avg) at the cost of some routing overhead."
+      />
+
+      <div style={{ marginBottom: "4rem" }}>
+        {BENCHMARK_DATA.map((dataset) => (
+          <div key={dataset.name} style={{ marginBottom: "2.5rem" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "baseline",
+                marginBottom: "1rem",
+                borderBottom: "1px solid var(--pomai-border)",
+                paddingBottom: "0.5rem",
+              }}
+            >
+              <h3 style={{ fontSize: "1.1rem", color: "#fff", margin: 0 }}>
+                {dataset.name}
+              </h3>
+              <span
+                style={{
+                  fontSize: "0.85rem",
+                  color: "var(--pomai-muted)",
+                  fontFamily: "monospace",
+                }}
+              >
+                {dataset.specs}
+              </span>
+            </div>
+
+            <div className={styles.table}>
+              <div className={styles.tableHeader}>
+                <span>Mode</span>
+                <span>Recall@10</span>
+                <span>P99 (µs)</span>
+                <span>Query QPS</span>
+                <span>Shards Visited</span>
+                <span>Verdict</span>
+              </div>
+              {dataset.scenarios.map((row) => (
+                <div key={row.mode} className={styles.tableRow}>
+                  <span style={{ fontWeight: 500, color: row.mode === 'fanout' ? '#fff' : 'var(--pomai-link)' }}>
+                    {row.mode}
+                  </span>
+                  <span style={{ color: row.recall < 0.9 ? "#ff4444" : "#4ade80" }}>
+                    {row.recall.toFixed(4)}
+                  </span>
+                  <span>{fmtNum(row.p99)}</span>
+                  <span>{fmtNum(row.qps)}</span>
+                  <span>{row.shards.toFixed(2)}</span>
+                  <span style={{
+                    color: row.verdict === 'PASS' ? '#4ade80' : row.verdict === 'WARN' ? '#facc15' : '#ff4444',
+                    fontWeight: 'bold',
+                    fontSize: '0.75rem'
+                  }}>
+                    {row.verdict}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
 
       <SectionHeading
         eyebrow="What we measure"
