@@ -1378,12 +1378,37 @@ Based on your benchmark results from **Dell Latitude E5440** (i5 2-core, 8GB RAM
 
 #### Theoretical Limits (i5 2-core CPU)
 
-| Component | Throughput | Notes |
-|-----------|------------|-------|
-| Memory bandwidth | ~25 GB/sec | DDR3-1600 |
-| L3 cache | ~50 GB/sec | Optimistic |
-| WAL sequential write | ~100 MB/sec | SSD, no fsync |
-| MemTable insert | ~1M ops/sec | Lock-free |
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Throughput</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Memory bandwidth</td>
+      <td>~25 GB/sec</td>
+      <td>DDR3-1600</td>
+    </tr>
+    <tr>
+      <td>L3 cache</td>
+      <td>~50 GB/sec</td>
+      <td>Optimistic</td>
+    </tr>
+    <tr>
+      <td>WAL sequential write</td>
+      <td>~100 MB/sec</td>
+      <td>SSD, no fsync</td>
+    </tr>
+    <tr>
+      <td>MemTable insert</td>
+      <td>~1M ops/sec</td>
+      <td>Lock-free</td>
+    </tr>
+  </tbody>
+</table>
 
 **Bottleneck**: WAL writes at ~100 MB/sec
 

@@ -105,3 +105,21 @@ main {
   overflow-x: auto;
   color: #f5f6f8;
 }
+
+.mdx table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+
+.mdx th,
+.mdx td {
+  border: 1px solid var(--pomai-border);
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.mdx thead {
+  background: rgba(255, 255, 255, 0.04);
+}
