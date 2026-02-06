@@ -1,27 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --pomai-red: #c22b3d;
+  --pomai-green: #39a36b;
+  --pomai-slate: #c7ccd6;
+  --pomai-bg: #0c0c10;
+  --pomai-surface: #14151b;
+  --pomai-muted: #9aa3b2;
+  --pomai-border: #242633;
+  --pomai-glow: rgba(194, 43, 61, 0.35);
+  --radius-xl: 20px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
 * {
@@ -30,13 +24,84 @@ body {
   margin: 0;
 }
 
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 20%, rgba(194, 43, 61, 0.15), transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(57, 163, 107, 0.12), transparent 45%),
+    var(--pomai-bg);
+  color: var(--pomai-slate);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  font-family: inherit;
+}
+
+main {
+  display: block;
+}
+
+::selection {
+  background: rgba(194, 43, 61, 0.35);
+  color: #fff;
+}
+
+.mdx {
+  width: min(860px, 92vw);
+  margin: 3rem auto 5rem;
+  color: var(--pomai-slate);
+  line-height: 1.8;
+}
+
+.mdx h1,
+.mdx h2,
+.mdx h3 {
+  color: #fff;
+  font-family: var(--font-sora), system-ui, sans-serif;
+  margin: 2rem 0 1rem;
+}
+
+.mdx h1 {
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+
+.mdx p {
+  margin: 1rem 0;
+}
+
+.mdx ul,
+.mdx ol {
+  margin: 1rem 0 1rem 1.5rem;
+}
+
+.mdx code {
+  background: rgba(199, 204, 214, 0.08);
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+}
+
+.mdx pre {
+  background: #0f1016;
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--pomai-border);
+  overflow-x: auto;
+  color: #f5f6f8;
 }
