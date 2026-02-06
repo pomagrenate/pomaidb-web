@@ -31,6 +31,14 @@ const docsGroups = [
       { label: "Crash testing", href: "/docs#crash-testing" },
     ],
   },
+  {
+    title: "Reference",
+    description: "Deep dives into architecture, APIs, and guarantees.",
+    links: [
+      { label: "PomaiDB reference docs", href: "/docs/reference" },
+      { label: "C API contract", href: "/docs/reference#pomai-db-c-api-stable-abi" },
+    ],
+  },
 ];
 
 export default function DocsPage() {
