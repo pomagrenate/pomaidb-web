@@ -36,7 +36,7 @@ export default function IngestionAnalysisPage() {
     <Container>
       {/* --- HERO --- */}
       <section className={styles.hero}>
-        <Badge label="Benchmark Analysis" tone="blue" />
+        <Badge label="Benchmark Analysis" tone="neutral" />
         <h1>Ingestion Throughput</h1>
         <p>
           Deep dive into the write performance of PomaiDB. Analyzing current metrics,

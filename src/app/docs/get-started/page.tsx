@@ -675,7 +675,7 @@ export default function GetStartedPage() {
   return (
     <Container>
       <section className={styles.hero}>
-        <Badge label="Quickstart" tone="blue" />
+        <Badge label="Quickstart" tone="neutral" />
         <h1>Start building locally.</h1>
         <p>
           PomaiDB is designed for crash-safe, low-RAM environments.

@@ -63,7 +63,7 @@ export default function CBRSPage() {
         <Container>
             {/* --- HERO --- */}
             <section className={styles.hero}>
-                <Badge label="Internals" tone="blue" />
+                <Badge label="Internals" tone="neutral" />
                 <h1>CBR-S Implementation</h1>
                 <p>
                     Content-Based Routing Strategy in PomaiDB utilizes <b>Global-Centroid Shard Assignment</b>,

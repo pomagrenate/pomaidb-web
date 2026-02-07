@@ -69,7 +69,7 @@ export default function RunbookPage() {
                 <Card className={styles.buildCard}>
                     <div className={styles.buildHeader}>
                         <div className={styles.buildTitle}>Debug Build</div>
-                        <Badge label="Dev" tone="blue" />
+                        <Badge label="Dev" tone="neutral" />
                     </div>
                     <ul className={styles.flagList}>
                         <li className={styles.flagItem}>Tests Enabled</li>
