@@ -19,37 +19,16 @@ type ModuleType = {
   HEAP32: Int32Array;
 };
 
-type Engine = {
-  init: () => void;
-  createDb: (dim: number) => number;
-  freeDb: (handle: number) => void;
-  upsertBatch: (handle: number, ids: Int32Array, vectors: Float32Array, n: number, dim: number) => number;
-  setParam: (handle: number, key: string, value: number) => number;
-  search: (handle: number, query: Float32Array, topk: number) => SearchResult;
-  stats: (handle: number) => Record<string, number>;
-};
-
-type SearchResult = {
-  ids: Int32Array;
-  scores: Float32Array;
-  found: number;
-};
-
-const engineState: {
-  instance: Engine | null;
-  promise: Promise<Engine> | null;
-} = {
-  instance: null,
-  promise: null,
-};
+let moduleInstance: ModuleType | null = null;
+let moduleLoadPromise: Promise<ModuleType> | null = null;
 let dbHandle = 0;
 
 async function loadEngine() {
-  if (engineState.instance) {
-    return engineState.instance;
+  if (engineInstance) {
+    return engineInstance;
   }
-  if (!engineState.promise) {
-    engineState.promise = (async () => {
+  if (!engineLoadPromise) {
+    engineLoadPromise = (async () => {
       try {
         const moduleFactory = (await import(/* webpackIgnore: true */ "/wasm/pomaidb_wasm.js")).default as (
           config?: Record<string, unknown>
@@ -57,17 +36,28 @@ async function loadEngine() {
         const moduleInstance = await moduleFactory({
           locateFile: (file) => `/wasm/${file}`,
         });
-        engineState.instance = createWasmEngine(moduleInstance);
-        return engineState.instance;
+        engineInstance = createWasmEngine(moduleInstance);
+        return engineInstance;
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         console.warn(`PomaiDB WASM load failed, using JS fallback: ${message}`);
-        engineState.instance = createFallbackEngine();
-        return engineState.instance;
+        engineInstance = createFallbackEngine();
+        return engineInstance;
       }
     })();
   }
-  return engineState.promise;
+  if (!moduleLoadPromise) {
+    moduleLoadPromise = (async () => {
+      const moduleFactory = (await import(/* webpackIgnore: true */ "/wasm/pomaidb_wasm.js")).default as (
+        config?: Record<string, unknown>
+      ) => Promise<ModuleType>;
+      moduleInstance = await moduleFactory({
+        locateFile: (file) => `/wasm/${file}`,
+      });
+      return moduleInstance;
+    })();
+  }
+  return moduleLoadPromise;
 }
 
 function createWasmEngine(module: ModuleType): Engine {
