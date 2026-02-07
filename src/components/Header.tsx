@@ -49,7 +49,7 @@ export default function Header() {
       <Container className={styles.inner}>
         <Link href="/" className={styles.logo}>
           <Image
-            src="/pomai-logo.svg"
+            src="/logo.png"
             alt="PomaiDB logo"
             width={40}
             height={40}
@@ -72,9 +72,8 @@ export default function Header() {
             type="button"
             className={styles.themeToggle}
             onClick={toggleTheme}
-            aria-label={`Switch to ${
-              theme === "light" ? "dark" : "light"
-            } mode`}
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"
+              } mode`}
           >
             {themeLabel} mode
           </button>
