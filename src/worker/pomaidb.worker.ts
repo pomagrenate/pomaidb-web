@@ -20,17 +20,25 @@ type ModuleType = {
 };
 
 let moduleInstance: ModuleType | null = null;
+let moduleLoadPromise: Promise<ModuleType> | null = null;
 let dbHandle = 0;
 
 async function loadModule() {
   if (moduleInstance) {
     return moduleInstance;
   }
-  const moduleFactory = (await import(/* webpackIgnore: true */ "/wasm/pomaidb_wasm.js")).default as (
-    config?: Record<string, unknown>
-  ) => Promise<ModuleType>;
-  moduleInstance = await moduleFactory();
-  return moduleInstance;
+  if (!moduleLoadPromise) {
+    moduleLoadPromise = (async () => {
+      const moduleFactory = (await import(/* webpackIgnore: true */ "/wasm/pomaidb_wasm.js")).default as (
+        config?: Record<string, unknown>
+      ) => Promise<ModuleType>;
+      moduleInstance = await moduleFactory({
+        locateFile: (file) => `/wasm/${file}`,
+      });
+      return moduleInstance;
+    })();
+  }
+  return moduleLoadPromise;
 }
 
 function writeFloat32(module: ModuleType, data: Float32Array) {
