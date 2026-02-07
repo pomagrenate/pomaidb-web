@@ -9,6 +9,7 @@ import styles from "./Header.module.css";
 
 const navItems = [
   { label: "Docs", href: "/docs" },
+  { label: "WASM Demo", href: "/wasm" },
   { label: "Benchmarks", href: "/benchmarks" },
   { label: "Architecture", href: "/architecture" },
   { label: "GitHub", href: "https://github.com/AutoCookies/pomaidb/tree/main" },
