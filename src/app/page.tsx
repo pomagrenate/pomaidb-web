@@ -85,7 +85,7 @@ export default function Home() {
           <div className={styles.heroVisual}>
             <div className={styles.glow} />
             <Image
-              src="/pomai-logo.svg"
+              src="/logo.png"
               alt="PomaiDB pomegranate logo"
               width={220}
               height={220}
