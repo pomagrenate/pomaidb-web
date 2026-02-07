@@ -11,6 +11,28 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
 
+## WASM build + demo
+
+```bash
+git submodule update --init --recursive
+./scripts/build_wasm.sh
+./scripts/dev.sh
+```
+
+Open [http://localhost:3000/wasm](http://localhost:3000/wasm) to use the in-browser PomaiDB WASM demo.
+
+## Headless WASM test
+
+```bash
+./scripts/test_wasm_node.sh
+```
+
+## All checks
+
+```bash
+./scripts/test_all.sh
+```
+
 ## How to edit content
 
 - **Home + core pages**: Update files under `src/app/`.
