@@ -19,24 +19,8 @@ type ModuleType = {
   HEAP32: Int32Array;
 };
 
-type Engine = {
-  init: () => void;
-  createDb: (dim: number) => number;
-  freeDb: (handle: number) => void;
-  upsertBatch: (handle: number, ids: Int32Array, vectors: Float32Array, n: number, dim: number) => number;
-  setParam: (handle: number, key: string, value: number) => number;
-  search: (handle: number, query: Float32Array, topk: number) => SearchResult;
-  stats: (handle: number) => Record<string, number>;
-};
-
-type SearchResult = {
-  ids: Int32Array;
-  scores: Float32Array;
-  found: number;
-};
-
-let engineInstance: Engine | null = null;
-let engineLoadPromise: Promise<Engine> | null = null;
+let moduleInstance: ModuleType | null = null;
+let moduleLoadPromise: Promise<ModuleType> | null = null;
 let dbHandle = 0;
 
 async function loadEngine() {
@@ -62,7 +46,18 @@ async function loadEngine() {
       }
     })();
   }
-  return engineLoadPromise;
+  if (!moduleLoadPromise) {
+    moduleLoadPromise = (async () => {
+      const moduleFactory = (await import(/* webpackIgnore: true */ "/wasm/pomaidb_wasm.js")).default as (
+        config?: Record<string, unknown>
+      ) => Promise<ModuleType>;
+      moduleInstance = await moduleFactory({
+        locateFile: (file) => `/wasm/${file}`,
+      });
+      return moduleInstance;
+    })();
+  }
+  return moduleLoadPromise;
 }
 
 function createWasmEngine(module: ModuleType): Engine {
