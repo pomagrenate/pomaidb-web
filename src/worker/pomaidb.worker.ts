@@ -9,6 +9,22 @@ type WorkerRequest = {
   payload?: Record<string, unknown>;
 };
 
+type Engine = {
+  init: () => void;
+  createDb: (dim: number) => number;
+  freeDb: (handle: number) => void;
+  upsertBatch: (handle: number, ids: Int32Array, vectors: Float32Array, n: number, dim: number) => number;
+  setParam: (handle: number, key: string, value: number) => number;
+  search: (handle: number, query: Float32Array, topk: number) => SearchResult;
+  stats: (handle: number) => Record<string, number>;
+};
+
+type SearchResult = {
+  ids: Int32Array;
+  scores: Float32Array;
+  found: number;
+};
+
 type ModuleType = {
   cwrap: (name: string, returnType: string | null, argTypes: string[]) => (...args: unknown[]) => unknown;
   UTF8ToString: (ptr: number) => string;
@@ -19,16 +35,21 @@ type ModuleType = {
   HEAP32: Int32Array;
 };
 
-let moduleInstance: ModuleType | null = null;
-let moduleLoadPromise: Promise<ModuleType> | null = null;
+const engineState: {
+  instance: Engine | null;
+  promise: Promise<Engine> | null;
+} = {
+  instance: null,
+  promise: null,
+};
 let dbHandle = 0;
 
 async function loadEngine() {
-  if (engineInstance) {
-    return engineInstance;
+  if (engineState.instance) {
+    return engineState.instance;
   }
-  if (!engineLoadPromise) {
-    engineLoadPromise = (async () => {
+  if (!engineState.promise) {
+    engineState.promise = (async () => {
       try {
         const moduleFactory = (await import(/* webpackIgnore: true */ "/wasm/pomaidb_wasm.js")).default as (
           config?: Record<string, unknown>
@@ -36,28 +57,17 @@ async function loadEngine() {
         const moduleInstance = await moduleFactory({
           locateFile: (file) => `/wasm/${file}`,
         });
-        engineInstance = createWasmEngine(moduleInstance);
-        return engineInstance;
+        engineState.instance = createWasmEngine(moduleInstance);
+        return engineState.instance;
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         console.warn(`PomaiDB WASM load failed, using JS fallback: ${message}`);
-        engineInstance = createFallbackEngine();
-        return engineInstance;
+        engineState.instance = createFallbackEngine();
+        return engineState.instance;
       }
     })();
   }
-  if (!moduleLoadPromise) {
-    moduleLoadPromise = (async () => {
-      const moduleFactory = (await import(/* webpackIgnore: true */ "/wasm/pomaidb_wasm.js")).default as (
-        config?: Record<string, unknown>
-      ) => Promise<ModuleType>;
-      moduleInstance = await moduleFactory({
-        locateFile: (file) => `/wasm/${file}`,
-      });
-      return moduleInstance;
-    })();
-  }
-  return moduleLoadPromise;
+  return engineState.promise;
 }
 
 function createWasmEngine(module: ModuleType): Engine {
@@ -128,7 +138,7 @@ function createFallbackEngine(): Engine {
   >();
 
   return {
-    init: () => {},
+    init: () => { },
     createDb: (dim) => {
       const handle = nextHandle++;
       dbs.set(handle, { dim, ids: new Int32Array(), vectors: new Float32Array(), approxRatio: 1 });
