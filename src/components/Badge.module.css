@@ -26,3 +26,9 @@
   color: var(--pomai-slate);
   border-color: var(--pomai-border);
 }
+
+.purple {
+  background: rgba(139, 92, 246, 0.2); /* Màu tím nhẹ */
+  color: #ddd6fe;                       /* Chữ tím sáng */
+  border-color: rgba(139, 92, 246, 0.4); /* Viền tím */
+}

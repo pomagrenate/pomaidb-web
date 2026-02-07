@@ -2,7 +2,7 @@ import styles from "./Badge.module.css";
 
 type BadgeProps = {
   label: string;
-  tone?: "red" | "green" | "neutral";
+  tone?: "red" | "green" | "neutral" | "purple";
 };
 
 export default function Badge({ label, tone = "neutral" }: BadgeProps) {
