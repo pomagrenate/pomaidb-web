@@ -1,3 +1,7 @@
+/* src/worker/pomaidb.worker.ts */
+
+// --- Type Definitions ---
+
 type Pending = {
   resolve: (value: unknown) => void;
   reject: (reason?: unknown) => void;
@@ -9,11 +13,24 @@ type WorkerRequest = {
   payload?: Record<string, unknown>;
 };
 
+type WorkerResponse = {
+  id: number;
+  ok: boolean;
+  result?: unknown;
+  error?: string;
+};
+
 type Engine = {
   init: () => void;
   createDb: (dim: number) => number;
   freeDb: (handle: number) => void;
-  upsertBatch: (handle: number, ids: Int32Array, vectors: Float32Array, n: number, dim: number) => number;
+  upsertBatch: (
+    handle: number,
+    ids: Int32Array,
+    vectors: Float32Array,
+    n: number,
+    dim: number
+  ) => number;
   setParam: (handle: number, key: string, value: number) => number;
   search: (handle: number, query: Float32Array, topk: number) => SearchResult;
   stats: (handle: number) => Record<string, number>;
@@ -25,8 +42,13 @@ type SearchResult = {
   found: number;
 };
 
+// Emscripten Module Type definition
 type ModuleType = {
-  cwrap: (name: string, returnType: string | null, argTypes: string[]) => (...args: unknown[]) => unknown;
+  cwrap: (
+    name: string,
+    returnType: string | null,
+    argTypes: string[]
+  ) => (...args: unknown[]) => unknown;
   UTF8ToString: (ptr: number) => string;
   stringToUTF8: (value: string, ptr: number, maxBytes: number) => void;
   _malloc: (size: number) => number;
@@ -35,6 +57,8 @@ type ModuleType = {
   HEAP32: Int32Array;
 };
 
+// --- State Management ---
+
 const engineState: {
   instance: Engine | null;
   promise: Promise<Engine> | null;
@@ -42,21 +66,27 @@ const engineState: {
   instance: null,
   promise: null,
 };
+
 let dbHandle = 0;
 
-async function loadEngine() {
+// --- Engine Loading ---
+
+async function loadEngine(): Promise<Engine> {
   if (engineState.instance) {
     return engineState.instance;
   }
   if (!engineState.promise) {
     engineState.promise = (async () => {
       try {
+        // @ts-ignore: Loading external script from public folder (Next.js public assets)
         const moduleFactory = (await import(/* webpackIgnore: true */ "/wasm/pomaidb_wasm.js")).default as (
           config?: Record<string, unknown>
         ) => Promise<ModuleType>;
+
         const moduleInstance = await moduleFactory({
-          locateFile: (file) => `/wasm/${file}`,
+          locateFile: (file: string) => `/wasm/${file}`,
         });
+
         engineState.instance = createWasmEngine(moduleInstance);
         return engineState.instance;
       } catch (error) {
@@ -70,13 +100,31 @@ async function loadEngine() {
   return engineState.promise;
 }
 
+// --- WASM Engine Implementation ---
+
 function createWasmEngine(module: ModuleType): Engine {
   const init = module.cwrap("pomaidb_init", null, []);
   const createDb = module.cwrap("pomaidb_create_db", "number", ["number"]);
   const freeDb = module.cwrap("pomaidb_free_db", null, ["number"]);
-  const upsertBatch = module.cwrap("pomaidb_upsert_batch", "number", ["number", "number", "number", "number", "number"]);
-  const setParam = module.cwrap("pomaidb_set_param", "number", ["number", "string", "number"]);
-  const search = module.cwrap("pomaidb_search", "number", ["number", "number", "number", "number", "number"]);
+  const upsertBatch = module.cwrap("pomaidb_upsert_batch", "number", [
+    "number",
+    "number",
+    "number",
+    "number",
+    "number",
+  ]);
+  const setParam = module.cwrap("pomaidb_set_param", "number", [
+    "number",
+    "string",
+    "number",
+  ]);
+  const search = module.cwrap("pomaidb_search", "number", [
+    "number",
+    "number",
+    "number",
+    "number",
+    "number",
+  ]);
   const stats = module.cwrap("pomaidb_stats_json", "number", ["number"]);
   const freeStr = module.cwrap("pomaidb_free_string", null, ["number"]);
 
@@ -94,41 +142,60 @@ function createWasmEngine(module: ModuleType): Engine {
 
   return {
     init: () => {
-      init();
+      (init as () => void)();
     },
-    createDb: (dim) => Number(createDb(dim)),
+    createDb: (dim) => Number((createDb as Function)(dim)),
     freeDb: (handle) => {
-      freeDb(handle);
+      (freeDb as Function)(handle);
     },
     upsertBatch: (handle, ids, vectors, n, dim) => {
       const idsPtr = writeInt32(ids);
       const vecPtr = writeFloat32(vectors);
-      const status = Number(upsertBatch(handle, idsPtr, vecPtr, n, dim));
+      const status = Number(
+        (upsertBatch as Function)(handle, idsPtr, vecPtr, n, dim)
+      );
       module._free(idsPtr);
       module._free(vecPtr);
       return status;
     },
-    setParam: (handle, key, value) => Number(setParam(handle, key, value)),
+    setParam: (handle, key, value) =>
+      Number((setParam as Function)(handle, key, value)),
     search: (handle, query, topk) => {
       const queryPtr = writeFloat32(query);
       const outIdsPtr = module._malloc(topk * Int32Array.BYTES_PER_ELEMENT);
       const outScoresPtr = module._malloc(topk * Float32Array.BYTES_PER_ELEMENT);
-      const found = Number(search(handle, queryPtr, topk, outIdsPtr, outScoresPtr));
-      const ids = new Int32Array(module.HEAP32.buffer, outIdsPtr, found).slice();
-      const scores = new Float32Array(module.HEAPF32.buffer, outScoresPtr, found).slice();
+
+      const found = Number(
+        (search as Function)(handle, queryPtr, topk, outIdsPtr, outScoresPtr)
+      );
+
+      // Copy results from WASM heap to JS
+      const ids = new Int32Array(
+        module.HEAP32.buffer,
+        outIdsPtr,
+        found
+      ).slice();
+      const scores = new Float32Array(
+        module.HEAPF32.buffer,
+        outScoresPtr,
+        found
+      ).slice();
+
       module._free(queryPtr);
       module._free(outIdsPtr);
       module._free(outScoresPtr);
       return { ids, scores, found };
     },
     stats: (handle) => {
-      const ptr = Number(stats(handle));
+      const ptr = Number((stats as Function)(handle));
       const json = module.UTF8ToString(ptr);
-      freeStr(ptr);
+      (freeStr as Function)(ptr);
       return JSON.parse(json) as Record<string, number>;
     },
   };
 }
+
+// --- JS Fallback Engine Implementation ---
 
 function createFallbackEngine(): Engine {
   let nextHandle = 1;
@@ -141,7 +208,12 @@ function createFallbackEngine(): Engine {
     init: () => { },
     createDb: (dim) => {
       const handle = nextHandle++;
-      dbs.set(handle, { dim, ids: new Int32Array(), vectors: new Float32Array(), approxRatio: 1 });
+      dbs.set(handle, {
+        dim,
+        ids: new Int32Array(0),
+        vectors: new Float32Array(0),
+        approxRatio: 1.0,
+      });
       return handle;
     },
     freeDb: (handle) => {
@@ -150,11 +222,14 @@ function createFallbackEngine(): Engine {
     upsertBatch: (handle, ids, vectors, n, dim) => {
       const entry = dbs.get(handle);
       if (!entry || entry.dim !== dim) {
-        return 1;
+        return 1; // Error
       }
+      // Simple full replace for fallback, or append logic if needed
+      // For this example, we assume it manages buffers manually.
+      // NOTE: Slice copies data, which is safer.
       entry.ids = ids.slice(0, n);
       entry.vectors = vectors.slice(0, n * dim);
-      return 0;
+      return 0; // Success
     },
     setParam: (handle, key, value) => {
       const entry = dbs.get(handle);
@@ -169,11 +244,13 @@ function createFallbackEngine(): Engine {
     search: (handle, query, topk) => {
       const entry = dbs.get(handle);
       if (!entry) {
-        return { ids: new Int32Array(), scores: new Float32Array(), found: 0 };
+        return { ids: new Int32Array(0), scores: new Float32Array(0), found: 0 };
       }
       const { dim, ids, vectors } = entry;
       const count = ids.length;
       const scores = new Array<{ id: number; score: number }>(count);
+
+      // Brute-force Euclidean distance (squared)
       for (let i = 0; i < count; i += 1) {
         const base = i * dim;
         let sum = 0;
@@ -183,10 +260,13 @@ function createFallbackEngine(): Engine {
         }
         scores[i] = { id: ids[i], score: sum };
       }
+
       scores.sort((a, b) => a.score - b.score);
       const slice = scores.slice(0, topk);
+
       const outIds = new Int32Array(slice.length);
       const outScores = new Float32Array(slice.length);
+
       for (let i = 0; i < slice.length; i += 1) {
         outIds[i] = slice[i].id;
         outScores[i] = slice[i].score;
@@ -196,7 +276,8 @@ function createFallbackEngine(): Engine {
     stats: (handle) => {
       const entry = dbs.get(handle);
       if (!entry) {
-        return { count: 0 };
+        // Return a valid Record<string, number> even if empty
+        return { count: 0, dim: 0, approx_ratio: 0 };
       }
       return {
         count: entry.ids.length,
@@ -207,55 +288,81 @@ function createFallbackEngine(): Engine {
   };
 }
 
+// --- Message Handler ---
+
 async function handleMessage(event: MessageEvent<WorkerRequest>) {
   const { id, type, payload } = event.data;
+
+  // Helper to safely send response
+  const send = (response: Omit<WorkerResponse, 'id'>) => {
+    self.postMessage({ id, ...response });
+  };
+
   try {
     const engine = await loadEngine();
-    if (type === "init") {
-      engine.init();
-      postMessage({ id, ok: true });
-      return;
+
+    switch (type) {
+      case "init":
+        engine.init();
+        send({ ok: true });
+        break;
+
+      case "create_db": {
+        const dim = (payload?.dim as number) ?? 0;
+        dbHandle = Number(engine.createDb(dim));
+        send({ ok: true, result: dbHandle });
+        break;
+      }
+
+      case "free_db":
+        engine.freeDb(dbHandle);
+        dbHandle = 0;
+        send({ ok: true });
+        break;
+
+      case "upsert_batch": {
+        const ids = payload?.ids as Int32Array;
+        const vectors = payload?.vectors as Float32Array;
+        const n = (payload?.n as number) ?? 0;
+        const dim = (payload?.dim as number) ?? 0;
+
+        if (!ids || !vectors) throw new Error("Missing data for upsert");
+
+        const status = Number(engine.upsertBatch(dbHandle, ids, vectors, n, dim));
+        send({ ok: status === 0, result: status });
+        break;
+      }
+
+      case "set_param": {
+        const key = (payload?.key as string) ?? "";
+        const value = (payload?.value as number) ?? 0;
+        const status = Number(engine.setParam(dbHandle, key, value));
+        send({ ok: status === 0, result: status });
+        break;
+      }
+
+      case "search": {
+        const query = payload?.query as Float32Array;
+        const topk = (payload?.topk as number) ?? 10;
+
+        if (!query) throw new Error("Missing query vector");
+
+        const result = engine.search(dbHandle, query, topk);
+        send({ ok: true, result });
+        break;
+      }
+
+      case "stats": {
+        send({ ok: true, result: engine.stats(dbHandle) });
+        break;
+      }
+
+      default:
+        send({ ok: false, error: `Unknown type: ${type}` });
     }
-    if (type === "create_db") {
-      dbHandle = Number(engine.createDb(payload?.dim ?? 0));
-      postMessage({ id, ok: true, result: dbHandle });
-      return;
-    }
-    if (type === "free_db") {
-      engine.freeDb(dbHandle);
-      dbHandle = 0;
-      postMessage({ id, ok: true });
-      return;
-    }
-    if (type === "upsert_batch") {
-      const ids = payload?.ids as Int32Array;
-      const vectors = payload?.vectors as Float32Array;
-      const n = payload?.n as number;
-      const dim = payload?.dim as number;
-      const status = Number(engine.upsertBatch(dbHandle, ids, vectors, n, dim));
-      postMessage({ id, ok: status === 0, result: status });
-      return;
-    }
-    if (type === "set_param") {
-      const status = Number(engine.setParam(dbHandle, payload?.key ?? "", payload?.value ?? 0));
-      postMessage({ id, ok: status === 0, result: status });
-      return;
-    }
-    if (type === "search") {
-      const query = payload?.query as Float32Array;
-      const topk = payload?.topk as number;
-      const result = engine.search(dbHandle, query, topk);
-      postMessage({ id, ok: true, result });
-      return;
-    }
-    if (type === "stats") {
-      postMessage({ id, ok: true, result: engine.stats(dbHandle) });
-      return;
-    }
-    postMessage({ id, ok: false, error: `Unknown type: ${type}` });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    postMessage({ id, ok: false, error: message });
+    send({ ok: false, error: message });
   }
 }
 

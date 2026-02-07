@@ -43,9 +43,13 @@ export class PomaiDbWorkerClient {
   private call<T = unknown>(type: string, payload?: Record<string, unknown>): Promise<T> {
     const id = this.nextId++;
     return new Promise((resolve, reject) => {
-      this.pending.set(id, { resolve, reject });
+      // FIX: Ép kiểu resolve thành (value: unknown) => void để khớp với type Pending
+      this.pending.set(id, { resolve: resolve as (value: unknown) => void, reject });
+
+      // Gửi message xuống worker
       this.worker.postMessage({ id, type, payload });
-    }) as Promise<T>;
+    }); // Lưu ý: Không cần "as Promise<T>" ở cuối nữa vì new Promise<T> đã tự trả về đúng type, 
+    // nhưng nếu bạn muốn giữ nguyên style cũ thì cứ để "as Promise<T>"
   }
 
   async init() {
