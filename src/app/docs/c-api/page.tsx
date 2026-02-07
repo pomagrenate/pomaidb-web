@@ -11,7 +11,7 @@ export default function CApiPage() {
         <Container>
             {/* --- HERO --- */}
             <section className={styles.hero}>
-                <Badge label="Reference" tone="blue" />
+                <Badge label="Reference" tone="neutral" />
                 <h1>Stable C ABI Contract</h1>
                 <p>
                     This document defines the stable C ABI contract for embedding PomaiDB from any FFI-capable language.
