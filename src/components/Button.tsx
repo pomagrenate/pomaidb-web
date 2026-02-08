@@ -8,6 +8,7 @@ type ButtonProps = {
   className?: string;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean; // <-- THÊM DÒNG NÀY
 };
 
 export default function Button({
@@ -17,10 +18,16 @@ export default function Button({
   className,
   onClick,
   type = "button",
+  disabled = false, // <-- THÊM MẶC ĐỊNH
 }: ButtonProps) {
-  const classes = `${styles.button} ${styles[variant]} ${className ?? ""}`;
+  // Thêm class disabled nếu prop disabled = true
+  const classes = `${styles.button} ${styles[variant]} ${disabled ? styles.disabled : ""} ${className ?? ""}`;
 
   if (href) {
+    // Nếu là Link mà bị disabled thì chặn click
+    if (disabled) {
+      return <span className={classes}>{children}</span>;
+    }
     return (
       <Link href={href} className={classes}>
         {children}
@@ -29,7 +36,12 @@ export default function Button({
   }
 
   return (
-    <button type={type} className={classes} onClick={onClick}>
+    <button 
+      type={type} 
+      className={classes} 
+      onClick={onClick}
+      disabled={disabled} // <-- TRUYỀN XUỐNG DOM
+    >
       {children}
     </button>
   );
