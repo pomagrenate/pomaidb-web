@@ -1,3 +1,6 @@
 [submodule "third_party/pomaidb"]
 	path = third_party/pomaidb
 	url = https://github.com/AutoCookies/pomaidb.git
+[submodule "third_party/pomaisearch"]
+	path = third_party/pomaisearch
+	url = https://github.com/AutoCookies/pomaisearch.git
