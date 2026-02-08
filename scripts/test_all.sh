@@ -13,3 +13,15 @@ fi
 if command -v npm >/dev/null 2>&1; then
   (cd "${ROOT_DIR}" && npm run lint)
 fi
+
+if command -v npm >/dev/null 2>&1; then
+  (cd "${ROOT_DIR}" && npm run typecheck)
+fi
+
+if command -v npm >/dev/null 2>&1; then
+  (cd "${ROOT_DIR}" && npm run test)
+fi
+
+if command -v npm >/dev/null 2>&1; then
+  (cd "${ROOT_DIR}" && npm run test:integration)
+fi

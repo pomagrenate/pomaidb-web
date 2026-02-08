@@ -16,6 +16,11 @@ export type SearchResult = {
   found: number;
 };
 
+export type IterateResult = {
+  ids: Int32Array;
+  vectors: Float32Array;
+};
+
 export class PomaiDbWorkerClient {
   private worker: Worker;
   private nextId = 1;
@@ -60,6 +65,10 @@ export class PomaiDbWorkerClient {
     await this.call("create_db", { dim });
   }
 
+  async prepareIngest(total: number, dim: number) {
+    await this.call("prepare_ingest", { total, dim });
+  }
+
   async freeDb() {
     await this.call("free_db");
   }
@@ -78,6 +87,10 @@ export class PomaiDbWorkerClient {
 
   async stats() {
     return (await this.call<Record<string, number>>("stats")) as Record<string, number>;
+  }
+
+  async iterate(offset: number, limit: number, dim: number) {
+    return (await this.call<IterateResult>("iterate", { offset, limit, dim })) as IterateResult;
   }
 
   terminate() {
