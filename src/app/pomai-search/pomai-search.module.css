@@ -1,0 +1,50 @@
+.hero {
+  display: grid;
+  gap: 1.5rem;
+  margin: 2rem 0 2.5rem;
+}
+
+.heroMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: var(--pomai-muted);
+  font-size: 0.9rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-bottom: 3rem;
+}
+
+.callout {
+  border: 1px solid var(--pomai-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  background: var(--pomai-surface-subtle);
+  margin: 1.5rem 0 2.5rem;
+}
+
+.note {
+  color: var(--pomai-muted);
+  font-size: 0.95rem;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.linkGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.linkCard a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--pomai-green);
+  text-decoration: none;
+}

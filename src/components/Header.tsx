@@ -8,6 +8,7 @@ import Container from "./Container";
 import styles from "./Header.module.css";
 
 const navItems = [
+  { label: "Products", href: "/products" },
   { label: "Docs", href: "/docs" },
   { label: "WASM Playground", href: "/wasm-playground" },
   { label: "Benchmarks", href: "/benchmarks" },

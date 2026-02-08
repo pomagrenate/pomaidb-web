@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Sync Pomai Search docs
+        run: npm run docs:check
+
       - name: Build WASM
         run: npm run wasm:build
 

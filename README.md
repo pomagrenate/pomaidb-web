@@ -58,9 +58,28 @@ npm run test:integration
   - Benchmarks: `src/app/benchmarks/page.tsx`
   - Architecture: `src/app/architecture/page.tsx`
   - Examples: `src/app/examples/page.tsx`
-- **MDX docs**: Add MDX pages under `src/app/docs/` (example: `src/app/docs/get-started/page.mdx`).
+- **PomaiDB docs**: Add TSX pages under `src/app/docs/`.
+- **Pomai Search docs**: Generated from `third_party/pomaisearch` into `src/lib/pomaiSearchDocs.generated.ts`.
 - **Design system**: Reusable components live in `src/components/`.
 - **Theme**: CSS variables and global styles are in `src/app/globals.css`.
+
+## Pomai Search docs sync (SOT)
+
+Pomai Search docs are sourced from the Pomai Search repo submodule and synced into the web app.
+
+```bash
+git submodule update --init --recursive
+npm run docs:sync
+```
+
+To verify docs are up to date:
+
+```bash
+npm run docs:check
+```
+
+The sync mapping is configured in `scripts/pomai_search_docs.config.json`. Update that file if
+the Pomai Search repo changes file locations.
 
 ## Build
 

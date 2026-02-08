@@ -1,0 +1,25 @@
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.link {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--pomai-border);
+  color: var(--pomai-slate);
+  background: var(--pomai-surface);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.active {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--pomai-border);
+  color: var(--pomai-text-strong);
+  background: var(--pomai-surface-subtle);
+  font-size: 0.9rem;
+}
