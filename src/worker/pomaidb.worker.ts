@@ -68,6 +68,10 @@ const engineState: {
 };
 
 let dbHandle = 0;
+let lastIds: Int32Array = new Int32Array(0);
+let lastVectors: Float32Array = new Float32Array(0);
+let lastDim = 0;
+let ingestCursor = 0;
 
 // --- Engine Loading ---
 
@@ -201,7 +205,7 @@ function createFallbackEngine(): Engine {
   let nextHandle = 1;
   const dbs = new Map<
     number,
-    { dim: number; ids: Int32Array; vectors: Float32Array; approxRatio: number }
+    { dim: number; ids: number[]; vectors: number[]; approxRatio: number; idToIndex: Map<number, number> }
   >();
 
   return {
@@ -210,9 +214,10 @@ function createFallbackEngine(): Engine {
       const handle = nextHandle++;
       dbs.set(handle, {
         dim,
-        ids: new Int32Array(0),
-        vectors: new Float32Array(0),
+        ids: [],
+        vectors: [],
         approxRatio: 1.0,
+        idToIndex: new Map(),
       });
       return handle;
     },
@@ -224,11 +229,24 @@ function createFallbackEngine(): Engine {
       if (!entry || entry.dim !== dim) {
         return 1; // Error
       }
-      // Simple full replace for fallback, or append logic if needed
-      // For this example, we assume it manages buffers manually.
-      // NOTE: Slice copies data, which is safer.
-      entry.ids = ids.slice(0, n);
-      entry.vectors = vectors.slice(0, n * dim);
+      for (let i = 0; i < n; i += 1) {
+        const id = ids[i];
+        const vecOffset = i * dim;
+        const existing = entry.idToIndex.get(id);
+        if (existing === undefined) {
+          const index = entry.ids.length;
+          entry.ids.push(id);
+          entry.idToIndex.set(id, index);
+          for (let d = 0; d < dim; d += 1) {
+            entry.vectors.push(vectors[vecOffset + d]);
+          }
+        } else {
+          const base = existing * dim;
+          for (let d = 0; d < dim; d += 1) {
+            entry.vectors[base + d] = vectors[vecOffset + d];
+          }
+        }
+      }
       return 0; // Success
     },
     setParam: (handle, key, value) => {
@@ -314,9 +332,26 @@ async function handleMessage(event: MessageEvent<WorkerRequest>) {
         break;
       }
 
+      case "prepare_ingest": {
+        const total = (payload?.total as number) ?? 0;
+        const dim = (payload?.dim as number) ?? 0;
+        if (total <= 0 || dim <= 0) {
+          throw new Error("Invalid ingest dimensions");
+        }
+        lastIds = new Int32Array(total);
+        lastVectors = new Float32Array(total * dim);
+        lastDim = dim;
+        ingestCursor = 0;
+        send({ ok: true });
+        break;
+      }
+
       case "free_db":
         engine.freeDb(dbHandle);
         dbHandle = 0;
+        lastIds = new Int32Array(0);
+        lastVectors = new Float32Array(0);
+        lastDim = 0;
         send({ ok: true });
         break;
 
@@ -329,6 +364,17 @@ async function handleMessage(event: MessageEvent<WorkerRequest>) {
         if (!ids || !vectors) throw new Error("Missing data for upsert");
 
         const status = Number(engine.upsertBatch(dbHandle, ids, vectors, n, dim));
+        if (status === 0) {
+          if (lastDim !== dim || lastIds.length === 0) {
+            lastIds = new Int32Array(n);
+            lastVectors = new Float32Array(n * dim);
+            lastDim = dim;
+            ingestCursor = 0;
+          }
+          lastIds.set(ids.slice(0, n), ingestCursor);
+          lastVectors.set(vectors.slice(0, n * dim), ingestCursor * dim);
+          ingestCursor += n;
+        }
         send({ ok: status === 0, result: status });
         break;
       }
@@ -354,6 +400,19 @@ async function handleMessage(event: MessageEvent<WorkerRequest>) {
 
       case "stats": {
         send({ ok: true, result: engine.stats(dbHandle) });
+        break;
+      }
+
+      case "iterate": {
+        const offset = (payload?.offset as number) ?? 0;
+        const limit = (payload?.limit as number) ?? 0;
+        const dim = (payload?.dim as number) ?? lastDim;
+        if (dim <= 0 || lastDim !== dim) {
+          throw new Error("Iterate dim mismatch or missing dataset");
+        }
+        const sliceIds = lastIds.slice(offset, offset + limit);
+        const sliceVectors = lastVectors.slice(offset * dim, (offset + limit) * dim);
+        send({ ok: true, result: { ids: sliceIds, vectors: sliceVectors } });
         break;
       }
 

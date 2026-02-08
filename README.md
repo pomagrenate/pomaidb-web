@@ -11,7 +11,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-## WASM build + demo
+## WASM build + playground
 
 ```bash
 git submodule update --init --recursive
@@ -19,7 +19,14 @@ git submodule update --init --recursive
 ./scripts/dev.sh
 ```
 
-Open [http://localhost:3000/wasm](http://localhost:3000/wasm) to use the in-browser PomaiDB WASM demo.
+Open [http://localhost:3000/wasm-playground](http://localhost:3000/wasm-playground) to use the Trust Playground:
+
+- Normal vectors: ingest/search/iterate with deterministic clustered data.
+- RAG vectors: deterministic tokens + embeddings with retrieval.
+- End-to-end normal pipeline: generate → ingest → iterate → train classifier.
+- End-to-end RAG pipeline: generate docs → ingest → retrieve → optional synthesis.
+
+Limitations: the demo embedder is a deterministic hashing-based stub (not an ML model), and oracle recall is only enabled for datasets ≤ 20k.
 
 ## Headless WASM test
 
@@ -31,6 +38,16 @@ Open [http://localhost:3000/wasm](http://localhost:3000/wasm) to use the in-brow
 
 ```bash
 ./scripts/test_all.sh
+```
+
+## Playground CI checklist
+
+```bash
+npm run lint
+npm run typecheck
+npm run test
+npm run build
+npm run test:integration
 ```
 
 ## How to edit content
