@@ -25,7 +25,9 @@ export default function Footer() {
         <div className={styles.meta}>
           <span>© 2025 PomaiDB. Engineered for local-first AI.</span>
           <div className={styles.links}>
+            <Link href="/products">Products</Link>
             <Link href="/docs">Docs</Link>
+            <Link href="/pomai-search">Pomai Search</Link>
             <Link href="/benchmarks">Benchmarks</Link>
             <Link href="/architecture">Architecture</Link>
           </div>

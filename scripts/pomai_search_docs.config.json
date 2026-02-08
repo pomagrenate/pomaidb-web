@@ -1,0 +1,12 @@
+{
+  "overview": "README.md",
+  "gettingStarted": "docs/GETTING_STARTED.md",
+  "api": "docs/API.md",
+  "architecture": "docs/ARCHITECTURE.md",
+  "performance": "docs/PERFORMANCE.md",
+  "snapshots": "docs/DETERMINISM.md",
+  "cAbi": "docs/C_ABI.md",
+  "benchmarks": "docs/BENCHMARKS.md",
+  "playground": "docs/PLAYGROUND.md",
+  "nonGoals": "docs/NON_GOALS.md"
+}

@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "docs:check": "node scripts/sync_pomai_search_docs.mjs --check",
+    "docs:sync": "node scripts/sync_pomai_search_docs.mjs",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
