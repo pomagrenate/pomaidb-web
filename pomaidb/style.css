@@ -1,0 +1,420 @@
+/* =========================================
+   1. CORE CONFIGURATION & VARIABLES
+   ========================================= */
+:root {
+    /* Color Palette */
+    --bg-color: #FAFAFA;
+    /* Trắng hơi xám nhẹ (Off-white) */
+    --surface-color: #FFFFFF;
+    /* Màu nền của Card/Header */
+    --text-primary: #111111;
+    --text-secondary: #666666;
+    --accent-color: #2563EB;
+    /* Royal Blue */
+    --border-color: #EAEAEA;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+
+    /* Spacing & Radius */
+    --radius-md: 12px;
+    --radius-sm: 6px;
+
+    /* Typography */
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   2. SHARED LAYOUT & COMPONENTS
+   ========================================= */
+
+/* Background Pattern */
+.bg-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(#E5E5E5 1px, transparent 1px);
+    background-size: 24px 24px;
+    z-index: -1;
+    opacity: 0.6;
+}
+
+/* Container */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Header (Shared) */
+.site-header {
+    background: rgba(250, 250, 250, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-inner {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-mark {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    margin: 0 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+}
+
+.btn-contact {
+    text-decoration: none;
+    background: var(--text-primary);
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn-contact:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}
+
+/* Footer (Shared) */
+.site-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 40px 0;
+    margin-top: 80px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   3. LANDING PAGE STYLES (Hero, Cards)
+   ========================================= */
+
+.hero {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #EFF6FF;
+    color: var(--accent-color);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 24px;
+    border: 1px solid #DBEAFE;
+}
+
+.hero-title {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+}
+
+.gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+}
+
+.section {
+    padding: 60px 0;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+}
+
+.section-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+    margin-left: 24px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 24px;
+}
+
+/* Cards */
+.card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+.card-link:hover .card {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+    border-color: #d1d5db;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: block;
+}
+
+.status-dot.green {
+    background-color: #10B981;
+    box-shadow: 0 0 8px #10B981;
+}
+
+.status-dot.yellow {
+    background-color: #F59E0B;
+}
+
+.status-dot.blue {
+    background-color: #3B82F6;
+}
+
+.status-dot.purple {
+    background-color: #8B5CF6;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* =========================================
+   4. DOCUMENTATION PAGE STYLES
+   ========================================= */
+
+.doc-header {
+    background: var(--surface-color);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 40px;
+}
+
+.back-link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-link:hover {
+    color: var(--text-primary);
+}
+
+.doc-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    font-family: var(--font-display);
+    line-height: 1.2;
+}
+
+.doc-content h2 {
+    margin-top: 40px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    font-family: var(--font-display);
+}
+
+.doc-content h3 {
+    margin-top: 24px;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.doc-content ul,
+.doc-content ol {
+    margin-left: 20px;
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+}
+
+.doc-content li {
+    margin-bottom: 8px;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    margin: 16px 0;
+    line-height: 1.5;
+}
+
+code {
+    font-family: var(--font-mono);
+    background: #f3f4f6;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: #c7254e;
+}
+
+pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95rem;
+}
+
+th,
+td {
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f9fafb;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+td {
+    color: var(--text-secondary);
+}
+
+/* Mermaid Diagrams */
+.mermaid {
+    background: white;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .header-inner {
+        height: auto;
+        padding: 15px 0;
+        flex-direction: column;
+        gap: 15px;
+    }
+}

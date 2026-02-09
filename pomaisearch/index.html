@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomai Search Engine - Documentation</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="../index.html">Pomai Hub</a>
+            <nav class="nav">
+                <a href="index.html" aria-current="page">Overview</a>
+                <a href="guides.html">Guides</a>
+                <a href="api.html">API Reference</a>
+                <a href="architecture.html">Architecture</a>
+                <a href="benchmarks.html">Benchmarks</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-section">
+            <h1 class="hero-title">Pomai Search Engine</h1>
+            <p class="hero-desc">
+                An in-memory vector search engine designed for deterministic, contract-driven retrieval.
+                Built for fast similarity search and hybrid queries.
+            </p>
+            <div class="meta-row" style="justify-content: center; margin-top: 20px;">
+                <span class="pill">C++20</span>
+                <span class="pill">Zero Dependencies</span>
+                <span class="pill">Deterministic</span>
+            </div>
+        </section>
+
+        <article class="article">
+            <h2>Why Pomai Search?</h2>
+            <p>Pomai Search is a full <strong>search engine</strong> with a deterministic contract, replayable
+                snapshots, and policy-first planning. While FAISS is a similarity library, Pomai adds:</p>
+            <ul>
+                <li><strong>Deterministic Ranking:</strong> Stable ordering + NaN-safe scores.</li>
+                <li><strong>Explainability:</strong> Explain plans with per-stage budgets and score breakdowns.</li>
+                <li><strong>Policy Planner:</strong> Enforce latency and candidate budgets.</li>
+                <li><strong>Safety:</strong> Replayable snapshots + contract tests for regression gating.</li>
+            </ul>
+            <p>In short: <em>Pomai returns a contract, not a surprise.</em></p>
+
+            <hr class="divider">
+
+            <h2>Quickstart (CLI)</h2>
+            <p>Build the server and run a simple instance:</p>
+            <pre><code>cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+
+# Run server
+./build/pomai_search/pomai-searchd --dim 3 --shards 2 --port 8080 --index flat</code></pre>
+
+            <h3>Basic Operations</h3>
+            <pre><code># 1. Upsert a document
+./build/pomai_search/pomai-search --command upsert \
+  --key doc-1 --vector 1,0,0 --metadata tag=demo --text "hello world"
+
+# 2. Vector search
+./build/pomai_search/pomai-search --command search --vector 1,0,0 --topk 5
+
+# 3. Hybrid search
+./build/pomai_search/pomai-search --command search_hybrid \
+  --vector 1,0,0 --text "hello" --alpha 0.7 --topk 5</code></pre>
+            <footer class="article-footer">
+                <div class="muted small">© 2026 Pomai Search Engine.</div>
+            </footer>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benchmarks - Pomai Search</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="index.html">Pomai Search</a>
+            <nav class="nav">
+                <a href="index.html">Overview</a>
+                <a href="guides.html">Guides</a>
+                <a href="api.html">API Reference</a>
+                <a href="architecture.html">Architecture</a>
+                <a href="benchmarks.html" aria-current="page">Benchmarks</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container doc-content">
+        <h1>Benchmark Trust Model</h1>
+        <p>PomaiDB benchmarks exist to earn <strong>trust</strong>, not to market speed. We adhere to a "Single Source
+            of Truth" policy.</p>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-val">P99/P999</div>
+                <div class="stat-label">Tail Latency Transparency</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">Recall@k</div>
+                <div class="stat-label">Validated vs Oracle</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">Crash</div>
+                <div class="stat-label">Safety Verified</div>
+            </div>
+        </div>
+
+        <h2>What We Guarantee</h2>
+        <ul>
+            <li><strong>Correctness:</strong> Recall matches brute-force oracle with high fidelity.</li>
+            <li><strong>Tail Latency:</strong> We always report P99 and P999. No hidden outliers.</li>
+            <li><strong>Low-end Viability:</strong> Benchmarks must run on 2-core/8GB laptops.</li>
+        </ul>
+
+        <hr class="divider">
+
+        <h2>Running Benchmarks</h2>
+        <p>We provide a comprehensive suite via the <code>pomai-bench</code> script.</p>
+
+        <h3>Quick Commands</h3>
+        <pre><code># 1. Trust benchmarks (Recall, Tail Latency, Crash Recovery)
+./scripts/pomai-bench recall
+./scripts/pomai-bench mixed-load
+./scripts/pomai-bench crash-recovery
+
+# 2. End-to-end Python Benchmark (CIFAR-10)
+python3 benchmarks/python_cifar10_feature_bench.py --images 6000 --queries 200</code></pre>
+
+        <h3>Metrics to Watch</h3>
+        <ul>
+            <li><strong>Search Latency (µs):</strong> Target P99 < 10ms.</li>
+            <li><strong>Throughput (QPS):</strong> Should scale linearly with threads.</li>
+            <li><strong>Recall@10:</strong> Should be > 0.90 for production.</li>
+            <li><strong>Build Time:</strong> Time to index vectors.</li>
+        </ul>
+
+        <h3>Low-End Device Warning</h3>
+        <p class="muted">
+            On 2-core CPUs with 8GB RAM, avoid medium/large datasets. Multi-threading on 2 cores causes thrashing.
+            Stick to <code>--dataset small</code> or use <code>--threads 1</code>.
+        </p>
+
+        <footer class="article-footer">
+            <div class="muted small">© 2026 Pomai Search Project.</div>
+        </footer>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomai Hub | Engineering & Research</title>
+    <meta name="description"
+        content="A digital archive for Pomai's engineering research, software experiments, and open-source contributions.">
+    <link rel="stylesheet" href="./style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="bg-grid"></div>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="logo">
+                Pomai Hub
+            </div>
+            <nav class="nav-links">
+                <a href="./research/index.html">Research</a>
+                <a href="#engineering">Engineering</a>
+                <a href="#logs">Dev Logs</a>
+            </nav>
+            <a href="mailto:contact@pomai.com" class="btn-contact">Get in touch</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <span class="badge">v2.0.0 &mdash; Lab Active</span>
+            <h1 class="hero-title">Building the <span class="gradient-text">Intelligence</span><br> of Tomorrow.</h1>
+            <p class="hero-desc">
+                A collection of experiments in <strong>Search Algorithms</strong>,
+                <strong>Distributed Databases</strong>, and <strong>AI Agents</strong>.
+                Documenting the journey from raw code to production-ready systems.
+            </p>
+        </section>
+
+        <section id="research" class="section">
+            <h2 class="section-title">Core Products</h2>
+            <div class="grid-container">
+
+                <a href="pomaidb/index.html" class="card-link">
+                    <article class="card">
+                        <div class="card-header">
+                            <span class="tag">Database</span>
+                            <span class="status-dot green"></span>
+                        </div>
+                        <h3>PomaiDB</h3>
+                        <p>High-performance, distributed key-value store optimized for semantic search workloads.</p>
+                        <div class="tech-stack">
+                            <span>C++</span>
+                            <span>RocksDB</span>
+                            <span>gRPC</span>
+                        </div>
+                    </article>
+                </a>
+
+                <a href="pomaisearch/index.html" class="card-link">
+                    <article class="card">
+                        <div class="card-header">
+                            <span class="tag">Search Engine</span>
+                            <span class="status-dot yellow"></span>
+                        </div>
+                        <h3>Pomai Search</h3>
+                        <p>Next-generation indexing algorithm focusing on context-aware retrieval and ranking.</p>
+                        <div class="tech-stack">
+                            <span>Python</span>
+                            <span>NLP</span>
+                            <span>Vector Index</span>
+                        </div>
+                    </article>
+                </a>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>&copy; 2026 Pomai Research Lab. Open for collaboration.</p>
+                <div class="social-links">
+                    <a href="https://github.com/AutoCookies">GitHub</a>
+                    <a href="https://www.linkedin.com/in/quan-van-15a5b3248/">LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+</body>
+
+</html>

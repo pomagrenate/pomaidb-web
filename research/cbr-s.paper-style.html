@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CBR-S Routing (PomaiDB) — Pomai Research</title>
+    <meta name="description" content="Scientific, math-forward description of CBR-S routing strategy in PomaiDB." />
+    <link rel="stylesheet" href="./cbr-s.paper-style.css" />
+
+    <!-- KaTeX (math rendering) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="./index.html">Pomai Research</a>
+            <nav class="nav">
+                <a href="./index.html">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container article-layout">
+        <aside class="toc">
+            <div class="toc-title">On this page</div>
+            <nav id="tocNav" class="toc-nav"></nav>
+            <div class="toc-footer muted small">
+                Tip: copy any section link by right-clicking its heading.
+            </div>
+        </aside>
+
+        <article class="article">
+            <header class="article-header">
+                <h1>CBR-S: Content-Based Routing Strategy in PomaiDB</h1>
+                <p class="muted">
+                    This note formalizes <strong>Global-Centroid Shard Assignment</strong>, <strong>Routed Query
+                        Execution</strong>,
+                    and the <strong>Dual-Epoch Probe</strong> mechanism used to preserve recall during routing-table
+                    transitions.
+                </p>
+                <div class="meta-row">
+                    <span class="pill">Algorithms</span>
+                    <span class="pill">Vector Search</span>
+                    <span class="pill">Distributed Systems</span>
+                </div>
+            </header>
+
+            <section>
+                <h2 id="introduction">0) Introduction</h2>
+                <p>
+                    The <strong>Content-Based Routing - Sharded (CBR-S)</strong> algorithm, as conceptualized for
+                    systems like
+                    PomaiDB, is a systems-level strategy for managing and querying large-scale vector datasets in
+                    distributed
+                    environments. It targets three persistent challenges in modern vector search infrastructure:
+                    <em>scalability</em> (controlling shard fanout as the corpus grows), <em>efficiency</em> (minimizing
+                    end-to-end
+                    query latency and tail behavior), and <em>dynamic handling</em> (remaining robust under
+                    routing-table and
+                    topology transitions).
+                </p>
+
+                <p>
+                    CBR-S builds on the general idea of <em>content-based routing</em>, where data characteristics
+                    directly
+                    influence placement and retrieval decisions in a distributed architecture. This perspective is
+                    widely
+                    explored in content-centric / information-centric networking and related routing designs, where
+                    naming and
+                    content locality can be leveraged to optimize retrieval paths and reduce unnecessary network-wide
+                    fanout.
+                    In particular, probe-based routing mechanisms for content-centric networks motivate the use of
+                    targeted
+                    probing to improve hit probability under uncertainty. <a href="#ref-1">[1]</a>
+                </p>
+
+                <p>
+                    A cornerstone of CBR-S is its <strong>global-centroid shard assignment</strong>. Using clustering
+                    methods
+                    analogous to \(k\)-means, the system maintains a global set of centroids that partition the vector
+                    space
+                    by similarity. Each incoming vector is assigned to a shard based on proximity to these centroids,
+                    promoting
+                    co-location of similar vectors and enabling query-time routing to a small subset of shards. This
+                    follows
+                    the classic objective of minimizing within-cluster squared error, making centroids optimal
+                    representatives
+                    (in the least-squares sense) of their partitions. Update-efficient content-based indexing designs in
+                    cloud
+                    environments further motivate incremental maintenance strategies for such partitions. <a
+                        href="#ref-2">[2]</a>
+                </p>
+
+                <p>
+                    The second component, <strong>routed query execution</strong>, avoids full fanout by probing only
+                    shards
+                    associated with the most relevant centroids. This is conceptually aligned with coarse-to-fine
+                    candidate
+                    selection patterns common in approximate nearest neighbor (ANN) systems (e.g., partition probing as
+                    in IVF).
+                    A practical refinement is <em>probe expansion</em> via a margin heuristic: when a query lies near a
+                    Voronoi
+                    boundary between top centroids, the algorithm expands the probe set to mitigate routing ambiguity
+                    and
+                    improve recall.
+                </p>
+
+                <p>
+                    Finally, CBR-S introduces a safety-critical mechanism, the <strong>dual-epoch probe</strong>, to
+                    preserve
+                    high recall during routing-table transitions (e.g., re-sharding, centroid rebuilds). The system
+                    retains both
+                    the current routing table and an optional previous one, and unions their routed shard sets for query
+                    execution. This prevents recall collapse when data placed under an older epoch remains physically
+                    resident
+                    on shards that are not selected by the new routing configuration, aligning with fault-tolerant
+                    design
+                    principles for mutable distributed databases.
+                </p>
+
+                <p>
+                    For point operations such as <code>Get</code>, <code>Exists</code>, and <code>Delete</code>, PomaiDB
+                    prioritizes absolute correctness over routing efficiency by performing shard fanout (unless a
+                    separate
+                    directory mapping is maintained). This acknowledges a fundamental trade-off: content-based placement
+                    can
+                    shift over time as centroids evolve, so correctness requires either (i) a durable mapping from key
+                    \( o\)
+                    shard, or (ii) exhaustive search for point lookups.
+                </p>
+
+                <p class="muted">
+                    Note on novelty: while individual ingredients (content-based routing, clustering, KMeans++ seeding,
+                    incremental updates, probe-based querying) are established in the literature, CBR-S emphasizes their
+                    integration as an operational contract for a sharded, mutable vector database, with dual-epoch
+                    probing as a
+                    systems-level mechanism to protect recall during topology change.
+                </p>
+            </section>
+
+
+            <section>
+                <h2 id="related-works">0.5) Related works</h2>
+                <p>
+                    The design space behind a system like <strong>CBR-S</strong> spans multiple research threads:
+                    <em>distributed approximate nearest neighbor (ANN) search</em>, <em>content-centric networking and
+                        routing</em>,
+                    <em>dynamic indexing and update management</em>, and <em>hardware-aware acceleration</em>.
+                    This section synthesizes representative directions that inform CBR-S-style architectures.
+                </p>
+
+                <h3 id="rw-distributed-ann">Distributed Approximate Nearest Neighbor (ANN) search</h3>
+                <p>
+                    The core problem CBR-S addresses is efficient ANN search over massive, distributed datasets.
+                    In-memory ANN structures (e.g., HNSW-family designs) can achieve excellent latency/recall on a
+                    single host,
+                    but they face practical challenges once datasets exceed single-node memory limits. One line of
+                    recent work
+                    studies how to push vector search onto <em>disaggregated memory</em>, leveraging remote memory
+                    (e.g., RDMA)
+                    while keeping index traversal efficient and communication overhead low. <a href="#ref-6">[6]</a>
+                </p>
+                <p>
+                    A second line focuses on <strong>partitioning and sharding</strong> as a first-class primitive:
+                    decomposing large ANN problems into smaller sub-problems by partitioning input points into
+                    neighborhood-preserving shards, and routing queries to only a subset of shards to reduce fanout and
+                    latency.
+                    Recent work on graph partitioning for large-scale nearest neighbor search explores how partition
+                    structure
+                    affects recall/efficiency trade-offs. <a href="#ref-4">[4]</a>
+                    CBR-S fits in this family by using <em>global centroids</em> as a routing surface: vectors are
+                    assigned to
+                    shards by proximity to global centroids, and queries probe the most relevant centroid-owned shards.
+                </p>
+                <p>
+                    Beyond graph-based and centroid-based methods, factorization-based ANN approaches (e.g., low-rank
+                    approximations for nearest neighbor search) demonstrate alternative approximation regimes that can
+                    be
+                    complementary to routing: they reduce computation and/or memory footprint by exploiting structure in
+                    the
+                    embedding space. <a href="#ref-5">[5]</a>
+                </p>
+                <p>
+                    When the corpus cannot fit in memory, <strong>disk-based</strong> and
+                    <strong>log-structured</strong> vector
+                    search systems become important. LSM-style designs aim to maintain high ingest/update throughput
+                    while
+                    supporting fast approximate search over multi-level structures, trading extra read amplification for
+                    update efficiency and operational robustness. <a href="#ref-10">[10]</a>
+                </p>
+
+                <h3 id="rw-ccn">Content-centric networking and routing</h3>
+                <p>
+                    CBR-S’s content-based routing perspective connects naturally to
+                    <em>Information-Centric Networking (ICN)</em> / <em>Content-Centric Networking (CCN)</em>,
+                    where retrieval is driven by content identity and locality rather than host addressing.
+                    Probe-based routing in content-centric networks motivates targeted probing policies that improve hit
+                    probability under uncertainty and partial knowledge—an idea that resonates with centroid-probing and
+                    probe-expansion heuristics in routed ANN. <a href="#ref-1">[1]</a>
+                </p>
+
+                <h3 id="rw-dynamic-indexing">Dynamic updates and index management</h3>
+                <p>
+                    A major systems challenge at scale is sustaining low-latency ANN search under <em>mutable</em> data:
+                    frequent inserts, updates, and deletions. Incremental in-place update techniques aim to reduce or
+                    avoid
+                    full index rebuilds, enabling billion-scale indices to evolve with production workloads. <a
+                        href="#ref-9">[9]</a>
+                    Adaptive indexing systems further study how to maintain recall and latency under skewed, shifting
+                    query and
+                    data distributions, often by adjusting partitions and memory placement as the workload changes. <a
+                        href="#ref-7">[7]</a>
+                    For centroid-based routing, the operational analogue is <em>online centroid maintenance</em> (e.g.,
+                    incremental
+                    means) so routing surfaces track drift without expensive recomputation. Update-efficient
+                    content-based indexing
+                    in cloud settings provides additional motivation for incremental strategies that are
+                    parallel-friendly and
+                    minimize global coordination. <a href="#ref-2">[2]</a>
+                </p>
+                <p>
+                    CBR-S’s <strong>dual-epoch probe</strong> can be viewed as a topology-transition safety mechanism:
+                    during routing-table transitions (re-sharding or rebuilds), it queries the union of shard sets
+                    derived from
+                    both the current and previous epochs to reduce recall loss when physical placement lags logical
+                    routing.
+                    This is a systems-level response to the “mutable routing surface” problem in distributed vector
+                    databases.
+                </p>
+
+                <h3 id="rw-hardware">Hardware constraints and acceleration</h3>
+                <p>
+                    At billion-scale, performance is frequently bounded by memory bandwidth and data movement rather
+                    than raw
+                    compute. Hardware-aware work explores multiple paths: GPU-oriented vector data management for
+                    sophisticated
+                    filtered queries, <a href="#ref-8">[8]</a> and emerging processing-in-memory (PIM) approaches that
+                    attempt to
+                    mitigate bandwidth bottlenecks by pushing parts of ANN computation closer to memory. <a
+                        href="#ref-3">[3]</a>
+                    These directions inform practical engineering choices in systems like PomaiDB, where routing and
+                    candidate
+                    selection are often designed to reduce memory traffic and preserve tail latency under realistic
+                    hardware limits.
+                </p>
+
+                <p class="muted">
+                    Takeaway: CBR-S is best understood as a synthesis—routing surfaces (global centroids) to control
+                    fanout,
+                    adaptive probing to stabilize recall, epoch-aware safety to survive topology changes, and
+                    hardware-aware
+                    implementation to reduce data movement.
+                </p>
+            </section>
+
+
+
+            <section>
+                <h2 id="setting">1) Problem setting and notation</h2>
+                <p>
+                    Let the system have \(S \in \mathbb{N}\) shards, indexed by \( \{0,\dots,S-1\} \).
+                    Vectors lie in \( \mathbb{R}^d \) and the database stores items \(x \in \mathbb{R}^d\).
+                    A routing table (an <em>epoch</em>) consists of:
+                </p>
+                <ul>
+                    <li>\(k\) global centroids \( \mu_0,\dots,\mu_{k-1} \in \mathbb{R}^d\)</li>
+                    <li>an ownership map \( \pi: \{0,\dots,k-1\} \rightarrow \{0,\dots,S-1\}\)</li>
+                    <li>per-centroid counts \( n_g \in \mathbb{N}\)</li>
+                    <li>an epoch identifier \( e \in \mathbb{N}\)</li>
+                </ul>
+
+                <p>
+                    Routing uses squared Euclidean distance:
+                    \[
+                    D(x,\mu_g) = \|x-\mu_g\|_2^2 = \sum_{i=1}^{d}(x_i-\mu_{g,i})^2.
+                    \]
+                </p>
+            </section>
+
+            <section>
+                <h2 id="global-centroid">2) Global-Centroid shard assignment</h2>
+                <h3 id="ownership">2.1 Centroid ownership</h3>
+                <p>
+                    CBR-S assigns each centroid to a shard by a deterministic modulo rule:
+                    \[
+                    \pi(g) = g \bmod S.
+                    \]
+                    This gives stable ownership and roughly uniform distribution of centroids across shards.
+                </p>
+
+                <h3 id="ingest-routing">2.2 Content-based ingest routing</h3>
+                <p>
+                    For an incoming vector \(x\), select its nearest centroid:
+                    \[
+                    g^*(x)=\arg\min_{g \in \{0,\dots,k-1\}} D(x,\mu_g),
+                    \]
+                    and route to shard:
+                    \[
+                    \mathrm{shard}(x) = \pi(g^*(x)).
+                    \]
+                    Intuition: semantically similar vectors tend to fall into nearby Voronoi cells,
+                    hence tend to co-locate (modulo centroid ownership).
+                </p>
+            </section>
+
+            <section>
+                <h2 id="lifecycle">3) Warmup → READY lifecycle (centroid construction)</h2>
+                <p>
+                    The router proceeds through modes:
+                    <strong>DISABLED</strong> (fallback), <strong>WARMUP</strong> (collect samples),
+                    then <strong>READY</strong> (routing table available).
+                </p>
+
+                <h3 id="reservoir">3.1 Warmup reservoir size</h3>
+                <p>
+                    Let the routing centroid count be \(k_r\) (often \(k_r = 2S\)) and a warmup multiplier \(m\).
+                    The warmup sample reservoir size is:
+                    \[
+                    M = k_r \cdot m.
+                    \]
+                    The system collects (up to) the first \(M\) vectors before building centroids.
+                </p>
+
+                <h3 id="kmeans">3.2 Deterministic kmeans-lite (KMeans++ seeding + Lloyd)</h3>
+                <p>
+                    Given warmup samples \( \{x_1,\dots,x_M\} \), centroids are constructed by:
+                </p>
+                <ol>
+                    <li>KMeans++-style seeding (deterministic seed)</li>
+                    <li>A fixed number of Lloyd iterations</li>
+                </ol>
+
+                <p><strong>Assignment step:</strong></p>
+                \[
+                a(i)=\arg\min_{g} D(x_i,\mu_g)
+                \]
+
+                <p><strong>Update step:</strong></p>
+                \[
+                \mu_g \leftarrow \frac{1}{|\{i: a(i)=g\}|}\sum_{i: a(i)=g} x_i
+                \]
+                <p>
+                    Counts are set by \(n_g \leftarrow |\{i: a(i)=g\}|\), and ownership by \(\pi(g)=g\bmod S\).
+                    The resulting routing table becomes epoch \(e\) and is persisted.
+                </p>
+            </section>
+
+            <section>
+                <h2 id="online-update">4) Online centroid maintenance during ingest</h2>
+                <p>
+                    After READY, centroids are updated online on each routed insert.
+                    For a new vector \(x\), let \(g^*=\arg\min_g D(x,\mu_g)\).
+                    Then update:
+                </p>
+                <ul>
+                    <li>Count increment: \(\; n_{g^*} \leftarrow n_{g^*} + 1\)</li>
+                    <li>Incremental mean:
+                        \[
+                        \mu_{g^*} \leftarrow \mu_{g^*} + \frac{1}{n_{g^*}}(x - \mu_{g^*})
+                        \]
+                    </li>
+                </ul>
+                <p class="muted">
+                    This maintains \(\mu_{g^*}\) as the empirical mean of all assigned vectors over time.
+                </p>
+            </section>
+
+            <section>
+                <h2 id="routed-query">5) Routed query execution (fanout reduction)</h2>
+                <p>
+                    Instead of searching all shards, a query \(q\) computes the top-\(p\) nearest centroids and
+                    searches only the shards owning those centroids.
+                </p>
+
+                <h3 id="probe-count">5.1 Probe count</h3>
+                <p>
+                    Let \(p\) be the configured probe count (clamped):
+                    \[
+                    p \leftarrow \max(1,\min(p,k)).
+                    \]
+                </p>
+
+                <h3 id="margin-heuristic">5.2 Boundary (margin) heuristic</h3>
+                <p>
+                    Let \(g_1,g_2\) be the closest two centroids with distances
+                    \(d_1=D(q,\mu_{g_1})\) and \(d_2=D(q,\mu_{g_2})\).
+                    If the margin is small:
+                    \[
+                    (d_2 - d_1) < \varepsilon, \] with \(\varepsilon\) a small constant (e.g., \(0.05\)), then expand
+                        probes: \[ p \leftarrow \max(p,3)\quad \text{(if } k \ge 3 \text{)}. \] Intuition: near Voronoi
+                        boundaries, routing uncertainty increases. </p>
+
+                        <h3 id="shard-set">5.3 Shard set from top-\(p\) centroids</h3>
+                        <p>
+                            Let \(G_p(q)\) be the set of the \(p\) nearest centroids:
+                            \[
+                            G_p(q) = \mathrm{TopP}_g(D(q,\mu_g)).
+                            \]
+                            The routed shard set is:
+                            \[
+                            \mathcal{S}_{cur}(q) = \{\pi(g): g \in G_p(q)\}.
+                            \]
+                            Duplicate shard IDs are removed before executing shard-local searches and merging top-\(K\).
+                        </p>
+            </section>
+
+            <section>
+                <h2 id="dual-epoch">6) Dual-Epoch probe (topology transition safety)</h2>
+                <p>
+                    Routing tables can change (e.g., rebuilds, topology transitions). During these windows,
+                    vectors may still be physically located according to the <em>previous</em> epoch’s routing.
+                    If routing uses only the current epoch, recall can drop.
+                </p>
+
+                <h3 id="two-tables">6.1 Two routing tables in memory</h3>
+                <p>
+                    Maintain current table \(T^{(e)}\) and (optionally) previous table \(T^{(e-1)}\).
+                    For a query \(q\), compute routed shard sets in both epochs:
+                </p>
+                <p><strong>Current epoch:</strong></p>
+                \[
+                \mathcal{S}_{cur}(q) = \{\pi^{(e)}(g): g \in G^{(e)}_p(q)\}.
+                \]
+                <p><strong>Previous epoch:</strong></p>
+                \[
+                \mathcal{S}_{prev}(q) = \{\pi^{(e-1)}(g): g \in G^{(e-1)}_p(q)\}.
+                \]
+                <p><strong>Union for execution:</strong></p>
+                \[
+                \mathcal{S}(q) = \mathcal{S}_{cur}(q)\ \cup\ \mathcal{S}_{prev}(q).
+                \]
+                <p>
+                    This increases fanout only during transitions while guarding recall against stale physical
+                    placement.
+                </p>
+
+                <h3 id="recall-intuition">6.2 Recall intuition</h3>
+                <p>
+                    Let \(X\) denote the true nearest neighbors of \(q\). A miss occurs if the shard containing some
+                    \(x\in X\)
+                    is not in \(\mathcal{S}(q)\). Dual-epoch routing is never worse than current-only routing because:
+                    \[
+                    \mathcal{S}_{cur}(q) \subseteq \mathcal{S}(q).
+                    \]
+                    It is strictly better when relevant items are still reachable only under \(T^{(e-1)}\).
+                </p>
+            </section>
+
+            <section>
+                <h2 id="point-ops">7) Point operations correctness note</h2>
+                <p>
+                    If ingest is routed by content, shard location is not derivable from ID alone.
+                    To preserve correctness for point lookups (Get/Exists/Delete), the system may fanout across shards
+                    unless it maintains a separate directory mapping (vector → shard).
+                </p>
+            </section>
+
+            <section>
+
+                <section>
+                    <h2 id="future-work">9) Future work and extensions</h2>
+
+                    <p>
+                        While CBR-S already combines content-based routing, centroid-driven sharding, and epoch-aware
+                        safety,
+                        several directions offer promising opportunities to further improve scalability, adaptability,
+                        and
+                        robustness. These extensions draw on recent advances in vector search, distributed systems, and
+                        machine learning.
+                    </p>
+
+                    <h3 id="fw-centroids">9.1 Adaptive global-centroid shard assignment</h3>
+                    <p>
+                        The current design initializes centroids using KMeans++-style seeding followed by Lloyd
+                        iterations,
+                        and maintains them online via incremental mean updates. Although this approach is simple and
+                        stable,
+                        it assumes relatively smooth distributional drift. Future work could explore
+                        <em>continuously adaptive clustering</em> techniques that respond more aggressively to
+                        non-stationary
+                        data streams.
+                    </p>
+                    <p>
+                        One direction is to incorporate online clustering methods that explicitly model concept drift,
+                        allowing centroid positions (and potentially the number of centroids) to adapt without explicit
+                        reinitialization. Adaptive indexing systems such as Quake demonstrate how hierarchical
+                        partitioning
+                        can be reshaped under skewed, evolving workloads. Similar ideas could be applied to routing
+                        surfaces,
+                        enabling centroid hierarchies that expand, contract, or split as the data distribution evolves.
+                    </p>
+                    <p>
+                        Beyond k-means, density-aware or adaptive variants (e.g., high-dimensional adaptations of DBSCAN
+                        or
+                        adaptive k-means) could allow CBR-S to represent non-spherical or unevenly populated regions of
+                        the
+                        vector space more faithfully, reducing routing error for complex embeddings.
+                    </p>
+
+                    <h3 id="fw-routing">9.2 Learning-assisted routed query execution</h3>
+                    <p>
+                        Routed query execution currently relies on a margin heuristic to expand probes when a query lies
+                        near
+                        a Voronoi boundary. This heuristic could be generalized using data-driven models that predict
+                        routing
+                        uncertainty directly from query features and historical outcomes.
+                    </p>
+                    <p>
+                        For example, a lightweight reinforcement learning agent could dynamically tune the probe count
+                        (<code>routing_probe</code>) to optimize the recall–latency trade-off under different workload
+                        conditions. Query-conditioned routing policies could also prioritize shards based on learned
+                        relevance scores rather than purely geometric proximity.
+                    </p>
+                    <p>
+                        Another extension is tighter integration with filtered or attribute-aware search. GPU-oriented
+                        systems such as VecFlow show that combining vector similarity with predicate filtering can
+                        unlock
+                        richer query semantics. Incorporating such filters into the routing layer would allow CBR-S to
+                        prune
+                        shards that are unlikely to satisfy both vector and attribute constraints.
+                    </p>
+
+                    <h3 id="fw-epoch">9.3 Beyond dual-epoch probing</h3>
+                    <p>
+                        The dual-epoch probe ensures recall safety during routing-table transitions by querying both
+                        current
+                        and previous epochs. While effective, this approach doubles routing state in the worst case.
+                        Future
+                        designs could explore <em>delta-based epoch management</em>, where only the differences between
+                        successive routing tables are retained.
+                    </p>
+                    <p>
+                        More generally, predictive or proactive transition mechanisms could precompute shard assignments
+                        for upcoming epochs, reducing query overhead during re-sharding. Lightweight consistency
+                        protocols
+                        might also offer recall guarantees without explicitly maintaining two full routing tables.
+                    </p>
+
+                    <h3 id="fw-hardware">9.4 Hardware-aware and heterogeneous deployments</h3>
+                    <p>
+                        At billion-scale, vector search is often limited by memory bandwidth rather than compute.
+                        Emerging
+                        hardware trends—such as processing-in-memory (PIM), heterogeneous memory hierarchies, and
+                        disaggregated memory accessed via RDMA—open new opportunities for routing-aware optimization.
+                    </p>
+                    <p>
+                        Systems like MemANNS and d-HNSW demonstrate that pushing parts of ANN computation closer to
+                        memory
+                        can substantially reduce data movement. For CBR-S, tighter coupling between routing decisions
+                        and
+                        physical data placement across heterogeneous tiers (DRAM, persistent memory, SSD, remote memory)
+                        could further reduce tail latency and improve energy efficiency.
+                    </p>
+
+                    <h3 id="fw-robustness">9.5 Robustness to out-of-distribution queries</h3>
+                    <p>
+                        Modern AI workloads frequently encounter out-of-distribution queries or abrupt shifts in
+                        embedding
+                        geometry. Future work could integrate anomaly detection into the routing layer, identifying
+                        queries
+                        that fall far from known centroid regions and triggering broader probing or fallback strategies.
+                    </p>
+                    <p>
+                        Such mechanisms would allow CBR-S to degrade gracefully under distributional shock, prioritizing
+                        correctness and recall when assumptions about locality temporarily break down.
+                    </p>
+
+                    <p class="muted">
+                        Overall, these directions highlight how CBR-S can evolve from a static routing strategy into a
+                        more
+                        adaptive, learning-informed, and hardware-aware substrate for large-scale vector databases.
+                    </p>
+                </section>
+
+
+                <h2 id="summary">8) Summary</h2>
+                <p>
+                    <strong>CBR-S</strong> uses global centroids and deterministic ownership \(\pi(g)=g\bmod S\).
+                    <strong>Ingest</strong> routes each vector to the shard owning its nearest centroid and updates the
+                    centroid online.
+                    <strong>Queries</strong> route to shards owning the top-\(p\) closest centroids, with a boundary
+                    heuristic to expand probes.
+                    During topology transitions, <strong>Dual-Epoch Probe</strong> unions shard sets across current and
+                    previous epochs to
+                    protect recall.
+                </p>
+            </section>
+
+
+
+            <section>
+                <h2 id="references">References</h2>
+                <ol class="refs">
+                    <li id="ref-1">
+                        Tsai, P.-H., Zhang, J., &amp; Tsai, M.-H. (2021). <em>An Efficient Probe-based Routing for
+                            Content-Centric Networking</em>.
+                        arXiv. DOI:
+                        <a href="https://doi.org/10.48550/ARXIV.2109.15088" target="_blank"
+                            rel="noreferrer">10.48550/ARXIV.2109.15088</a>
+                    </li>
+                    <li id="ref-2">
+                        Zhu, N., Lu, Y., He, W., Yu, H., &amp; Ge, J. (2018). <em>Towards Update-Efficient and
+                            Parallel-Friendly Content-Based Indexing Scheme in Cloud Computing</em>.
+                        International Journal of Semantic Computing, 12(02), 191–213. DOI:
+                        <a href="https://doi.org/10.1142/S1793351X1840010X" target="_blank"
+                            rel="noreferrer">10.1142/S1793351X1840010X</a>
+                    </li>
+                    <li id="ref-3">
+                        Chen, S., Zhou, A. C., Shi, Y., Li, Y., &amp; Yao, X. (2024). <em>UpANNS: Enhancing
+                            Billion-Scale ANNS Efficiency with Real-World PIM Architecture</em> (v2).
+                        arXiv. DOI:
+                        <a href="https://doi.org/10.48550/ARXIV.2410.23805" target="_blank"
+                            rel="noreferrer">10.48550/ARXIV.2410.23805</a>
+                    </li>
+                    <li id="ref-4">
+                        Gottesbüren, L., Dhulipala, L., Jayaram, R., &amp; Lacki, J. (2024). <em>Unleashing Graph
+                            Partitioning for Large-Scale Nearest Neighbor Search</em> (v1).
+                        arXiv. DOI:
+                        <a href="https://doi.org/10.48550/ARXIV.2403.01797" target="_blank"
+                            rel="noreferrer">10.48550/ARXIV.2403.01797</a>
+                    </li>
+                    <li id="ref-5">
+                        Jääsaari, E., Hyvönen, V., &amp; Roos, T. (2024). <em>LoRANN: Low-Rank Matrix Factorization for
+                            Approximate Nearest Neighbor Search</em> (v1).
+                        arXiv. DOI:
+                        <a href="https://doi.org/10.48550/ARXIV.2410.18926" target="_blank"
+                            rel="noreferrer">10.48550/ARXIV.2410.18926</a>
+                    </li>
+                    <li id="ref-6">
+                        Liu, Y., Fang, F., &amp; Qian, C. (2025). <em>Efficient Vector Search on Disaggregated Memory
+                            with d-HNSW</em> (v1).
+                        arXiv. DOI:
+                        <a href="https://doi.org/10.48550/ARXIV.2505.11783" target="_blank"
+                            rel="noreferrer">10.48550/ARXIV.2505.11783</a>
+                    </li>
+                    <li id="ref-7">
+                        Mohoney, J., Sarda, D., Tang, M., Chowdhury, S. R., Pacaci, A., Ilyas, I. F., Rekatsinas, T.,
+                        &amp; Venkataraman, S. (2025).
+                        <em>Quake: Adaptive Indexing for Vector Search</em> (v2). arXiv. DOI:
+                        <a href="https://doi.org/10.48550/ARXIV.2506.03437" target="_blank"
+                            rel="noreferrer">10.48550/ARXIV.2506.03437</a>
+                    </li>
+                    <li id="ref-8">
+                        Xi, J., Mo, C., Karsin, B., Chirkin, A., Li, M., &amp; Zhang, M. (2025).
+                        <em>VecFlow: A High-Performance Vector Data Management System for Filtered-Search on GPUs</em>
+                        (v1).
+                        arXiv. DOI:
+                        <a href="https://doi.org/10.48550/ARXIV.2506.00812" target="_blank"
+                            rel="noreferrer">10.48550/ARXIV.2506.00812</a>
+                    </li>
+                    <li id="ref-9">
+                        Xu, Y., Liang, H., Li, J., Xu, S., Chen, Q., Zhang, Q., Li, C., Yang, Z., Yang, F., Yang, Y.,
+                        Cheng, P., &amp; Yang, M. (2024).
+                        <em>SPFresh: Incremental In-Place Update for Billion-Scale Vector Search</em>. arXiv. DOI:
+                        <a href="https://doi.org/10.48550/ARXIV.2410.14452" target="_blank"
+                            rel="noreferrer">10.48550/ARXIV.2410.14452</a>
+                    </li>
+                    <li id="ref-10">
+                        Zhong, S., Mo, D., &amp; Luo, S. (2025). <em>LSM-VEC: A Large-Scale Disk-Based System for
+                            Dynamic Vector Search</em> (v1).
+                        arXiv. DOI:
+                        <a href="https://doi.org/10.48550/ARXIV.2505.17152" target="_blank"
+                            rel="noreferrer">10.48550/ARXIV.2505.17152</a>
+                    </li>
+                </ol>
+            </section>
+
+
+            <footer class="article-footer">
+                <div class="muted small">
+                    Last updated: <span id="lastUpdated"></span>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <script>
+        // KaTeX render
+        window.addEventListener("DOMContentLoaded", () => {
+            try {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "\\[", right: "\\]", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false }
+                    ],
+                    throwOnError: false
+                });
+            } catch (_) { }
+
+            // Build a tiny TOC from h2/h3 with ids
+            const toc = document.getElementById("tocNav");
+            const headings = document.querySelectorAll("article h2[id], article h3[id]");
+            const frag = document.createDocumentFragment();
+            headings.forEach(h => {
+                const a = document.createElement("a");
+                a.href = `#${h.id}`;
+                a.textContent = h.textContent.trim();
+                a.className = h.tagName.toLowerCase() === "h3" ? "toc-link toc-link-sub" : "toc-link";
+                frag.appendChild(a);
+            });
+            toc.appendChild(frag);
+
+            // Simple "last updated" from build time (fallback to today)
+            const el = document.getElementById("lastUpdated");
+            const d = new Date();
+            el.textContent = d.toISOString().slice(0, 10);
+        });
+    </script>
+</body>
+
+</html>
