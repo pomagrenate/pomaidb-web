@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advancements in Vector Search Algorithms: 2025 Survey</title>
+    <link rel="stylesheet" href="vector-search-2025-survey.css">
+</head>
+
+<body>
+    <a id='top'></a>
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="./index.html">Pomai Research</a>
+            <nav class="nav">
+                <a href="./index.html">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="layout-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>Table of Contents</h3>
+            </div>
+            <ul>
+                <li><a href="#introduction">1. Introduction</a></li>
+                <li><a href="#related-works">2. Related Works</a></li>
+                <li><a href="#background">3. Background</a></li>
+                <li><a href="#taxonomies">4. Taxonomies</a>
+                    <ul>
+                        <li><a href="#foundational-paradigms">I. Foundational Paradigms</a></li>
+                        <li><a href="#deployment-contexts">II. Deployment Contexts</a></li>
+                        <li><a href="#enhanced-capabilities">III. Enhanced Capabilities</a></li>
+                    </ul>
+                </li>
+                <li><a href="#challenges">5. Challenges</a></li>
+                <li><a href="#future-directions">6. Future Directions</a></li>
+                <li><a href="#references">References</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <h1 class="paper-title">Advancements in Vector Search Algorithms: A Comprehensive 2025 Survey</h1>
+
+            <section id="introduction">
+                <h2>1. Introduction</h2>
+                <p>Vector search, underpinning modern information retrieval and AI
+                    applications such as retrieval-augmented generation (RAG) and recommender systems, continues to
+                    evolve rapidly, necessitating a comprehensive analysis of its algorithmic landscape as of 2025 [<a
+                        href="#ref-1">1</a>, <a href="#ref-2">2</a>].
+                    Unlike traditional keyword-based search, vector search operates on high-dimensional numerical
+                    representations (embeddings) of data, enabling semantic similarity matching beyond exact term
+                    overlap [<a href="#ref-3">3</a>, <a href="#ref-4">4</a>]. This capability has become crucial in
+                    applications ranging from search engines and
+                    recommendation systems to large language model augmentation, where retrieving semantically
+                    relevant information can significantly enhance system performance [<a href="#ref-5">5</a>].</p>
+                <p>The increasing complexity of modern AI systems, often integrating multiple models and
+                    heterogeneous data sources, highlights the need for efficient vector search across diverse system
+                    components and hardware platforms [<a href="#ref-6">6</a>, <a href="#ref-7">7</a>]. However,
+                    performing exact nearest neighbor search in
+                    high-dimensional spaces is computationally prohibitive due to the “curse of dimensionality” [<a
+                        href="#ref-8">8</a>]. To
+                    address this, Approximate Nearest Neighbor (ANN) algorithms have become the backbone of vector
+                    search systems, trading a bounded amount of accuracy for significant gains in speed and scalability
+                    [<a href="#ref-8">8</a>].
+                    These ANN techniques enable real-time search over collections containing millions or billions of
+                    vectors,
+                    which is vital for user-facing applications that demand low latency and high throughput.</p>
+                <p>Nonetheless, deploying vector search at scale introduces multiple challenges. Ensuring high recall
+                    (accuracy) while maintaining low query latency requires careful engineering and parameter tuning of
+                    indexes [<a href="#ref-9">9</a>, <a href="#ref-10">10</a>]. Scalability is a major concern, as data
+                    volumes are growing beyond what a single
+                    server can handle, necessitating distributed architectures for vector search [<a
+                        href="#ref-11">11</a>, <a href="#ref-12">12</a>]. The dynamic nature
+                    of real-world data further complicates matters—frequent insertions, deletions, or updates of vectors
+                    can degrade search quality if the index is not maintained adaptively [<a href="#ref-13">13</a>, <a
+                        href="#ref-14">14</a>]. Moreover, the
+                    computational cost and memory footprint of storing high-dimensional vectors (often as 32-bit floats)
+                    can be significant, spurring research into compression and quantization techniques to reduce
+                    resource
+                    usage [<a href="#ref-15">15</a>].</p>
+                <p>Another emerging complexity is the integration of vector search with structured data filtering (e.g.,
+                    metadata or attribute-based predicates). Real-world queries often combine vector similarity with
+                    relational conditions (for example, “find similar images that are labeled as outdoor and
+                    high-resolution”), which requires hybrid query processing that traditional ANN indexes are not
+                    designed to
+                    handle efficiently [<a href="#ref-16">16</a>, <a href="#ref-17">17</a>]. Recent research has started
+                    to address this <em>filtered vector search</em>
+                    problem through specialized indexes and query planning techniques, but achieving high performance
+                    under such constraints remains an active area of development [<a href="#ref-18">18</a>, <a
+                        href="#ref-19">19</a>].</p>
+                <p>This survey provides a structured overview of the vector search landscape in 2025, synthesizing the
+                    latest research and practical advancements. We will explore foundational algorithmic paradigms
+                    (graph-based, partition-based, and quantization methods), examine different system deployment
+                    contexts
+                    (cloud, edge, disk-based, distributed, etc.), and discuss enhancements like hybrid search with
+                    filtering
+                    and specialized hardware acceleration. By analyzing these dimensions, we aim to highlight key
+                    trends,
+                    trade-offs, and emerging challenges, as well as identify promising avenues for future research in
+                    vector
+                    search. The rapid pace of innovation in this field makes such a synthesis timely, helping
+                    practitioners
+                    and researchers alike to stay informed of state-of-the-art techniques and pending issues.</p>
+            </section>
+
+            <section id="related-works">
+                <h2>2. Related Works</h2>
+                <p>The field of vector search algorithms is undergoing rapid advancement,
+                    driven by the escalating demand for efficient information retrieval and intelligent decision-making
+                    in
+                    diverse applications [<a href="#ref-3">3</a>, <a href="#ref-5">5</a>]. High-dimensional data
+                    representations (embeddings) produced by modern
+                    AI and machine learning models necessitate sophisticated algorithms to quickly identify nearest
+                    neighbors in large datasets, enabling real-time semantic search where exact keyword matching falls
+                    short. These algorithms are crucial for powering systems that rely on similarity search, allowing
+                    technologies like RAG, recommendation engines, and semantic search platforms to operate effectively
+                    at scale.</p>
+                <p>The continuous evolution of AI models, particularly large language models and deep neural
+                    networks, has amplified the need for robust vector search capabilities [<a href="#ref-20">20</a>, <a
+                        href="#ref-21">21</a>]. Such models generate
+                    embeddings that capture intricate semantic relationships, which in turn require efficient indexing
+                    and
+                    querying mechanisms to be fully leveraged. For instance, the integration of vector search into
+                    operational databases and cloud-native services underscores its growing importance in managing
+                    AI-generated data at scale [<a href="#ref-22">22</a>]. As organizations seek to incorporate semantic
+                    search into their data
+                    infrastructure, database systems are being extended with vector indexing features to support
+                    similarity
+                    queries alongside traditional SQL queries [<a href="#ref-23">23</a>, <a href="#ref-24">24</a>].</p>
+                <p>Alongside these developments, there is an imperative to handle dynamic data workloads and
+                    heterogeneous environments. Systems must balance recall and precision with latency, often tuning
+                    algorithm parameters (such as graph search depth or quantization granularity) to find an optimal
+                    trade-off [<a href="#ref-25">25</a>, <a href="#ref-26">26</a>]. The introduction of new hardware
+                    architectures (like ARM-based servers and GPUs) means
+                    that algorithms optimized for one platform may underperform on another, spurring efforts to adapt
+                    vector indexes for different hardware (e.g., specialized algorithms for Kunpeng ARM CPUs [<a
+                        href="#ref-27">27</a>]).
+                    Moreover, as data distributions evolve or queries exhibit skew, static indexing strategies may
+                    become
+                    suboptimal, necessitating adaptive approaches that can reorganize or augment indexes on the fly.</p>
+                <p>As observed in other rapidly evolving technology domains, continuous monitoring and synthesis of
+                    new developments are essential for informed decision-making and future progress [<a
+                        href="#ref-3">3</a>]. The challenges
+                    in vector search are multifaceted, ranging from theoretical complexities in high-dimensional spaces
+                    to
+                    practical considerations of memory usage and concurrency under streaming updates. Furthermore, the
+                    integration of vector search with attribute-based filtering is an area of active research, with
+                    solutions
+                    being proposed to enable combined similarity and boolean queries efficiently [<a
+                        href="#ref-28">28</a>, <a href="#ref-29">29</a>]. The development
+                    of techniques like semantic compression and graph-augmented retrieval highlights ongoing efforts to
+                    push beyond traditional k-NN retrieval, aiming to improve the relevance and diversity of results [<a
+                        href="#ref-30">30</a>, <a href="#ref-31">31</a>].
+                    This survey addresses the need for a comprehensive overview given the rapid pace of innovation,
+                    bringing together these threads into a cohesive narrative.</p>
+            </section>
+
+            <section id="background">
+                <h2>3. Background</h2>
+                <p>Vector search is fundamentally about finding data points that are similar to a
+                    given query point in a high-dimensional space. Each data item (which could be a text document,
+                    image,
+                    user profile, etc.) is represented as a vector in this space, typically an embedding learned from a
+                    machine learning model [<a href="#ref-4">4</a>, <a href="#ref-8">8</a>]. The similarity between
+                    vectors is quantified by a distance or similarity
+                    metric (e.g., Euclidean distance or cosine similarity), where smaller distances indicate more
+                    similar
+                    items. Because these vectors capture semantic or contextual meaning, vector search enables
+                    retrieving
+                    items that are conceptually related to the query, even if they don’t share literal features or
+                    keywords.</p>
+                <p>The rise of deep learning, especially in natural language processing and computer vision, has made
+                    vector representations ubiquitous [<a href="#ref-4">4</a>, <a href="#ref-5">5</a>]. Large language
+                    models and other deep networks encode
+                    complex patterns into vectors, allowing systems to perform searches based on meaning and not just
+                    exact matches. For example, using vector search, a query for “consumer electronics device for
+                    communication” could retrieve documents about smartphones even if the word “smartphone” isn’t
+                    explicitly mentioned, because the embedding captures the underlying concept.</p>
+                <p>However, a major challenge is that these embeddings are high-dimensional (hundreds or thousands
+                    of dimensions) [<a href="#ref-4">4</a>]. Exact nearest neighbor search in such spaces is extremely
+                    slow for large datasets
+                    due to the volume of distance computations and the curse of dimensionality (where distances become
+                    less informative as dimensions increase). Therefore, Approximate Nearest Neighbor (ANN) search
+                    algorithms are employed [<a href="#ref-8">8</a>]. ANN methods like locality-sensitive hashing,
+                    tree-based partitioning, and
+                    graph-based navigation significantly reduce search time by examining only a portion of the dataset
+                    and
+                    quickly homing in on regions of interest. While they may not always find the mathematically closest
+                    point, they can return a near-optimal result with much lower latency [<a href="#ref-8">8</a>]. In
+                    practice, well-tuned ANN
+                    indexes can achieve recall rates above 90–95% while operating orders of magnitude faster than
+                    brute-force search.</p>
+                <p>Deploying vector search systems requires attention to several practical considerations. Scalability
+                    is
+                    paramount: as the number of vectors grows to billions, systems often need to be distributed across
+                    multiple nodes or use disk-based storage for indexes [<a href="#ref-32">32</a>, <a
+                        href="#ref-33">33</a>]. Systems like DiskANN and others store
+                    parts of the index on SSDs to handle billion-scale corpora efficiently [<a href="#ref-34">34</a>, <a
+                        href="#ref-25">25</a>]. Maintaining high
+                    performance in distributed settings involves addressing network latencies and balancing load across
+                    nodes [<a href="#ref-35">35</a>]. Another consideration is index maintenance for dynamic data. Many
+                    ANN structures are
+                    static or expensive to update, so inserting or deleting vectors frequently can degrade search
+                    performance or recall [<a href="#ref-13">13</a>]. Recent proposals like LSM-VEC aim to support
+                    dynamic updates by using log-structured merge trees for vector data [<a href="#ref-36">36</a>],
+                    while adaptive indexing approaches like Quake adjust index
+                    structures in response to workload shifts [<a href="#ref-37">37</a>, <a href="#ref-38">38</a>].</p>
+                <p>There is also the question of cost-effectiveness. Storing high-precision vectors (float32) for every
+                    data item in memory can be costly in cloud environments. Techniques such as product quantization,
+                    binary embeddings, and other compression schemes are used to reduce memory footprint, albeit at
+                    some cost to accuracy [<a href="#ref-15">15</a>]. Some systems adopt a multi-tier storage approach:
+                    a compressed index in
+                    RAM for coarse search and the full-precision data on disk for final re-ranking. This hybrid design
+                    can
+                    dramatically lower memory usage and cloud infrastructure costs [<a href="#ref-39">39</a>, <a
+                        href="#ref-22">22</a>].</p>
+                <p>Overall, modern vector search systems are built on a foundation of advanced ANN algorithms,
+                    engineered carefully to meet the demands of different environments. From in-memory indices
+                    optimized for low-latency (serving interactive queries) to disk-based indices designed for
+                    cost-efficient
+                    persistence, and from single-machine deployments to distributed clusters, the landscape is rich and
+                    varied. In the following sections, we delve into the main categories of approaches and how they
+                    tackle
+                    these challenges.</p>
+            </section>
+
+            <section id="taxonomies">
+                <h2>4. Taxonomies</h2>
+                <p>To navigate the complex landscape of vector search algorithms, we categorize the approaches along
+                    three primary axes: <strong>I. Foundational Algorithmic Paradigms</strong>, <strong>II. Deployment
+                        Contexts and System Architectures</strong>, and <strong>III. Enhanced Search Capabilities and
+                        Emerging Trends</strong>. This taxonomy clarifies how different solutions relate to each other
+                    and where each innovation lies in the broader space.</p>
+
+                <h3 id="foundational-paradigms">I. Foundational Algorithmic Paradigms</h3>
+                <ul>
+                    <li>
+                        <strong>Graph-Based Methods:</strong> These algorithms construct a navigable graph of the data,
+                        where each vector is a node and edges connect nearby vectors. Querying involves a graph
+                        traversal to find close neighbors [<a href="#ref-40">40</a>]. Graph-based ANN has become
+                        prominent due to methods like HNSW known for high recall and low latency on large,
+                        high-dimensional datasets [<a href="#ref-41">41</a>, <a href="#ref-42">42</a>].
+                        <ul>
+                            <li>
+                                <strong>Hierarchical Navigable Small World (HNSW):</strong> A dominant technique that
+                                organizes vectors in a multi-layer small-world graph. HNSW provides logarithmic average
+                                search complexity and is widely adopted in industry for its speed/accuracy trade-off [<a
+                                    href="#ref-41">41</a>]. However, it is an in-memory index; naive implementations can
+                                suffer from high memory usage and non-sequential memory access patterns [<a
+                                    href="#ref-43">43</a>, <a href="#ref-26">26</a>].
+                            </li>
+                            <li>
+                                <strong>Adaptive HNSW:</strong> Variants of HNSW that adjust search parameters based on
+                                data distribution. For example, distribution-aware exploration dynamically tunes the
+                                <code>ef</code> (exploration factor) during search [<a href="#ref-44">44</a>], reducing
+                                unnecessary comparisons in dense regions while preserving recall. This adaptivity
+                                addresses the one-size-fits-all limitation of vanilla HNSW by making search efficiency
+                                “data-aware” [<a href="#ref-45">45</a>].
+                            </li>
+                            <li>
+                                <strong>Crash-Consistent HNSW (P-HNSW):</strong> Designed for persistent memory
+                                environments, P-HNSW modifies HNSW to maintain index integrity across crashes or power
+                                failures [<a href="#ref-46">46</a>, <a href="#ref-47">47</a>]. By carefully ordering and
+                                logging updates, it ensures that the on-disk structure of the graph is always
+                                consistent, a critical feature for enterprise vector databases that use non-volatile
+                                memory (e.g., Intel Optane) for storage.
+                            </li>
+                            <li>
+                                <strong>Distributed Graph-Based ANN:</strong> Extensions of graph-based search to
+                                clustered environments. These approaches partition the graph or use multiple graphs to
+                                span very large datasets across servers.
+                                <ul>
+                                    <li><strong>BatANN:</strong> A distributed disk-based ANN system that “passes the
+                                        baton” between nodes during search [<a href="#ref-48">48</a>, <a
+                                            href="#ref-11">11</a>]. BatANN retains HNSW’s logarithmic search complexity
+                                        while enabling scale-out to billions of vectors. It emphasizes high throughput
+                                        by overlapping disk I/O and network communication, and achieves near-linear
+                                        scaling with cluster size [<a href="#ref-33">33</a>, <a href="#ref-11">11</a>].
+                                    </li>
+                                    <li><strong>SPIRE:</strong> A framework for accuracy-preserving index construction
+                                        in distributed settings [<a href="#ref-49">49</a>, <a href="#ref-50">50</a>].
+                                        SPIRE recursively builds a multi-level index, coarsely partitioning data among
+                                        nodes but also constructing global index layers to guide searches to the right
+                                        node. This hybrid local-global indexing maintains accuracy comparable to a
+                                        single unified index while minimizing cross-node query traffic [<a
+                                            href="#ref-35">35</a>].</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Graph-Based Accelerators (e.g., GHVSA):</strong> Techniques and hardware
+                                solutions to speed up graph-based search. GHVSA is one example that offloads distance
+                                computations and graph traversal to specialized hardware or low-level optimizations [<a
+                                    href="#ref-51">51</a>, <a href="#ref-52">52</a>]. By reducing redundant computations
+                                and taking advantage of parallelism, such accelerators can achieve high query throughput
+                                with minimal accuracy loss, tailored for industrial deployments where every millisecond
+                                counts.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Partition-Based Methods:</strong> These approaches divide the vector space or dataset
+                        into clusters or cells, restricting search to a subset of data to improve efficiency [<a
+                            href="#ref-53">53</a>]. A common strategy is to first perform a coarse search to identify
+                        relevant partitions, then conduct fine-grained search within them.
+                        <ul>
+                            <li>
+                                <strong>Inverted File (IVF) Index:</strong> A classic partition-based structure where
+                                vectors are grouped by their nearest centroid from a learned codebook (often via
+                                k-means) [<a href="#ref-53">53</a>]. At query time, the query vector is also mapped to
+                                the nearest centroids, and only vectors in the corresponding clusters (inverted lists)
+                                are examined. IVF reduces the search space dramatically with a modest loss in recall.
+                                Many systems use IVF in conjunction with quantization (e.g., IVFADC in FAISS) to balance
+                                speed and accuracy.
+                            </li>
+                            <li>
+                                <strong>IVF Optimizations (CGLA):</strong> To accelerate the scanning of vectors within
+                                clusters, techniques like Coarse-Grained Linear Approximations (CGLA) vectorize distance
+                                computations [<a href="#ref-54">54</a>, <a href="#ref-55">55</a>]. By leveraging CPU
+                                SIMD instructions or GPU kernels, these methods perform multiple distance calculations
+                                in parallel, increasing throughput when scanning inverted lists. This is particularly
+                                useful for scenarios like re-ranking a large candidate list from IVF.
+                            </li>
+                            <li>
+                                <strong>K-Means Clustering for ER:</strong> Clustering techniques are also applied in
+                                related contexts like entity resolution (ER). By representing records as vectors and
+                                using k-means to cluster them, the ER problem is transformed into a vector search
+                                problem within each cluster [<a href="#ref-53">53</a>]. This speeds up record linkage by
+                                only comparing records within the same cluster, illustrating the crossover of vector
+                                search techniques into traditional data cleaning tasks [<a href="#ref-53">53</a>].
+                            </li>
+                            <li>
+                                <strong>Semantic Pyramid Indexing (SPIN):</strong> An emerging idea where multiple
+                                layers of partitions capture various granularities of semantic similarity [<a
+                                    href="#ref-56">56</a>, <a href="#ref-57">57</a>]. SPIN builds a “pyramid” of
+                                indexes: the top layers cover broad semantic groups (for high recall retrieval) and
+                                lower layers refine within those groups (for precision). This multi-resolution approach
+                                dynamically adjusts search depth based on query needs, aiming to provide faster searches
+                                when coarse similarity suffices and finer searches when necessary [<a
+                                    href="#ref-56">56</a>, <a href="#ref-57">57</a>].
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Quantization Methods:</strong> These techniques compress vector data and/or index
+                        structures to decrease memory usage and increase speed [<a href="#ref-14">14</a>, <a
+                            href="#ref-58">58</a>]. They approximate vectors by shorter codes, enabling faster distance
+                        computations (often in Hamming or Euclidean space of lower dimension).
+                        <ul>
+                            <li>
+                                <strong>Data-Dependent Quantization:</strong> Advanced quantization schemes like Product
+                                Quantization (PQ), Optimized Product Quantization (OPQ), and others rely on the
+                                dataset’s distribution to create compact codes [<a href="#ref-14">14</a>]. While very
+                                effective in reducing memory, they traditionally have difficulty with streaming updates.
+                                Insertion or deletion of vectors can require global re-optimization of codebooks,
+                                leading to either degraded accuracy or costly periodic re-trainings [<a
+                                    href="#ref-59">59</a>, <a href="#ref-60">60</a>]. Research is ongoing into
+                                incremental quantization techniques that adjust codes locally without full rebuilds [<a
+                                    href="#ref-61">61</a>].
+                            </li>
+                            <li>
+                                <strong>Latent-Space Compression:</strong> For embedding spaces generated by large
+                                models (e.g., transformers), there is interest in compressing these representations
+                                further without losing semantic fidelity. Game-theoretic approaches have been proposed
+                                to optimize this compression, treating it as a trade-off game between compression rate
+                                and task performance [<a href="#ref-15">15</a>, <a href="#ref-62">62</a>]. By framing it
+                                in this way, algorithms can find an equilibrium that maximizes semantic utility per bit
+                                of storage.
+                            </li>
+                            <li>
+                                <strong>Information-Theoretic Binarization:</strong> Some recent works rethink the
+                                typical <code>HNSW + 32-bit float + cosine similarity</code> stack by replacing it with
+                                binary representations and Hamming distance, guided by information theory [<a
+                                    href="#ref-63">63</a>, <a href="#ref-6">6</a>]. By binarizing vectors into bit
+                                strings (often using learned hashing), search can be made extremely fast with bitwise
+                                operations. The challenge is ensuring that the binary embedding preserves enough
+                                information; information-theoretic criteria (like maximizing mutual information between
+                                original and binary space) are used to guide the binarization [<a href="#ref-63">63</a>,
+                                <a href="#ref-64">64</a>]. This can drastically reduce memory and increase speed at the
+                                cost of some accuracy, offering a different point in the efficiency spectrum.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3 id="deployment-contexts">II. Deployment Contexts and System Architectures</h3>
+                <ul>
+                    <li>
+                        <strong>Cloud-Native Vector Search:</strong> As enterprise use of vector databases grows,
+                        cloud-native solutions have emerged that integrate with scalable storage and computing services
+                        [<a href="#ref-2">2</a>, <a href="#ref-65">65</a>]. These systems are designed to elastically
+                        scale and to separate storage/computation for cost efficiency.
+                        <ul>
+                            <li>
+                                <strong>Integration with Operational Databases:</strong> Cloud providers and database
+                                vendors are adding vector search capabilities to existing DBMS platforms (e.g., Azure
+                                Cosmos DB with integrated vector indexing) [<a href="#ref-65">65</a>]. The goal is to
+                                allow users to perform vector similarity queries using familiar database interfaces,
+                                co-located with their transactional data [<a href="#ref-23">23</a>]. Such integrations
+                                must solve challenges like maintaining performance isolation between standard and vector
+                                queries, and extending query optimizers to handle vector operations [<a
+                                    href="#ref-20">20</a>, <a href="#ref-21">21</a>].
+                            </li>
+                            <li>
+                                <strong>Remote Storage Optimization:</strong> Placing vector indexes on network-attached
+                                storage or distributed filesystems (for instance, using object stores or disaggregated
+                                storage) helps handle data scale but introduces latency. Cloud-native research examines
+                                how to mitigate this, using techniques like intelligent caching, RDMA (Remote Direct
+                                Memory Access) for low-latency data fetch [<a href="#ref-66">66</a>, <a
+                                    href="#ref-67">67</a>], and co-locating compute with data shards to reduce data
+                                movement. The trade-off is often between the cost savings of using cheap storage and the
+                                performance overhead of accessing data over the network.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Disk-Based Systems:</strong> Not all deployments can keep the entire index in RAM,
+                        especially at billion-scale. Disk-based ANN systems store some or all of the index on SSDs/HDDs
+                        and fetch data on demand.
+                        <ul>
+                            <li>
+                                <strong>B+ANN:</strong> A novel billion-scale disk-based index that blends
+                                B<sup>+</sup>-tree structures with ANN search [<a href="#ref-43">43</a>, <a
+                                    href="#ref-10">10</a>]. B+ANN partitions vectors into disk blocks and uses a tree to
+                                guide search through these blocks. By organizing the index for sequential disk access
+                                and caching, B+ANN mitigates the random access penalty of graphs like HNSW on disk,
+                                achieving competitive recall with high throughput [<a href="#ref-43">43</a>, <a
+                                    href="#ref-10">10</a>].
+                            </li>
+                            <li>
+                                <strong>LSM-VEC:</strong> Inspired by log-structured merge trees (LSM) in key-value
+                                stores, LSM-VEC handles dynamic vector data on disk [<a href="#ref-36">36</a>, <a
+                                    href="#ref-68">68</a>]. Incoming vectors are initially stored in a small, fast
+                                structure and gradually merged into larger sorted runs on disk. During queries, multiple
+                                runs may be searched and results merged. This design supports high insert rates and
+                                defers expensive reorganization work to background processes, thereby enabling
+                                near-real-time updates without full index rebuilds [<a href="#ref-13">13</a>].
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Distributed Systems:</strong> For truly massive datasets or extremely high query
+                        throughputs, distribution across many machines is necessary. Distributed vector search must
+                        address partitioning of data, routing of queries, and merging of partial results.
+                        <ul>
+                            <li>
+                                <strong>Distributed Parallel Multi-Resolution Search:</strong> Systems designed for RAG
+                                and multi-modal AI scenarios often employ multi-resolution indexes distributed across
+                                nodes [<a href="#ref-69">69</a>, <a href="#ref-70">70</a>]. For example, one approach
+                                might maintain a coarse global index that directs each query to a subset of nodes, which
+                                then perform fine-grained search on their local data (similar to SPIN but in a
+                                distributed context). This strategy can reduce network communication and query fan-out,
+                                as each query only touches relevant partitions of the cluster [<a href="#ref-69">69</a>,
+                                <a href="#ref-71">71</a>].
+                            </li>
+                            <li>
+                                <strong>Distributed ANN Systems (e.g., BatANN):</strong> Purpose-built distributed ANN
+                                frameworks like BatANN partition data among nodes and then pipeline the search process
+                                through them [<a href="#ref-48">48</a>, <a href="#ref-72">72</a>]. A query might
+                                traverse from one node to the next (“passing the baton”), each node contributing some
+                                portion of the nearest neighbor search. The system carefully orders these operations to
+                                maximize parallelism and throughput. Such designs emphasize robust scaling: ideally,
+                                doubling the number of nodes should double the volume of data searchable at a given
+                                latency.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Memory-Disaggregated Systems:</strong> Emerging architectures separate compute and
+                        memory into distinct network-connected pools. For vector search, this means an index could
+                        reside in a remote memory server while compute nodes send queries over the network.
+                        <ul>
+                            <li>
+                                <strong>d-HNSW:</strong> An adaptation of HNSW for disaggregated memory environments [<a
+                                    href="#ref-73">73</a>, <a href="#ref-67">67</a>]. Efficient RDMA-based access is
+                                key: d-HNSW organizes memory such that each hop in the graph can fetch multiple neighbor
+                                vectors with one RDMA read, rather than many small reads. This reduces network
+                                round-trips. It also tackles memory fragmentation and consistency so that the remote
+                                memory can be used almost as if it were local, without incurring huge latency penalties
+                                [<a href="#ref-74">74</a>, <a href="#ref-75">75</a>].
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Edge-Constrained Environments:</strong> Vector search is not confined to cloud
+                        datacenters; increasing use cases exist at the edge (mobile devices, IoT, or on-premise
+                        appliances) where resources are limited.
+                        <ul>
+                            <li>
+                                <strong>GPU-Optimized NSW (ON-NSW):</strong> ON-NSW redesigns the HNSW algorithm to
+                                exploit GPU parallelism for high-dimensional search, particularly targeting edge devices
+                                with GPU capabilities [<a href="#ref-76">76</a>, <a href="#ref-77">77</a>]. Traditional
+                                HNSW is memory-bound and optimized for CPUs; ON-NSW instead processes multiple graph
+                                traversal operations concurrently on a GPU, using its thousands of threads to explore
+                                many vectors in parallel. This is effective for high-dimensional (e.g., 128-D, 256-D)
+                                vectors where computation per vector is high, and the GPU’s throughput can be fully
+                                utilized [<a href="#ref-78">78</a>, <a href="#ref-79">79</a>].
+                            </li>
+                            <li>
+                                <strong>ARM-Based Optimizations (KScaNN, KBest):</strong> With the rise of ARM-based
+                                server processors (like Huawei’s Kunpeng), researchers found that some ANN algorithms
+                                tuned for x86 did not translate efficiently to ARM [<a href="#ref-80">80</a>]. KScaNN
+                                and KBest are two approaches designed for Kunpeng CPUs [<a href="#ref-27">27</a>, <a
+                                    href="#ref-81">81</a>]. They reorganize computations (e.g., using ARM NEON
+                                instructions for vector math) and data structures (e.g., aligning memory to leverage
+                                ARM’s strengths) to reclaim performance. KBest, for instance, introduces algorithmic
+                                tweaks to HNSW’s search order that better suit the memory hierarchy of Kunpeng CPUs [<a
+                                    href="#ref-82">82</a>]. These efforts ensure that vector databases can fully exploit
+                                modern hardware diversity.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3 id="enhanced-capabilities">III. Enhanced Search Capabilities and Emerging Trends</h3>
+                <ul>
+                    <li>
+                        <strong>Attribute Filtering (Filtered ANN Search):</strong> In practical applications,
+                        similarity search often needs to be combined with attribute-based filtering. Supporting such
+                        <em>filtered vector search</em> efficiently is challenging because simply post-filtering results
+                        can be too slow or may miss relevant items if filtering is applied too early [<a
+                            href="#ref-19">19</a>, <a href="#ref-16">16</a>].
+                        <ul>
+                            <li>
+                                <strong>Unified Frameworks (Compass):</strong> Compass is an example of a system aiming
+                                to provide one-stop support for hybrid vector-scalar queries [<a href="#ref-3">3</a>].
+                                It treats vector search as a first-class citizen in the query engine, optimizing joint
+                                execution of similarity search and boolean predicates. By doing so, it avoids naive
+                                approaches like searching without filters then discarding many results, or overly
+                                restrictive partitioning that couples vector and scalar properties.
+                            </li>
+                            <li>
+                                <strong>Filter-Centric Indexing (FCVI):</strong> This approach encodes filter conditions
+                                directly into the index structure via geometric transformations [<a
+                                    href="#ref-83">83</a>, <a href="#ref-84">84</a>]. For instance, one can append
+                                normalized attribute values to the vectors and use a distance metric that incorporates
+                                attribute differences—effectively embedding the filters into the vector space. FCVI
+                                allows a single search to handle both similarity and filtering, though it requires
+                                careful calibration to ensure that the attribute dimensions do not overshadow the
+                                original vector distances [<a href="#ref-85">85</a>, <a href="#ref-84">84</a>].
+                            </li>
+                            <li>
+                                <strong>Dynamic Indexing for Range-Filtered Search:</strong> When filters involve range
+                                conditions (e.g., a price range or a date range), some indexes maintain separate
+                                structures for different ranges or periodically rebuild to account for new data in range
+                                partitions [<a href="#ref-86">86</a>, <a href="#ref-87">87</a>]. Adaptive indexing
+                                methods that can adjust to changes in filter distribution—such as more user queries
+                                filtering on a particular tag—are being studied. One example is the UNIFY index (noted
+                                in recent literature) that unifies vector and range filtering through a multi-stage
+                                index, allowing range constraints to prune which parts of the vector index are searched
+                                [<a href="#ref-87">87</a>].
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Semantic Compression and Graph-Augmented Retrieval:</strong> Beyond retrieving the
+                        nearest neighbors, there is interest in post-processing or augmenting results to improve their
+                        semantic coverage [<a href="#ref-30">30</a>]. Semantic compression techniques attempt to
+                        identify a small set of vectors that collectively represent the “essence” of the query’s
+                        neighborhood, thereby avoiding redundant results that convey the same information [<a
+                            href="#ref-30">30</a>]. Graph-augmented retrieval builds a secondary graph (often on top of
+                        the set of initial results) where edges indicate complementary content, and traversing this
+                        graph can fetch results that are not the nearest by distance but provide new semantic insights,
+                        addressing the issue of result diversity.
+                    </li>
+                    <li>
+                        <strong>Multi-Vector Search:</strong> In some scenarios, each item is represented by multiple
+                        vectors (e.g., a document with several section embeddings, or a product with image and text
+                        embeddings). Multi-vector search requires combining evidence from multiple vectors per item.
+                        Simple approaches rank each vector independently, but more advanced index tuning treats the
+                        collection of vectors as a single entity during indexing [<a href="#ref-88">88</a>, <a
+                            href="#ref-89">89</a>]. This can involve heuristics to ensure at least one vector per item
+                        is indexed in close proximity to relevant queries, or designing custom distance functions that
+                        aggregate distances from multiple vectors of an item to the query vector. Research like MINT
+                        (Multi-vector Index Tuning) focuses on how to adjust indexes (like HNSW or IVF) to account for
+                        these multi-vector representations [<a href="#ref-90">90</a>, <a href="#ref-91">91</a>].
+                    </li>
+                    <li>
+                        <strong>Trajectory Representation Learning:</strong> A specialized application of vector search
+                        is to geospatial trajectories (sequences of coordinates). Techniques such as Trajectory
+                        Similarity Network Embedding (TSNE) embed entire trajectories into single vectors that preserve
+                        their shapes and locations [<a href="#ref-92">92</a>, <a href="#ref-93">93</a>]. The aim is that
+                        a simple nearest neighbor search on these trajectory embeddings yields routes that are similar
+                        in path and not just in individual points. This is useful for tasks like finding similar travel
+                        routes, anomalous movement detection, or route recommendation, where efficient search over a
+                        database of trajectories is needed [<a href="#ref-92">92</a>, <a href="#ref-94">94</a>].
+                    </li>
+                    <li>
+                        <strong>Privacy-Preserving Federated Search:</strong> In cases where data is split across
+                        multiple parties (e.g., different institutions or devices) and cannot be directly shared due to
+                        privacy, federated vector search comes into play. Systems like FedVSE demonstrate how an ANN
+                        search can be performed across federated databases with encryption or secure coordination, such
+                        that the query issuer learns only the final nearest neighbors and nothing else about other
+                        parties’ data [<a href="#ref-95">95</a>, <a href="#ref-96">96</a>]. This often involves
+                        techniques like secure multiparty computation or homomorphic encryption integrated with ANN
+                        algorithms — a non-trivial combination, since adding security typically incurs large
+                        computational overhead. FedVSE and similar works focus on minimizing this overhead while still
+                        achieving search efficiency close to a non-federated scenario [<a href="#ref-96">96</a>, <a
+                            href="#ref-97">97</a>].
+                    </li>
+                    <li>
+                        <strong>Adaptive Indexing (Quake):</strong> Under dynamic and skewed workloads, maintaining a
+                        static index [<a href="#ref-14">14</a>] can lead to either suboptimal performance or excessive
+                        maintenance costs. Quake is an example of an adaptive indexing system that continuously monitors
+                        query patterns and data distribution, and reorganizes the index accordingly [<a
+                            href="#ref-37">37</a>, <a href="#ref-98">98</a>]. If certain regions of the vector space
+                        become hot (frequently queried) or cold (rarely queried), Quake might increase index granularity
+                        (more partitions or deeper graph connections) in hot regions for speed, and decrease detail in
+                        cold regions to save space or update time. This adaptive behavior aims to sustain low latency
+                        and high recall even as usage evolves, essentially “tuning itself” in response to workload
+                        changes [<a href="#ref-37">37</a>, <a href="#ref-38">38</a>].
+                    </li>
+                    <li>
+                        <strong>Vector-Centric Machine Learning Systems:</strong> Finally, an overarching trend is the
+                        design of entire ML systems around the capabilities of vector search [<a href="#ref-99">99</a>,
+                        <a href="#ref-100">100</a>]. In a cross-stack approach, one envisions an architecture where from
+                        data ingestion and model training to inference and feedback, vector indexes play a key role in
+                        connecting components (for example, using vector search to find relevant training examples, or
+                        to cache and retrieve intermediate model results). This vector-centric perspective sees the
+                        vector database not just as a passive store, but as an active component in the ML pipeline,
+                        raising interesting possibilities for future integration of learning algorithms with search
+                        (such as training models that are aware of the index structure or vice versa).
+                    </li>
+                </ul>
+            </section>
+
+            <section id="challenges">
+                <h2>5. Challenges</h2>
+                <p>
+                    <strong>Scalability and Distributed Indexing:</strong> A primary challenge is scaling vector search
+                    to ever-larger datasets and higher throughput demands. While current algorithms like HNSW or IVF
+                    perform well up to hundreds of millions of vectors on a single machine, beyond this scale they
+                    require sharding data across multiple servers [<a href="#ref-48">48</a>, <a href="#ref-35">35</a>].
+                    Building and querying distributed indexes introduce issues of partitioning (how to split vectors
+                    among nodes) and result aggregation (combining partial nearest neighbor results from each node). If
+                    the data distribution is not uniform, some nodes can become hotspots, leading to load imbalance.
+                    Ensuring near-linear scaling of search performance with cluster size is non-trivial—systems must
+                    minimize network communication and avoid duplicate searching of the same region on multiple servers.
+                    Research prototypes like BatANN and SPIRE tackle pieces of this problem, but a general, easy-to-use
+                    solution for distributed ANN with both high recall and efficiency remains an open challenge.
+                    Furthermore, maintaining consistency and synchronization of index updates across nodes (for dynamic
+                    data) adds another layer of complexity, often requiring distributed coordination or consensus
+                    protocols.
+                </p>
+                <p>
+                    <strong>Dynamic Updates and Streaming Data:</strong> Many ANN indexes are built under static
+                    assumptions, meaning they achieve optimal performance only after a one-time bulk indexing of a
+                    relatively static dataset [<a href="#ref-14">14</a>]. In real-world applications, data is often
+                    streaming: new user embeddings, freshly generated content, or evolving sensor data continuously
+                    arrive. Inserting these into an HNSW graph or IVF index one by one can degrade the structure (e.g.,
+                    suboptimal graph connectivity or imbalanced clusters) [<a href="#ref-61">61</a>]. Some systems
+                    simply rebuild the index periodically off-line, which incurs downtime or stale results. Thus, a key
+                    challenge is to support high-frequency inserts and deletes without sacrificing query performance or
+                    accuracy. Approaches like LSM-VEC attempt to mitigate this by staging inserts and merging them
+                    efficiently [<a href="#ref-36">36</a>, <a href="#ref-13">13</a>], and Quake’s adaptive reindexing
+                    also addresses workload shifts [<a href="#ref-37">37</a>], but ideal solutions are still evolving.
+                    The challenge extends to concept drift: as the distribution of vectors changes over time, the index
+                    built on past data may become suboptimal for current data. Continually adapting the index in the
+                    background (a form of online learning for indexes) is an open problem.
+                </p>
+                <p>
+                    <strong>Memory Footprint and Efficiency Trade-offs:</strong> Storing and searching high-dimensional
+                    vectors is memory-intensive. Even with quantization, there’s often a trade-off between memory usage
+                    and search accuracy or latency [<a href="#ref-63">63</a>, <a href="#ref-15">15</a>]. Storing
+                    additional metadata for filtering or clustering further bloats memory usage. This poses a challenge
+                    especially for edge devices and cost-sensitive deployments (where memory translates directly to
+                    cost). Binarization and aggressive compression can alleviate this, but often at the cost of recall
+                    or requiring more candidate expansions to compensate [<a href="#ref-63">63</a>]. A related issue is
+                    energy efficiency: performing brute-force distances on millions of vectors can draw significant
+                    power (in data centers or on battery-powered devices). Efficient algorithms must not only be fast
+                    but also mindful of power usage—e.g., by reducing CPU cache misses, maximizing use of SIMD
+                    instructions, or offloading to accelerators which perform more operations per watt. Future vector
+                    search solutions need to find better sweet spots in this accuracy-memory-compute trade space,
+                    perhaps via novel hardware (TPUs for vector search?) or by co-designing algorithms that consider
+                    memory hierarchy effects explicitly.
+                </p>
+                <p>
+                    <strong>Heterogeneous Hardware Support:</strong> As hardware diversifies (GPUs, TPUs, FPGAs,
+                    ARM-based CPUs, and even specialized AI chips), vector search algorithms must be ported and
+                    optimized for each to fully utilize available resources [<a href="#ref-101">101</a>, <a
+                        href="#ref-78">78</a>]. An algorithm like HNSW was initially crafted with general-purpose CPUs
+                    in mind (and high single-thread performance). On GPUs, a naive implementation could suffer from
+                    irregular memory accesses, whereas an optimized GPU approach like ON-NSW needed a ground-up redesign
+                    to use massive parallelism effectively [<a href="#ref-78">78</a>]. Similarly, as seen with KScaNN
+                    and KBest for ARM architectures, assumptions and optimizations from x86 may not hold [<a
+                        href="#ref-27">27</a>]. The challenge here is twofold: engineering effort to tune algorithms per
+                    platform, and also the conceptual design of algorithms that are portable and can adapt to different
+                    parallelism and memory models. Ideally, future vector search methods will be abstract enough to map
+                    efficiently onto various hardware, possibly using an intermediate abstraction (like a linear algebra
+                    or tensor operation representation) that frameworks can then compile for specific hardware.
+                </p>
+                <p>
+                    <strong>Hybrid Queries and Filtering:</strong> Combining vector search with structured filtering
+                    (predicates on metadata) remains challenging despite progress. One issue is that traditional
+                    database indexing (B-trees, etc.) doesn’t integrate well with ANN structures. If you have a query
+                    “find similar items to X that have property Y,” doing a pure vector search then filtering by Y can
+                    waste a lot of effort if Y is rare; conversely, filtering first by Y then doing vector search on
+                    that subset can be inefficient if Y’s subset is large or not clustered in vector space. Approaches
+                    like Compass and FCVI (Filter-Centric Vector Indexing) show promise, but generally increase index
+                    size or complexity by combining two index types [<a href="#ref-85">85</a>, <a
+                        href="#ref-28">28</a>]. There’s a challenge in balancing the dual objectives: maintaining fast
+                    similarity search and fast filtering simultaneously. Moreover, supporting range filters or multiple
+                    predicates (e.g., “color = red AND price < 100 AND similar to this image”) introduces combinatorial
+                        complexity in index design. This is an active area of research, and the challenge will be to
+                        develop generalized methods that work for a broad class of predicates without manual,
+                        case-by-case tuning. </p>
+                        <p>
+                            <strong>Lack of Theoretical Guarantees:</strong> Many ANN methods are heuristic in nature.
+                            Unlike exact search, where correctness is well-defined, ANN often provides no hard
+                            guarantees on result quality or performance. While algorithms can be empirically validated
+                            and some offer probabilistic guarantees (like “with high probability, the true nearest
+                            neighbor is in the result set”), there is often no worst-case bound. This lack of strong
+                            guarantees is problematic for critical applications where predictability is important.
+                            Learned indexes and data-dependent algorithms make analysis even harder, since their
+                            behavior can be tied to data characteristics. A challenge moving forward is to infuse more
+                            theoretical rigor into vector search algorithms—establishing bounds on recall vs. time, or
+                            on index memory vs. accuracy, perhaps borrowing from approximation theory or information
+                            theory. Such guarantees would increase trust in these systems and help in automated
+                            configuration (tuning parameters to meet a service-level objective, for instance).
+                        </p>
+                        <p>
+                            <strong>Semantic Drift and Domain Adaptation:</strong> Over time, the “meaning” of vector
+                            spaces can drift—especially if embeddings are periodically retrained or fine-tuned. An index
+                            built on embeddings from an older model might not perform well when the model is updated
+                            (the neighborhood relationships might change). In federated or edge scenarios, different
+                            nodes might even use slightly different embedding models, making a global search
+                            inconsistent. Handling semantic drift requires either rebuilding indexes (costly) or
+                            designing them to be robust to embedding changes. Some ideas include incremental re-indexing
+                            (only updating parts of the index that change significantly) and backward-compatible
+                            embeddings (where new model embeddings remain comparable to old ones to some extent).
+                            Similarly, cross-modal search (like text-to-image search) often involves comparing vectors
+                            from different distributions; ensuring the index supports effective cross-modal retrieval
+                            despite misaligned vector spaces is a challenge. As AI systems evolve, vector search must
+                            deal with this fluidity of meaning—potentially by embedding alignment techniques or dynamic
+                            calibration of distances to maintain meaningful results.
+                        </p>
+                        <p>
+                            <strong>Privacy and Security:</strong> With increased usage of vector search in sensitive
+                            domains (like healthcare or personal data), privacy concerns grow. Embeddings can leak
+                            information about the original data (for instance, someone could infer attributes of an
+                            input from its embedding). Ensuring privacy might involve techniques like federated search
+                            (as discussed) or secure enclaves for index storage and query processing. Homomorphic
+                            encryption exists for vector similarity (enabling distance computations on encrypted
+                            vectors), but it’s extremely slow and impractical at scale currently. Balancing privacy with
+                            performance is a key challenge. Additionally, adversarial considerations (security) such as
+                            constructing adversarial vectors that consistently appear in search results or poison the
+                            index are possible threats. Robust vector search needs to handle such malicious
+                            inputs—perhaps by validating embeddings or monitoring query patterns for anomalies.
+                        </p>
+            </section>
+
+            <section id="future-directions">
+                <h2>6. Future Directions</h2>
+                <ul>
+                    <li>
+                        <strong>Bridging Theory and Practice:</strong> Future research will likely focus on developing
+                        formal guarantees for vector search algorithms. This could mean theoretical bounds on ANN recall
+                        versus query time, or proving convergence properties for dynamic indexing structures. Such
+                        guarantees would enhance the reliability of vector search in mission-critical applications and
+                        help automate parameter tuning by providing clear objectives to target (e.g., ensuring a query
+                        recall of 99% with 95% confidence). Advancements in this area might draw from computational
+                        geometry and approximation algorithms to model high-dimensional search in new ways.
+                    </li>
+                    <li>
+                        <strong>Dynamic and Self-Tuning Indexes:</strong> Building on adaptive systems like Quake [<a
+                            href="#ref-37">37</a>, <a href="#ref-38">38</a>], we anticipate more “self-driving” vector
+                        indexes. These systems would monitor incoming query workloads and data changes, and
+                        automatically reorganize or rebalance themselves to sustain performance. Techniques from
+                        reinforcement learning or online learning could be applied where the index “learns” the optimal
+                        structure over time for a given workload. This may also involve auto-scaling in distributed
+                        contexts—spawning new index shards or merging existing ones in response to load. Ultimately, the
+                        goal is to remove the human in the loop for index maintenance, making vector search as
+                        hands-free as modern relational query optimizers.
+                    </li>
+                    <li>
+                        <strong>Efficient and Low-Power Vector Search:</strong> As energy efficiency becomes a priority
+                        (both for environmental reasons and on mobile/edge devices), future work will likely explore
+                        energy-aware vector search. This might involve using approximate hardware (like low-precision
+                        arithmetic or analog computing) for distance computations, or scheduling searches to exploit
+                        off-peak energy rates in cloud settings. Hardware accelerators specifically designed for vector
+                        search (beyond GPUs) could become mainstream—imagine an ANN search ASIC that can perform graph
+                        expansions or PQ decoding extremely fast per watt. Research in hardware-software co-design for
+                        vector databases is nascent, but growing interest in AI accelerators could extend to similarity
+                        search tasks as well.
+                    </li>
+                    <li>
+                        <strong>Seamless Hybrid Query Processing:</strong> Significant effort will go into making
+                        filtered and hybrid queries first-class citizens. This includes queries that mix vectors, text,
+                        and structured predicates all together. We expect more unified systems that can optimize such
+                        queries holistically, possibly by using approximate techniques for both the vector and scalar
+                        parts. For example, future databases might maintain a joint index that indexes vectors along
+                        with a compact summary of their attribute values, allowing early pruning of search candidates
+                        that would fail the attribute filters [<a href="#ref-85">85</a>]. The “distance” could be a
+                        composite function of vector similarity and attribute difference, learned from data to best
+                        serve the application’s relevance metrics. Moreover, extensions to query languages (like SQL or
+                        GraphQL) could emerge to naturally express these multi-faceted queries, hiding the complexity of
+                        how they’re executed.
+                    </li>
+                    <li>
+                        <strong>Cross-Modal and Semantic Alignment:</strong> As multi-modal AI becomes more prevalent,
+                        vector search will need to handle cross-modal queries (e.g., searching an image dataset with a
+                        text query, or vice versa). Improving alignment between embedding spaces is key here. Future
+                        directions include joint embeddings (where different modalities map to a common space) and
+                        techniques to adjust for semantic drift over time. For instance, one could envisage an index
+                        that stores not only the current embedding of an item but a history of embeddings (if underlying
+                        models changed), enabling queries from an older model’s perspective to still be answered.
+                        Another angle is active alignment: using small sets of paired data to continuously correct and
+                        calibrate two embedding spaces to each other. Progress in this area will make cross-modal vector
+                        search more accurate and robust as underlying models evolve.
+                    </li>
+                    <li>
+                        <strong>Hardware-Aware Algorithms:</strong> While current research often retrofits algorithms to
+                        hardware, future algorithms might be designed <em>with</em> hardware in mind from the start. For
+                        example, an ANN algorithm could be explicitly built to leverage the massive parallelism of
+                        future GPUs or the 3D-stacked memory of certain accelerators. It might partition work into
+                        chunks that fit exactly into GPU shared memory or use matrix-multiplication as a primitive (to
+                        leverage highly optimized BLAS libraries or TPU matrix units). With emerging hardware like
+                        neuromorphic chips or optical computing for similarity search, algorithms will evolve to exploit
+                        their unique capabilities. This hardware-algorithm co-development can yield breakthroughs in
+                        performance; it’s plausible we’ll see specialized algorithmic techniques that shine only on
+                        certain hardware, which could drive their adoption in specific domains (like edge vs. cloud
+                        deployments).
+                    </li>
+                    <li>
+                        <strong>Privacy-Preserving Search:</strong> The future will also see advances in privacy for
+                        vector search. One direction is developing encryption schemes that allow similarity computation
+                        without revealing the vectors, using methods like secure multi-party computation or improved
+                        homomorphic encryption. While currently impractical for large-scale use, incremental
+                        improvements could bring these within reach for moderate-sized applications. Another aspect is
+                        federated search beyond simple federation—where not just results are combined, but indexes
+                        themselves might be partially shared in encrypted form. Concepts like secure index merging or
+                        distributed oblivious retrieval might emerge, ensuring that even if multiple parties
+                        collaboratively answer a query, none learns anything sensitive about the others’ data. Building
+                        on works like FedVSE [<a href="#ref-95">95</a>], the challenge is reducing the performance gap
+                        between secure and non-secure vector search.
+                    </li>
+                    <li>
+                        <strong>Multi-Modal and Multi-Vector Integration:</strong> As noted, multi-vector per item
+                        scenarios (like an article with multiple section embeddings, or a user profile with separate
+                        embeddings for interests, recent activity, etc.) will become more common. Future index
+                        structures may directly support searching complex objects represented by a set of vectors. This
+                        could mean that the index stores a compound key or has a notion of “OR” distance (an item is
+                        close to the query if any one of its vectors is close). We might see algorithms that cluster or
+                        link the multiple vectors of each entity in ways that improve search (e.g., ensuring they fall
+                        into proximate clusters or are connected in graphs to facilitate finding at least one of them
+                        during search). This can greatly benefit multi-modal databases (like a product having image,
+                        text, and audio descriptors) by retrieving the entity through any of its descriptors
+                        effectively.
+                    </li>
+                    <li>
+                        <strong>Standardization and Benchmarks:</strong> Finally, as the field matures, we expect a push
+                        towards standard benchmarks and perhaps even standard interfaces for vector search. Analogous to
+                        how TPC benchmarks guided relational database development, we might get industry-standard
+                        evaluations for vector databases that incorporate various aspects (throughput, recall at k,
+                        filter handling, etc.). This will drive progress by highlighting strengths and weaknesses of
+                        different approaches. Additionally, standardization in query languages (e.g., extending SQL for
+                        vector similarity joins) and perhaps an ISO-like standard for a “vector query processor” could
+                        emerge, making it easier to integrate vector search technology into diverse systems. These
+                        efforts will ensure that advancements are comparable and can be widely adopted across platforms.
+                    </li>
+                </ul>
+            </section>
+
+            <section id="references">
+                <h2>References</h2>
+                <ol>
+                    <li id='ref-1'>S. M. Abtahi, M. Fekri, T. Khani, & A. Azim. <em>From HNSW to Information-Theoretic
+                            Binarization: Rethinking the Architecture of Scalable Vector Search</em>. arXiv preprint
+                        arXiv:2601.11557, 2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-2'>H. Kim, C. Lim, H. An, R. Sen, & K. Park. <em>Exqutor: Extended Query Optimizer for
+                            Vector-Augmented Analytical Queries</em>. arXiv preprint arXiv:2512.09695, 2025. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-3'>Z. Li, W. Ding, S. Huang, Z. Wang, Y. Lin, K. Wu, Y. Park, & J. Chen.
+                        <em>Cloud-Native Vector Search: A Comprehensive Performance Analysis</em>. arXiv preprint
+                        arXiv:2511.14748, 2025. <a class='backref' href='#top'>↩</a>
+                    </li>
+                    <li id='ref-4'>N. A. Dang, B. Landrum, & K. Birman. <em>Passing the Baton: High-Throughput
+                            Distributed Disk-Based Vector Search with BatANN</em>. arXiv preprint arXiv:2512.09331,
+                        2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-5'>D. Liu & Y. Yu. <em>Towards Hyper-Efficient RAG Systems in VecDBs: Distributed
+                            Parallel Multi-Resolution Vector Search</em>. arXiv preprint arXiv:2511.16681, 2025. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-6'>S. F. Tekin & R. Bordawekar. <em>B+ANN: A Fast Billion-Scale Disk-Based
+                            Nearest-Neighbor Index</em>. arXiv preprint arXiv:2511.15557, 2025. <a class='backref'
+                            href='#top'>↩</a></li>
+                    <li id='ref-7'>J. Shim, J. Oh, H. Roh, J. Do, & S.-W. Lee. <em>Turbocharging Vector Databases Using
+                            Modern SSDs</em>. PVLDB 18(11): 4710–4722, 2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-8'>S. Zhong, D. Mo, & S. Luo. <em>LSM-VEC: A Large-Scale Disk-Based System for Dynamic
+                            Vector Search</em>. arXiv preprint arXiv:2505.17152, 2025. <a class='backref'
+                            href='#top'>↩</a></li>
+                    <li id='ref-9'>S. Voruganti & M. T. Özsu. <em>MIRAGE-ANNS: Mixed Approach Graph-Based Indexing for
+                            Approximate Nearest Neighbor Search</em>. Proc. ACM Manage. Data 3(3): 1–27, 2025. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-10'>G. Hu, S. Cai, T. T. A. Dinh, Z. Xie, C. Yue, G. Chen, & B. C. Ooi. <em>HAKES:
+                            Scalable Vector Database for Embedding Search Service</em>. PVLDB 18(9): 3049–3062, 2025. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-11'>J. Zhu, Y. Wang, B. Ding, P. A. Bernstein, V. Narasayya, & S. Chaudhuri. <em>MINT:
+                            Multi-Vector Search Index Tuning</em>. arXiv preprint arXiv: 2504.20018, 2025. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-12'>W. Jiang. <em>Vector-Centric Machine Learning Systems: A Cross-Stack Approach</em>.
+                        arXiv preprint arXiv:2508.08469, 2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-13'>D. Karapiperis, L. Akritidis, P. Bozanis, & V. S. Verykios. <em>A Comparative
+                            Analysis of Graph-Based and Partition-Based Approximate Nearest Neighbor Search for
+                            Large-Scale Entity Resolution</em>. Intelligent Decision Technologies 19(6): 3826–3840,
+                        2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-14'>I. Azizi, K. Echihabi, T. Palpanas, & V. Christophides. <em>Toward Efficient and
+                            Scalable Design of In-Memory Graph-Based Vector Search</em>. arXiv preprint
+                        arXiv:2509.05750, 2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-15'>C. Zhang & R. J. Miller. <em>Distribution-Aware Exploration for Adaptive HNSW
+                            Search</em>. arXiv preprint arXiv:2512.06636, 2025. <a class='backref' href='#top'>↩</a>
+                    </li>
+                    <li id='ref-16'>H. Lee, T. Park, Y. Na, & W.-H. Kim. <em>P-HNSW: Crash-Consistent HNSW for Vector
+                            Databases on Persistent Memory</em>. Applied Sciences 15(19): 10554, 2025. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-17'>I. Azizi, K. Echihabi, T. Palpanas, & V. Christophides. <em>Graph-Based Vector
+                            Search: An Experimental Evaluation of the State-of-the-Art</em>. Proc. ACM Manage. Data
+                        3(1): Article 3, 2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-18'>W. Yuan, H. Liang, & X. Jin. <em>GHVSA: Graph-Based High-Dimensional Vector Search
+                            Accelerator</em>. Journal of Systems Architecture 167: 103514, 2025. <a class='backref'
+                            href='#top'>↩</a></li>
+                    <li id='ref-19'>Y. Xu, Q. Zhang, Q. Chen, B. Lu, M. Li, P. Adams, et al. <em>Scalable Distributed
+                            Vector Search via Accuracy-Preserving Index Construction</em>. arXiv preprint
+                        arXiv:2512.17264, 2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-20'>V. Kazakovtsev, M. Plekhanov, A. Naumchev, et al. <em>Fast Adaptive Approximate
+                            Nearest Neighbor Search with Cluster-Shaped Indices</em>. Big Data and Cognitive Computing
+                        9(10): 254, 2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-21'>D. Kim & Y. Nakashima. <em>Optimizing Matrix-Vector Operations with CGLA for
+                            High-Performance Approximate k-NN Search</em>. IEEE Access 11: 3582825 (early access), 2025.
+                        <a class='backref' href='#top'>↩</a>
+                    </li>
+                    <li id='ref-22'>D. Karapiperis & V. S. Verykios. <em>Scaling Entity Resolution with K-Means: A
+                            Review of Partitioning Techniques</em>. Electronics 14(18): 3605, 2025. <a class='backref'
+                            href='#top'>↩</a></li>
+                    <li id='ref-23'>I. Aden-Ali, H. Ferhatosmanoglu, A. Greaves-Tunnell, N. Mishra, & T. Wagner.
+                        <em>Quantization for Vector Search Under Streaming Updates</em>. arXiv preprint arXiv:
+                        2512.18335, 2025. <a class='backref' href='#top'>↩</a>
+                    </li>
+                    <li id='ref-24'>K. Agrawal, N. Nargund, & O. Banerjee. <em>Optimization of Latent-Space Compression
+                            Using Game-Theoretic Techniques for Transformer-Based Vector Search</em>. arXiv preprint
+                        arXiv:2508.18877, 2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-25'>N. Upreti, H. V. Simhadri, H. S. Sundar, K. Sundaram, S. Boshra, S. Gupta, et al.
+                        <em>Cost-Effective, Low-Latency Vector Search with Azure Cosmos DB</em>. PVLDB 18(12):
+                        5375–5388, 2025. <a class='backref' href='#top'>↩</a>
+                    </li>
+                    <li id='ref-26'>G. Sehgal & S. Salihoglu. <em>NaviX: A Native Vector Index Design for Graph DBMSs
+                            with Robust Predicate-Agnostic Search Performance</em>. PVLDB 18(11): 4664–4676, 2025. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-27'>Y. Liu, F. Fang, & C. Qian. <em>Efficient Vector Search on Disaggregated Memory with
+                            d-HNSW</em>. In HotStorage 2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-28'>J.-H. Park, et al. <em>ON-NSW: Accelerating High-Dimensional Vector Search on Edge
+                            Devices with GPU-Optimized NSW</em>. Sensors 25(20): 6461, 2025. <a class='backref'
+                            href='#top'>↩</a></li>
+                    <li id='ref-29'>O. Senkevich, et al. <em>KScaNN: Scalable Approximate Nearest Neighbor Search on
+                            Kunpeng</em>. arXiv preprint arXiv:2511.02877, 2025. <a class='backref' href='#top'>↩</a>
+                    </li>
+                    <li id='ref-30'>K. Ma, et al. <em>KBest: Efficient Vector Search on Kunpeng CPU</em>. arXiv preprint
+                        arXiv:2508.03016, 2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-31'>J. Xie, J. X. Yu, S. Teng, & Y. Liu. <em>Beyond Vector Search: Querying With and
+                            Without Predicates</em>. Proc. ACM Manage. Data 3(6): 1–26, 2025. <a class='backref'
+                            href='#top'>↩</a></li>
+                    <li id='ref-32'>C. Ye, X. Yan, & E. Lo. <em>Compass: General Filtered Search across Vector and
+                            Structured Data</em>. arXiv preprint arXiv:2510.27141, 2025. <a class='backref'
+                            href='#top'>↩</a></li>
+                    <li id='ref-33'>M. Li, X. Yan, B. Lu, Y. Zhang, & G. Li. <em>Attribute Filtering in Approximate
+                            Nearest Neighbor Search: An In-Depth Experimental Study</em>. Proc. SIGMOD 2025. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-34'>F. Zhang, et al. <em>Efficient Dynamic Indexing for Range-Filtered Approximate
+                            Nearest Neighbor Search</em>. Proc. ACM Manage. Data 3(3): Article 152, 2025. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-35'>Y. Lin, et al. <em>Survey of Filtered Approximate Nearest Neighbor Search over the
+                            Vector-Scalar Hybrid Data</em>. arXiv preprint arXiv:2505.06501, 2025. <a class='backref'
+                            href='#top'>↩</a></li>
+                    <li id='ref-36'>Z. Li, S. Huang, W. Ding, Y. Park, & J. Chen. <em>SIEVE: Effective Filtered Vector
+                            Search with Collection of Indexes</em>. PVLDB 18(11): 4723–4736, 2025. <a class='backref'
+                            href='#top'>↩</a></li>
+                    <li id='ref-37'>X. Chen, et al. <em>Elastic Index-Select for Label Hybrid Search in Vector
+                            Database</em>. (Preprint, 2024). <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-38'>A. Heidari & W. Zhang. <em>Filter-Centric Vector Indexing: Geometric Transformation
+                            for Efficient Filtered Vector Search</em>. arXiv preprint arXiv:2506.15987, 2025. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-39'>R. Raja & A. Vats. <em>Beyond Nearest Neighbors: Semantic Compression and
+                            Graph-Augmented Retrieval for Enhanced Vector Search</em>. arXiv preprint arXiv:2507.19715,
+                        2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-40'>J. Ding, B. Zhang, X. Wang, & C. Zhou. <em>TSNE: Trajectory Similarity Network
+                            Embedding</em>. In Proc. 30th ACM SIGSPATIAL, Article 86, 2022. <a class='backref'
+                            href='#top'>↩</a></li>
+                    <li id='ref-41'>Z. Fan, Y. Zeng, Z. Zheng, & Y. Tong. <em>FedVSE: A Privacy-Preserving and Efficient
+                            Vector Search Engine for Federated Databases</em>. PVLDB 18(12): 5371–5374, 2025. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-42'>J. Mohoney, et al. <em>Quake: Adaptive Indexing for Vector Search</em>. arXiv
+                        preprint arXiv:2506.03437, 2025. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-43'>Q. Xie, Y. Zhu, J. Huang, P. Du, & J. Nie. <em>Graph Neural Collaborative Topic
+                            Model for Citation Recommendation</em>. ACM T. Info. Systems 40(3): 1–30, 2021. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-44'>C. R. Harris et al. <em>Array Programming with NumPy</em>. Nature 585(7825):
+                        357–362, 2020. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-45'>Z. Wang et al. <em>PositionID: LLMs Can Control Lengths, Copy and Paste with
+                            Explicit Positional Awareness</em>. arXiv preprint arXiv:2410.07035, 2024. <a
+                            class='backref' href='#top'>↩</a></li>
+                    <li id='ref-46'>Y. Hwang, S. Lee, & J. Jeon. <em>Integrating AI Chatbots into the Metaverse</em>.
+                        Education and Information Technologies 30(4): 4099–4130, 2024. <a class='backref'
+                            href='#top'>↩</a></li>
+                    <li id='ref-47'>P. Adsule & B. R. Kadali. <em>Analysis of Contributing Factors in Decision to
+                            Bicycle</em>. Transport Policy 147: 50–58, 2024. <a class='backref' href='#top'>↩</a></li>
+                    <li id='ref-48'>J. A. Marino-Romero, et al. <em>Evolution of Digital Transformation in SMEs</em>.
+                        Technol. Forecasting & Social Change 199: 123014, 2024. <a class='backref' href='#top'>↩</a>
+                    </li>
+                    <li id='ref-49'>A. Heinonen, et al. <em>Synthesizing Research on Programmers’ Mental Models</em>.
+                        Information and Software Technology 164: 107300, 2023. <a class='backref' href='#top'>↩</a></li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>Citation</h2>
+                <p>If you found this survey useful, please cite as:</p>
+                <section id="citation">
+                    <h2>Cite This Work</h2>
+                    <p>If you find this survey useful in your research, please cite it using the following BibTeX entry:
+                    </p>
+
+                    <div class="citation-box">
+                        <pre><code>@article{Van2025VectorSearch,
+  title   = {Advancements in Vector Search Algorithms: A Comprehensive 2025 Survey},
+  author  = {Quan Van},
+  journal = {Pomai Research},
+  year    = {2026},
+  month   = {Feb},
+  url     = {https://pomaidb-web.vercel.app/research/vector-search-2025-survey.html}
+}</code></pre>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>APA Format:</strong><br>
+                        Van, Q. (2025). <em>Advancements in Vector Search Algorithms: A Comprehensive 2025 Survey</em>.
+                        Pomai Research.</p>
+                </section>
+
+                <hr class="divider">
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 • Prepared for open sharing (personal research page).</p>
+        </div>
+    </footer>
+</body>
+
+</html>
