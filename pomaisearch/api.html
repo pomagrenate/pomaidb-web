@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - Pomai Search</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="index.html">Pomai Search</a>
+            <nav class="nav">
+                <a href="index.html">Overview</a>
+                <a href="guides.html">Guides</a>
+                <a href="api.html" aria-current="page">API Reference</a>
+                <a href="architecture.html">Architecture</a>
+                <a href="benchmarks.html">Benchmarks</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container doc-content">
+        <div style="margin-bottom: 40px; padding: 15px; background: var(--code-bg); border-radius: 8px;">
+            <strong>Select API:</strong>
+            <a href="#cpp-api" style="margin-left:10px">C++ API</a> |
+            <a href="#c-abi" style="margin-left:10px">C Stable ABI</a>
+        </div>
+
+        <section id="cpp-api">
+            <h1>C++ API Reference</h1>
+
+            <h3>SearchEngine Class</h3>
+            <pre><code>// Open
+static StatusOr&lt;unique_ptr&lt;SearchEngine&gt;&gt; Open(const SearchEngineConfig& cfg);
+
+// Upsert
+Status Upsert(string_view key, VectorView vec, Metadata meta = {}, 
+              optional&lt;milliseconds&gt; ttl = nullopt, optional&lt;string&gt; text = nullopt);
+
+// Search
+StatusOr&lt;vector&lt;ResultItem&gt;&gt; Search(VectorView q, QueryOptions opt);
+
+// Hybrid Search
+StatusOr&lt;vector&lt;ResultItem&gt;&gt; SearchHybrid(const HybridQuery& query);</code></pre>
+
+            <h3>Key Structures</h3>
+            <h4>SearchEngineConfig</h4>
+            <pre><code>struct SearchEngineConfig {
+    int dim = 0;
+    IndexType index_type = IndexType::Flat; // Flat, Hnsw, IvfFlat, IvfSq8
+    Similarity similarity = Similarity::Dot;
+    int num_shards = 1;
+    bool enable_avx2 = true;
+    // ... HNSW & IVF params
+};</code></pre>
+
+            <h4>Thread Safety</h4>
+            <ul>
+                <li><strong>Concurrent Reads:</strong> Safe.</li>
+                <li><strong>Concurrent Writes:</strong> Safe (internally synchronized).</li>
+                <li><strong>Read during Write:</strong> Safe (readers see consistent state).</li>
+            </ul>
+        </section>
+
+        <hr class="divider">
+
+        <section id="c-abi">
+            <h1>C Stable ABI</h1>
+            <p>Safe wrapper for binding Rust, Go, Python, Node.</p>
+
+            <h3>Ownership Rules</h3>
+            <ul>
+                <li>Caller <strong>must not</strong> free memory returned by C API directly.</li>
+                <li>Use specific free functions: <code>pomai_search_results_free()</code>,
+                    <code>pomai_search_engine_close()</code>.
+                </li>
+                <li>Pointers in <code>pomai_search_hit_t</code> are valid only while the owning result object is alive.
+                </li>
+            </ul>
+
+            <h3>Status Model</h3>
+            <ul>
+                <li>All functions return <code>pomai_search_status_code_t</code>.</li>
+                <li><code>NULL</code> status implies success.</li>
+            </ul>
+
+            <h3>Build & Link</h3>
+            <pre><code>find_package(pomai_search REQUIRED)
+target_link_libraries(my_app PRIVATE pomai_search_c)</code></pre>
+        </section>
+
+        <footer class="article-footer">
+            <div class="muted small">© 2026 Pomai Search Project.</div>
+        </footer>
+    </main>
+</body>
+
+</html>

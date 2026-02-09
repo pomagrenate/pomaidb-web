@@ -1,0 +1,169 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+    /* Colors - Academic/Scientific Theme */
+    --bg-color: #ffffff;
+    --text-main: #111111;
+    /* Đen gần như tuyệt đối cho văn bản chính */
+    --text-muted: #555555;
+    /* Xám cho các văn bản phụ */
+    --link-color: #2563EB;
+    /* Royal Blue cho các liên kết */
+    --border-color: #E5E7EB;
+    /* Màu viền xám nhẹ */
+    --code-bg: #F3F4F6;
+    --pill-bg: #F1F5F9;
+    /* Màu nền cho các thẻ tag (pill) */
+
+    /* Dimensions */
+    --header-height: 60px;
+    --container-width: 1100px;
+
+    /* Fonts */
+    /* Font nội dung bài viết (nếu có): Serif (Georgia) để dễ đọc */
+    --font-serif: 'Georgia', 'Cambria', 'Times New Roman', serif;
+    /* Font tiêu đề/UI: Sans-serif (Inter) hiện đại, sạch sẽ */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    /* Font cho code hoặc metadata */
+    --font-mono: 'JetBrains Mono', 'Menlo', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-serif);
+    /* Mặc định dùng Serif cho cảm giác "giấy" */
+    line-height: 1.6;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   2. HEADER (Global Navigation)
+   ========================================= */
+.site-header {
+    height: var(--header-height);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    font-family: var(--font-sans);
+    /* Header luôn dùng Sans-serif */
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 24px;
+    width: 100%;
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #000;
+}
+
+.nav a {
+    margin-left: 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.nav a[aria-current="page"] {
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+/* =========================================
+   3. SHARED COMPONENTS (Tags, Footer, Utils)
+   ========================================= */
+
+/* Metadata Pills (Các thẻ tag tròn) */
+.meta-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pill {
+    background: var(--pill-bg);
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 99px;
+    /* Bo tròn hoàn toàn */
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+/* Footer chung */
+.article-footer {
+    margin-top: 80px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    font-family: var(--font-sans);
+}
+
+/* Utilities (Các class tiện ích nhỏ) */
+.muted {
+    color: var(--text-muted);
+}
+
+.small {
+    font-size: 0.85rem;
+}
+
+/* =========================================
+   4. ARTICLE CONTENT STYLES (Cho các trang bài đọc)
+   ========================================= */
+/* Phần này hỗ trợ hiển thị bài viết chi tiết nếu bạn tái sử dụng styles.css này */
+
+h2,
+h3 {
+    font-family: var(--font-sans);
+    color: var(--text-main);
+    margin-top: 40px;
+    margin-bottom: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+ul,
+ol {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+}

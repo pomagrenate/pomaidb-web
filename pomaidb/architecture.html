@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture & Design - Pomai Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .section-anchor {
+            scroll-margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="doc-header">
+        <div class="container">
+            <a href="index.html" class="back-link">← Back to Hub</a>
+        </div>
+    </header>
+
+    <main class="container doc-content">
+        <h1>System Architecture & Design</h1>
+        <p>Comprehensive guide to PomaiDB's internal design, consistency guarantees, and routing algorithms.</p>
+
+        <nav
+            style="margin: 20px 0; padding: 15px; background: var(--surface-color); border-radius: 8px; border: 1px solid var(--border-color);">
+            <strong>Contents:</strong>&nbsp;
+            <a href="#overview" style="margin-right: 15px;">1. System Overview</a>
+            <a href="#consistency" style="margin-right: 15px;">2. Consistency Model</a>
+            <a href="#cbrs">3. CBR-S Routing</a>
+        </nav>
+
+        <hr class="divider">
+
+        <section id="overview" class="section-anchor">
+            <h2>1. System Overview</h2>
+            <h3>What it is</h3>
+            <ul>
+                <li>An embedded, single-process storage engine with <strong>sharded single-writer</strong> runtimes and
+                    <strong>lock-free snapshot readers</strong>.
+                </li>
+            </ul>
+
+            <h3>Component Diagram</h3>
+            <pre class="mermaid">
+flowchart TB
+  API["Public API: pomai::DB"] --> MM[MembraneManager]
+  MM --> ENG["Engine (per membrane)"]
+  ENG --> SHARD["Shard (per shard)"]
+  SHARD --> RT[ShardRuntime]
+  RT --> WAL["WAL per shard"]
+  RT --> MEM[Active MemTable]
+  RT --> FMEM[Frozen MemTables]
+  RT --> SEG[Segments]
+  SEG --> MAN[Shard Manifest]
+  ENG --> POOL[Search Thread Pool]
+            </pre>
+
+            <h3>Data Paths</h3>
+            <ul>
+                <li><strong>Write path</strong>: API → shard mailbox → WAL append → Active MemTable → optional soft
+                    freeze → snapshot publish.</li>
+                <li><strong>Read path</strong>: API → snapshot load → frozen memtables → segments → merge.</li>
+                <li><strong>Persistence</strong>: <code>Freeze</code> flushes frozen memtables to segments, updates
+                    manifest, resets WAL.</li>
+            </ul>
+
+            <h3>Request Lifecycle (Upsert)</h3>
+            <pre class="mermaid">
+sequenceDiagram
+  participant Client
+  participant DB as pomai::DB
+  participant Shard as ShardRuntime
+  participant WAL
+  participant Mem as Active MemTable
+  participant Snap as ShardSnapshot
+
+  Client->>DB: Put(id, vec)
+  DB->>Shard: Enqueue PutCmd
+  Shard->>WAL: AppendPut
+  Shard->>Mem: MemTable::Put
+  alt count >= 5000
+    Shard->>Snap: RotateMemTable + PublishSnapshot
+  end
+  Shard-->>Client: Status::Ok
+            </pre>
+        </section>
+
+        <hr class="divider">
+
+        <section id="consistency" class="section-anchor">
+            <h2>2. Consistency Model</h2>
+            <h3>Core Guarantees</h3>
+            <ul>
+                <li><strong>Snapshot Isolation per shard</strong>: Reads operate on a single immutable
+                    <code>ShardSnapshot</code>.
+                </li>
+                <li><strong>Bounded Staleness</strong>: Writes are visible only after active MemTable rotation (soft
+                    freeze).</li>
+            </ul>
+
+            <h3>State Machine</h3>
+            <pre class="mermaid">
+stateDiagram-v2
+  [*] --> Active
+  Active --> Frozen: "soft freeze (>=5000)"
+  Active --> Frozen: "explicit Freeze (rotates)"
+  Frozen --> Segment: Freeze flush
+            </pre>
+
+            <h3>Timeline Example</h3>
+            <pre><code>T0: Put(id=1) -> appended to WAL + Active MemTable
+T1: Get(id=1) -> NotFound (active not in snapshot)
+T2: Active count reaches 5000 -> RotateMemTable + PublishSnapshot
+T3: Get(id=1) -> Found (visible in snapshot)</code></pre>
+        </section>
+
+        <hr class="divider">
+
+        <section id="cbrs" class="section-anchor">
+            <h2>3. CBR-S Implementation</h2>
+            <p><strong>CBR-S</strong> stands for Cluster-Based Routing System. It handles Global-Centroid Shard
+                Assignment + Routed Query + Dual-Epoch Probe.</p>
+
+            <h3>Routing Table Format</h3>
+            <ul>
+                <li>File: <code>ROUTING</code> (binary payload + CRC32C)</li>
+                <li>Contains: <code>centroids</code>, <code>owner_shard</code> mapping.</li>
+            </ul>
+
+            <h3>Dual-Epoch Probe Strategy</h3>
+            <ol>
+                <li>Compute nearest centroids to query.</li>
+                <li>Choose probe count (default 2).</li>
+                <li>Map centroid IDs to shard IDs.</li>
+                <li><strong>Dual-Epoch Logic:</strong> Union with previous table's shard set if available to mitigate
+                    misses during transition.</li>
+            </ol>
+        </section>
+
+    </main>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+
+</html>
