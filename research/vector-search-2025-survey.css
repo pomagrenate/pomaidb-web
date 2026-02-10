@@ -325,6 +325,7 @@ mjx-container {
   overflow-x: auto;
 }
 
+/* Ghi đè style cho pre và code bên trong citation box */
 .citation-box pre {
   background: transparent;
   /* Ghi đè style pre mặc định để tránh bị trùng nền */
