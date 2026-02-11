@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index | Pomai Queue</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --border-color: #e0e0e0;
+            --hover-bg: #fafafa;
+            --accent-color: #000000;
+
+            --font-serif: "Sora", "Georgia", serif;
+            --font-sans: "Inter", -apple-system, sans-serif;
+            --font-mono: "SF Mono", "Roboto Mono", monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-sans);
+            line-height: 1.5;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* --- Header --- */
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--text-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .meta-line {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: #555;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #333;
+            max-width: 650px;
+        }
+
+        /* --- Link List Layout --- */
+        .index-list {
+            display: grid;
+            gap: 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .index-item {
+            display: grid;
+            grid-template-columns: 200px 1fr auto;
+            align-items: baseline;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.15s;
+        }
+
+        .index-item:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .item-category {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            padding-right: 1rem;
+        }
+
+        .item-content h3 {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-content p {
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .item-arrow {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            padding-left: 1rem;
+            color: #888;
+        }
+
+        /* --- Data Section --- */
+        .metrics-section {
+            margin-top: 4rem;
+        }
+
+        h2 {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .metrics-table {
+            width: 100%;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            border-collapse: collapse;
+        }
+
+        .metrics-table th,
+        .metrics-table td {
+            text-align: left;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .metrics-table th {
+            color: #666;
+            font-weight: normal;
+            width: 40%;
+        }
+
+        .metrics-table td {
+            color: #000;
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        @media (max-width: 700px) {
+            .index-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .item-category {
+                margin-bottom: 0;
+            }
+
+            .item-arrow {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="meta-line">Pomai Queue / Docs / Index</div>
+        <h1>Documentation</h1>
+        <p class="description">
+            Technical reference for the Pomai Queue system.
+            Single-host durable architecture with sharded actors.
+        </p>
+    </header>
+
+    <main>
+        <div class="index-list">
+            <a href="system_architecture_and_internals.html" class="index-item">
+                <div class="item-category">01. System</div>
+                <div class="item-content">
+                    <h3>Architecture & Internals</h3>
+                    <p>Sharded actor model, segment log storage, and protocol definitions.</p>
+                </div>
+                <div class="item-arrow">HTML</div>
+            </a>
+
+            <a href="queue_contract_and_semantics.html" class="index-item">
+                <div class="item-category">02. Semantics</div>
+                <div class="item-content">
+                    <h3>Contract & Invariants</h3>
+                    <p>Delivery guarantees, message states, and failure handling rules.</p>
+                </div>
+                <div class="item-arrow">HTML</div>
+            </a>
+
+            <a href="performance_benchmarks_report.html" class="index-item">
+                <div class="item-category">03. Metrics</div>
+                <div class="item-content">
+                    <h3>Performance Report</h3>
+                    <p>Throughput/Latency benchmarks and current system limitations.</p>
+                </div>
+                <div class="item-arrow">HTML</div>
+            </a>
+
+            <a href="reliability_and_crash_testing.html" class="index-item">
+                <div class="item-category">04. Verification</div>
+                <div class="item-content">
+                    <h3>Reliability & Testing</h3>
+                    <p>Crash Oracle harness, failpoints, and stress testing methodology.</p>
+                </div>
+                <div class="item-arrow">HTML</div>
+            </a>
+
+            <a href="developer_notes_and_issues.html" class="index-item">
+                <div class="item-category">05. Development</div>
+                <div class="item-content">
+                    <h3>Notes & Known Issues</h3>
+                    <p>Visual regressions and testing priority plan.</p>
+                </div>
+                <div class="item-arrow">HTML</div>
+            </a>
+        </div>
+
+        <section class="metrics-section">
+            <h2>Current System Metrics</h2>
+            <table class="metrics-table">
+                <tr>
+                    <th>Benchmark Environment</th>
+                    <td>Dell Latitude E5440 (Release Build)</td>
+                </tr>
+                <tr>
+                    <th>Enqueue Throughput (1KB)</th>
+                    <td>757.60 msg/sec</td>
+                </tr>
+                <tr>
+                    <th>Enqueue P95 Latency</th>
+                    <td>1.55 ms</td>
+                </tr>
+                <tr>
+                    <th>Recovery Time (5k msgs)</th>
+                    <td>0.18 ms</td>
+                </tr>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>Generated: 2026-02-10 | Pomai Systems</p>
+    </footer>
+
+</body>
+
+</html>
