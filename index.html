@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -7,13 +7,13 @@
     <title>Pomai Hub | Engineering & Research</title>
     <meta name="description"
         content="A digital archive for Pomai's engineering research, software experiments, and open-source contributions.">
-    <link rel="stylesheet" href="./style.css">
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -22,27 +22,34 @@
 
     <header class="site-header">
         <div class="container header-inner">
-            <div class="logo">
-                Pomai Hub
-            </div>
+            <div class="logo">Pomai Hub</div>
             <nav class="nav-links">
                 <a href="/research/index.html">Research</a>
-                <a href="#engineering">Engineering</a>
+                <a href="/engineering/index.html">Engineering</a>
                 <a href="/devlog/index.html">Dev Logs</a>
             </nav>
-            <a href="mailto:contact@pomai.com" class="btn-contact">Get in touch</a>
+            <div class="header-actions">
+                <a href="https://discord.gg/nw5s49VB" target="_blank" class="btn-discord-mini">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="mailto:contact@pomai.com" class="btn-contact">Get in touch</a>
+            </div>
         </div>
     </header>
 
     <main class="container">
         <section class="hero">
-            <span class="badge">v2.0.0 &mdash; Lab Active</span>
             <h1 class="hero-title">Building the <span class="gradient-text">Intelligence</span><br> of Tomorrow.</h1>
             <p class="hero-desc">
                 A collection of experiments in <strong>Search Algorithms</strong>,
                 <strong>Distributed Databases</strong>, and <strong>AI Agents</strong>.
-                Documenting the journey from raw code to production-ready systems.
             </p>
+            <div class="hero-buttons">
+                <a href="/engineering/index.html" class="btn-primary">Explore Projects</a>
+                <a href="https://discord.gg/nw5s49VB" target="_blank" class="btn-discord">
+                    <i class="fab fa-discord"></i> Join Community
+                </a>
+            </div>
         </section>
 
         <section id="research" class="section">
@@ -84,15 +91,14 @@
                 <a href="/pomaiqueue/index.html" class="card-link">
                     <article class="card">
                         <div class="card-header">
-                            <span class="tag">Pomai Queue</span>
+                            <span class="tag">Message Broker</span>
                             <span class="status-dot green"></span>
                         </div>
                         <h3>Pomai Queue</h3>
-                        <p>High-performance, deterministic, and crash-safe backend task queue.</p>
+                        <p>High-performance, deterministic, and crash-safe backend task queue for distributed systems.</p>
                         <div class="tech-stack">
-                            <span>Python</span>
-                            <span>NLP</span>
-                            <span>Vector Index</span>
+                            <span>Rust</span> <span>ZeroMQ</span>
+                            <span>Raft</span>
                         </div>
                     </article>
                 </a>
@@ -101,15 +107,20 @@
 
         <footer class="site-footer">
             <div class="footer-content">
-                <p>&copy; 2026 Pomai Research Lab. Open for collaboration.</p>
+                <p>&copy; 2026 Pomai Research Lab. SYSTEM_REVISION: 4.2.0</p>
                 <div class="social-links">
-                    <a href="https://github.com/AutoCookies">GitHub</a>
-                    <a href="https://www.linkedin.com/in/quan-van-15a5b3248/">LinkedIn</a>
+                    <a href="https://github.com/AutoCookies" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://discord.gg/nw5s49VB" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+                    <a href="https://www.linkedin.com/in/quan-van-15a5b3248/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
                 </div>
             </div>
         </footer>
     </main>
 
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
-
 </html>
