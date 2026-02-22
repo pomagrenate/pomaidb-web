@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Architecture & Internals | Pomai Queue</title>
+    <style>
+        :root {
+            --paper-bg: #ffffff;
+            --paper-text: #111111;
+            --paper-muted: #555555;
+            --paper-accent: #0055ff;
+            --paper-border: #e0e0e0;
+            --font-serif: "Georgia", "Times New Roman", serif;
+            --font-sans: "Inter", -apple-system, sans-serif;
+            --font-mono: "SF Mono", "Roboto Mono", monospace;
+        }
+
+        body {
+            background: var(--paper-bg);
+            color: var(--paper-text);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 4px solid var(--paper-text);
+            padding-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--paper-border);
+            padding-bottom: 0.5rem;
+        }
+
+        code {
+            font-family: var(--font-mono);
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            font-size: 0.9em;
+            border-radius: 2px;
+        }
+
+        pre {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border: 1px solid var(--paper-border);
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .meta-data {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--paper-muted);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+        }
+
+        .diagram-box {
+            border: 1px solid var(--paper-text);
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: var(--font-mono);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border: 1px solid var(--paper-text);
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-left: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--paper-accent);
+            display: inline-block;
+            width: 1.5em;
+            margin-left: -1.5em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>System Architecture</h1>
+        <div class="meta-data">
+            System: Pomai Queue (Core Engine)<br>
+            Component: Single-host Durable Queue<br>
+            Status: Active Development
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h2>High-Level Design</h2>
+            <p>PomaiQueue is a single-host durable queue with sharded actor threads. The core engine resides in
+                <code>src/core</code>, while the gRPC server acts as a thin wrapper.
+            </p>
+
+            <div class="diagram-box">
+                Producer &rarr; [Shard Hash] &rarr; [Shard Actor] &rarr; [Segment Log]<br><br>
+                Consumer &rarr; [Shard Hash] &rarr; [Group State] &rarr; [Inflight] &rarr; [Checkpoint]
+            </div>
+
+            <p>The shard actor currently executes tasks synchronously using a queue and worker thread. This architecture
+                serves as a placeholder for more advanced scheduling mechanisms.</p>
+        </section>
+
+        <section>
+            <h2>Durability & Persistence</h2>
+            <p>The system guarantees durability through an append-only log structure validated by CRC64 checksums.</p>
+
+            <h3>Implemented Mechanisms</h3>
+            <ul>
+                <li><strong>Segment Log:</strong> Append-only storage with append/recover/read capabilities.</li>
+                <li><strong>Checkpoint Store:</strong> Uses atomic rename and <code>fsync</code> to persist committed
+                    offsets.</li>
+                <li><strong>Recovery:</strong> Scans segments, validates CRC, and truncates partial tails to ensure
+                    consistency.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Engine Contract & Replay</h2>
+            <p>The engine operationalizes the queue contract through strict internal guarantees.</p>
+
+            <h3>Core Guarantees</h3>
+            <ul>
+                <li><strong>Deterministic Replay:</strong> State is reconstructed from the segment log plus an
+                    append-only transition log (<code>&lt;group&gt;.events</code>).</li>
+                <li><strong>Bounded Scheduling:</strong> Uses a fixed-size deadline wheel to manage retries, avoiding
+                    expensive full inflight scans.</li>
+                <li><strong>Durable Snapshots:</strong> <code>&lt;group&gt;.state</code> accelerates restart but does
+                    not define semantics; truth comes from the log.</li>
+            </ul>
+
+            <h3>Explain API</h3>
+            <p>The <code>InspectMessage(queue, group, id)</code> function exposes internal state for debugging,
+                including sequence, timestamps, retry counts, and lease ownership tokens.</p>
+        </section>
+
+        <section>
+            <h2>Protocol Definition</h2>
+            <p>The authoritative API contract is defined in <code>src/rpc/proto/pomaiqueue.proto</code>. Currently,
+                proto definitions for queue lifecycle, produce/consume, and ack/nack are implemented.</p>
+        </section>
+    </main>
+
+</body>
+
+</html>
