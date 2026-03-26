@@ -16,7 +16,7 @@ export const DOCS_NAV = [
   {
     category: "Core Concepts",
     pages: [
-      { title: "Architecture", slug: "architecture" },
+      { title: "Architecture & Execution", slug: "architecture" },
       { title: "Storage Engine (WAL & LSM)", slug: "storage-engine" },
       { title: "Memory & Zero-OOM", slug: "memory" },
       { title: "VFS & Portability", slug: "vfs" },
@@ -27,31 +27,31 @@ export const DOCS_NAV = [
     pages: [
       { title: "Quantization (SQ8/FP16)", slug: "quantization" },
       { title: "Sharding & Embedded", slug: "sharding-vs-embedded" },
-      { title: "Metric Types & Distance", slug: "metrics" },
+      { title: "Metric Types", slug: "metrics" },
     ],
   },
   {
-    category: "Membranes",
+    category: "Membranes & Subsystems",
     pages: [
-      { title: "Lifecycle & Management", slug: "membranes-lifecycle" },
-      { title: "Vector vs RAG Membranes", slug: "membranes-kinds" },
+      { title: "Membrane Lifecycle", slug: "membranes-lifecycle" },
+      { title: "Supported Kinds & Types", slug: "membranes-kinds" },
     ],
   },
   {
-    category: "Agent AI Memory",
+    category: "Edge Analytics & Memory",
     pages: [
-      { title: "AgentMemory System", slug: "agent-memory" },
-      { title: "Records & Sessions", slug: "records-sessions" },
+      { title: "Hybrid & Multimodal Search", slug: "agent-memory" },
+      { title: "Object Links & Time-Travel", slug: "records-sessions" },
       { title: "Device-Wide Pruning", slug: "pruning" },
     ],
   },
   {
-    category: "Edge RAG Pipeline",
+    category: "Offline-First RAG Pipeline",
     pages: [
       { title: "RAG Overview", slug: "rag-overview" },
       { title: "Zero-Copy Chunking", slug: "chunking" },
       { title: "Embedding Providers", slug: "embedding-providers" },
-      { title: "Retrieval Pipeline", slug: "rag-pipeline" },
+      { title: "RAG Pipeline Usage", slug: "rag-pipeline" },
     ],
   },
   {
@@ -72,10 +72,8 @@ export const ALL_DOCS: DocPage[] = [
     title: "Introduction",
     slug: "introduction",
     category: "Getting Started",
-    content: `PomaiDB is the **predictable vector database for the edge of things**. 
+    content: `PomaiDB is the predictable vector database for the edge of things. 
 
 It is an embedded, single-threaded vector database written in C++20, built for edge devices and environments where stability and hardware longevity matter more than peak throughput.`,
   },
-  // More will be populated in [slug]/page.tsx or here if we prefer a single source.
-  // Given the "modulized" requirement, a single source of truth for content is good for "easy update".
 ];
