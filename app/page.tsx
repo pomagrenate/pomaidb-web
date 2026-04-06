@@ -2,27 +2,11 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="relative isolate min-h-screen bg-background">
+    <div className="relative isolate bg-background pb-24">
       {/* Background Decor */}
       <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
         <div className="relative left-[calc(50%-11rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary to-accent opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)' }}></div>
       </div>
-
-      {/* Navigation */}
-      <nav className="flex items-center justify-between p-6 lg:px-8 max-w-7xl mx-auto" aria-label="Global">
-        <div className="flex lg:flex-1 items-center gap-2">
-          <Image src="/logo.png" alt="PomaiDB Logo" width={32} height={32} className="rounded-sm" />
-          <span className="font-bold text-xl tracking-tighter">PomaiDB</span>
-        </div>
-        <div className="flex gap-x-6">
-          <a href="https://github.com/pomagrenate/pomaidb" target="_blank" className="text-sm font-semibold leading-6 hover:text-primary transition-colors">
-            GitHub
-          </a>
-          <a href="/docs" className="text-sm font-semibold leading-6 hover:text-primary transition-colors">
-            Documentation
-          </a>
-        </div>
-      </nav>
 
       {/* Hero */}
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
@@ -35,7 +19,7 @@ export default function Home() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <a
-              href="#"
+              href="/docs"
               className="rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all hover:scale-105 active:scale-95"
             >
               Get Started
@@ -138,20 +122,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="mx-auto max-w-7xl px-6 py-12 lg:px-8 border-t border-border">
-        <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-          <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="PomaiDB Logo" width={24} height={24} className="rounded-sm opacity-80" />
-            <span className="font-semibold text-muted-foreground">© 2026 PomaiDB. All rights reserved.</span>
-          </div>
-          <div className="flex gap-x-8">
-            <a href="https://github.com/pomagrenate/pomaidb" className="text-sm text-muted-foreground hover:text-primary">GitHub</a>
-            <a href="https://www.linkedin.com/in/quan-van-15a5b3248" className="text-sm text-muted-foreground hover:text-primary">LinkedIn</a>
-            <a href="https://discord.gg/xmSk3GPH" className="text-sm text-muted-foreground hover:text-primary">Discord</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
