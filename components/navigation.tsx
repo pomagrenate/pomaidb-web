@@ -16,6 +16,7 @@ export function Navigation() {
           
           <div className="hidden md:flex gap-x-8">
             <NavLink href="/use-cases">Use Cases</NavLink>
+            <NavLink href="/blog">Blog</NavLink>
             <NavLink href="/docs">Documentation</NavLink>
             <a 
               href="https://github.com/pomagrenate/pomaidb" 

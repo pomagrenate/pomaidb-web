@@ -1,17 +1,6 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --primary: #FF4D00;
-  --primary-foreground: #ffffff;
-  --accent: #FFB800;
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
-  --border: #e4e4e7;
-}
-
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
@@ -25,26 +14,117 @@
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
+    --background: #ffffff;
+    --foreground: #0a0a0a;
+    --card: #ffffff;
+    --card-foreground: #0a0a0a;
+    --popover: #ffffff;
+    --popover-foreground: #0a0a0a;
+    --primary: #FF4D00;
+    --primary-foreground: #ffffff;
+    --secondary: #f4f4f5;
+    --secondary-foreground: #18181b;
+    --muted: #f4f4f5;
+    --muted-foreground: #71717a;
+    --accent: #FFB800;
+    --accent-foreground: #18181b;
+    --destructive: #ef4444;
+    --destructive-foreground: #fafafa;
+    --border: #e4e4e7;
+    --input: #e4e4e7;
+    --ring: #FF4D00;
+    --radius: 0.5rem;
+  }
+
+  .dark {
     --background: #050505;
     --foreground: #fafafa;
+    --card: #050505;
+    --card-foreground: #fafafa;
+    --popover: #050505;
+    --popover-foreground: #fafafa;
+    --primary: #FF4D00;
+    --primary-foreground: #ffffff;
+    --secondary: #27272a;
+    --secondary-foreground: #fafafa;
     --muted: #18181b;
     --muted-foreground: #a1a1aa;
+    --accent: #FFB800;
+    --accent-foreground: #fafafa;
+    --destructive: #7f1d1d;
+    --destructive-foreground: #fafafa;
     --border: #27272a;
+    --input: #27272a;
+    --ring: #FF4D00;
   }
 }
 
-* {
-  border-color: var(--border);
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Industrial Markdown Styling */
+.industrial-markdown h1,
+.industrial-markdown h2,
+.industrial-markdown h3 {
+  @apply text-foreground font-extrabold tracking-tight mt-10 mb-4;
+}
+
+.industrial-markdown h2 {
+  @apply text-2xl border-b border-border pb-2;
+}
+
+.industrial-markdown h3 {
+  @apply text-xl;
+}
+
+.industrial-markdown p {
+  @apply text-muted-foreground leading-7 mb-6;
+}
+
+.industrial-markdown ul,
+.industrial-markdown ol {
+  @apply mb-6 pl-6 text-muted-foreground list-disc;
+}
+
+.industrial-markdown li {
+  @apply mb-2;
+}
+
+.industrial-markdown blockquote {
+  @apply p-6 bg-muted border-l-4 border-primary rounded-r-lg italic my-8;
+}
+
+.industrial-markdown table {
+  @apply w-full border-collapse my-8 border border-border text-sm;
+}
+
+.industrial-markdown th {
+  @apply bg-muted px-6 py-3 text-left font-bold border-b-2 border-border;
+}
+
+.industrial-markdown td {
+  @apply px-6 py-3 border-b border-border text-muted-foreground align-top;
+}
+
+.industrial-markdown pre {
+  @apply bg-[#0d1117] text-[#e6edf3] p-6 rounded-lg overflow-x-auto my-6 font-mono text-sm leading-relaxed;
+}
+
+.industrial-markdown code:not(pre code) {
+  @apply bg-muted px-1.5 py-0.5 rounded font-mono text-xs text-primary;
+}
+
+.industrial-markdown a {
+  @apply text-primary font-bold hover:underline underline-offset-4 decoration-2;
 }
 
 .glass {
