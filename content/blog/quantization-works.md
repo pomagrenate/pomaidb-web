@@ -1,6 +1,6 @@
 ---
 title: "The Calculus of Compression: Mathematical Foundations of Post-Training Quantization (PTQ)"
-slug: "quantization-mechanics"
+slug: "quantization-works"
 date: "2026-04-08"
 author: "Scientific Research Team"
 excerpt: "A formal exploration of affine quantization mapping. This paper details the derivation of scaling factors and zero-points for converting FP32 tensors to INT8 precision while preserving structural fidelity during inference."

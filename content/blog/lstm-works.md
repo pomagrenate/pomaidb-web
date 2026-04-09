@@ -1,6 +1,6 @@
 ---
 title: "Automata as Memory: Decoding LSTM State Persistence in Terminal Sequences"
-slug: "lstm-terminal-states"
+slug: "lstm-works"
 date: "2026-04-08"
 author: "Scientific Research Team"
 excerpt: "A rigorous mathematical analysis of the divergence between Cell State ($C_L$) and Hidden State ($h_L$) at the terminal step of Long Short-Term Memory architectures. Explores the functional roles of these states in Many-to-One and Many-to-Many topologies."
