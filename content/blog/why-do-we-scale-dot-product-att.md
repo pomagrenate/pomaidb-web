@@ -1,5 +1,5 @@
 ---
-title: "Scaling in Transformer Architectures: The Mathematical Rationale behind $\sqrt{d_k}$"
+title: 'Scaling in Transformer Architectures: The Mathematical Rationale behind $\sqrt{d_k}$'
 slug: "why-scale-dot-product-attention"
 date: "2026-04-10"
 author: "Scientific Research Team"
