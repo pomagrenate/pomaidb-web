@@ -16,6 +16,7 @@ export function Navigation() {
           
           <div className="hidden md:flex gap-x-8">
             <NavLink href="/use-cases">Use Cases</NavLink>
+            <NavLink href="/research">Research</NavLink>
             <NavLink href="/blog">Blog</NavLink>
             <NavLink href="/docs">Documentation</NavLink>
             <a 
@@ -29,8 +30,10 @@ export function Navigation() {
           </div>
 
           <div className="flex md:hidden">
-            {/* Mobile menu could go here, but for now we keep it simple */}
-            <Link href="/docs" className="text-xs font-bold uppercase tracking-widest text-primary">Docs</Link>
+            <div className="flex items-center gap-4">
+              <Link href="/research" className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Research</Link>
+              <Link href="/docs" className="text-xs font-bold uppercase tracking-widest text-primary">Docs</Link>
+            </div>
           </div>
         </div>
       </div>
