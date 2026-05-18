@@ -22,15 +22,22 @@ export default function UseCasesIndexPage() {
           tags={["RAG", "C++", "Autonomous"]}
           image="/logo.png" // Placeholder or branding
         />
-        
-        {/* Placeholder for future use cases */}
-        <div className="rounded-2xl border-2 border-dashed border-border/50 flex flex-col items-center justify-center p-8 text-center bg-muted/10 grayscale opacity-40">
-          <div className="h-12 w-12 rounded-full border-2 border-dashed border-border mb-4 flex items-center justify-center">
-            <span className="text-xl font-bold">+</span>
-          </div>
-          <h3 className="font-bold text-lg">Next Case Study</h3>
-          <p className="text-sm text-muted-foreground mt-2">In development: Industrial Fault Detection & Smart City Analytics.</p>
-        </div>
+
+        <SolutionCard
+          title="PomaiEm HR System"
+          description="Multi-workspace HR SaaS using PomaiDB-backed agents for task automation, scheduling, chat, and salary workflows."
+          href="/use-cases/pomaiem-hr-system"
+          tags={["HR SaaS", "Agents", "Realtime"]}
+          image="/logo.png"
+        />
+
+        <SolutionCard
+          title="Po-Health"
+          description="Healthcare operations system with AI-assisted drug retrieval, patient management, and clinical statistics."
+          href="/use-cases/po-health"
+          tags={["Health", "AI Search", "Analytics"]}
+          image="/logo.png"
+        />
       </div>
     </div>
   );
