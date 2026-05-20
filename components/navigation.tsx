@@ -9,18 +9,18 @@ export function Navigation() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2 group">
-              <Image src="/logo.png" alt="PomaiDB Logo" width={28} height={28} className="rounded-sm grayscale group-hover:grayscale-0 transition-all duration-300" />
-              <span className="font-bold text-xl tracking-tighter text-foreground group-hover:text-primary transition-colors">PomaiDB</span>
+              <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-black text-xs tracking-tighter">QV</div>
+              <span className="font-bold text-xl tracking-tighter text-foreground group-hover:text-primary transition-colors">Quan Van</span>
             </Link>
           </div>
           
           <div className="hidden md:flex gap-x-8">
-            <NavLink href="/use-cases">Use Cases</NavLink>
+            <NavLink href="/projects">Projects</NavLink>
             <NavLink href="/research">Research</NavLink>
             <NavLink href="/blog">Blog</NavLink>
-            <NavLink href="/docs">Documentation</NavLink>
+            <NavLink href="/docs">Docs</NavLink>
             <a 
-              href="https://github.com/pomagrenate/pomaidb" 
+              href="https://github.com/pomagrenate" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sm font-semibold leading-6 text-muted-foreground hover:text-primary transition-colors"
@@ -31,8 +31,8 @@ export function Navigation() {
 
           <div className="flex md:hidden">
             <div className="flex items-center gap-4">
+              <Link href="/projects" className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Projects</Link>
               <Link href="/research" className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Research</Link>
-              <Link href="/docs" className="text-xs font-bold uppercase tracking-widest text-primary">Docs</Link>
             </div>
           </div>
         </div>

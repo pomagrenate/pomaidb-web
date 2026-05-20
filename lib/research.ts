@@ -173,7 +173,7 @@ export function getResearchItems(): ResearchItem[] {
 }
 
 export function getResearchFilePath(slug: string) {
-  if (!/^[a-z0-9-]+$/i.test(slug)) {
+  if (!/^[a-z0-9_-]+$/i.test(slug)) {
     return null;
   }
 

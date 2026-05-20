@@ -14,7 +14,7 @@ export default function PoHealthDetailPage() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6 lg:px-8">
       <div className="mb-12 flex items-center justify-between border-b border-border pb-6">
-        <Link href="/use-cases" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group">
+        <Link href="/projects" className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group">
           <span className="inline-block transition-transform group-hover:translate-x-[-4px]">←</span> All Projects
         </Link>
         <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest px-3 py-1 bg-muted rounded-full border border-border">Case Study: 03</span>

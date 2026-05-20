@@ -1,7 +1,12 @@
-import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { DocHeading, DocParagraph } from "@/components/docs/doc-components";
 import { getSortedPostsData } from "@/lib/blog";
+
+export const metadata: Metadata = {
+  title: "Blog | Quan Van",
+  description: "Technical writings on systems engineering, data mining algorithms, and database design by Quan Van.",
+};
 
 export default function BlogIndexPage() {
   const allPostsData = getSortedPostsData();
@@ -9,9 +14,9 @@ export default function BlogIndexPage() {
   return (
     <div className="max-w-7xl mx-auto py-16 px-6 lg:px-8">
       <div className="max-w-3xl mb-16">
-        <DocHeading>Engineering Blog</DocHeading>
+        <DocHeading>Engineering & Systems Blog</DocHeading>
         <DocParagraph>
-          Deep dives into the technical architecture of PomaiDB, vector search algorithms, and the future of decentralized edge AI.
+          Deep dives into low-level database architecture, C++ pattern mining design patterns, memory managers, and the mechanics of local-first agent environments.
         </DocParagraph>
       </div>
 

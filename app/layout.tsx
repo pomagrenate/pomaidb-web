@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PomaiDB | The predictable vector database for the edge",
-  description: "An embedded, single-threaded vector database built for edge devices, IoT gateways, and environments where stability and deterministic behavior matter.",
+  title: "Quan Van | Developer & Researcher Portfolio",
+  description: "Systems Developer and Data Mining Researcher specializing in vector databases, local AI agents, and low-level memory systems.",
 };
 
 import { Navigation } from "@/components/navigation";
