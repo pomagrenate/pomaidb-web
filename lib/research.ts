@@ -145,6 +145,114 @@ const researchMetadata: Record<string, ResearchMetadata & { pages?: number }> = 
       "Oblivious algorithms",
     ],
   },
+  LAGA_self_contained_data_generator_q1: {
+    title: "LAGA: A Self-Contained Synthetic Transaction Data Generator for Benchmarking Pattern Mining Algorithms",
+    authors: "Quan Van",
+    date: "May 19, 2026",
+    pages: 28,
+    abstract:
+      "Reproducible benchmarking of pattern mining algorithms requires synthetic transaction databases with precisely controlled statistical properties. Existing generators either depend on external libraries, produce outputs that cannot be independently verified, or expose insufficient parameters to reproduce realistic transaction structures. This paper introduces LAGA, a self-contained, zero-dependency synthetic transaction data generator written in portable C99. LAGA uses a Linear Additive Generator Array to produce transaction databases whose length distributions, item frequency distributions, transaction utility distributions, item occupancy distributions, and temporal ordering can each be independently parameterized and verified. We provide a formal data model, generator equations, correctness theorems, and a benchmarking methodology for dense and sparse pattern mining algorithms.",
+    keywords: [
+      "Synthetic data generation",
+      "Transaction database",
+      "Benchmark",
+      "Pattern mining",
+      "C99",
+      "Data generator",
+    ],
+  },
+  aura_hoi_q1_paper: {
+    title: "AURA-HOI: Adaptive Utility-Ranked Anytime Mining of High-Occupancy Itemsets",
+    authors: "Quan Van",
+    date: "May 20, 2026",
+    pages: 26,
+    abstract:
+      "High-occupancy itemset mining discovers patterns that dominate the transactions they appear in, but existing algorithms require full database passes before returning any results. This paper introduces AURA-HOI, an anytime algorithm for high-occupancy itemset mining that produces a ranked stream of high-occupancy patterns sorted by decreasing average occupancy. AURA-HOI combines an adaptive utility-ranked traversal strategy with tight occupancy upper bounds to prioritize the most dominant patterns first, enabling early termination with quality guarantees. Experiments on benchmark datasets demonstrate that AURA-HOI recovers the top-k patterns significantly faster than exhaustive methods while maintaining exact correctness for complete enumeration.",
+    keywords: [
+      "High-occupancy itemset mining",
+      "Anytime algorithms",
+      "Adaptive mining",
+      "Top-k pattern mining",
+      "Itemset mining",
+    ],
+  },
+  closed_hoi_q1_paper: {
+    title: "Closed High-Occupancy Itemset Mining: Definitions, Algorithms, and Compact Representations",
+    authors: "Quan Van",
+    date: "May 20, 2026",
+    pages: 24,
+    abstract:
+      "High-occupancy itemset mining produces patterns that cover a large fraction of each supporting transaction, but the output can be exponentially redundant. This paper formalizes Closed High-Occupancy Itemsets (CHOI), where an itemset is closed if no proper superset has identical support and equal or higher average occupancy. We prove the CHOI closure operator is well-defined, establish that CHOIs form a complete and lossless condensed representation, and design an efficient algorithm using vertical bitsets, a closure-checking operator, and early-termination pruning to enumerate CHOIs without redundancy.",
+    keywords: [
+      "Closed itemset mining",
+      "High-occupancy itemset mining",
+      "Condensed representation",
+      "Lossless compression",
+      "Vertical mining",
+    ],
+  },
+  hiep: {
+    title: "HIEP: High-Utility Itemset Mining with Episode Pattern Integration for Sequential Event Logs",
+    authors: "Quan Van",
+    date: "May 18, 2026",
+    pages: 30,
+    abstract:
+      "High-utility itemset mining and episode pattern mining have each been studied extensively, but their integration for sequential event logs with heterogeneous utility models has received limited attention. This paper introduces HIEP, a unified framework for High-utility Itemset-Episode Pattern mining that discovers recurring co-occurrence episodes in timestamped event sequences whose aggregate utility exceeds a user-defined threshold. HIEP uses a time-window projection model, a compound utility function integrating occurrence frequency, inter-event gap penalties, and per-item utility weights, and a projected episode database structure enabling efficient depth-first enumeration with tight upper bounds.",
+    keywords: [
+      "Episode mining",
+      "High-utility itemset mining",
+      "Sequential pattern mining",
+      "Event logs",
+      "Time-series mining",
+    ],
+  },
+  hust: {
+    title: "HUST: Hierarchical Utility-Sensitive Tree Mining for Multi-Level Pattern Discovery",
+    authors: "Quan Van",
+    date: "May 18, 2026",
+    pages: 27,
+    abstract:
+      "Hierarchical databases encode items at multiple levels of abstraction, where low-level items can be aggregated into higher-level taxonomic categories. High-utility itemset mining on flat databases ignores this structure. This paper introduces HUST, a Hierarchical Utility-Sensitive Tree mining algorithm that discovers high-utility patterns across multiple taxonomy levels simultaneously. HUST uses a compressed hierarchical utility-tree with cross-level utility propagation, a level-sensitive utility upper bound, and a top-down enumeration strategy that avoids redundant cross-level candidate generation.",
+    keywords: [
+      "Hierarchical itemset mining",
+      "Multi-level pattern mining",
+      "Taxonomy",
+      "High-utility itemset mining",
+      "Tree-based mining",
+    ],
+  },
+  medm_gen_q1_paper: {
+    title: "MEDM-Gen: Medical Event Data Mining with Generative Augmentation for Rare Pattern Discovery",
+    authors: "Quan Van",
+    date: "May 20, 2026",
+    pages: 22,
+    abstract:
+      "Medical event databases are characterized by severe class imbalance, rare co-occurrence patterns, and heterogeneous utility semantics derived from clinical outcome data. Standard high-utility itemset mining algorithms fail on medical event logs because rare but clinically significant patterns fall below minimum support thresholds while frequent but clinically trivial patterns dominate the output. This paper introduces MEDM-Gen, a medical event data mining framework with generative augmentation that combines a conditional variational augmentation module for rare pattern synthesis with a utility-aware mining algorithm incorporating clinical significance weights. MEDM-Gen produces rare-pattern-aware high-utility itemsets validated against held-out clinical event datasets.",
+    keywords: [
+      "Medical data mining",
+      "Rare pattern mining",
+      "Generative augmentation",
+      "High-utility itemset mining",
+      "Clinical event logs",
+      "Healthcare informatics",
+    ],
+  },
+  sparc_hoi_anti_bitset_q1_spec: {
+    title: "SPARC-HOI: Sparse Anti-Chain Bitset Mining for High-Occupancy Itemsets with Anti-Monotone Pruning",
+    authors: "Quan Van",
+    date: "May 21, 2026",
+    pages: 25,
+    abstract:
+      "High-occupancy itemset mining with vertical bitset representations achieves high throughput on dense datasets but degrades on sparse databases where bitsets are large and mostly empty. This paper introduces SPARC-HOI, a sparse anti-chain bitset algorithm for high-occupancy itemset mining that switches between dense and sparse bitset representations based on occupancy density thresholds. SPARC-HOI incorporates an anti-chain pruning layer that eliminates dominated candidates before bitset intersection, a compressed sparse-row bitset layout for sparse transaction sets, and an adaptive representation selector that chooses the optimal bitset format per projected database. Experiments on nine real-world datasets spanning dense retail, sparse web-click, and mixed biomedical logs demonstrate consistent speed improvements over dense-only vertical HOI miners.",
+    keywords: [
+      "High-occupancy itemset mining",
+      "Sparse bitset",
+      "Anti-chain pruning",
+      "Vertical mining",
+      "Adaptive representation",
+      "Pattern mining",
+    ],
+  },
 };
 
 export function getResearchItems(): ResearchItem[] {

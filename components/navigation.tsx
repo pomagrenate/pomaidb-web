@@ -13,15 +13,16 @@ export function Navigation() {
               <span className="font-bold text-xl tracking-tighter text-foreground group-hover:text-primary transition-colors">Quan Van</span>
             </Link>
           </div>
-          
+
           <div className="hidden md:flex gap-x-8">
             <NavLink href="/projects">Projects</NavLink>
             <NavLink href="/research">Research</NavLink>
             <NavLink href="/blog">Blog</NavLink>
             <NavLink href="/docs">Docs</NavLink>
-            <a 
-              href="https://github.com/pomagrenate" 
-              target="_blank" 
+            <NavLink href="/videos">Videos</NavLink>
+            <a
+              href="https://github.com/pomagrenate"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-semibold leading-6 text-muted-foreground hover:text-primary transition-colors"
             >
@@ -43,8 +44,8 @@ export function Navigation() {
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <Link 
-      href={href} 
+    <Link
+      href={href}
       className="text-sm font-semibold leading-6 text-muted-foreground hover:text-primary transition-colors relative group"
     >
       {children}
