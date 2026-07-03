@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { DocHeading, DocParagraph } from "@/components/docs/doc-components";
+import { ForestPageShell } from "@/components/forest-journey/ForestPageShell";
 
 interface ProjectItem {
   title: string;
@@ -144,71 +144,68 @@ const PROJECT_GROUPS: ProjectGroup[] = [
 
 export default function ProjectsIndexPage() {
   return (
-    <div className="max-w-7xl mx-auto py-16 px-6 lg:px-8 bg-background">
-      <div className="max-w-3xl mb-16">
-        <DocHeading>Projects & Engineering Work</DocHeading>
-        <DocParagraph>
-          A comprehensive gallery of my systems-programming libraries, data-mining engines, local-first RAG components, and operational applications. All code is designed with a focus on predictability, low latency, and systems-level optimization.
-        </DocParagraph>
-      </div>
+    <ForestPageShell
+      eyebrow="Engineering Work"
+      title="Projects & Systems"
+      description="A comprehensive gallery of systems-programming libraries, data-mining engines, local-first RAG components, and operational applications — all designed for predictability and low latency."
+    >
+      <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+        <div className="space-y-20">
+          {PROJECT_GROUPS.map((group) => (
+            <section key={group.category}>
+              {/* Group header */}
+              <div className="flex items-center gap-4 mb-8">
+                <div className="fp-section-dot" aria-hidden="true" />
+                <div>
+                  <h2 className="text-xl font-bold tracking-tight text-white/90">
+                    {group.category}
+                  </h2>
+                  <p className="text-zinc-500 text-sm mt-0.5">{group.description}</p>
+                </div>
+              </div>
 
-      <div className="space-y-20">
-        {PROJECT_GROUPS.map((group) => (
-          <section key={group.category} className="border-t border-border/50 pt-12">
-            <div className="max-w-2xl mb-8">
-              <h2 className="text-2xl font-bold tracking-tight text-primary mb-2">
-                {group.category}
-              </h2>
-              <p className="text-muted-foreground text-sm">
-                {group.description}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {group.projects.map((project) => (
-                <article
-                  key={project.title}
-                  className="flex flex-col h-full rounded-2xl border border-border bg-card/40 hover:border-primary/50 hover:bg-card hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden group"
-                >
-                  <div className="p-8 flex flex-col h-full">
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-xs">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {group.projects.map((project, i) => (
+                  <article
+                    key={project.title}
+                    className="fp-card fp-card--hover group flex flex-col h-full"
+                    style={{ animationDelay: `${i * 50}ms` }}
+                  >
+                    {/* Card top */}
+                    <div className="flex items-start justify-between mb-5">
+                      <div className="h-10 w-10 rounded-lg bg-emerald-900/50 border border-emerald-700/30 flex items-center justify-center text-emerald-300 font-bold text-xs font-mono">
                         {project.title.substring(0, 2).toUpperCase()}
                       </div>
-                      <div className="flex flex-wrap gap-1">
+                      <div className="flex flex-wrap gap-1 justify-end">
                         {project.tags.slice(0, 2).map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 bg-muted rounded border border-border text-muted-foreground group-hover:text-primary group-hover:border-primary/20 transition-colors"
-                          >
+                          <span key={tag} className="fp-tag">
                             {tag}
                           </span>
                         ))}
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-bold tracking-tight mb-2 group-hover:text-primary transition-colors">
+                    <h3 className="text-lg font-bold tracking-tight text-white/90 group-hover:text-emerald-300 transition-colors mb-1">
                       {project.title}
                     </h3>
-                    <span className="text-[10px] font-mono text-muted-foreground mb-4 block">
-                      {project.repo}
-                    </span>
+                    <span className="fp-mono-label mb-4 block">{project.repo}</span>
 
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-8 flex-1">
+                    <p className="text-zinc-400 text-sm leading-relaxed mb-8 flex-1">
                       {project.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-4 pt-6 border-t border-border/40 text-xs font-bold mt-auto">
+                    {/* Links */}
+                    <div className="flex flex-wrap gap-4 pt-5 border-t border-emerald-900/30 text-xs font-bold mt-auto">
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary transition-colors"
+                        className="text-zinc-500 hover:text-emerald-400 transition-colors"
                       >
-                        GitHub <span>↗</span>
+                        GitHub ↗
                       </a>
                       {project.details && (
-                        <Link href={project.details} className="text-primary hover:underline">
+                        <Link href={project.details} className="text-emerald-400/80 hover:text-emerald-300 hover:underline transition-colors">
                           Read Manual
                         </Link>
                       )}
@@ -217,19 +214,19 @@ export default function ProjectsIndexPage() {
                           href={project.demo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-primary hover:underline"
+                          className="text-emerald-400/80 hover:text-emerald-300 hover:underline transition-colors"
                         >
                           Demo Video
                         </a>
                       )}
                     </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-        ))}
+                  </article>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
-    </div>
+    </ForestPageShell>
   );
 }

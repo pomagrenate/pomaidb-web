@@ -138,3 +138,1153 @@
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+/* ============================================================
+   FOREST JOURNEY — KEYFRAMES
+   ============================================================ */
+
+@keyframes fogDrift1 {
+  0%   { transform: translateX(-8%) translateY(0); }
+  50%  { transform: translateX(4%)  translateY(-2%); }
+  100% { transform: translateX(-8%) translateY(0); }
+}
+@keyframes fogDrift2 {
+  0%   { transform: translateX(6%)  translateY(0); }
+  50%  { transform: translateX(-5%) translateY(3%); }
+  100% { transform: translateX(6%)  translateY(0); }
+}
+@keyframes fogDrift3 {
+  0%   { transform: translateX(-4%) translateY(2%); }
+  50%  { transform: translateX(7%)  translateY(-1%); }
+  100% { transform: translateX(-4%) translateY(2%); }
+}
+@keyframes fogDrift4 {
+  0%   { transform: translateX(3%)  translateY(-3%); }
+  50%  { transform: translateX(-6%) translateY(1%); }
+  100% { transform: translateX(3%)  translateY(-3%); }
+}
+
+@keyframes fireflyFlicker {
+  0%,100% { opacity: 0.1; }
+  30%     { opacity: 0.9; }
+  60%     { opacity: 0.3; }
+  80%     { opacity: 0.8; }
+}
+
+@keyframes fireflyFloat {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(8px, -12px); }
+  50%  { transform: translate(-6px, -20px); }
+  75%  { transform: translate(10px, -8px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes stonePulse {
+  0%,100% { filter: drop-shadow(0 0 6px rgba(100,220,140,0.4)); }
+  50%     { filter: drop-shadow(0 0 18px rgba(100,220,140,0.85)); }
+}
+
+@keyframes stoneFireflyOrbit {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  33%  { transform: translate(12px, -8px) scale(1.2); opacity: 1; }
+  66%  { transform: translate(-8px, -14px) scale(0.9); opacity: 0.6; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+}
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollDotBounce {
+  0%,100% { transform: translateY(0); opacity: 1; }
+  50%     { transform: translateY(6px); opacity: 0.4; }
+}
+
+@keyframes progressGlow {
+  0%,100% { box-shadow: 0 0 4px rgba(100,220,140,0.5); }
+  50%     { box-shadow: 0 0 10px rgba(100,220,140,1); }
+}
+
+@keyframes badgeFadeIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ============================================================
+   FOREST JOURNEY — LAYOUT
+   ============================================================ */
+
+/* Tall scrollable container that drives the pinned canvas */
+.forest-journey-container {
+  position: relative;
+  height: 600vh;
+}
+
+/* Pinned canvas that stays in viewport while container scrolls */
+.forest-journey-canvas {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #050a05;
+}
+
+/* ============================================================
+   BACKGROUND LAYER
+   ============================================================ */
+.forest-bg-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.forest-bg-image {
+  position: absolute;
+  inset: -6%;
+  background-image: url('/images/layer1/background.png');
+  background-size: cover;
+  background-position: center 40%;
+  transform-origin: center center;
+  transition: transform 0.1s linear;
+}
+
+.forest-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(2,8,2,0.55) 0%,
+    rgba(2,8,2,0.2) 40%,
+    rgba(2,8,2,0.3) 70%,
+    rgba(2,8,2,0.85) 100%
+  );
+  transition: opacity 0.2s linear;
+}
+
+.forest-bg-bottom-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to top, rgba(2,8,2,0.95), transparent);
+}
+
+.forest-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.65) 100%);
+  pointer-events: none;
+}
+
+/* ============================================================
+   FOG LAYER
+   ============================================================ */
+.fog-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fog-cloud {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.fog-cloud-1 {
+  width: 70vw; height: 30vh;
+  top: 40%; left: -20%;
+  background: radial-gradient(ellipse, rgba(200,220,200,0.07) 0%, transparent 70%);
+  animation: fogDrift1 22s ease-in-out infinite;
+}
+.fog-cloud-2 {
+  width: 55vw; height: 25vh;
+  top: 55%; left: 30%;
+  background: radial-gradient(ellipse, rgba(180,210,180,0.05) 0%, transparent 70%);
+  animation: fogDrift2 28s ease-in-out infinite;
+}
+.fog-cloud-3 {
+  width: 80vw; height: 20vh;
+  top: 65%; left: -10%;
+  background: radial-gradient(ellipse, rgba(160,200,160,0.06) 0%, transparent 70%);
+  animation: fogDrift3 35s ease-in-out infinite;
+}
+.fog-cloud-4 {
+  width: 50vw; height: 22vh;
+  top: 30%; left: 50%;
+  background: radial-gradient(ellipse, rgba(200,220,200,0.04) 0%, transparent 70%);
+  animation: fogDrift4 40s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .fog-cloud { filter: blur(30px); }
+}
+
+/* ============================================================
+   FIREFLY LAYER
+   ============================================================ */
+.firefly-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.firefly {
+  position: absolute;
+  border-radius: 50%;
+  animation-name: fireflyFlicker, fireflyFloat;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  will-change: transform, opacity;
+}
+
+/* ============================================================
+   FOREGROUND LAYER
+   ============================================================ */
+.foreground-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+  transition: transform 0.1s linear;
+}
+
+.foreground-bush {
+  position: absolute;
+  bottom: -4%;
+  left: -2%;
+  width: 42%;
+  max-width: 480px;
+  object-fit: contain;
+  user-select: none;
+}
+
+.foreground-rocks {
+  position: absolute;
+  bottom: -4%;
+  right: -2%;
+  width: 36%;
+  max-width: 420px;
+  object-fit: contain;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .foreground-bush { width: 60%; }
+  .foreground-rocks { width: 52%; }
+}
+
+/* ============================================================
+   STATIONS LAYER
+   ============================================================ */
+.stations-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.station-slot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.station-slot--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.station-slot--left {
+  flex-direction: row;
+  padding-left: 3vw;
+}
+
+.station-slot--right {
+  flex-direction: row-reverse;
+  padding-right: 3vw;
+}
+
+/* ============================================================
+   STATION MARKER (stone)
+   ============================================================ */
+.station-marker {
+  position: relative;
+  flex-shrink: 0;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.station-marker--left  { margin-right: 20px; }
+.station-marker--right { margin-left: 20px; }
+
+.stone-wrapper {
+  position: relative;
+  width: 90px;
+}
+
+.stone-image {
+  width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+  transition: filter 0.5s ease;
+  user-select: none;
+  draggable: false;
+}
+
+.stone-wrapper--active .stone-image {
+  animation: stonePulse 2.5s ease-in-out infinite;
+}
+
+.stone-glow {
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(100,220,140,0.25) 0%, transparent 70%);
+  animation: progressGlow 2s ease-in-out infinite;
+}
+
+/* Firefly cluster near active stone */
+.stone-firefly-cluster {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.stone-firefly {
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: hsl(95, 90%, 75%);
+  box-shadow: 0 0 8px 3px hsl(95, 90%, 70%);
+  animation: stoneFireflyOrbit 2.5s ease-in-out infinite;
+}
+
+/* Station badge */
+.station-badge {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.3s;
+}
+
+.station-badge--active {
+  opacity: 1;
+  animation: badgeFadeIn 0.5s ease forwards;
+}
+
+.station-badge__number {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(100,220,140,0.7);
+  font-family: var(--font-mono);
+}
+
+.station-badge__name {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   STATION CARD (dark glass panel)
+   ============================================================ */
+.station-card {
+  position: relative;
+  max-width: 360px;
+  width: 100%;
+  background: rgba(4, 12, 4, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(100,220,140,0.18);
+  border-radius: 12px;
+  padding: 28px 28px 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.3s ease;
+  box-shadow:
+    0 0 40px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(100,220,140,0.06) inset;
+  pointer-events: none;
+}
+
+.station-card--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.station-card:hover {
+  border-color: rgba(100,220,140,0.35);
+  box-shadow:
+    0 0 40px rgba(0,0,0,0.7),
+    0 0 20px rgba(100,220,140,0.08) inset;
+}
+
+/* Rune corners */
+.rune-corner {
+  position: absolute;
+  color: rgba(100,220,140,0.45);
+  pointer-events: none;
+}
+.rune-corner--tl { top: 6px; left: 6px; }
+.rune-corner--tr { top: 6px; right: 6px; transform: scaleX(-1); }
+.rune-corner--bl { bottom: 6px; left: 6px; transform: scaleY(-1); }
+.rune-corner--br { bottom: 6px; right: 6px; transform: scale(-1); }
+
+/* Card internals */
+.station-card__number-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding: 3px 10px;
+  border: 1px solid rgba(100,220,140,0.25);
+  border-radius: 100px;
+  background: rgba(100,220,140,0.07);
+}
+
+.station-card__number-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(100,220,140,0.6);
+  font-family: var(--font-mono);
+}
+
+.station-card__number-value {
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(100,220,140,0.9);
+  font-family: var(--font-mono);
+}
+
+.station-card__title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: rgba(240,250,240,0.95);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.station-card__subtitle {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(140,200,160,0.75);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.station-card__divider {
+  height: 1px;
+  background: linear-gradient(to right, rgba(100,220,140,0.3), transparent);
+  margin-bottom: 14px;
+}
+
+.station-card__description {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: rgba(200,220,205,0.7);
+  margin-bottom: 16px;
+}
+
+.station-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.station-card__tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(100,220,140,0.08);
+  border: 1px solid rgba(100,220,140,0.2);
+  color: rgba(100,220,140,0.7);
+  font-family: var(--font-mono);
+}
+
+.station-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.station-card__link {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 18px;
+  border-radius: 6px;
+  letter-spacing: 0.03em;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.station-card__link--primary {
+  background: rgba(100,220,140,0.15);
+  border: 1px solid rgba(100,220,140,0.4);
+  color: rgba(100,220,140,0.95);
+}
+
+.station-card__link--primary:hover {
+  background: rgba(100,220,140,0.25);
+  border-color: rgba(100,220,140,0.7);
+}
+
+.station-card__link--secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(200,220,205,0.6);
+}
+
+.station-card__link--secondary:hover {
+  border-color: rgba(255,255,255,0.25);
+  color: rgba(200,220,205,0.9);
+}
+
+/* ============================================================
+   HERO OVERLAY
+   ============================================================ */
+.journey-hero {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: opacity 0.15s linear;
+}
+
+.journey-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+}
+
+.journey-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(100,220,140,0.8);
+  font-family: var(--font-mono);
+}
+
+.journey-hero__eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(100,220,140,0.9);
+  box-shadow: 0 0 8px rgba(100,220,140,0.8);
+  animation: progressGlow 2s ease-in-out infinite;
+}
+
+.journey-hero__title {
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #f0faf0;
+  text-shadow: 0 0 80px rgba(100,220,140,0.15), 0 4px 40px rgba(0,0,0,0.8);
+}
+
+.journey-hero__subtitle {
+  font-size: clamp(14px, 2vw, 18px);
+  color: rgba(200,225,210,0.65);
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+.journey-hero__cta {
+  margin-top: 12px;
+}
+
+.journey-hero__scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(180,210,190,0.5);
+  font-family: var(--font-mono);
+}
+
+.scroll-dot-animate {
+  animation: scrollDotBounce 1.8s ease-in-out infinite;
+}
+
+/* ============================================================
+   JOURNEY PROGRESS SIDEBAR
+   ============================================================ */
+.journey-progress {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.journey-progress__track {
+  position: relative;
+  width: 2px;
+  height: 160px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.journey-progress__fill {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  background: linear-gradient(to bottom, rgba(100,220,140,0.8), rgba(100,220,140,0.3));
+  transition: height 0.2s linear;
+  border-radius: 2px;
+}
+
+.journey-progress__dots {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.journey-progress__dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.journey-progress__dot--passed {
+  background: rgba(100,220,140,0.4);
+  border-color: rgba(100,220,140,0.3);
+}
+
+.journey-progress__dot--active {
+  background: rgba(100,220,140,0.9);
+  border-color: rgba(100,220,140,0.8);
+  width: 8px; height: 8px;
+  animation: progressGlow 2s ease-in-out infinite;
+}
+
+.journey-progress__dot-label {
+  position: absolute;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 8px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: rgba(100,220,140,0.8);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.journey-progress__label {
+  margin-top: 4px;
+}
+
+.journey-progress__label-text {
+  font-size: 9px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: rgba(100,220,140,0.5);
+  letter-spacing: 0.1em;
+}
+
+.journey-bottom-reveal {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to top, rgba(2,8,2,0.9), transparent);
+  pointer-events: none;
+  z-index: 7;
+}
+
+/* Hide progress sidebar on very small screens */
+@media (max-width: 480px) {
+  .journey-progress { display: none; }
+  .station-card { max-width: 260px; padding: 20px 18px; }
+  .station-card__title { font-size: 20px; }
+}
+
+/* ============================================================
+   FOREST PAGE — SHARED UTILITY CLASSES (fp-*)
+   Used by: research, blog, projects, videos, docs pages
+   ============================================================ */
+
+/* ── Page Shell ── */
+.fp-shell {
+  min-height: 100vh;
+  background: #020802;
+  color: #f0f0f0;
+}
+
+.fp-shell__header {
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0 64px;
+  border-bottom: 1px solid rgba(100, 220, 140, 0.1);
+}
+
+.fp-shell__header-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/layer1/background.png');
+  background-size: cover;
+  background-position: center 30%;
+  filter: brightness(0.18) saturate(0.6);
+}
+
+.fp-shell__header-fog {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.fp-shell__header-fog--1 {
+  width: 60vw; height: 40vh;
+  top: -10%; left: -10%;
+  background: radial-gradient(ellipse, rgba(100, 220, 140, 0.04) 0%, transparent 70%);
+  filter: blur(50px);
+  animation: fogDrift1 25s ease-in-out infinite;
+}
+
+.fp-shell__header-fog--2 {
+  width: 50vw; height: 35vh;
+  top: 20%; right: -5%;
+  background: radial-gradient(ellipse, rgba(100, 220, 140, 0.03) 0%, transparent 70%);
+  filter: blur(40px);
+  animation: fogDrift2 30s ease-in-out infinite;
+}
+
+.fp-shell__header-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(2,8,2,0.4) 0%, rgba(2,8,2,0.15) 50%, rgba(2,8,2,0.7) 100%),
+    radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%);
+}
+
+.fp-shell__header-content {
+  position: relative;
+  z-index: 2;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .fp-shell__header-content { padding: 0 2rem; }
+}
+
+.fp-shell__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(100, 220, 140, 0.75);
+  font-family: var(--font-mono);
+  margin-bottom: 16px;
+}
+
+.fp-shell__eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(100, 220, 140, 0.8);
+  box-shadow: 0 0 8px rgba(100, 220, 140, 0.6);
+  animation: progressGlow 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.fp-shell__title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: rgba(240, 250, 240, 0.95);
+  text-shadow: 0 2px 40px rgba(0,0,0,0.8);
+  margin-bottom: 16px;
+}
+
+.fp-shell__description {
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(180, 210, 190, 0.6);
+  max-width: 600px;
+}
+
+.fp-shell__body {
+  background: linear-gradient(to bottom, #020802 0%, #050505 100%);
+}
+
+/* ── Cards ── */
+.fp-card {
+  background: rgba(4, 14, 4, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(100, 220, 140, 0.12);
+  border-radius: 12px;
+  padding: 24px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fp-card--hover:hover {
+  border-color: rgba(100, 220, 140, 0.28);
+  box-shadow: 0 0 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(100,220,140,0.05) inset;
+}
+
+.fp-card--row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .fp-card--row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+/* ── Buttons ── */
+.fp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 7px;
+  letter-spacing: 0.03em;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.fp-btn--primary {
+  background: rgba(100, 220, 140, 0.14);
+  border: 1px solid rgba(100, 220, 140, 0.38);
+  color: rgba(100, 220, 140, 0.95);
+}
+
+.fp-btn--primary:hover {
+  background: rgba(100, 220, 140, 0.24);
+  border-color: rgba(100, 220, 140, 0.65);
+}
+
+.fp-btn--ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(200, 220, 205, 0.55);
+}
+
+.fp-btn--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: rgba(200, 220, 205, 0.9);
+}
+
+/* ── Badge (date / category chip) ── */
+.fp-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(100, 220, 140, 0.07);
+  border: 1px solid rgba(100, 220, 140, 0.22);
+  color: rgba(100, 220, 140, 0.75);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+/* ── Mono label ── */
+.fp-mono-label {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: rgba(100, 220, 140, 0.35);
+  letter-spacing: 0.05em;
+}
+
+/* ── Tag pill ── */
+.fp-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(100, 220, 140, 0.06);
+  border: 1px solid rgba(100, 220, 140, 0.17);
+  color: rgba(100, 220, 140, 0.6);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+/* ── Section separator dot ── */
+.fp-section-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(100, 220, 140, 0.5);
+  box-shadow: 0 0 10px rgba(100, 220, 140, 0.4);
+  flex-shrink: 0;
+  animation: progressGlow 3s ease-in-out infinite;
+}
+
+/* ── Docs sidebar padding fix ── */
+@media (min-width: 1024px) {
+  .lg\:pl-68 { padding-left: 17rem; }
+}
+
+/* ── Forest prose (blog post body) ── */
+.forest-prose { color: rgba(200, 210, 200, 0.8); }
+.forest-prose h1, .forest-prose h2, .forest-prose h3 { color: rgba(240, 250, 240, 0.95); }
+.forest-prose a { color: rgba(100, 220, 140, 0.9); }
+.forest-prose code:not(pre code) {
+  background: rgba(100, 220, 140, 0.08);
+  color: rgba(100, 220, 140, 0.85);
+  border: 1px solid rgba(100, 220, 140, 0.15);
+}
+.forest-prose blockquote {
+  border-left-color: rgba(100, 220, 140, 0.4);
+  background: rgba(100, 220, 140, 0.04);
+}
+
+/* ── industrial-markdown overrides for dark forest ── */
+.industrial-markdown h1,
+.industrial-markdown h2,
+.industrial-markdown h3 { color: rgba(240, 250, 240, 0.95); }
+.industrial-markdown h2 { border-bottom-color: rgba(100, 220, 140, 0.2); }
+.industrial-markdown p { color: rgba(200, 210, 200, 0.75); }
+.industrial-markdown a { color: rgba(100, 220, 140, 0.9); }
+.industrial-markdown code:not(pre code) {
+  background: rgba(100, 220, 140, 0.08);
+  color: rgba(100, 220, 140, 0.85);
+}
+.industrial-markdown blockquote {
+  border-left-color: rgba(100, 220, 140, 0.5);
+  background: rgba(4, 14, 4, 0.6);
+}
+
+/* ============================================================
+   MOUSE-GLOW SPOTLIGHT — Station Cards
+   ============================================================ */
+
+.station-card {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+.station-card__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    200px circle at var(--mouse-x) var(--mouse-y),
+    rgba(100, 220, 140, 0.10) 0%,
+    transparent 70%
+  );
+  z-index: 0;
+}
+
+.station-card:hover .station-card__glow {
+  opacity: 1;
+}
+
+/* Ensure card children sit above glow */
+.station-card > *:not(.station-card__glow) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Mouse-glow for inner-page fp-cards */
+.fp-card {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.fp-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    180px circle at var(--mouse-x) var(--mouse-y),
+    rgba(100, 220, 140, 0.07) 0%,
+    transparent 70%
+  );
+  z-index: 0;
+}
+
+.fp-card:hover::before {
+  opacity: 1;
+}
+
+.fp-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   READING PROGRESS BAR
+   ============================================================ */
+
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 9999;
+  background: rgba(100, 220, 140, 0.08);
+  pointer-events: none;
+}
+
+.reading-progress-bar__fill {
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(100, 220, 140, 0.6),
+    rgba(100, 220, 140, 0.95),
+    rgba(160, 255, 200, 1)
+  );
+  box-shadow: 0 0 8px rgba(100, 220, 140, 0.7);
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ============================================================
+   PAGE-ENTER ANIMATION (Mist Fade)
+   ============================================================ */
+
+@keyframes pageMistFade {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+.page-enter {
+  animation: pageMistFade 0.45s ease-out both;
+}
+
+/* ============================================================
+   MOBILE FIREFLY REDUCTION
+   Hides fireflies beyond the 16th on small screens
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .firefly:nth-child(n + 17) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .firefly:nth-child(n + 9) {
+    display: none;
+  }
+}
+
+/* Static firefly (reduced-motion mode) */
+.firefly--static {
+  animation: none !important;
+}
+
+/* ============================================================
+   PREFERS REDUCED MOTION — Global Override
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Stop fog movement */
+  .fog-cloud { animation: none !important; }
+
+  /* Stop stone pulse */
+  .stone-wrapper--active .stone-image { animation: none !important; }
+  .stone-glow { animation: none !important; }
+  .stone-firefly { animation: none !important; }
+
+  /* Stop fireflies */
+  .firefly { animation: none !important; opacity: 0.2; }
+
+  /* Stop scroll-hint bounce */
+  .scroll-dot-animate { animation: none !important; }
+
+  /* Stop progress dot glow */
+  .journey-progress__dot--active { animation: none !important; }
+  .fp-shell__eyebrow-dot { animation: none !important; }
+  .fp-section-dot { animation: none !important; }
+
+  /* Stop page-enter blur — just fade gently */
+  .page-enter {
+    animation: none;
+    opacity: 1;
+    filter: none;
+  }
+
+  /* Stop reading progress transitions */
+  .reading-progress-bar__fill {
+    transition: none;
+  }
+}

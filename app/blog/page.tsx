@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { DocHeading, DocParagraph } from "@/components/docs/doc-components";
 import { getSortedPostsData } from "@/lib/blog";
+import { ForestPageShell } from "@/components/forest-journey/ForestPageShell";
 
 export const metadata: Metadata = {
   title: "Blog | Quan Van",
@@ -12,54 +12,55 @@ export default function BlogIndexPage() {
   const allPostsData = getSortedPostsData();
 
   return (
-    <div className="max-w-7xl mx-auto py-16 px-6 lg:px-8">
-      <div className="max-w-3xl mb-16">
-        <DocHeading>Engineering & Systems Blog</DocHeading>
-        <DocParagraph>
-          Deep dives into low-level database architecture, C++ pattern mining design patterns, memory managers, and the mechanics of local-first agent environments.
-        </DocParagraph>
-      </div>
+    <ForestPageShell
+      eyebrow="Engineering Blog"
+      title="Technical Writing"
+      description="Deep dives into low-level database architecture, C++ pattern mining, memory managers, and the mechanics of local-first agent environments."
+    >
+      <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+        {allPostsData.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {allPostsData.map((post, i) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="fp-card fp-card--hover group block focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#020802] rounded-xl"
+                style={{ animationDelay: `${i * 60}ms` }}
+              >
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="fp-badge">{post.category}</span>
+                  <span className="fp-mono-label">{post.date}</span>
+                </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-        {allPostsData.map((post) => (
-          <BlogCard key={post.slug} post={post} />
-        ))}
-      </div>
-    </div>
-  );
-}
+                <h3 className="text-xl font-bold tracking-tight mb-3 text-white/90 group-hover:text-emerald-300 transition-colors duration-300 leading-snug">
+                  {post.title}
+                </h3>
 
-function BlogCard({ post }: { post: any }) {
-  return (
-    <Link href={`/blog/${post.slug}`} className="group block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl transition-all">
-      <article className="flex flex-col h-full bg-card/50 backdrop-blur-sm border border-border/80 rounded-2xl hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/5 hover:bg-card transition-all duration-500 overflow-hidden">
-        <div className="p-8 flex flex-col h-full">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded-md">
-              {post.category}
-            </span>
-            <span className="text-xs font-mono text-muted-foreground">{post.date}</span>
+                <p className="text-zinc-400 text-sm leading-relaxed mb-8 flex-1 line-clamp-3">
+                  {post.excerpt}
+                </p>
+
+                <div className="flex items-center justify-between pt-5 border-t border-emerald-900/30">
+                  <div className="flex items-center gap-2">
+                    <div className="h-5 w-5 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700" />
+                    <span className="text-sm font-semibold text-zinc-300">{post.author}</span>
+                  </div>
+                  <span className="text-sm font-bold text-emerald-400 opacity-0 group-hover:opacity-100 translate-x-[-8px] group-hover:translate-x-0 transition-all duration-300">
+                    Read →
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
-          
-          <h3 className="text-2xl font-bold tracking-tight mb-4 group-hover:text-primary transition-colors duration-300 leading-tight">
-            {post.title}
-          </h3>
-          
-          <p className="text-muted-foreground text-sm leading-relaxed mb-10 flex-1 line-clamp-3">
-            {post.excerpt}
-          </p>
-          
-          <div className="flex items-center justify-between pt-6 border-t border-border/40">
-            <div className="flex items-center gap-2">
-              <div className="h-6 w-6 rounded-full bg-gradient-to-br from-primary to-accent" />
-              <span className="text-sm font-semibold text-foreground/80">{post.author}</span>
-            </div>
-            <div className="text-sm font-bold text-primary opacity-0 group-hover:opacity-100 transition-all translate-x-[-10px] group-hover:translate-x-0">
-              Read More <span>→</span>
-            </div>
+        ) : (
+          <div className="fp-card text-center py-12">
+            <h2 className="text-xl font-bold text-white/80">No posts yet</h2>
+            <p className="mt-3 text-zinc-500 text-sm">
+              Add markdown files to <span className="font-mono text-emerald-400/70">content/blog</span> and they will appear here.
+            </p>
           </div>
-        </div>
-      </article>
-    </Link>
+        )}
+      </div>
+    </ForestPageShell>
   );
 }

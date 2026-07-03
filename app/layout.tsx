@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Quan Van | Developer & Researcher Portfolio",
-  description: "Systems Developer and Data Mining Researcher specializing in vector databases, local AI agents, and low-level memory systems.",
+  title: "Quan Van | AI Systems Lab & Research",
+  description: "A personal lab for local-first AI systems, research notes, and engineering stories. Systems Developer and Data Mining Researcher.",
 };
 
 import { Navigation } from "@/components/navigation";
@@ -29,11 +29,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased selection:bg-primary/20 selection:text-primary`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased selection:bg-emerald-900/40 selection:text-emerald-300`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground tracking-tight">
+      <body className="min-h-full flex flex-col bg-[#050505] text-foreground tracking-tight">
         <Navigation />
-        <main className="flex-1">
+        <main className="flex-1 page-enter">
           {children}
         </main>
         <Footer />
@@ -41,3 +41,4 @@ export default function RootLayout({
     </html>
   );
 }
+
