@@ -1,5 +1,5 @@
 ---
-title: "The Dual-Write Dilemma: Ensuring Data Integrity in a Distributed Ecosystem"
+title: "Pomai Ecosystem - The Dual-Write Dilemma: Ensuring Data Integrity in a Distributed Ecosystem"
 slug: "distributed-data-integrity-outbox-pattern-kafka"
 date: "2026-07-28"
 author: "Quan Van"

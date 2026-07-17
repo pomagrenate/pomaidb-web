@@ -1,5 +1,5 @@
 ---
-title: "Pomai Ecosystem: From a Multi-Module Monolith to a Microservices Architecture`"
+title: "Pomai Ecosystem - From a Multi-Module Monolith to a Microservices Architecture`"
 slug: "pomaieco-from-multimodules-monolith-to-microservice-and-why"
 date: "2026-07-17"
 author: "Quan Van"

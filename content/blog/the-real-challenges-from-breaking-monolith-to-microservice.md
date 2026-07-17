@@ -1,5 +1,5 @@
 ---
-title: "Pomai Ecosystem: The Real Challenges of Breaking Down a Monolith to Microservices`"
+title: "Pomai Ecosystem - The Real Challenges of Breaking Down a Monolith to Microservices`"
 slug: "the-real-challenges-from-breaking-monolith-to-microservice"
 date: "2026-07-17"
 author: "Quan Van"

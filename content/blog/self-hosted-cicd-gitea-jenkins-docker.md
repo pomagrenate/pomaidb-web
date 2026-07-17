@@ -1,5 +1,5 @@
 ---
-title: "Taking Back Control: Why I Built a Self-Hosted CI/CD Pipeline for My Microservices"
+title: "Pomai Ecosystem - Taking Back Control: Why I Built a Self-Hosted CI/CD Pipeline for My Microservices"
 slug: "self-hosted-cicd-gitea-jenkins-docker"
 date: "2026-07-24"
 author: "Quan Van"

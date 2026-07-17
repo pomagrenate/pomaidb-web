@@ -1,5 +1,5 @@
 ---
-title: "Pomai Ecosystem: AI-Driven Observability: How I Built a 1M+ Log Analysis Pipeline on a Budget"
+title: "Pomai Ecosystem - AI-Driven Observability: How I Built a 1M+ Log Analysis Pipeline on a Budget"
 slug: "ai-driven-observability-rag-logging-pipeline"
 date: "2026-07-20"
 author: "Quan Van"

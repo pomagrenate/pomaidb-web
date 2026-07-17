@@ -1,5 +1,5 @@
 ---
-title: "Pomai Ecosystem: From Port-Hell to High Availability: Architecting an Enterprise-Grade API Gateway"
+title: "Pomai Ecosystem - From Port-Hell to High Availability: Architecting an Enterprise-Grade API Gateway"
 slug: "api-gateway-kong-nginx-high-availability"
 date: "2026-08-02"
 author: "Quan Van"
