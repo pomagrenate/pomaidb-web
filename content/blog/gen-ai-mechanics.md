@@ -2,7 +2,7 @@
 title: "Inverse Diffusion and Latent Manifolds: Formalizing Generative Mechanics in AI Synthesis"
 slug: "gen-ai-mechanics"
 date: "2026-04-10"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "An investigation into the mathematical foundations of Generative AI, focusing on Inverse Diffusion processes and Latent Space formalization for image and text synthesis."
 tags: ["Generative AI", "Diffusion Models", "GANs", "Mathematics", "Machine Learning"]
 category: "Scientific Research"

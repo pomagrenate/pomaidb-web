@@ -2,7 +2,7 @@
 title: "Computational Efficiency in Edge AI: Optimization via Pythonic Lazy Evaluation"
 slug: "python-yield-generators-edge-ai"
 date: "2026-04-05"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "An analysis of memory management strategies for resource-constrained Edge AI devices, focusing on the mechanics of Python Generators and the 'yield' primitive."
 tags: ["Python", "Memory Optimization", "Edge AI", "System Design"]
 category: "Scientific Research"

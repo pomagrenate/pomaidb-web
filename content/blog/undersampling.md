@@ -2,7 +2,7 @@
 title: "Strategic Informatics: A Formal Investigation into Undersampling Mechanisms for Imbalanced Classification"
 slug: "undersampling"
 date: "2026-04-09"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A technical exploration of majority class reduction strategies. This paper formalizes Random Undersampling, the NearMiss heuristic suite, and Tomek Link boundary cleaning for optimizing inference in high-imbalance network traffic datasets."
 tags: ["Machine Learning", "Data Science", "Imbalanced Learning", "Mathematics"]
 category: "Scientific Research"

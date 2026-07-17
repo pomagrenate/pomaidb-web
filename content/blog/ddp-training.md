@@ -2,7 +2,7 @@
 title: "Distributed Data Parallel (DDP) Architecture: Mathematical Foundations of Ring All-Reduce"
 slug: "ddp-training"
 date: "2026-04-06"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A rigorous mathematical and architectural analysis of Distributed Data Parallel (DDP) in PyTorch. Explores the GIL bottlenecks of legacy systems and the efficiency of the Multi-process Ring All-Reduce topology."
 tags: ["Deep Learning", "DDP", "Architecture", "Mathematics"]
 category: "Scientific Research"

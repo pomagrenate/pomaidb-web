@@ -2,7 +2,7 @@
 title: "LoRA vs QLoRA: The Ultimate Memory Bottleneck Showdown"
 slug: "lora-qlora-comparision"
 date: "2026-04-07"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A deep dive comparing LoRA and QLoRA, analyzing their mathematical mechanics, memory constraints, and how they democratize LLM fine-tuning."
 tags: ["LLM", "Fine-Tuning", "LoRA", "QLoRA", "Quantization"]
 category: "Scientific Research"

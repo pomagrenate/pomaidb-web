@@ -2,7 +2,7 @@
 title: "Attention Dynamics: Formalizing Scaled Dot-Product Mechanisms in Transformer Architectures"
 slug: "self-attention-transformer"
 date: "2026-04-09"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A technical formalization of the Scaled Dot-Product Attention mechanism. This paper analyzes the topological interaction between Queries, Keys, and Values, providing a step-by-step numerical derivation of the attention pipeline."
 tags: ["Transformers", "Self-Attention", "Deep Learning", "Mathematics"]
 category: "Scientific Research"

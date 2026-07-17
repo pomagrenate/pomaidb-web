@@ -2,7 +2,7 @@
 title: "Statistical Tokenization: Formalizing the Byte Pair Encoding (BPE) Algorithm for Subword Decomposition"
 slug: "byte-pair-encoding"
 date: "2026-04-09"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A technical investigation into Byte Pair Encoding (BPE), the subword tokenization standard for Large Language Models. This paper details the iterative transition from character-level granularity to high-density subword dictionaries."
 tags: ["NLP", "Tokenization", "LLM", "Data Science"]
 category: "Scientific Research"

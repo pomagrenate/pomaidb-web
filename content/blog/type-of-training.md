@@ -2,7 +2,7 @@
 title: "Taxonomy of Machine Learning Optimization: A Survey of Training Paradigms"
 slug: "type-of-training"
 date: "2026-04-07"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A systematic categorization of algorithmic training methodologies in Artificial Intelligence, analyzing the mathematical foundations of Supervised, Unsupervised, and Reinforcement Learning."
 tags: ["Machine Learning", "Deep Learning", "Training Paradigms", "Algorithms"]
 category: "Scientific Research"

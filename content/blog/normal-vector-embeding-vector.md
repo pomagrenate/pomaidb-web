@@ -2,7 +2,7 @@
 title: "Embedding Vector vs Standard Vector: The Mathematical Soul of Modern AI"
 slug: "normal-vector-embeding-vector"
 date: "2026-04-08"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A comparative study between engineered standard vectors and learned embedding vectors, exploring latent feature spaces and semantic arithmetic in Deep Learning."
 tags: ["AI", "Vector", "Embedding", "Machine Learning", "Mathematics"]
 category: "Scientific Research"

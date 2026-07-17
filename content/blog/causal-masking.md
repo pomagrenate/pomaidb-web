@@ -2,7 +2,7 @@
 title: "Autoregressive Masking: Formalizing the Causal Mask in Transformer Decoder Architectures"
 slug: "causal-masking"
 date: "2026-04-10"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A technical analysis of the Causal Mask, the structural constraint that enforces autoregressive generation in Decoder-only Transformers. This paper derives the mechanism's mathematical basis and its role in preventing attention leakage across future tokens."
 tags: ["Transformers", "Attention", "Deep Learning", "GPT", "Architecture"]
 category: "Scientific Research"

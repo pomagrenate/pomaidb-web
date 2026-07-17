@@ -2,7 +2,7 @@
 title: "Synthesizing Minority Samples: A Formal Analysis of Linear Interpolation in Imbalanced Classification"
 slug: "smote-works"
 date: "2026-04-09"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A rigorous mathematical investigation into the Synthetic Minority Over-sampling Technique (SMOTE). This paper details the k-NN selection process and the geometric foundations of linear interpolation used to expand decision boundaries in imbalanced datasets."
 tags: ["Machine Learning", "Data Science", "Imbalanced Learning", "Mathematics"]
 category: "Scientific Research"

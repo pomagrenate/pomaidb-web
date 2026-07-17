@@ -2,7 +2,7 @@
 title: 'Understanding the Context Window: The Short-Term Memory of LLMs'
 slug: 'what-context-window-in-llm'
 date: '2026-04-10'
-author: 'Scientific Research Team'
+author: 'Quan Van'
 excerpt: "An exploration of the context window in Large Language Models, detailing its token-based architecture, O(N^2) computational complexity, and the 'Lost in the Middle' phenomenon."
 tags: ['LLM', 'Context Window', 'Deep Learning', 'Transformers', 'Memory']
 category: 'Scientific Research'

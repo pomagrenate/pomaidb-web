@@ -2,7 +2,7 @@
 title: "Mathematical Foundations of Spatial and Temporal Subsampling: A Study on Pooling Layers"
 slug: "pooling-layers"
 date: "2026-04-07"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A rigorous mathematical analysis of dimensionality reduction in Deep Learning, exploring the formal mechanics of Max, Average, and Global Pooling across 1D, 2D, and 3D architectures."
 tags: ["Deep Learning", "CNN", "Mathematics", "Signal Processing"]
 category: "Scientific Research"

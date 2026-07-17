@@ -2,7 +2,7 @@
 title: "Mathematical Foundations of Convolutional Architectures: A Spatiotemporal Research Study"
 slug: "cnn-1d-2d-3d-explained"
 date: "2026-04-06"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A rigorous mathematical exploration of convolutional operations in 1D, 2D, and 3D spaces. Analyzing receptive field dynamics, computational complexity, and dimensionality mapping in deep neural networks."
 tags: ["Deep Learning", "Mathematics", "CNN", "Research"]
 category: "Scientific Research"

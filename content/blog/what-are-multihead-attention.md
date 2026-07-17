@@ -2,7 +2,7 @@
 title: "Multi-Head Attention: The Engine of Parallel Representation in Transformers"
 slug: "what-are-multihead-attention"
 date: "2026-04-10"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A comprehensive breakdown of Multi-Head Attention, the mathematical framework that allows Transformers to capture parallel semantic subspaces simultaneously."
 tags: ["Transformers", "Attention", "Deep Learning", "LLM", "Architecture"]
 category: "Scientific Research"

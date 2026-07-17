@@ -2,7 +2,7 @@
 title: 'Scaling in Transformer Architectures: The Mathematical Rationale behind $\sqrt{d_k}$'
 slug: "why-scale-dot-product-attention"
 date: "2026-04-10"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A derivation of the variance explosion in high-dimensional dot products and its deleterious effects on softmax saturation and gradient propagation."
 tags: ["Transformer", "Attention", "Deep Learning", "Mathematics"]
 category: "Scientific Research"

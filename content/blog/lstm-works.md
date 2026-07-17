@@ -2,7 +2,7 @@
 title: "Automata as Memory: Decoding LSTM State Persistence in Terminal Sequences"
 slug: "lstm-works"
 date: "2026-04-08"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "A rigorous mathematical analysis of the divergence between Cell State ($C_L$) and Hidden State ($h_L$) at the terminal step of Long Short-Term Memory architectures. Explores the functional roles of these states in Many-to-One and Many-to-Many topologies."
 tags: ["Deep Learning", "LSTM", "Architecture", "Mathematics"]
 category: "Scientific Research"

@@ -2,7 +2,7 @@
 title: "Foundations of Recurrent Architectures: Parameter Sharing and Temporal Dynamics"
 slug: "rnn-works"
 date: "2026-04-08"
-author: "Scientific Research Team"
+author: "Quan Van"
 excerpt: "An analytical study of Recurrent Neural Networks (RNNs), examining the mathematical mechanics of parameter sharing, temporal hidden states, and the vanishing gradient bottleneck."
 tags: ["Deep Learning", "RNN", "Mathematics", "Sequential Data"]
 category: "Scientific Research"
