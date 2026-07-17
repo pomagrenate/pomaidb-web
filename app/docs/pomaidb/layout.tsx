@@ -31,7 +31,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
                 {group.pages.map((page) => (
                   <li key={page.slug}>
                     <Link
-                      href={`/docs/${page.slug}`}
+                      href={`/docs/pomaidb/${page.slug}`}
                       className="block px-3 py-2 text-sm font-medium rounded-md text-zinc-400 hover:bg-emerald-900/30 hover:text-emerald-300 transition-all"
                     >
                       {page.title}

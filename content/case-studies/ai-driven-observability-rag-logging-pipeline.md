@@ -1,11 +1,13 @@
 ---
 title: "Pomai Ecosystem - AI-Driven Observability: How I Built a 1M+ Log Analysis Pipeline on a Budget"
 slug: "ai-driven-observability-rag-logging-pipeline"
+series: "Pomai Ecosystem Architecture"
 date: "2026-07-20"
 author: "Quan Van"
 excerpt: "When my system logs hit the million-mark, human inspection became impossible. Here is how I turned raw logs into actionable intelligence using RAG, Kafka, and CPU-only AI."
 tags: ["Observability", "RAG", "AI", "Kafka", "Llama.cpp", "System Design", "Flink"]
 category: "Engineering"
+repo: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architecture-Case-Study-with-AI-RAG-Integration."
 ---
 
 # AI-Driven Observability: How I Built a 1M+ Log Analysis Pipeline on a Budget

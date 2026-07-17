@@ -1,15 +1,12 @@
 "use client";
 
-import { useCallback } from "react";
+import Script from "next/script";
 
-/**
- * Injects mouse-glow tracking into all .fp-card elements on the page.
- * Drop this anywhere in a page layout — it uses event delegation on document.
- */
 export function FpCardGlowScript() {
   return (
-    <script
-      // Inline script — runs immediately, no hydration delay
+    <Script
+      id="fp-card-glow-script"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: `
 (function() {

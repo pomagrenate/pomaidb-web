@@ -1,11 +1,13 @@
 ---
 title: "Pomai Ecosystem - Taking Back Control: Why I Built a Self-Hosted CI/CD Pipeline for My Microservices"
 slug: "self-hosted-cicd-gitea-jenkins-docker"
+series: "Pomai Ecosystem Architecture"
 date: "2026-07-24"
 author: "Quan Van"
 excerpt: "Moving to microservices solved my scaling issues, but it created a deployment nightmare. Here is why I bypassed cloud CI/CD solutions to build a fully on-premise pipeline using Gitea, Jenkins, and Portainer."
 tags: ["DevOps", "CI/CD", "Jenkins", "Gitea", "Docker", "Portainer", "Data Sovereignty"]
 category: "Platform Engineering"
+repo: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architecture-Case-Study-with-AI-RAG-Integration."
 ---
 
 # Taking Back Control: Why I Built a Self-Hosted CI/CD Pipeline for My Microservices

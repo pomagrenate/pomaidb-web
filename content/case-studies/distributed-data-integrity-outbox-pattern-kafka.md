@@ -1,11 +1,13 @@
 ---
 title: "Pomai Ecosystem - The Dual-Write Dilemma: Ensuring Data Integrity in a Distributed Ecosystem"
 slug: "distributed-data-integrity-outbox-pattern-kafka"
+series: "Pomai Ecosystem Architecture"
 date: "2026-07-28"
 author: "Quan Van"
 excerpt: "Splitting a monolith into microservices is easy. Keeping the data consistent across them is the real nightmare. Here is how I solved the dual-write problem using the Transactional Outbox Pattern and Kafka."
 tags: ["System Design", "Microservices", "Kafka", "PostgreSQL", "Data Integrity", "Outbox Pattern"]
 category: "Architecture"
+repo: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architecture-Case-Study-with-AI-RAG-Integration."
 ---
 
 # The Dual-Write Dilemma: Ensuring Data Integrity in a Distributed Ecosystem

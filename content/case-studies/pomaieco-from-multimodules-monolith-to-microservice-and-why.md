@@ -1,11 +1,13 @@
 ---
 title: "Pomai Ecosystem - From a Multi-Module Monolith to a Microservices Architecture`"
 slug: "pomaieco-from-multimodules-monolith-to-microservice-and-why"
+series: "Pomai Ecosystem Architecture"
 date: "2026-07-17"
 author: "Quan Van"
 excerpt: "Pomai Ecosystem did not begin as a microservices platform. Like many personal projects, it started with a single frontend application connected to a backend organized as a multi-module monolith. Every feature lived inside the same repository and shared the same Firebase Firestore database. Modules communicated through direct imports or internal REST endpoints while remaining deployed as one application."
 tags: ["Pomai Ecosystem", "Pomai Lem", "Pomai Connect", "Pomai Draw", "Pomai AI", "Pomai Planner", "Pomai Chat", "Pomai Team", "Pomai Workspace", "Pomai Task", "Pomai Goal"]
 category: "System Design"
+repo: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architecture-Case-Study-with-AI-RAG-Integration."
 ---
 
 # When "Shipping Fast" Hits a Wall: My Journey from Monolith to Microservices

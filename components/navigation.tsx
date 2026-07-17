@@ -21,8 +21,10 @@ export function Navigation() {
             <NavLink href="/projects">Projects</NavLink>
             <NavLink href="/research">Research</NavLink>
             <NavLink href="/blog">Blog</NavLink>
+            <NavLink href="/case-studies">Case Studies</NavLink>
             <NavLink href="/docs">Docs</NavLink>
             <NavLink href="/videos">Videos</NavLink>
+            <NavLink href="/hire-me">Hire Me</NavLink>
             <a
               href="https://github.com/pomagrenate"
               target="_blank"

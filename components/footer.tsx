@@ -15,7 +15,7 @@ export function Footer() {
             </span>
           </Link>
           <span className="text-xs font-mono text-zinc-700 uppercase tracking-widest pl-4 border-l border-emerald-900/30">
-            Systems &amp; Data Mining
+            Systems &amp; Software Engineering
           </span>
         </div>
 
@@ -26,7 +26,7 @@ export function Footer() {
         </div>
 
         <p className="text-xs font-mono text-zinc-700 order-last sm:order-none">
-          © 2026 Quan Van
+          © {new Date().getFullYear()} Quan Van
         </p>
       </div>
     </footer>

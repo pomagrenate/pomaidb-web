@@ -1,11 +1,13 @@
 ---
 title: "Pomai Ecosystem - From Port-Hell to High Availability: Architecting an Enterprise-Grade API Gateway"
 slug: "api-gateway-kong-nginx-high-availability"
+series: "Pomai Ecosystem Architecture"
 date: "2026-08-02"
 author: "Quan Van"
 excerpt: "When my microservices multiplied, managing routing and security became a nightmare. Here is how I evolved from a custom-coded proxy to a Highly Available Kong and Nginx Gateway cluster."
 tags: ["System Design", "API Gateway", "Kong", "Nginx", "Load Balancing", "High Availability"]
 category: "Infrastructure"
+repo: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architecture-Case-Study-with-AI-RAG-Integration."
 ---
 
 # From Port-Hell to High Availability: Architecting an Enterprise-Grade API Gateway
