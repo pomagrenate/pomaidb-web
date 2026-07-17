@@ -1,6 +1,6 @@
 ---
 title: "Pomai Ecosystem: The Real Challenges of Breaking Down a Monolith to Microservices`"
-slug: "pthe-real-challenges-from-breaking-monolith-to-microservice"
+slug: "the-real-challenges-from-breaking-monolith-to-microservice"
 date: "2026-07-17"
 author: "Quan Van"
 excerpt: "Pomai Ecosystem did not begin as a microservices platform. Like many personal projects, it started with a single frontend application connected to a backend organized as a multi-module monolith. Every feature lived inside the same repository and shared the same Firebase Firestore database. Modules communicated through direct imports or internal REST endpoints while remaining deployed as one application."
