@@ -23,6 +23,14 @@ const projects = [
         badge: "Core Agent Plugin",
         tags: ["Code", "Antigravity", "Claude Code"],
         href: "/docs/ice_age/"
+    },
+    {
+        slug: "gox",
+        title: "GoX Framework",
+        description: "A framework for building microservices in Go, with a focus on simplicity and observability.",
+        badge: "Microservice Framework",
+        tags: ["Go", "Microservices", "Framework"],
+        href: "/docs/gox/"
     }
 ];
 
