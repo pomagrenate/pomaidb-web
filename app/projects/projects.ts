@@ -139,6 +139,12 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
                 description: "Multi-workspace HR operations SaaS with embedded agent workflows for automated tasking, shifts, and wage computing.",
                 tags: ["HR SaaS", "Task Automation", "SaaS Tenant Architecture"],
                 demo: "https://youtu.be/0ujbOGHRLHg?si=aRrWZYA2nXiCNBKl"
+            },
+            {
+                title: "Esolution Landing Page",
+                live: "https://www.esolutions.vn",
+                description: "A landing page for showcasing the Esolution projects with admin dashboard to manage project listings, categories, and details.",
+                tags: ["Landing Page", "Admin Dashboard", "Project Showcase"],
             }
         ]
     },
