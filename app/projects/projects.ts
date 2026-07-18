@@ -26,7 +26,7 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
                 github: "https://github.com/pomagrenate/pomaidb",
                 description: "The predictable edge-native database for multimodal AI memory. Embedded, single-threaded, and offline-first with memory-mapped structures.",
                 tags: ["C++20", "LSM Tree", "Vector Indexing"],
-                details: "/docs"
+                details: "/docs/pomaidb"
             },
             {
                 title: "Palloc",
@@ -148,4 +148,18 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
             }
         ]
     },
+    {
+        category: "Go Microservices & Frameworks",
+        description: "Microservice frameworks and libraries for building scalable distributed systems in Go.",
+        projects: [
+            {
+                title: "GoX Framework",
+                repo: "pomagrenate/gox",
+                github: "https://github.com/pomagrenate/gox",
+                description: "A framework for building microservices in Go, with a focus on simplicity and observability.",
+                tags: ["Go", "Microservices", "Framework"],
+                details: "/docs/gox"
+            }
+        ]
+    }
 ];
