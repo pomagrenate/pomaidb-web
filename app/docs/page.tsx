@@ -31,6 +31,14 @@ const projects = [
         badge: "Microservice Framework",
         tags: ["Go", "Microservices", "Framework"],
         href: "/docs/gox/"
+    },
+    {
+        slug: "cheeserag",
+        title: "CheeseRag",
+        description: "A lightweight local agent framework for building and orchestrating AI agents in Go, with a focus on simplicity and observability.",
+        badge: "Microservice Framework",
+        tags: ["Go", "AI Agents", "Framework"],
+        href: "/docs/cheeserag/"
     }
 ];
 
