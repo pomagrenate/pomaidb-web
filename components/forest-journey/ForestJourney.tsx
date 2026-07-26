@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import Link from "next/link";
 import { stations } from "@/data/stations";
 import { ForestBackground } from "./ForestBackground";
 import { FogLayer } from "./FogLayer";
@@ -32,6 +33,37 @@ export function ForestJourney() {
     new Array(stations.length).fill(false)
   );
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [typedText, setTypedText] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
+
+  const fullText = "A personal lab for local-first AI systems, research notes, and engineering stories.";
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setTypedText(fullText);
+      setIsTyping(false);
+      return;
+    }
+
+    let index = 0;
+    const typingSpeed = 30;
+
+    const typeNextChar = () => {
+      if (index < fullText.length) {
+        setTypedText(fullText.slice(0, index + 1));
+        index++;
+        setTimeout(typeNextChar, typingSpeed);
+      } else {
+        setIsTyping(false);
+      }
+    };
+
+    typeNextChar();
+
+    return () => {
+      setIsTyping(false);
+    };
+  }, [reducedMotion]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -145,10 +177,24 @@ export function ForestJourney() {
               Quan Van
             </h1>
             <p className="journey-hero__subtitle">
-              A personal lab for local-first AI systems,<br />
-              research notes, and engineering stories.
+              {typedText}
+              {isTyping && <span className="animate-pulse">|</span>}
             </p>
-            <div className="journey-hero__cta">
+            <div className="journey-hero__cta flex flex-col items-center gap-4">
+              <Link
+                href="/projects"
+                className="group relative inline-flex items-center gap-2 px-6 py-3 bg-emerald-900/40 border border-emerald-700/50 rounded-lg text-emerald-300 font-bold text-sm tracking-wider uppercase hover:bg-emerald-800/50 hover:border-emerald-600/60 transition-all duration-300 hover:shadow-[0_0_30px_rgba(100,220,140,0.3)] hover:shadow-emerald-500/20"
+              >
+                <span>Explore My Work</span>
+                <svg
+                  className="w-4 h-4 transition-transform group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
               <span className="journey-hero__scroll-hint" aria-hidden="true">
                 <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
                   <rect x="3" y="1" width="10" height="14" rx="5" stroke="currentColor" strokeWidth="1.5" />
@@ -172,6 +218,25 @@ export function ForestJourney() {
           className="journey-bottom-reveal"
           style={{ opacity: Math.min(scrollProgress * 3, 1) }}
         />
+
+        {/* User image at end of journey - standing on the road */}
+        <div
+          className="absolute bottom-64 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center"
+          style={{
+            opacity: scrollProgress > 0.85 ? (scrollProgress - 0.85) * 6.67 : 0,
+            transform: `translateY(${(1 - scrollProgress) * 30}px) scale(${0.5 + scrollProgress * 0.5})`,
+          }}
+        >
+          <div className="relative">
+            <div className="absolute inset-0 bg-emerald-500/30 blur-2xl rounded-full" />
+            <img
+              src="/images/me.png"
+              alt="Quan Van"
+              className="relative w-80 h-80 md:w-96 md:h-96 object-cover shadow-2xl"
+              loading="lazy"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

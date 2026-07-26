@@ -3,6 +3,15 @@ import { getResearchItems } from "@/lib/research";
 import { getSortedPostsData } from "@/lib/blog";
 import { ForestJourney } from "@/components/forest-journey/ForestJourney";
 
+function StatCard({ number, label }: { number: string; label: string }) {
+  return (
+    <div className="text-center">
+      <div className="text-4xl font-bold text-emerald-400 mb-2">{number}</div>
+      <div className="text-sm text-zinc-500 font-medium">{label}</div>
+    </div>
+  );
+}
+
 export default function Home() {
   const researchItems = getResearchItems().slice(0, 3);
   const blogPosts = getSortedPostsData().slice(0, 3);
@@ -21,6 +30,36 @@ export default function Home() {
         aria-hidden="true"
       />
 
+      {/* ─── Social Proof Stats ─── */}
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16 border-b border-emerald-900/20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <StatCard number="5+" label="Years Experience" />
+          <StatCard number="20+" label="Projects Built" />
+          <StatCard number="10+" label="Research Papers" />
+          <StatCard number="3" label="Open Source Maintainer" />
+        </div>
+      </div>
+
+      {/* ─── Tech Stack ─── */}
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
+        <div className="text-center mb-12">
+          <h3 className="text-sm font-semibold text-emerald-400 uppercase tracking-widest font-mono mb-2">
+            Tech Stack
+          </h3>
+          <p className="text-zinc-500 text-sm">Technologies I work with</p>
+        </div>
+        <div className="flex flex-wrap justify-center gap-4">
+          {['Go', 'Python', 'TypeScript', 'React', 'Next.js', 'Kafka', 'Docker', 'PostgreSQL', 'Redis', 'Qdrant', 'MinIO', 'FastAPI'].map((tech) => (
+            <span
+              key={tech}
+              className="px-4 py-2 bg-[#0a140a]/60 border border-emerald-900/30 rounded-lg text-sm font-medium text-zinc-400 hover:border-emerald-700/50 hover:text-emerald-300 transition-all duration-300 cursor-default"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* ─── Recent Research Papers ─── */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
         <div className="mx-auto max-w-2xl lg:text-center mb-16">
@@ -33,10 +72,10 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {researchItems.map((item) => (
+          {researchItems.map((item, index) => (
             <article
               key={item.slug}
-              className="flex flex-col border border-emerald-900/40 bg-[#0a140a]/60 backdrop-blur p-6 rounded-xl hover:border-emerald-700/50 transition-all duration-300"
+              className={`flex flex-col border border-emerald-900/40 bg-[#0a140a]/60 backdrop-blur p-6 rounded-xl hover:border-emerald-700/50 transition-all duration-300 card-lift stagger-fade-in stagger-delay-${index + 1}`}
             >
               <span className="text-[9px] w-fit font-black uppercase tracking-widest px-2 py-0.5 bg-emerald-900/30 text-emerald-400 rounded border border-emerald-800/40 mb-4 font-mono">
                 {item.date}
@@ -84,11 +123,11 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {blogPosts.map((post) => (
+            {blogPosts.map((post, index) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group flex flex-col border border-emerald-900/40 bg-[#0a140a]/60 backdrop-blur p-6 rounded-xl hover:border-emerald-700/50 transition-all duration-300"
+                className={`group flex flex-col border border-emerald-900/40 bg-[#0a140a]/60 backdrop-blur p-6 rounded-xl hover:border-emerald-700/50 transition-all duration-300 card-lift stagger-fade-in stagger-delay-${index + 1}`}
               >
                 <span className="text-[9px] w-fit font-black uppercase tracking-widest px-2 py-0.5 bg-zinc-800/60 text-zinc-400 rounded mb-4 font-mono">
                   {post.category}

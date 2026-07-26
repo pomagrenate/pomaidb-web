@@ -8,6 +8,7 @@ import remarkRehype from "remark-rehype";
 import rehypeKatex from "rehype-katex";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
+import { calculateReadingTime } from "./reading-time";
 
 const postsDirectory = path.join(process.cwd(), "content/blog");
 
@@ -20,6 +21,7 @@ export interface BlogPostData {
   category: string;
   tags: string[];
   contentHtml?: string;
+  readingTime?: number;
 }
 
 export function getSortedPostsData(): BlogPostData[] {
@@ -65,16 +67,18 @@ export async function getPostData(slug: string): Promise<BlogPostData> {
     .process(matterResult.content);
 
   const contentHtml = processedContent.toString();
+  const readingTime = calculateReadingTime(matterResult.content);
 
   return {
     slug,
     contentHtml,
-    ...(matterResult.data as { 
-      title: string; 
-      date: string; 
-      author: string; 
-      excerpt: string; 
-      category: string; 
+    readingTime,
+    ...(matterResult.data as {
+      title: string;
+      date: string;
+      author: string;
+      excerpt: string;
+      category: string;
       tags: string[];
     }),
   };

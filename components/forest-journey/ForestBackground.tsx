@@ -5,10 +5,10 @@ interface ForestBackgroundProps {
 }
 
 export function ForestBackground({ scrollProgress }: ForestBackgroundProps) {
-  // Subtle scale from 1.0 to 1.12 as the user scrolls deeper
-  const scale = 1 + scrollProgress * 0.12;
-  // Slight vertical pan upward
-  const translateY = scrollProgress * -4;
+  // Dramatic scale from 1.0 to 1.35 as the user scrolls deeper (walking effect)
+  const scale = 1 + scrollProgress * 0.35;
+  // Vertical pan upward to simulate moving forward
+  const translateY = scrollProgress * -8;
 
   return (
     <div className="forest-bg-wrapper" aria-hidden="true">

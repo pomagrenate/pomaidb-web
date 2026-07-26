@@ -5,8 +5,8 @@ interface ForegroundLayerProps {
 }
 
 export function ForegroundLayer({ scrollProgress }: ForegroundLayerProps) {
-  // Foreground moves faster than background = parallax depth
-  const translateY = scrollProgress * 12;
+  // Foreground moves much faster than background = strong parallax depth (walking effect)
+  const translateY = scrollProgress * 25;
 
   return (
     <div
@@ -24,6 +24,7 @@ export function ForegroundLayer({ scrollProgress }: ForegroundLayerProps) {
         alt=""
         className="foreground-bush"
         draggable={false}
+        loading="lazy"
       />
 
       {/* Bottom-right: rocks */}
@@ -33,6 +34,7 @@ export function ForegroundLayer({ scrollProgress }: ForegroundLayerProps) {
         alt=""
         className="foreground-rocks"
         draggable={false}
+        loading="lazy"
       />
     </div>
   );

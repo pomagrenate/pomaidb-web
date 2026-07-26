@@ -22,6 +22,7 @@ export function StationMarker({ station, isActive, side }: StationMarkerProps) {
           alt={`${station.markerLabel} — Station ${station.number}`}
           className="stone-image"
           draggable={false}
+          loading="lazy"
         />
 
         {/* Glow ring behind stone */}
