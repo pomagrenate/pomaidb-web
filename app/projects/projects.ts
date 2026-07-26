@@ -135,7 +135,7 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
             {
                 title: "PomaiEm HR System",
                 repo: "pomagrenate/pomaiem-hr-system",
-                github: "https://github.com/pomagrenate",
+                github: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architecture-Case-Study-with-AI-RAG-Integration.",
                 description: "Multi-workspace HR operations SaaS with embedded agent workflows for automated tasking, shifts, and wage computing.",
                 tags: ["HR SaaS", "Task Automation", "SaaS Tenant Architecture"],
                 demo: "https://youtu.be/0ujbOGHRLHg?si=aRrWZYA2nXiCNBKl"

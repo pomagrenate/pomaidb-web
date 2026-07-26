@@ -12,7 +12,7 @@ repo: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architec
 
 # The 3-Pillar Architecture: Decoupling Real-time Data, Analytics, and AI
 
-![The 3-Pillar Pomai Architecture](../../public/images/blog/3_pillar_architecture.png)
+![The 3-Pillar Pomai Architecture](/images/blog/3_pillar_architecture.png)
 
 When building the Pomai Ecosystem, I quickly realized that throwing all functionalities into a single monolithic service—or even a loosely defined set of microservices—was a recipe for disaster. 
 

@@ -12,7 +12,7 @@ repo: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architec
 
 # The Polyglot Contract: Taming Microservices Chaos with Protobuf
 
-![The Protobuf Architect](../../public/images/blog/protobuf_achitect.png)
+![The Protobuf Architect](/images/blog/protobuf_achitect.png)
 
 In the early days of the Pomai Ecosystem, communication between services was simple. The Realtime Hub (Go) would emit a JSON event, push it to Kafka, and the AI Hub (Python) or a Node.js worker would consume it. 
 
