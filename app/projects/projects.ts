@@ -161,5 +161,39 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
                 details: "/docs/gox"
             }
         ]
+    },
+    {
+        category: "Interactive Apps & Utilities",
+        description: "Interactive visualizers, games, and web-based utilities showcasing Pomai technologies.",
+        projects: [
+            {
+                title: "Pomai Diagram App",
+                repo: "pomagrenate/pomai-diagram-app",
+                live: "https://pomai-app-hub-alpha.vercel.app/",
+                description: "A desktop-native visual flowchart and diagramming application built with React Flow and Tauri.",
+                tags: ["React Flow", "Tauri", "Diagrams"],
+            },
+            {
+                title: "Pomai Model Inference Visualizer",
+                repo: "pomagrenate/pomai-model-inference-visualize",
+                live: "https://pomai-app-hub-alpha.vercel.app/",
+                description: "A desktop utility to visualize ONNX model graphs and monitor inference execution using React Flow and ONNX Runtime Web.",
+                tags: ["ONNX", "Tauri", "Visualization"],
+            },
+            {
+                title: "Bento Sort",
+                repo: "pomagrenate/bento-sort",
+                live: "https://pomai-app-hub-alpha.vercel.app/",
+                description: "An interactive, procedurally generated logic puzzle game focused on spatial grouping logic and framer-motion animations.",
+                tags: ["React", "Framer Motion", "Procedural Generation"],
+            },
+            {
+                title: "Perfect Split",
+                repo: "pomagrenate/perfect-split",
+                live: "https://pomai-app-hub-alpha.vercel.app/",
+                description: "A physics-based 2D slicing game using Matter.js and PolyboolJS. Tests spatial reasoning with procedurally generated concave polygons.",
+                tags: ["Matter.js", "Computational Geometry", "Physics Engine"],
+            }
+        ]
     }
 ];
