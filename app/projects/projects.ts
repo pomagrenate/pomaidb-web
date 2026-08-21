@@ -85,6 +85,13 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         tags: ["Rust", "Local-First", "Clipboard"],
       },
       {
+        title: "fetchr",
+        repo: "pomagrenate/fetchr",
+        github: "https://github.com/pomagrenate/fetchr",
+        description: "A blazing-fast, adaptive download engine built in Rust. Features dynamic parallel range requests, resume recovery, low memory streaming, and zero fluff.",
+        tags: ["Rust", "Networking", "Download Engine"],
+      },
+      {
         title: "gox",
         repo: "pomagrenate/gox",
         github: "https://github.com/pomagrenate/gox",
