@@ -70,12 +70,14 @@ export default function CheeseragDetailPage() {
 
       <div className="mt-24 pt-12 border-t border-border flex flex-col items-center text-center">
         <h3 className="font-bold text-lg mb-4">Want to link PomaiDB into your project?</h3>
-        <Link 
-          href="/docs" 
+        <a
+          href="https://github.com/pomagrenate/pomaidb"
+          target="_blank"
+          rel="noopener noreferrer"
           className="rounded-full bg-primary px-8 py-3.5 text-sm font-bold text-white hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:scale-105 active:scale-95"
         >
-          Read the Engineering Manual
-        </Link>
+          View PomaiDB on GitHub
+        </a>
       </div>
     </div>
   );

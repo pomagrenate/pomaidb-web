@@ -35,23 +35,23 @@ export function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <div className="fp-card bg-gradient-to-br from-emerald-900/20 to-[#020802] rounded-2xl border border-emerald-700/30 text-center py-16 px-6">
-        <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center mx-auto mb-6">
-          <svg className="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="bg-emerald-50 border border-emerald-200 rounded-2xl text-center py-12 px-6">
+        <div className="w-12 h-12 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-600 flex items-center justify-center mx-auto mb-4">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-        <p className="text-zinc-400">I'll get back to you as soon as possible.</p>
+        <h3 className="text-xl font-bold text-[#171717] mb-1">Message Sent!</h3>
+        <p className="text-[#525252] text-sm">I'll get back to you as soon as possible.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="fp-card rounded-xl space-y-6">
+    <form onSubmit={handleSubmit} className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-semibold text-zinc-300 mb-2">
+          <label htmlFor="name" className="block text-xs font-mono font-bold text-[#171717] uppercase tracking-wider mb-2">
             Name
           </label>
           <input
@@ -61,12 +61,12 @@ export function ContactForm() {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-[#0a140a]/60 border border-emerald-900/30 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-700/50 transition-colors"
+            className="w-full px-4 py-3 bg-[#FAFAF8] border border-[#EAEAEA] rounded-xl text-sm text-[#171717] placeholder-[#A3A3A3] focus:outline-none focus:border-[#6D5DFB] transition-colors"
             placeholder="Your name"
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-semibold text-zinc-300 mb-2">
+          <label htmlFor="email" className="block text-xs font-mono font-bold text-[#171717] uppercase tracking-wider mb-2">
             Email
           </label>
           <input
@@ -76,14 +76,14 @@ export function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-[#0a140a]/60 border border-emerald-900/30 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-700/50 transition-colors"
+            className="w-full px-4 py-3 bg-[#FAFAF8] border border-[#EAEAEA] rounded-xl text-sm text-[#171717] placeholder-[#A3A3A3] focus:outline-none focus:border-[#6D5DFB] transition-colors"
             placeholder="your@email.com"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="subject" className="block text-sm font-semibold text-zinc-300 mb-2">
+        <label htmlFor="subject" className="block text-xs font-mono font-bold text-[#171717] uppercase tracking-wider mb-2">
           Subject
         </label>
         <input
@@ -93,13 +93,13 @@ export function ContactForm() {
           value={formData.subject}
           onChange={handleChange}
           required
-          className="w-full px-4 py-3 bg-[#0a140a]/60 border border-emerald-900/30 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-700/50 transition-colors"
+          className="w-full px-4 py-3 bg-[#FAFAF8] border border-[#EAEAEA] rounded-xl text-sm text-[#171717] placeholder-[#A3A3A3] focus:outline-none focus:border-[#6D5DFB] transition-colors"
           placeholder="Project inquiry, collaboration, etc."
         />
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-semibold text-zinc-300 mb-2">
+        <label htmlFor="message" className="block text-xs font-mono font-bold text-[#171717] uppercase tracking-wider mb-2">
           Message
         </label>
         <textarea
@@ -108,8 +108,8 @@ export function ContactForm() {
           value={formData.message}
           onChange={handleChange}
           required
-          rows={6}
-          className="w-full px-4 py-3 bg-[#0a140a]/60 border border-emerald-900/30 rounded-lg text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-700/50 transition-colors resize-none"
+          rows={5}
+          className="w-full px-4 py-3 bg-[#FAFAF8] border border-[#EAEAEA] rounded-xl text-sm text-[#171717] placeholder-[#A3A3A3] focus:outline-none focus:border-[#6D5DFB] transition-colors resize-none"
           placeholder="Tell me about your project or inquiry..."
         />
       </div>
@@ -117,7 +117,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="fp-btn fp-btn--primary w-full text-sm px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-3.5 px-6 rounded-xl bg-[#6D5DFB] hover:bg-[#5C4CE5] text-white text-sm font-semibold shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isSubmitting ? "Sending..." : "Send Message"}
       </button>

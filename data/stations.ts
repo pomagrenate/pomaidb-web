@@ -37,8 +37,7 @@ export const stations: Station[] = [
       "A local-first, single-threaded vector store built for edge AI. LSM-based storage engine designed for flash memory longevity and resource-constrained ARM/x86 deployments.",
     tags: ["C++20", "Vector Indexing", "Edge Computing"],
     links: [
-      { label: "Read Docs", href: "/docs", primary: true },
-      { label: "GitHub", href: "https://github.com/pomagrenate/pomaidb" },
+      { label: "GitHub", href: "https://github.com/pomagrenate/pomaidb", primary: true },
     ],
     markerLabel: "System Marker",
   },

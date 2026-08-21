@@ -1,199 +1,128 @@
 export interface ProjectItem {
-    title: string;
-    repo?: string;
-    github?: string;
-    live?: string;
-    description: string;
-    tags: string[];
-    details?: string;
-    demo?: string;
+  title: string;
+  repo?: string;
+  github?: string;
+  live?: string;
+  description: string;
+  tags: string[];
+  details?: string;
+  demo?: string;
 }
 
 export interface ProjectGroup {
-    category: string;
-    description: string;
-    projects: ProjectItem[];
+  category: string;
+  description: string;
+  projects: ProjectItem[];
 }
 
 export const PROJECT_GROUPS: ProjectGroup[] = [
-    {
-        category: "Low-Level & Storage Systems",
-        description: "System libraries, allocators, and specialized database engines focusing on resource predictability and memory bounds.",
-        projects: [
-            {
-                title: "PomaiDB",
-                repo: "pomagrenate/pomaidb",
-                github: "https://github.com/pomagrenate/pomaidb",
-                description: "The predictable edge-native database for multimodal AI memory. Embedded, single-threaded, and offline-first with memory-mapped structures.",
-                tags: ["C++20", "LSM Tree", "Vector Indexing"],
-                details: "/docs/pomaidb"
-            },
-            {
-                title: "Palloc",
-                repo: "pomagrenate/palloc",
-                github: "https://github.com/pomagrenate/palloc",
-                description: "A hardware-aware DRAM bank partitioning memory allocator designed to protect edge systems from OOM failures and ensure strict performance isolation.",
-                tags: ["C / Rust", "Memory Allocation", "Kernel"],
-            },
-            {
-                title: "Ice Age",
-                repo: "pomagrenate/iceage",
-                github: "https://github.com/pomagrenate/iceage",
-                description: "Cold storage and index archiving system optimized for flash wear-aware databases, serializing old vector embeddings dynamically.",
-                tags: ["Go", "Serialization", "AI Agent Tool"],
-                details: "/docs/iceage"
-            },
-            {
-                title: "PomaiCache",
-                repo: "pomagrenate/pomaicache",
-                github: "https://github.com/pomagrenate/pomaicache",
-                description: "Semantic cache layer optimized for LLM prompting to reduce redundant network and GPU cycles on repetitive tasks.",
-                tags: ["C++", "Semantic Caching", "Bitmap Indexes"],
-            }
-        ]
-    },
-    {
-        category: "Data Mining & Parsing",
-        description: "C++ pattern mining algorithms and high-throughput lexical scanners.",
-        projects: [
-            {
-                title: "dm",
-                repo: "oh-mah-c/dm",
-                github: "https://github.com/oh-mah-c/dm",
-                description: "High-performance C++ Data Mining library implementing CHUO-Miner, MFHOI-Miner, HUPP-Miner, and oblivious shape-hiding tree-mining (VIFP).",
-                tags: ["C++20", "Pattern Mining", "Oblivious Algorithms"],
-            },
-            {
-                title: "SyntaxVoid",
-                repo: "pomagrenate/syntaxvoid",
-                github: "https://github.com/pomagrenate/syntaxvoid",
-                description: "A low-level C99 lexical analysis library featuring the Flat-Array Robin-Hood Offset Tokenizer (FARO-Tokenizer) for zero-dependency parsing.",
-                tags: ["C99", "Tokenization", "Robin Hood Hashing"],
-            },
-            {
-                title: "PomaiSearch",
-                repo: "pomagrenate/pomaisearch",
-                github: "https://github.com/pomagrenate/pomaisearch",
-                description: "Hybrid keyword and semantic query search engine using vector membranes and posting list structures.",
-                tags: ["C++", "Information Retrieval", "Membrane Index"],
-            }
-        ]
-    },
-    {
-        category: "AI Agents & RAG Frameworks",
-        description: "Orchestration engines, context compressors, and autonomous agent loops.",
-        projects: [
-            {
-                title: "Cheeserag",
-                repo: "pomagrenate/cheeserag",
-                github: "https://github.com/pomagrenate/cheeserag",
-                description: "Local-first Retrieval-Augmented Generation ecosystem coordinating C++ inference, embedded vectors, and Go autonomous cores.",
-                tags: ["Go", "RAG Pipeline", "Local AI"],
-                details: "/projects/cheeserag"
-            },
-            {
-                title: "Cheesebrain",
-                repo: "pomagrenate/cheesebrain",
-                github: "https://github.com/pomagrenate/cheesebrain",
-                description: "The cognitive execution framework and local LLM agent execution loop for the Cheeserag autonomous cluster.",
-                tags: ["C++", "Agent Loop", "ReAct Framework"],
-            },
-            {
-                title: "ContextSqueezer",
-                repo: "pomagrenate/contextsqueezer",
-                github: "https://github.com/pomagrenate/contextsqueezer",
-                description: "Utility aimed at optimizing token consumption for AI agents by identifying and compressing redundant context chunks.",
-                tags: ["Python", "Prompt Compression", "NLP"],
-            },
-            {
-                title: "ZenithSearch",
-                repo: "pomagrenate/ZenithSearch",
-                github: "https://github.com/pomagrenate/ZenithSearch",
-                description: "AI-assisted semantic search engine combining hybrid sparse-dense representation and neural query expanders.",
-                tags: ["Python / Go", "Semantic Search", "Neural IR"],
-            }
-        ]
-    },
-    {
-        category: "Applications & SaaS Projects",
-        description: "Operational prototypes and vertical solutions using embedded AI backends.",
-        projects: [
-            {
-                title: "Fixago Platform",
-                live: "https://www.fixago.vn",
-                description: "Technician Booking Platform featuring AI Integration for matching service professionals with customer requests efficiently.",
-                tags: ["Marketplace", "AI Integration", "Booking"],
-            },
-            {
-                title: "Po-Health",
-                repo: "pomagrenate/po-health",
-                github: "https://github.com/pomagrenate/po-health",
-                description: "AI-assisted drug retrieval and patient management system showcasing description-based vector lookup.",
-                tags: ["Healthcare SaaS", "Vector Search", "Clinical Stats"],
-                demo: "https://youtu.be/-3J2Cwv7lno?si=8-klZDhR6MikEBNN"
-            },
-            {
-                title: "PomaiEm HR System",
-                repo: "pomagrenate/pomaiem-hr-system",
-                github: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architecture-Case-Study-with-AI-RAG-Integration.",
-                description: "Multi-workspace HR operations SaaS with embedded agent workflows for automated tasking, shifts, and wage computing.",
-                tags: ["HR SaaS", "Task Automation", "SaaS Tenant Architecture"],
-                demo: "https://youtu.be/0ujbOGHRLHg?si=aRrWZYA2nXiCNBKl"
-            },
-            {
-                title: "Esolution Landing Page",
-                live: "https://www.esolutions.vn",
-                description: "A landing page for showcasing the Esolution projects with admin dashboard to manage project listings, categories, and details.",
-                tags: ["Landing Page", "Admin Dashboard", "Project Showcase"],
-            }
-        ]
-    },
-    {
-        category: "Go Microservices & Frameworks",
-        description: "Microservice frameworks and libraries for building scalable distributed systems in Go.",
-        projects: [
-            {
-                title: "GoX Framework",
-                repo: "pomagrenate/gox",
-                github: "https://github.com/pomagrenate/gox",
-                description: "A framework for building microservices in Go, with a focus on simplicity and observability.",
-                tags: ["Go", "Microservices", "Framework"],
-                details: "/docs/gox"
-            }
-        ]
-    },
-    {
-        category: "Interactive Apps & Utilities",
-        description: "Interactive visualizers, games, and web-based utilities showcasing Pomai technologies.",
-        projects: [
-            {
-                title: "Pomai Diagram App",
-                repo: "pomagrenate/pomai-diagram-app",
-                live: "https://pomai-app-hub-alpha.vercel.app/",
-                description: "A desktop-native visual flowchart and diagramming application built with React Flow and Tauri.",
-                tags: ["React Flow", "Tauri", "Diagrams"],
-            },
-            {
-                title: "Pomai Model Inference Visualizer",
-                repo: "pomagrenate/pomai-model-inference-visualize",
-                live: "https://pomai-app-hub-alpha.vercel.app/",
-                description: "A desktop utility to visualize ONNX model graphs and monitor inference execution using React Flow and ONNX Runtime Web.",
-                tags: ["ONNX", "Tauri", "Visualization"],
-            },
-            {
-                title: "Bento Sort",
-                repo: "pomagrenate/bento-sort",
-                live: "https://pomai-app-hub-alpha.vercel.app/",
-                description: "An interactive, procedurally generated logic puzzle game focused on spatial grouping logic and framer-motion animations.",
-                tags: ["React", "Framer Motion", "Procedural Generation"],
-            },
-            {
-                title: "Perfect Split",
-                repo: "pomagrenate/perfect-split",
-                live: "https://pomai-app-hub-alpha.vercel.app/",
-                description: "A physics-based 2D slicing game using Matter.js and PolyboolJS. Tests spatial reasoning with procedurally generated concave polygons.",
-                tags: ["Matter.js", "Computational Geometry", "Physics Engine"],
-            }
-        ]
-    }
+  {
+    category: "Side Projects",
+    description: "Privacy-first local AI tools, C++ storage engines, memory allocators, Rust IDE tooling, and developer utilities.",
+    projects: [
+      {
+        title: "cheeserag",
+        repo: "pomagrenate/cheeserag",
+        github: "https://github.com/pomagrenate/cheeserag",
+        description: "Privacy-first, fully offline local RAG workspace & NotebookLM alternative. Powered by embedded C++ vector DB (PomaiDB), local GGUF inference, and programmatic citations on edge hardware.",
+        tags: ["Go", "C++", "Local RAG", "Edge AI"],
+        details: "/projects/cheeserag",
+      },
+      {
+        title: "cheesepath",
+        repo: "pomagrenate/cheesepath",
+        github: "https://github.com/pomagrenate/cheesepath",
+        description: "A lightweight, zero-dependency local AI agent framework in pure Go. Turn any OpenAI-compatible local LLM into an autonomous agent with LCEL-style pipelines.",
+        tags: ["Go", "Local AI", "Agent Framework"],
+      },
+      {
+        title: "pomaidb",
+        repo: "pomagrenate/pomaidb",
+        github: "https://github.com/pomagrenate/pomaidb",
+        description: "🧠 Predictable, embedded multimodal vector database & offline RAG engine for Edge AI (ARM64 / Zero-OOM). Built in C++20.",
+        tags: ["C++20", "Vector DB", "Edge AI"],
+      },
+      {
+        title: "rust-studio",
+        repo: "pomagrenate/rust-studio",
+        github: "https://github.com/pomagrenate/rust-studio",
+        description: "A fast, hackable Rust IDE powered by Tauri & rust-analyzer. Instant compiler diagnostics, AST refactoring, Cargo tools, and zero-AI deterministic fixes.",
+        tags: ["Rust", "Tauri", "IDE", "rust-analyzer"],
+      },
+      {
+        title: "ice_age",
+        repo: "pomagrenate/ice_age",
+        github: "https://github.com/pomagrenate/ice_age",
+        description: "⚡ Universal IDE plugin & proxy that cuts LLM token consumption by up to 70% using deterministic AST pruning & context compression. Written in Go.",
+        tags: ["Go", "AST Pruning", "IDE Plugin"],
+      },
+      {
+        title: "palloc",
+        repo: "pomagrenate/palloc",
+        github: "https://github.com/pomagrenate/palloc",
+        description: "An ultra-fast, lightweight, and thread-safe general-purpose memory allocator. Drop-in malloc replacement built for high throughput and low latency.",
+        tags: ["C", "Memory Allocator", "Low Latency"],
+      },
+      {
+        title: "pomai-diagram-app",
+        repo: "pomagrenate/pomai-diagram-app",
+        github: "https://github.com/pomagrenate/pomai-diagram-app",
+        description: "Design ERD & UML diagrams and instantly generate production-ready SQL schemas and boilerplate CRUD APIs. Fast, visual, developer-first tool.",
+        tags: ["TypeScript", "React Flow", "SQL Generator"],
+      },
+      {
+        title: "pomai-model-inference-visualize",
+        repo: "pomagrenate/pomai-model-inference-visualize",
+        github: "https://github.com/pomagrenate/pomai-model-inference-visualize",
+        description: "Visualize neural network architectures and track layer-by-layer inference computations in real time. Native, high-performance desktop model visualizer.",
+        tags: ["ONNX", "Deep Learning", "Visualization"],
+      },
+      {
+        title: "morsel",
+        repo: "pomagrenate/morsel",
+        github: "https://github.com/pomagrenate/morsel",
+        description: "A blazing-fast, encrypted, local-first clipboard manager.",
+        tags: ["Rust", "Local-First", "Clipboard"],
+      },
+      {
+        title: "gox",
+        repo: "pomagrenate/gox",
+        github: "https://github.com/pomagrenate/gox",
+        description: "The all-in-one workflow manager for Go monorepos. Fast scaffolding, multi-process dev runner with unified logs, workspace diagnostics, and multi-platform release builder.",
+        tags: ["Go", "Monorepo", "DevTools"],
+      },
+      {
+        title: "pomaiwhiteboard",
+        repo: "pomagrenate/pomaiwhiteboard",
+        github: "https://github.com/pomagrenate/pomaiwhiteboard",
+        description: "Sketch hand-drawn diagrams effortlessly on an infinite collaborative whiteboard. Perfect for brainstorming, system design, and live team collaboration.",
+        tags: ["TypeScript", "Canvas", "Whiteboard"],
+      },
+    ],
+  },
+  {
+    category: "Products Projects",
+    description: "Production platforms, enterprise microservices architectures, and customer-facing commercial products.",
+    projects: [
+      {
+        title: "Fixago",
+        live: "https://www.fixago.vn/",
+        description: "Book fast & reliable home repair services in Vietnam with Fixago. From AC & appliance repairs to plumbing & maintenance, enjoy 24/7 AI-powered instant booking.",
+        tags: ["Marketplace", "24/7 AI Booking", "Vietnam"],
+      },
+      {
+        title: "Pomai Ecosystem",
+        repo: "pomagrenate/Pomai-Ecosystem",
+        github: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architecture-Case-Study-with-AI-RAG-Integration.",
+        description: "Pomai Ecosystem: A modular enterprise management platform built on microservices architecture. Featuring Pomaiem (custom workflows), Pomai Connect (B2B network), Pomai Storage (secure data lake), and centralized AI-RAG intelligence.",
+        tags: ["Microservices", "Enterprise SaaS", "AI-RAG"],
+      },
+      {
+        title: "Esolutions",
+        live: "https://www.esolutions.vn/",
+        description: "Esolutions - Delivering smart, efficient, and comprehensive solutions for modern homes and buildings. Discover sustainable living and facility enhancements today.",
+        tags: ["Smart Buildings", "Facility Management", "PropTech"],
+      },
+    ],
+  },
 ];
