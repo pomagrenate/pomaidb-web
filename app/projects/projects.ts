@@ -132,4 +132,22 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
       },
     ],
   },
+  {
+    category: "Build for fun & fun to build",
+    description: "Creative web experiments, interactive mini-games, and fun projects built for pure enjoyment.",
+    projects: [
+      {
+        title: "Perfect Split",
+        live: "https://perfect-split.vercel.app/",
+        description: "A fun web-based geometry & physics game where players slice random objects into two perfectly balanced 50/50 halves.",
+        tags: ["Web Game", "Geometry", "Physics"],
+      },
+      {
+        title: "Bento Sort",
+        live: "https://bento-sort.vercel.app/",
+        description: "A cozy puzzle game where players organize and arrange delicious dishes into perfectly fitted bento box layouts.",
+        tags: ["Web Game", "Puzzle", "Bento Grid"],
+      },
+    ],
+  },
 ];
