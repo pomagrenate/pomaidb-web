@@ -85,6 +85,13 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         tags: ["Rust", "Local-First", "Clipboard"],
       },
       {
+        title: "vexona",
+        repo: "pomagrenate/vexona",
+        github: "https://github.com/pomagrenate/vexona",
+        description: "A high-performance, deterministic 2D-to-3D spatial video reconstruction engine written in pure Rust. No AI, zero GPU dependency, powered by pure projective geometry.",
+        tags: ["Rust", "3D Reconstruction", "Geometry"],
+      },
+      {
         title: "fetchr",
         repo: "pomagrenate/fetchr",
         github: "https://github.com/pomagrenate/fetchr",
