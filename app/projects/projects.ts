@@ -179,6 +179,12 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         description: "Esolutions - Delivering smart, efficient, and comprehensive solutions for modern homes and buildings. Discover sustainable living and facility enhancements today.",
         tags: ["Smart Buildings", "Facility Management", "PropTech"],
       },
+      {
+        title: "VGC-User",
+        live: "https://user.vgcnews24.com/vi/login",
+        description: "VGC-User - The main platform use to manage post, news, businesses from others VGC websites.",
+        tags: ["Dashboard", "Admin", "React", "NextJS", "TypeScript", "Firebase"],
+      }
     ],
   },
   {
