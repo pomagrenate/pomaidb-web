@@ -112,6 +112,20 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         description: "Sketch hand-drawn diagrams effortlessly on an infinite collaborative whiteboard. Perfect for brainstorming, system design, and live team collaboration.",
         tags: ["TypeScript", "Canvas", "Whiteboard"],
       },
+      {
+        title: "OPT-HQ-Net",
+        repo: "pomagrenate/OPT-HQ-Net",
+        github: "https://github.com/pomagrenate/OPT-HQ-Net",
+        description: "Oriented-Prompted Topological Network (OPT-HQ Net) for High-Precision Solar Filament Instance Segmentation on the MAGFiLO Benchmark.",
+        tags: ["PyTorch", "Computer Vision", "Instance Segmentation", "Kaggle"],
+      },
+      {
+        title: "biohub-cell-tracking",
+        repo: "pomagrenate/biohub-cell-tracking",
+        github: "https://github.com/pomagrenate/biohub-cell-tracking",
+        description: "SGT-DFO: Anisotropic Spatiotemporal Graph Transformer with Differentiable Graph-Flow Optimization for 3D+time cell tracking, mitosis lineage reconstruction, and light-sheet microscopy segmentation (CZ Biohub Challenge).",
+        tags: ["PyTorch", "Graph Transformer", "3D Cell Tracking", "Microscopy"],
+      },
     ],
   },
   {
