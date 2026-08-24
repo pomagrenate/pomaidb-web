@@ -126,6 +126,34 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         description: "SGT-DFO: Anisotropic Spatiotemporal Graph Transformer with Differentiable Graph-Flow Optimization for 3D+time cell tracking, mitosis lineage reconstruction, and light-sheet microscopy segmentation (CZ Biohub Challenge).",
         tags: ["PyTorch", "Graph Transformer", "3D Cell Tracking", "Microscopy"],
       },
+      {
+        title: "kaggriculture",
+        repo: "pomagrenate/kaggriculture",
+        github: "https://github.com/pomagrenate/kaggriculture",
+        description: "Model-Based Autonomous Decision & Receding-Horizon Control System for Kaggle's Kaggriculture Simulation Competition.",
+        tags: ["Kaggle", "Agriculture", "Computer Vision"],
+      },
+      {
+        title: "dsg-ewm-arc-agi-3-agent",
+        repo: "pomagrenate/dsg-ewm-arc-agi-3-agent",
+        github: "https://github.com/pomagrenate/dsg-ewm-arc-agi-3-agent",
+        description: "DSG-EWM: Dynamic Neuro-Symbolic Graph-Guided Executable World Model Agent for ARC Prize 2026 (ARC-AGI-3)",
+        tags: ["Kaggle", "Agriculture", "Computer Vision"],
+      },
+      {
+        title: "smartphone-addiction-prediction",
+        repo: "pomagrenate/smartphone-addiction-prediction",
+        github: "https://github.com/pomagrenate/smartphone-addiction-prediction",
+        description: "Predicting Smartphone Addiction - Kaggle Playground Series s6e8 | HyTab-Addict Hybrid GBDT & PyTorch TabM Deep Ensemble Framework",
+        tags: ["Kaggle", "Machine Learning", "Computer Vision"],
+      },
+      {
+        title: "e4m2025-solar-tracking-dataset",
+        repo: "pomagrenate/e4m2025-solar-tracking-dataset",
+        github: "https://github.com/pomagrenate/e4m2025-solar-tracking-dataset",
+        description: "E4M 2025: The International Solar Tracking Dataset Challenge",
+        tags: ["Kaggle", "Agriculture", "Computer Vision"],
+      }
     ],
   },
   {
