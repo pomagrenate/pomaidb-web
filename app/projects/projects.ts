@@ -203,6 +203,13 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         description: "A cozy puzzle game where players organize and arrange delicious dishes into perfectly fitted bento box layouts.",
         tags: ["Web Game", "Puzzle", "Bento Grid"],
       },
+      {
+        title: "Superstore Data Analysys",
+        live: "https://superstoreanalysis-kquajckgivzgyaxmtpypgm.streamlit.app/",
+        description: "A superstore dataset analysis and data visualization project.",
+        github: "https://github.com/pomagrenate/superstore_analysis",
+        tags: ["Streamlit", "Data Analysis", "Visualization", "Dashboard"]
+      }
     ],
   },
 ];
