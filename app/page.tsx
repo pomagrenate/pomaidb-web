@@ -12,7 +12,7 @@ export default function Home() {
       categoryColor: "bg-indigo-50 text-[#6D5DFB] border-indigo-200",
       iconBg: "bg-indigo-100 text-[#6D5DFB]",
       description: "Privacy-first, fully offline local RAG workspace & NotebookLM alternative powered by embedded C++ vector DB.",
-      stars: "Local AI",
+      stars: "Local AI Engine",
       href: "/projects/cheeserag",
       demo: "https://github.com/pomagrenate/cheeserag",
       icon: (
@@ -37,6 +37,21 @@ export default function Home() {
       ),
     },
     {
+      title: "Customer Segmentation",
+      category: "Data & Strategy",
+      categoryColor: "bg-amber-50 text-amber-700 border-amber-200",
+      iconBg: "bg-amber-100 text-amber-700",
+      description: "Interactive Next.js analytics platform & K-Means clustering model (k=8) analyzing 15k customer records with insight matrices.",
+      stars: "Data Analytics",
+      href: "https://shopping-mall-customer-segmentation.vercel.app/",
+      demo: "https://github.com/pomagrenate/Shopping-Mall-Customer-Segmentation-Data-Analysis",
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      ),
+    },
+    {
       title: "Fixago",
       category: "Commercial Product",
       categoryColor: "bg-emerald-50 text-emerald-600 border-emerald-200",
@@ -48,21 +63,6 @@ export default function Home() {
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-        </svg>
-      ),
-    },
-    {
-      title: "Pomai Ecosystem",
-      category: "Microservices",
-      categoryColor: "bg-purple-50 text-purple-600 border-purple-200",
-      iconBg: "bg-purple-100 text-purple-600",
-      description: "Enterprise management platform built on microservices architecture with AI-RAG integration.",
-      stars: "Architecture",
-      href: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architecture-Case-Study-with-AI-RAG-Integration.",
-      demo: "https://github.com/pomagrenate/Pomai-Ecosystem---A-Microservices-Architecture-Case-Study-with-AI-RAG-Integration.",
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
       ),
     },
@@ -79,19 +79,19 @@ export default function Home() {
               {/* Eyebrow Pill */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-semibold tracking-wide">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Personal AI Lab</span>
+                <span>AI Systems &amp; Technical Analytics Lab</span>
               </div>
 
               {/* Main Headline */}
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#171717] leading-[1.08]">
                 Building <span className="text-[#6D5DFB]">AI</span> systems.
                 <br />
-                Sharing what I <span className="text-[#10B981]">learn</span>.
+                Deciphering <span className="text-[#10B981]">data</span> &amp; strategy.
               </h1>
 
               {/* Description */}
               <p className="text-lg sm:text-xl text-[#525252] max-w-xl font-normal leading-relaxed">
-                I build practical AI solutions, explore research ideas, and write about engineering and the future of AI.
+                I design high-performance software, build applied AI systems, and transform complex datasets into actionable business strategy.
               </p>
 
               {/* CTA Buttons */}
@@ -126,7 +126,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 hover:text-[#171717] transition-colors"
                   >
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd"/></svg>
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
                     <span>GitHub</span>
                   </a>
                   <a
@@ -135,7 +135,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 hover:text-[#0A66C2] transition-colors"
                   >
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.7a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26Z"/></svg>
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.7a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26Z" /></svg>
                     <span>LinkedIn</span>
                   </a>
                   <a
@@ -144,7 +144,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 hover:text-[#171717] transition-colors"
                   >
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
                     <span>X (Twitter)</span>
                   </a>
                 </div>
@@ -170,7 +170,7 @@ export default function Home() {
                 <span>FEATURED WORK</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#171717]">
-                Things I've built
+                Systems &amp; Data Engineering
               </h2>
             </div>
             <Link
@@ -213,7 +213,7 @@ export default function Home() {
                 <div className="pt-4 border-t border-[#EAEAEA]/80 flex items-center justify-between text-xs font-medium">
                   <div className="flex items-center gap-1.5 text-slate-500 font-mono">
                     <svg className="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
-                      <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd"/>
+                      <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
                     </svg>
                     <span>{project.stars}</span>
                   </div>
@@ -267,7 +267,7 @@ export default function Home() {
                     {/* Abstract Thumbnail */}
                     <div className="w-full sm:w-36 h-28 sm:h-auto rounded-xl bg-gradient-to-tr from-purple-100 via-indigo-50 to-emerald-100 flex items-center justify-center shrink-0 border border-slate-100">
                       <svg className={`w-8 h-8 ${idx % 2 === 0 ? 'text-[#6D5DFB]' : 'text-emerald-600'} opacity-70`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 01-2-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                       </svg>
                     </div>
 
@@ -301,16 +301,16 @@ export default function Home() {
                   <span>ABOUT ME</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#171717] mb-4">
-                  Engineer. Researcher. Builder.
+                  Engineer. Analyst. Product Builder.
                 </h2>
 
                 <p className="text-sm text-[#525252] leading-relaxed mb-6">
-                  I'm an AI Engineer passionate about building practical systems that solve real problems. My work sits at the intersection of AI, systems engineering, and product development.
+                  I'm a multidisciplinary engineer and analyst passionate about building scalable software systems and turning complex data into clear business decisions. My work spans AI systems, backend architecture, statistical analytics, and product strategy.
                 </p>
 
                 {/* Tech Pill Tags */}
                 <div className="flex flex-wrap gap-2 mb-8">
-                  {["AI Engineer", "System Design", "Rust", "Go", "LLM"].map((tag) => (
+                  {["AI Systems", "Data Analytics", "System Design", "Rust & Go", "Product Strategy", "K-Means & RAG"].map((tag) => (
                     <span
                       key={tag}
                       className="px-3 py-1 bg-[#F4F4F6] text-[#525252] border border-[#EAEAEA] rounded-full text-xs font-medium"

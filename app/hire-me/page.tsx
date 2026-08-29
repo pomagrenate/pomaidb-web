@@ -3,34 +3,84 @@ import { PageShell } from "@/components/page-shell";
 import { ContactForm } from "@/components/contact-form";
 
 export const metadata: Metadata = {
-  title: "Hire Me | Quan Van",
-  description: "Available for full-time roles, contract work, and system architecture consulting.",
+  title: "Hire Me If You Dare | Quan Van",
+  description: "I build software, AI systems, statistical analytics, and occasionally things that probably didn't need to exist. Available for full-time roles & contract work.",
 };
 
 export default function HireMePage() {
   return (
     <PageShell
       eyebrow="Work With Me"
-      title="System Architecture & Engineering"
-      description="I specialize in building scalable microservices, self-hosted infrastructure, and AI-driven observability platforms. Available for full-time roles and specialized contract engagements."
+      title="Hire Me If You Dare."
+      description="I build software, AI systems, statistical data pipelines, and occasionally things that probably didn't need to exist. I like difficult problems, weird ideas, messy data, and turning vague goals into things that actually work."
     >
       <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8 space-y-16">
+        {/* Core Capability Streams / Persona Cards */}
+        <div>
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
+            <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
+            <span>ROLE ALIGNMENT &amp; ENGAGEMENT TYPES</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Persona A: Technical & Systems */}
+            <div className="bg-gradient-to-br from-white to-indigo-50/30 border border-indigo-100 rounded-3xl p-6 sm:p-8 shadow-sm">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
+                <span>FOR SOFTWARE &amp; AI ENGINEERING ROLES</span>
+              </div>
+              <h3 className="text-xl font-bold text-[#171717] mb-2">Systems &amp; AI Engineer</h3>
+              <p className="text-sm text-[#525252] leading-relaxed mb-4">
+                Targeting Software Engineer, AI/ML Engineer, Backend Developer, and Systems Architect roles.
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["C++20", "Rust", "Go", "Local RAG", "Microservices", "Kafka", "Redis"].map((t) => (
+                  <span key={t} className="px-2.5 py-1 rounded-full bg-white border border-indigo-100 text-[11px] font-mono font-semibold text-[#6D5DFB]">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Persona B: Data & Business */}
+            <div className="bg-gradient-to-br from-white to-amber-50/30 border border-amber-100 rounded-3xl p-6 sm:p-8 shadow-sm">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-700 uppercase tracking-wider mb-3">
+                <span className="w-2 h-2 rounded-full bg-amber-500" />
+                <span>FOR DATA, ANALYTICS &amp; PRODUCT ROLES</span>
+              </div>
+              <h3 className="text-xl font-bold text-[#171717] mb-2">Data &amp; Technical Business Analyst</h3>
+              <p className="text-sm text-[#525252] leading-relaxed mb-4">
+                Targeting Data Analyst, Business Analyst, Product Analyst, and Technical Product Owner roles.
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["Data Analytics", "K-Means", "Insight Matrix", "Backlog Strategy", "Agile / Scrum", "Streamlit"].map((t) => (
+                  <span key={t} className="px-2.5 py-1 rounded-full bg-white border border-amber-100 text-[11px] font-mono font-semibold text-amber-700">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* What I Do */}
         <div>
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
             <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
-            <span>WHAT I DO</span>
+            <span>CORE COMPETENCIES</span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all">
-              <span className="px-2.5 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-[#6D5DFB] text-[11px] font-semibold mb-4 inline-block">
-                Architecture
-              </span>
-              <h3 className="text-xl font-bold text-[#171717] mb-3">Microservices Migration</h3>
-              <p className="text-[#525252] text-sm leading-relaxed mb-6">
-                Transforming fragile monoliths into robust, event-driven microservices. Expertise in solving distributed data integrity (Outbox Pattern), high availability gateways (Kong/Nginx), and seamless database migrations.
-              </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
+              <div>
+                <span className="px-2.5 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-[#6D5DFB] text-[11px] font-semibold mb-4 inline-block">
+                  Architecture
+                </span>
+                <h3 className="text-lg font-bold text-[#171717] mb-3">Microservices Migration</h3>
+                <p className="text-[#525252] text-xs leading-relaxed mb-6">
+                  Transforming fragile monoliths into robust, event-driven microservices. Expertise in outbox pattern data integrity, Kong gateways, and database migrations.
+                </p>
+              </div>
               <div className="flex flex-wrap gap-1.5">
                 {["PostgreSQL", "Kafka", "Kong"].map((t) => (
                   <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
@@ -40,14 +90,16 @@ export default function HireMePage() {
               </div>
             </div>
 
-            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all">
-              <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-semibold mb-4 inline-block">
-                AI Systems
-              </span>
-              <h3 className="text-xl font-bold text-[#171717] mb-3">AI-Driven Observability</h3>
-              <p className="text-[#525252] text-sm leading-relaxed mb-6">
-                Moving beyond standard dashboards by building autonomous Root Cause Analysis (RCA) pipelines. Integrating Flink, Kafka, and CPU-only local LLMs (Llama.cpp) for highly secure, low-cost log intelligence.
-              </p>
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
+              <div>
+                <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-semibold mb-4 inline-block">
+                  AI Systems
+                </span>
+                <h3 className="text-lg font-bold text-[#171717] mb-3">AI-Driven Observability</h3>
+                <p className="text-[#525252] text-xs leading-relaxed mb-6">
+                  Autonomous Root Cause Analysis (RCA) pipelines. Integrating Flink, Kafka, and CPU-only local LLMs (Llama.cpp) for low-cost log intelligence.
+                </p>
+              </div>
               <div className="flex flex-wrap gap-1.5">
                 {["RAG", "Qdrant", "Llama.cpp"].map((t) => (
                   <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
@@ -57,16 +109,37 @@ export default function HireMePage() {
               </div>
             </div>
 
-            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all">
-              <span className="px-2.5 py-1 rounded-full bg-sky-50 border border-sky-100 text-sky-700 text-[11px] font-semibold mb-4 inline-block">
-                DevOps
-              </span>
-              <h3 className="text-xl font-bold text-[#171717] mb-3">On-Premise CI/CD</h3>
-              <p className="text-[#525252] text-sm leading-relaxed mb-6">
-                Designing zero-downtime deployment engines focusing on Data Sovereignty. Building completely self-hosted automation pipelines using Jenkins, Gitea, and Docker to eliminate configuration drift.
-              </p>
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
+              <div>
+                <span className="px-2.5 py-1 rounded-full bg-amber-50 border border-amber-100 text-amber-700 text-[11px] font-semibold mb-4 inline-block">
+                  Data Intelligence
+                </span>
+                <h3 className="text-lg font-bold text-[#171717] mb-3">Data &amp; Insight Analytics</h3>
+                <p className="text-[#525252] text-xs leading-relaxed mb-6">
+                  Translating 15k+ record datasets into consulting-grade Business Insight Matrices (Finding → Evidence → Implication) and executive Streamlit dashboards.
+                </p>
+              </div>
               <div className="flex flex-wrap gap-1.5">
-                {["Jenkins", "Docker", "Gitea"].map((t) => (
+                {["K-Means", "Python", "Streamlit"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
+              <div>
+                <span className="px-2.5 py-1 rounded-full bg-purple-50 border border-purple-100 text-purple-700 text-[11px] font-semibold mb-4 inline-block">
+                  Product Strategy
+                </span>
+                <h3 className="text-lg font-bold text-[#171717] mb-3">Backlog &amp; Requirements</h3>
+                <p className="text-[#525252] text-xs leading-relaxed mb-6">
+                  Groomed 100+ user stories, reduced sprint planning ambiguity by 40%, and partnered with design/engineering squads to boost feature adoption by 35%.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {["Agile/Scrum", "User Stories", "SDLC"].map((t) => (
                   <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
                     {t}
                   </span>

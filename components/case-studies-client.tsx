@@ -122,17 +122,15 @@ export function CaseStudiesClient({ caseStudies }: CaseStudiesClientProps) {
                 key={cat.name}
                 type="button"
                 onClick={() => setSelectedCategory(cat.name)}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                  isSelected
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${isSelected
                     ? "bg-[#6D5DFB] text-white shadow-sm"
                     : "bg-[#FAFAF8] text-[#525252] border border-[#EAEAEA] hover:border-[#6D5DFB]/40 hover:text-[#171717]"
-                }`}
+                  }`}
               >
                 <span>{cat.name}</span>
                 <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                    isSelected ? "bg-white/20 text-white" : "bg-[#EAEAEA] text-[#737373]"
-                  }`}
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? "bg-white/20 text-white" : "bg-[#EAEAEA] text-[#737373]"
+                    }`}
                 >
                   {cat.count}
                 </span>

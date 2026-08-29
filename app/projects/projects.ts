@@ -39,7 +39,7 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         title: "pomaidb",
         repo: "pomagrenate/pomaidb",
         github: "https://github.com/pomagrenate/pomaidb",
-        description: "🧠 Predictable, embedded multimodal vector database & offline RAG engine for Edge AI (ARM64 / Zero-OOM). Built in C++20.",
+        description: "Predictable, embedded multimodal vector database & offline RAG engine for Edge AI (ARM64 / Zero-OOM). Built in C++20.",
         tags: ["C++20", "Vector DB", "Edge AI"],
       },
       {
@@ -53,7 +53,7 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         title: "ice_age",
         repo: "pomagrenate/ice_age",
         github: "https://github.com/pomagrenate/ice_age",
-        description: "⚡ Universal IDE plugin & proxy that cuts LLM token consumption by up to 70% using deterministic AST pruning & context compression. Written in Go.",
+        description: "Universal IDE plugin & proxy that cuts LLM token consumption by up to 70% using deterministic AST pruning & context compression. Written in Go.",
         tags: ["Go", "AST Pruning", "IDE Plugin"],
       },
       {
@@ -202,14 +202,37 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         live: "https://bento-sort.vercel.app/",
         description: "A cozy puzzle game where players organize and arrange delicious dishes into perfectly fitted bento box layouts.",
         tags: ["Web Game", "Puzzle", "Bento Grid"],
-      },
-      {
-        title: "Superstore Data Analysys",
-        live: "https://superstoreanalysis-kquajckgivzgyaxmtpypgm.streamlit.app/",
-        description: "A superstore dataset analysis and data visualization project.",
-        github: "https://github.com/pomagrenate/superstore_analysis",
-        tags: ["Streamlit", "Data Analysis", "Visualization", "Dashboard"]
       }
     ],
   },
+  {
+    category: "Business Credibility",
+    description: "Consulting-grade data analytics case studies, executive decision engines, and customer intelligence platforms.",
+    projects: [
+      {
+        title: "Shopping Mall Customer Segmentation Data Analysis",
+        repo: "pomagrenate/Shopping-Mall-Customer-Segmentation-Data-Analysis",
+        github: "https://github.com/pomagrenate/Shopping-Mall-Customer-Segmentation-Data-Analysis",
+        live: "https://shopping-mall-customer-segmentation.vercel.app/",
+        details: "/case-studies/case-study-customer-segmentation-business-matrix",
+        description: "Interactive Next.js analytics platform and K-Means clustering model (k=8) analyzing 15,079 customer records with consulting-grade insight matrices and revenue optimization strategies.",
+        tags: ["Next.js", "K-Means", "Data Analysis", "Recharts", "Strategy"],
+      },
+      {
+        title: "Superstore Data Analysis",
+        live: "https://superstoreanalysis-kquajckgivzgyaxmtpypgm.streamlit.app/",
+        description: "A superstore dataset analysis and executive data visualization project.",
+        github: "https://github.com/pomagrenate/superstore_analysis",
+        tags: ["Streamlit", "Data Analysis", "Visualization", "Dashboard"]
+      },
+      {
+        title: "Stack Overflow Developer Survey 2025 Analysis",
+        repo: "pomagrenate/stackoverflow_2025_analysy",
+        github: "https://github.com/pomagrenate/stackoverflow_2025_analysy",
+        description: "Independent business and technical analytics case study of 49,000+ developer responses across 177 countries from the Stack Overflow 2025 survey, exploring AI trust gaps, technology adoption, workforce behavior, and strategic recommendations.",
+        tags: ["Data Analysis", "Market Research", "Python", "Next.js", "Strategy", "Survey Analytics"],
+      }
+    ],
+  }
+
 ];
