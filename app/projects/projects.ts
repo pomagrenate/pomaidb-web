@@ -251,6 +251,15 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         details: "/case-studies/case-study-ecommerce-customer-behavior-analytics",
         description: "Interactive customer behavior analytics dashboard exploring 50,000 customer records, analyzing support friction signals, cart abandonment churn thresholds, spending paradoxes, and behavioral customer segmentation.",
         tags: ["Next.js", "Customer Churn", "Data Analysis", "Behavioral Segmentation", "Python", "Recharts"],
+      },
+      {
+        title: "E-Commerce Behavior Intelligence Platform & CEO Scenario Simulator",
+        repo: "pomagrenate/eCommerce-behavior-data-from-multi-category-store",
+        github: "https://github.com/pomagrenate/eCommerce-behavior-data-from-multi-category-store",
+        live: "https://e-commerce-behavior-data-from-multi.vercel.app/",
+        details: "/case-studies/case-study-ecommerce-behavior-data-from-multi-category-store",
+        description: "Executive decision support system and behavioral intelligence platform built over 110M+ clickstream events ($505.1M revenue), featuring 5x5 Markov state transitions, 6 data-derived personas, and a client-side scenario simulator.",
+        tags: ["Next.js", "Clickstream", "Markov Chain", "DuckDB", "Data Analytics", "Simulation"],
       }
     ],
   }
