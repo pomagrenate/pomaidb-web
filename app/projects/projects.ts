@@ -242,6 +242,15 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         details: "/case-studies/case-study-global-ecommerce-sales-dataset-analysis",
         description: "Interactive data analysis dashboard exploring 10,000 global e-commerce transaction records ($5.28M revenue) across 18 countries, examining category revenue skews, fulfillment performance, price dynamics, and data limitations.",
         tags: ["Next.js", "Data Analysis", "Recharts", "Python", "ETL", "E-Commerce"],
+      },
+      {
+        title: "E-Commerce Customer Behavior & Churn Analytics",
+        repo: "pomagrenate/ecommerce-customer-behavior-analytics",
+        github: "https://github.com/pomagrenate/ecommerce-customer-behavior-analytics",
+        live: "https://ecommerce-customer-behavior-analyti.vercel.app/",
+        details: "/case-studies/case-study-ecommerce-customer-behavior-analytics",
+        description: "Interactive customer behavior analytics dashboard exploring 50,000 customer records, analyzing support friction signals, cart abandonment churn thresholds, spending paradoxes, and behavioral customer segmentation.",
+        tags: ["Next.js", "Customer Churn", "Data Analysis", "Behavioral Segmentation", "Python", "Recharts"],
       }
     ],
   }
