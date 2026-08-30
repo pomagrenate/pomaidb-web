@@ -233,6 +233,15 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         details: "/case-studies/case-study-stackoverflow-2025-developer-survey",
         description: "Independent business and technical analytics case study of 49,000+ developer responses across 177 countries from the Stack Overflow 2025 survey, exploring AI trust gaps, technology adoption, workforce behavior, and strategic recommendations.",
         tags: ["Data Analysis", "Market Research", "Python", "Next.js", "Strategy", "Survey Analytics"],
+      },
+      {
+        title: "Global E-Commerce Sales Dataset Analysis (2021–2024)",
+        repo: "pomagrenate/Global-E-Commerce-Sales-Dataset-Analysis",
+        github: "https://github.com/pomagrenate/Global-E-Commerce-Sales-Dataset-Analysis",
+        live: "https://global-e-commerce-sales-dataset-ana.vercel.app/",
+        details: "/case-studies/case-study-global-ecommerce-sales-dataset-analysis",
+        description: "Interactive data analysis dashboard exploring 10,000 global e-commerce transaction records ($5.28M revenue) across 18 countries, examining category revenue skews, fulfillment performance, price dynamics, and data limitations.",
+        tags: ["Next.js", "Data Analysis", "Recharts", "Python", "ETL", "E-Commerce"],
       }
     ],
   }
