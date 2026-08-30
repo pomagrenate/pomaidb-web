@@ -23,6 +23,8 @@ export interface CaseStudyData {
     seriesOrder?: number;
     contentHtml?: string;
     repo?: string;
+    image?: string;
+    readTime?: string;
 }
 
 export function getSortedCaseStudiesData(): CaseStudyData[] {

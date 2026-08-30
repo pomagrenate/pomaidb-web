@@ -2,7 +2,70 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
+import {
+  Search,
+  ChevronDown,
+  Server,
+  Code2,
+  Wrench,
+  Sparkles,
+  Clock,
+  Bookmark,
+  ArrowRight,
+  RotateCw,
+  Layers,
+} from "lucide-react";
 import { CaseStudyData } from "@/lib/case-studies";
+
+// Helper component to strictly handle image display:
+// Only displays if image exists AND loads successfully without 404 or error.
+function SafeCaseStudyImage({ src, alt }: { src?: string; alt: string }) {
+  const [hasError, setHasError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  if (!src || hasError) return null;
+
+  return (
+    <div className={`my-3 overflow-hidden rounded-xl border border-[#EAEAEA] bg-slate-50 transition-all duration-300 ${isLoaded ? "block opacity-100" : "hidden opacity-0"}`}>
+      <img
+        src={src}
+        alt={alt}
+        onError={() => setHasError(true)}
+        onLoad={() => setIsLoaded(true)}
+        className="w-full h-36 object-cover object-top hover:scale-105 transition-transform duration-500"
+      />
+    </div>
+  );
+}
+
+// Estimate read time based on excerpt/title length if not provided
+function estimateReadTime(cs: CaseStudyData) {
+  if (cs.readTime) return cs.readTime;
+  const wordCount = (cs.title.length + (cs.excerpt?.length || 0)) * 6;
+  const minutes = Math.max(8, Math.ceil(wordCount / 120));
+  return `${minutes} min read`;
+}
+
+// Category badge color helper
+function getCategoryBadgeColor(category?: string) {
+  const cat = (category || "").toLowerCase();
+  if (cat.includes("business") || cat.includes("data")) {
+    return "bg-[#6D5DFB]/10 text-[#6D5DFB] border-[#6D5DFB]/20";
+  }
+  if (cat.includes("ai") || cat.includes("intelligence")) {
+    return "bg-purple-50 text-purple-600 border-purple-200";
+  }
+  if (cat.includes("system") || cat.includes("design")) {
+    return "bg-blue-50 text-blue-600 border-blue-200";
+  }
+  if (cat.includes("infra") || cat.includes("platform")) {
+    return "bg-cyan-50 text-cyan-600 border-cyan-200";
+  }
+  if (cat.includes("arch")) {
+    return "bg-rose-50 text-rose-600 border-rose-200";
+  }
+  return "bg-slate-100 text-slate-700 border-slate-200";
+}
 
 interface CaseStudiesClientProps {
   caseStudies: CaseStudyData[];
@@ -12,14 +75,27 @@ export function CaseStudiesClient({ caseStudies }: CaseStudiesClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState<"newest" | "oldest" | "title">("newest");
+  const [visibleCount, setVisibleCount] = useState(12);
+  const [bookmarkedSlugs, setBookmarkedSlugs] = useState<Record<string, boolean>>({});
 
-  // Extract unique categories and counts
-  const categories = useMemo(() => {
+  // Toggle bookmark icon state
+  const toggleBookmark = (e: React.MouseEvent, slug: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setBookmarkedSlugs((prev) => ({
+      ...prev,
+      [slug]: !prev[slug],
+    }));
+  };
+
+  // Categories list with counts
+  const categoryOptions = useMemo(() => {
     const counts: Record<string, number> = {};
     caseStudies.forEach((cs) => {
       const cat = cs.category || "Uncategorized";
       counts[cat] = (counts[cat] || 0) + 1;
     });
+
     return [
       { name: "All", count: caseStudies.length },
       ...Object.keys(counts).map((cat) => ({ name: cat, count: counts[cat] })),
@@ -62,75 +138,187 @@ export function CaseStudiesClient({ caseStudies }: CaseStudiesClientProps) {
       });
   }, [caseStudies, searchQuery, selectedCategory, sortBy]);
 
+  // Separate top 3 for featured cards if on "All" view
+  const featuredCaseStudies = useMemo(() => {
+    return filteredAndSortedCaseStudies.slice(0, 3);
+  }, [filteredAndSortedCaseStudies]);
+
+  const regularCaseStudies = useMemo(() => {
+    if (selectedCategory === "All" && !searchQuery) {
+      return filteredAndSortedCaseStudies.slice(3, visibleCount);
+    }
+    return filteredAndSortedCaseStudies.slice(0, visibleCount);
+  }, [filteredAndSortedCaseStudies, selectedCategory, searchQuery, visibleCount]);
+
+  const totalDisplayedCount = selectedCategory === "All" && !searchQuery
+    ? featuredCaseStudies.length + regularCaseStudies.length
+    : regularCaseStudies.length;
+
+  const hasMore = visibleCount < filteredAndSortedCaseStudies.length;
+
   return (
-    <div className="space-y-8">
-      {/* Controls Bar: Search, Category Filters, Sort */}
-      <div className="bg-white border border-[#EAEAEA] rounded-3xl p-6 shadow-sm space-y-6">
-        <div className="flex flex-col md:flex-row items-center gap-4">
-          {/* Search Input */}
-          <div className="relative flex-1 w-full">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+    <div className="space-y-10">
+      {/* ─── Hero Header & Highlight Cards ─── */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-indigo-50/30 to-purple-50/20 border border-[#EAEAEA] p-8 lg:p-10 shadow-xs">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-8 space-y-4">
+            {/* Pill Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-[11px] font-mono font-bold text-[#6D5DFB]">
+              <span className="w-2 h-2 rounded-full bg-[#6D5DFB] animate-pulse" />
+              <span>In-depth Case Studies</span>
             </div>
+
+            {/* Title */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#171717] tracking-tight">
+              Systems{" "}
+              <span className="bg-gradient-to-r from-[#6D5DFB] via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                Case Studies
+              </span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base text-[#525252] leading-relaxed max-w-2xl font-normal">
+              Deep dives into real-world software systems, architecture decisions, performance optimizations, and lessons learned in production.
+            </p>
+
+            {/* 3 Highlight Cards */}
+            <div className="pt-4 flex flex-wrap gap-4">
+              <div className="flex items-center gap-3.5 px-4 py-3 rounded-2xl bg-white border border-[#EAEAEA] shadow-xs">
+                <div className="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center">
+                  <Server className="w-4 h-4 text-[#6D5DFB]" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-[#171717]">
+                    Real-world Systems
+                  </div>
+                  <div className="text-[11px] font-mono text-slate-400 mt-0.5">
+                    Production deployments
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3.5 px-4 py-3 rounded-2xl bg-white border border-[#EAEAEA] shadow-xs">
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center">
+                  <Code2 className="w-4 h-4 text-emerald-600" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-[#171717]">
+                    Engineering Insights
+                  </div>
+                  <div className="text-[11px] font-mono text-slate-400 mt-0.5">
+                    Technical deep dives
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3.5 px-4 py-3 rounded-2xl bg-white border border-[#EAEAEA] shadow-xs">
+                <div className="w-9 h-9 rounded-xl bg-cyan-50 flex items-center justify-center">
+                  <Wrench className="w-4 h-4 text-cyan-600" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-[#171717]">
+                    Lessons Learned
+                  </div>
+                  <div className="text-[11px] font-mono text-slate-400 mt-0.5">
+                    What worked & what didn't
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Hero Graphic Illustration (Soft 3D Analytics/Architecture Window) */}
+          <div className="hidden lg:flex lg:col-span-4 justify-end">
+            <div className="relative w-full max-w-xs p-5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-xl space-y-3">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 rounded-full bg-rose-400" />
+                  <span className="w-3 h-3 rounded-full bg-amber-400" />
+                  <span className="w-3 h-3 rounded-full bg-emerald-400" />
+                </div>
+                <div className="w-8 h-8 rounded-lg bg-indigo-50 text-[#6D5DFB] flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-[#6D5DFB]" />
+                </div>
+              </div>
+
+              <div className="space-y-2 font-mono text-[10px] text-slate-500">
+                <div className="p-2 rounded-lg bg-slate-50 border border-slate-100 flex justify-between">
+                  <span className="text-[#6D5DFB]">dataset.scale =</span>
+                  <span>"110M events"</span>
+                </div>
+                <div className="p-2 rounded-lg bg-slate-50 border border-slate-100 flex justify-between">
+                  <span className="text-emerald-600">model.markov =</span>
+                  <span>"5x5 Transition"</span>
+                </div>
+                <div className="h-1.5 w-full bg-indigo-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-[#6D5DFB] to-purple-600 w-4/5 rounded-full" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Search & Category Filter Controls ─── */}
+      <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-xs space-y-5">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          {/* Search Input */}
+          <div className="relative w-full md:max-w-xl">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search case studies by architecture, microservices, RAG, databases..."
-              className="w-full pl-10 pr-10 py-2.5 bg-[#FAFAF8] border border-[#EAEAEA] rounded-xl text-sm text-[#171717] placeholder-[#A3A3A3] focus:outline-none focus:border-[#6D5DFB] transition-colors"
+              placeholder="Search case studies by architecture, domain, technology, or keyword..."
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#FAFAF8] border border-[#EAEAEA] text-xs text-[#171717] placeholder:text-slate-400 focus:outline-none focus:border-[#6D5DFB] focus:ring-1 focus:ring-[#6D5DFB] transition-all font-mono"
             />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery("")}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 text-xs font-semibold"
-              >
-                Clear
-              </button>
-            )}
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
           </div>
 
           {/* Sort Dropdown */}
-          <div className="flex items-center gap-2 w-full md:w-auto shrink-0">
-            <label htmlFor="cs-sort-select" className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
-              Sort By:
-            </label>
-            <select
-              id="cs-sort-select"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as "newest" | "oldest" | "title")}
-              className="px-3.5 py-2.5 bg-[#FAFAF8] border border-[#EAEAEA] rounded-xl text-xs font-semibold text-[#171717] focus:outline-none focus:border-[#6D5DFB] transition-colors"
-            >
-              <option value="newest">Newest First</option>
-              <option value="oldest">Oldest First</option>
-              <option value="title">Title (A-Z)</option>
-            </select>
+          <div className="flex items-center gap-2 text-xs font-mono text-slate-500 w-full md:w-auto justify-end">
+            <span>Sort by:</span>
+            <div className="relative">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as any)}
+                className="bg-[#FAFAF8] border border-[#EAEAEA] text-[#171717] font-semibold text-xs rounded-xl pl-3 pr-8 py-2 focus:outline-none focus:border-[#6D5DFB] transition-all cursor-pointer appearance-none"
+              >
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="title">Title (A-Z)</option>
+              </select>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-2.5 pointer-events-none" />
+            </div>
           </div>
         </div>
 
-        {/* Category Pills */}
-        <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-[#EAEAEA]/80">
-          <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mr-2">
-            Categories:
-          </span>
-          {categories.map((cat) => {
+        {/* Category Filter Pills Row */}
+        <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-[#EAEAEA]">
+          <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-slate-400 uppercase tracking-widest mr-2">
+            <Layers className="w-3.5 h-3.5" />
+            <span>Categories:</span>
+          </div>
+          {categoryOptions.map((cat) => {
             const isSelected = selectedCategory === cat.name;
             return (
               <button
                 key={cat.name}
                 type="button"
-                onClick={() => setSelectedCategory(cat.name)}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${isSelected
-                    ? "bg-[#6D5DFB] text-white shadow-sm"
-                    : "bg-[#FAFAF8] text-[#525252] border border-[#EAEAEA] hover:border-[#6D5DFB]/40 hover:text-[#171717]"
-                  }`}
+                onClick={() => {
+                  setSelectedCategory(cat.name);
+                  setVisibleCount(12);
+                }}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                  isSelected
+                    ? "bg-[#6D5DFB] text-white shadow-xs font-bold"
+                    : "bg-[#FAFAF8] text-[#525252] border border-[#EAEAEA] hover:border-slate-400 hover:text-[#171717]"
+                }`}
               >
                 <span>{cat.name}</span>
                 <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? "bg-white/20 text-white" : "bg-[#EAEAEA] text-[#737373]"
-                    }`}
+                  className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                    isSelected ? "bg-white/20 text-white" : "bg-slate-200 text-slate-600"
+                  }`}
                 >
                   {cat.count}
                 </span>
@@ -140,96 +328,106 @@ export function CaseStudiesClient({ caseStudies }: CaseStudiesClientProps) {
         </div>
       </div>
 
-      {/* Results Header / Status Bar */}
-      <div className="flex items-center justify-between px-1">
-        <span className="text-xs font-mono font-bold text-[#525252] uppercase tracking-wider">
-          SHOWING {filteredAndSortedCaseStudies.length} OF {caseStudies.length} CASE STUDIES
-        </span>
-        {(searchQuery || selectedCategory !== "All") && (
-          <button
-            type="button"
-            onClick={() => {
-              setSearchQuery("");
-              setSelectedCategory("All");
-            }}
-            className="text-xs font-semibold text-[#6D5DFB] hover:underline"
-          >
-            Reset Filters
-          </button>
-        )}
-      </div>
-
-      {/* Case Studies Grid */}
-      {filteredAndSortedCaseStudies.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredAndSortedCaseStudies.map((cs) => (
-            <Link
-              key={cs.slug}
-              href={`/case-studies/${cs.slug}`}
-              className="group bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-xl hover:border-[#6D5DFB]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#171717] text-[11px] font-semibold">
-                    {cs.category}
-                  </span>
-                  <span className="text-xs font-mono text-slate-400">{cs.date}</span>
-                </div>
-
-                {cs.series && (
-                  <span className="text-[11px] font-mono text-[#6D5DFB] font-bold block mb-1">
-                    {cs.series}
-                  </span>
-                )}
-
-                <h3 className="text-xl font-bold text-[#171717] group-hover:text-[#6D5DFB] transition-colors leading-snug mb-3">
-                  {cs.title}
-                </h3>
-
-                <p className="text-[#525252] text-sm leading-relaxed mb-6 line-clamp-3">
-                  {cs.excerpt}
-                </p>
-              </div>
-
-              <div>
-                {/* Tags preview */}
-                {cs.tags && cs.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {cs.tags.slice(0, 3).map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-0.5 rounded-md bg-[#FAFAF8] border border-[#EAEAEA] text-[10px] font-mono font-medium text-slate-500"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                <div className="pt-4 border-t border-[#EAEAEA] flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="h-6 w-6 rounded-full bg-gradient-to-tr from-[#6D5DFB] to-[#8B7CF6] flex items-center justify-center text-white text-[10px] font-bold">
-                      QV
-                    </div>
-                    <span className="text-xs font-semibold text-[#171717]">{cs.author}</span>
-                  </div>
-                  <span className="text-xs font-semibold text-[#6D5DFB] group-hover:underline flex items-center gap-1">
-                    <span>Read case study</span>
-                    <span>&rarr;</span>
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      ) : (
-        <div className="bg-white border border-[#EAEAEA] rounded-3xl text-center py-16 px-6 max-w-lg mx-auto shadow-sm space-y-4">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-[#6D5DFB] mx-auto text-xl font-bold">
-            ?
+      {/* ─── Featured Case Studies Section ─── */}
+      {selectedCategory === "All" && !searchQuery && featuredCaseStudies.length > 0 && (
+        <section className="space-y-5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider">
+              <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
+              <span>Featured Case Studies</span>
+            </div>
+            <span className="text-xs font-mono text-slate-400">
+              {caseStudies.length} case studies
+            </span>
           </div>
-          <h3 className="text-lg font-bold text-[#171717]">No matching case studies found</h3>
-          <p className="text-[#737373] text-sm leading-relaxed">
-            No case studies match your search or filter. Try clearing your filters or using different keywords.
+
+          {/* Top 3 Featured Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {featuredCaseStudies.map((cs) => {
+              const badgeStyle = getCategoryBadgeColor(cs.category);
+              const readTime = estimateReadTime(cs);
+              const isBookmarked = bookmarkedSlugs[cs.slug];
+
+              return (
+                <Link
+                  key={cs.slug}
+                  href={`/case-studies/${cs.slug}`}
+                  className="group bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-xs hover:shadow-xl hover:border-[#6D5DFB]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div>
+                    {/* Top Row: Category & Date */}
+                    <div className="flex items-center justify-between mb-3.5">
+                      <span
+                        className={`px-2.5 py-0.5 rounded-full border text-[10px] font-mono font-semibold ${badgeStyle}`}
+                      >
+                        {cs.category}
+                      </span>
+                      <span className="text-[11px] font-mono text-slate-400">
+                        {cs.date}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-base font-bold text-[#171717] group-hover:text-[#6D5DFB] transition-colors leading-snug mb-2 line-clamp-2">
+                      {cs.title}
+                    </h3>
+
+                    {/* Excerpt */}
+                    <p className="text-[#525252] text-xs leading-relaxed mb-3 line-clamp-3">
+                      {cs.excerpt}
+                    </p>
+
+                    {/* Safe Image Component (Hides cleanly if missing or load error) */}
+                    <SafeCaseStudyImage src={cs.image} alt={cs.title} />
+                  </div>
+
+                  {/* Card Footer */}
+                  <div className="pt-4 border-t border-[#EAEAEA] flex items-center justify-between text-xs">
+                    <span className="text-[#6D5DFB] font-mono font-semibold text-[11px] inline-flex items-center gap-1 group-hover:underline">
+                      <span>Read Case Study</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+
+                    <div className="flex items-center gap-3 text-[11px] font-mono text-slate-400">
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-slate-400" />
+                        <span>{readTime}</span>
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={(e) => toggleBookmark(e, cs.slug)}
+                        className="p-1 rounded-md hover:bg-slate-100 transition-colors"
+                        title="Bookmark case study"
+                      >
+                        <Bookmark
+                          className={`w-3.5 h-3.5 transition-colors ${
+                            isBookmarked
+                              ? "text-[#6D5DFB] fill-[#6D5DFB]"
+                              : "text-slate-400 hover:text-slate-600"
+                          }`}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* ─── Regular Case Studies Grid ─── */}
+      {filteredAndSortedCaseStudies.length === 0 ? (
+        <div className="bg-white border border-[#EAEAEA] rounded-3xl text-center py-16 px-6 max-w-lg mx-auto shadow-xs space-y-4">
+          <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-[#6D5DFB] mx-auto">
+            <Search className="w-5 h-5 text-[#6D5DFB]" />
+          </div>
+          <h3 className="text-lg font-bold text-[#171717]">
+            No matching case studies found
+          </h3>
+          <p className="text-[#737373] text-xs leading-relaxed">
+            No case studies match your current search query or category filter. Try resetting your filters.
           </p>
           <button
             type="button"
@@ -239,8 +437,109 @@ export function CaseStudiesClient({ caseStudies }: CaseStudiesClientProps) {
             }}
             className="px-4 py-2 bg-[#6D5DFB] text-white text-xs font-semibold rounded-xl hover:bg-[#5C4CE5] transition-colors"
           >
-            Clear All Filters
+            Reset Filters
           </button>
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {(selectedCategory !== "All" || searchQuery) && (
+            <div className="flex items-center justify-between text-xs font-mono text-slate-500 px-1">
+              <span>
+                Showing {filteredAndSortedCaseStudies.length} matching case studies
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedCategory("All");
+                }}
+                className="text-[#6D5DFB] hover:underline"
+              >
+                Clear filters
+              </button>
+            </div>
+          )}
+
+          {/* Grid of Case Studies */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {regularCaseStudies.map((cs) => {
+              const badgeStyle = getCategoryBadgeColor(cs.category);
+              const readTime = estimateReadTime(cs);
+              const isBookmarked = bookmarkedSlugs[cs.slug];
+
+              return (
+                <Link
+                  key={cs.slug}
+                  href={`/case-studies/${cs.slug}`}
+                  className="group bg-white border border-[#EAEAEA] rounded-2xl p-5 shadow-xs hover:shadow-xl hover:border-[#6D5DFB]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div>
+                    {/* Header: Category & Date */}
+                    <div className="flex items-center justify-between mb-3">
+                      <span
+                        className={`px-2 py-0.5 rounded-full border text-[10px] font-mono font-semibold ${badgeStyle}`}
+                      >
+                        {cs.category}
+                      </span>
+                      <span className="text-[10px] font-mono text-slate-400">
+                        {cs.date}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-sm font-bold text-[#171717] group-hover:text-[#6D5DFB] transition-colors leading-snug mb-2 line-clamp-2">
+                      {cs.title}
+                    </h3>
+
+                    {/* Excerpt */}
+                    <p className="text-[#525252] text-xs leading-relaxed mb-3 line-clamp-3">
+                      {cs.excerpt}
+                    </p>
+
+                    {/* Safe Image Display */}
+                    <SafeCaseStudyImage src={cs.image} alt={cs.title} />
+                  </div>
+
+                  {/* Card Footer */}
+                  <div className="pt-3 mt-2 border-t border-[#EAEAEA] flex items-center justify-between text-[11px] font-mono text-slate-400">
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-slate-400" />
+                      <span>{readTime}</span>
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={(e) => toggleBookmark(e, cs.slug)}
+                      className="p-1 rounded-md hover:bg-slate-100 transition-colors"
+                      title="Bookmark case study"
+                    >
+                      <Bookmark
+                        className={`w-3.5 h-3.5 transition-colors ${
+                          isBookmarked
+                            ? "text-[#6D5DFB] fill-[#6D5DFB]"
+                            : "text-slate-400 hover:text-slate-600"
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Load More Button */}
+          {hasMore && (
+            <div className="text-center pt-6">
+              <button
+                type="button"
+                onClick={() => setVisibleCount((prev) => prev + 12)}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white border border-[#EAEAEA] text-xs font-mono font-bold text-[#525252] hover:text-[#171717] hover:border-slate-400 shadow-xs transition-all cursor-pointer"
+              >
+                <RotateCw className="w-3.5 h-3.5" />
+                <span>Load more case studies</span>
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
