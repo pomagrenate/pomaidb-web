@@ -7,6 +7,9 @@ export interface ProjectItem {
   tags: string[];
   details?: string;
   demo?: string;
+  image?: string;
+  stars?: number;
+  badge?: string;
 }
 
 export interface ProjectGroup {

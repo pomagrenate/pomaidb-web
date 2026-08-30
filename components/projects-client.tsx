@@ -2,218 +2,634 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { ProjectGroup } from "@/app/projects/projects";
+import { ProjectGroup, ProjectItem } from "@/app/projects/projects";
+
+// Helper component to strictly handle image display:
+// Only displays if image exists AND loads successfully without 404 or error.
+function SafeProjectImage({ src, alt }: { src?: string; alt: string }) {
+  const [hasError, setHasError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  if (!src || hasError) return null;
+
+  return (
+    <div className={`my-3 overflow-hidden rounded-xl border border-[#EAEAEA] bg-slate-50 transition-all duration-300 ${isLoaded ? "block opacity-100" : "hidden opacity-0"}`}>
+      <img
+        src={src}
+        alt={alt}
+        onError={() => setHasError(true)}
+        onLoad={() => setIsLoaded(true)}
+        className="w-full h-36 object-cover object-top hover:scale-105 transition-transform duration-500"
+      />
+    </div>
+  );
+}
+
+// Helper to generate distinct background colors for avatar initial badges
+function getAvatarBadgeStyle(title: string) {
+  const charCode = title.charCodeAt(0) || 0;
+  const colors = [
+    "bg-purple-100 text-[#6D5DFB] border-purple-200",
+    "bg-blue-100 text-blue-600 border-blue-200",
+    "bg-emerald-100 text-emerald-600 border-emerald-200",
+    "bg-amber-100 text-amber-600 border-amber-200",
+    "bg-indigo-100 text-indigo-600 border-indigo-200",
+    "bg-rose-100 text-rose-600 border-rose-200",
+    "bg-teal-100 text-teal-600 border-teal-200",
+  ];
+  return colors[charCode % colors.length];
+}
+
+// Extract initials for the logo avatar
+function getInitials(title: string) {
+  const words = title.split(/[-_\s]+/);
+  if (words.length >= 2) {
+    return (words[0][0] + words[1][0]).toUpperCase();
+  }
+  return title.substring(0, 2).toUpperCase();
+}
 
 export function ProjectsClient({ projectGroups }: { projectGroups: ProjectGroup[] }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("All Projects");
+  const [selectedTech, setSelectedTech] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<"updated" | "stars" | "alphabetical">("updated");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [visibleCount, setVisibleCount] = useState(12);
 
-  const categories = useMemo(() => {
-    return ["All", ...projectGroups.map((g) => g.category)];
+  // Compute total statistics
+  const totalProjectsCount = useMemo(() => {
+    return projectGroups.reduce((acc, g) => acc + g.projects.length, 0);
   }, [projectGroups]);
 
-  const filteredGroups = useMemo(() => {
-    return projectGroups
-      .map((group) => {
-        // Filter by category selection
-        if (selectedCategory !== "All" && group.category !== selectedCategory) {
-          return null;
+  const sideProjectsCount = useMemo(() => {
+    const side = projectGroups.find((g) => g.category.toLowerCase().includes("side"));
+    return side ? side.projects.length : 19;
+  }, [projectGroups]);
+
+  const productsCount = useMemo(() => {
+    const prod = projectGroups.find((g) => g.category.toLowerCase().includes("product"));
+    return prod ? prod.projects.length : 4;
+  }, [projectGroups]);
+
+  // Categories list with count
+  const categoryOptions = useMemo(() => {
+    const cats = [
+      { name: "All Projects", count: totalProjectsCount },
+      ...projectGroups.map((g) => ({
+        name: g.category,
+        count: g.projects.length,
+      })),
+    ];
+    return cats;
+  }, [projectGroups, totalProjectsCount]);
+
+  // Technologies filter list
+  const techOptions = [
+    "Rust",
+    "Python",
+    "TypeScript",
+    "Go",
+    "React",
+    "PyTorch",
+    "ONNX",
+    "SQL",
+    "C++",
+  ];
+
+  // Flat project list for filtered view
+  const filteredProjects = useMemo(() => {
+    let result: { project: ProjectItem; category: string }[] = [];
+
+    projectGroups.forEach((group) => {
+      if (
+        selectedCategory !== "All Projects" &&
+        group.category !== selectedCategory
+      ) {
+        return;
+      }
+
+      group.projects.forEach((p) => {
+        // Tech filter
+        if (selectedTech) {
+          const hasTech = p.tags.some(
+            (t) => t.toLowerCase() === selectedTech.toLowerCase()
+          );
+          if (!hasTech) return;
         }
 
-        // Filter projects by search query
-        const filteredProjects = group.projects.filter((p) => {
-          if (!searchQuery.trim()) return true;
+        // Search query filter
+        if (searchQuery.trim()) {
           const q = searchQuery.toLowerCase();
           const matchTitle = p.title.toLowerCase().includes(q);
           const matchDesc = p.description.toLowerCase().includes(q);
           const matchRepo = p.repo?.toLowerCase().includes(q) || false;
           const matchTags = p.tags.some((t) => t.toLowerCase().includes(q));
-          return matchTitle || matchDesc || matchRepo || matchTags;
-        });
+          if (!matchTitle && !matchDesc && !matchRepo && !matchTags) return;
+        }
 
-        if (filteredProjects.length === 0) return null;
+        result.push({ project: p, category: group.category });
+      });
+    });
 
-        return {
-          ...group,
-          projects: filteredProjects,
-        };
-      })
-      .filter(Boolean) as ProjectGroup[];
-  }, [projectGroups, selectedCategory, searchQuery]);
+    // Sorting
+    if (sortBy === "alphabetical") {
+      result.sort((a, b) => a.project.title.localeCompare(b.project.title));
+    } else if (sortBy === "stars") {
+      result.sort((a, b) => (b.project.stars || 0) - (a.project.stars || 0));
+    }
 
-  const totalDisplayedProjects = useMemo(() => {
-    return filteredGroups.reduce((acc, g) => acc + g.projects.length, 0);
-  }, [filteredGroups]);
+    return result;
+  }, [projectGroups, selectedCategory, selectedTech, searchQuery, sortBy]);
+
+  // Separate commercial products for the bottom banner highlight section if viewing "All Projects"
+  const commercialProducts = useMemo(() => {
+    const prodGroup = projectGroups.find((g) =>
+      g.category.toLowerCase().includes("product")
+    );
+    return prodGroup ? prodGroup.projects.slice(0, 3) : [];
+  }, [projectGroups]);
+
+  const displayedProjects = filteredProjects.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredProjects.length;
 
   return (
-    <div className="space-y-12">
-      {/* ─── Search & Category Filter Controls ─── */}
-      <div className="bg-white border border-[#EAEAEA] rounded-3xl p-6 shadow-sm space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-          {/* Live Search Input */}
-          <div className="md:col-span-6 relative">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search projects by tech, title, or keyword..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#FAFAF8] border border-[#EAEAEA] text-sm text-[#171717] placeholder:text-slate-400 focus:outline-none focus:border-[#6D5DFB] focus:ring-1 focus:ring-[#6D5DFB] transition-all font-mono"
-            />
-            <svg
-              className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+    <div className="space-y-10">
+      {/* ─── Hero Header & Stats Row ─── */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-indigo-50/30 to-purple-50/20 border border-[#EAEAEA] p-8 lg:p-10 shadow-xs">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-8 space-y-4">
+            {/* Pill Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-[11px] font-mono font-bold text-[#6D5DFB]">
+              <span className="w-2 h-2 rounded-full bg-[#6D5DFB] animate-pulse" />
+              <span>Personal Lab & Catalogue</span>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#171717] tracking-tight">
+              Projects &{" "}
+              <span className="bg-gradient-to-r from-[#6D5DFB] via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                Software Systems
+              </span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base text-[#525252] leading-relaxed max-w-2xl font-normal">
+              A curated repository of systems programming, local AI tools, physics mini-games, commercial platforms, and statistical data models — built for curiosity, performance, and real-world impact.
+            </p>
+
+            {/* 3 Counter Stat Cards */}
+            <div className="pt-4 flex flex-wrap gap-4">
+              <div className="flex items-center gap-3.5 px-4 py-3 rounded-2xl bg-white border border-[#EAEAEA] shadow-xs">
+                <div className="w-9 h-9 rounded-xl bg-indigo-50 text-[#6D5DFB] flex items-center justify-center font-bold text-sm">
+                  📁
+                </div>
+                <div>
+                  <div className="text-lg font-extrabold text-[#171717] leading-none">
+                    {totalProjectsCount}
+                  </div>
+                  <div className="text-[11px] font-mono text-slate-400 mt-0.5">
+                    Total Projects
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3.5 px-4 py-3 rounded-2xl bg-white border border-[#EAEAEA] shadow-xs">
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-sm">
+                  👨‍💻
+                </div>
+                <div>
+                  <div className="text-lg font-extrabold text-[#171717] leading-none">
+                    {sideProjectsCount}
+                  </div>
+                  <div className="text-[11px] font-mono text-slate-400 mt-0.5">
+                    Side Projects
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3.5 px-4 py-3 rounded-2xl bg-white border border-[#EAEAEA] shadow-xs">
+                <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-sm">
+                  📦
+                </div>
+                <div>
+                  <div className="text-lg font-extrabold text-[#171717] leading-none">
+                    {productsCount}
+                  </div>
+                  <div className="text-[11px] font-mono text-slate-400 mt-0.5">
+                    Products
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Quick Stats Pill */}
-          <div className="md:col-span-6 flex items-center justify-start md:justify-end gap-3 text-xs font-mono">
-            <span className="text-slate-400 uppercase tracking-widest font-bold">Showing:</span>
-            <span className="px-3 py-1 rounded-full bg-indigo-50 text-[#6D5DFB] border border-indigo-100 font-extrabold">
-              {totalDisplayedProjects} Projects
-            </span>
-          </div>
-        </div>
+          {/* Right Hero Graphic Illustration (Soft 3D Code/Analytics Mock) */}
+          <div className="hidden lg:flex lg:col-span-4 justify-end">
+            <div className="relative w-full max-w-xs p-5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-xl space-y-3">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 rounded-full bg-rose-400" />
+                  <span className="w-3 h-3 rounded-full bg-amber-400" />
+                  <span className="w-3 h-3 rounded-full bg-emerald-400" />
+                </div>
+                <div className="w-8 h-8 rounded-lg bg-indigo-50 text-[#6D5DFB] flex items-center justify-center font-mono text-xs font-bold">
+                  &lt;/&gt;
+                </div>
+              </div>
 
-        {/* Category Pills */}
-        <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-[#EAEAEA]">
-          <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest mr-2">
-            Categories:
-          </span>
-          {categories.map((cat) => {
-            const isSelected = selectedCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  isSelected
-                    ? "bg-[#171717] text-white shadow-sm"
-                    : "bg-[#FAFAF8] text-[#525252] border border-[#EAEAEA] hover:border-slate-400 hover:text-[#171717]"
-                }`}
-              >
-                <span>{cat}</span>
-              </button>
-            );
-          })}
+              <div className="space-y-2 font-mono text-[10px] text-slate-500">
+                <div className="p-2 rounded-lg bg-slate-50 border border-slate-100 flex justify-between">
+                  <span className="text-[#6D5DFB]">const stack =</span>
+                  <span>["Go", "Rust", "C++", "Next.js"]</span>
+                </div>
+                <div className="p-2 rounded-lg bg-slate-50 border border-slate-100 flex justify-between">
+                  <span className="text-emerald-600">const performance =</span>
+                  <span>"Zero-OOM / Edge AI"</span>
+                </div>
+                <div className="h-1.5 w-full bg-indigo-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-[#6D5DFB] to-purple-600 w-3/4 rounded-full" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* ─── Render Project Groups ─── */}
-      {filteredGroups.length === 0 ? (
-        <div className="text-center py-16 bg-white border border-[#EAEAEA] rounded-3xl p-8">
-          <p className="text-sm font-mono text-slate-500 mb-2">No projects matched your criteria.</p>
-          <button
-            type="button"
-            onClick={() => {
-              setSearchQuery("");
-              setSelectedCategory("All");
-            }}
-            className="text-xs font-bold text-[#6D5DFB] hover:underline"
+      {/* ─── Search & Controls Bar ─── */}
+      <div className="bg-white border border-[#EAEAEA] rounded-2xl p-4 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Search Input */}
+        <div className="relative w-full md:max-w-md">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search projects by tech, title, or keyword..."
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#FAFAF8] border border-[#EAEAEA] text-xs text-[#171717] placeholder:text-slate-400 focus:outline-none focus:border-[#6D5DFB] focus:ring-1 focus:ring-[#6D5DFB] transition-all font-mono"
+          />
+          <svg
+            className="w-4 h-4 text-slate-400 absolute left-3.5 top-3"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            Reset search filters
-          </button>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
         </div>
-      ) : (
-        filteredGroups.map((group) => (
-          <section key={group.category} className="space-y-6">
-            {/* Group Header */}
-            <div className="border-b border-[#EAEAEA] pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-1">
-                  <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
-                  <span>{group.category}</span>
-                </div>
-                <p className="text-[#737373] text-xs font-normal max-w-2xl">{group.description}</p>
-              </div>
-              <span className="text-[11px] font-mono text-slate-400 shrink-0">
-                {group.projects.length} repository items
-              </span>
-            </div>
 
-            {/* Projects Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {group.projects.map((project) => (
-                <article
-                  key={project.title}
-                  className="group bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-xl hover:border-[#6D5DFB]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+        {/* Sort & View Mode Toggle */}
+        <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+          {/* Sort Dropdown */}
+          <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
+            <span className="hidden sm:inline">Sort by:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as any)}
+              className="bg-[#FAFAF8] border border-[#EAEAEA] text-[#171717] font-semibold text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-[#6D5DFB] transition-all cursor-pointer"
+            >
+              <option value="updated">Recently Updated</option>
+              <option value="alphabetical">Alphabetical (A-Z)</option>
+              <option value="stars">Most Starred</option>
+            </select>
+          </div>
+
+          {/* Grid / List View Buttons */}
+          <div className="flex items-center bg-[#FAFAF8] border border-[#EAEAEA] p-1 rounded-xl gap-1">
+            <button
+              type="button"
+              onClick={() => setViewMode("grid")}
+              className={`p-1.5 rounded-lg text-xs font-mono transition-all ${
+                viewMode === "grid"
+                  ? "bg-white text-[#6D5DFB] shadow-xs border border-[#EAEAEA]"
+                  : "text-slate-400 hover:text-[#171717]"
+              }`}
+              title="Grid View"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 002-2h2a2 2 0 002 2v2a2 2 0 00-2 2h-2a2 2 0 00-2-2V5zM11 13a2 2 0 002-2h2a2 2 0 002 2v2a2 2 0 00-2 2h-2a2 2 0 00-2-2v-2z" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode("list")}
+              className={`p-1.5 rounded-lg text-xs font-mono transition-all ${
+                viewMode === "list"
+                  ? "bg-white text-[#6D5DFB] shadow-xs border border-[#EAEAEA]"
+                  : "text-slate-400 hover:text-[#171717]"
+              }`}
+              title="List View"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Main Two-Column Layout (Sidebar + Projects Grid) ─── */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Filter Sidebar */}
+        <aside className="lg:col-span-3 space-y-6">
+          {/* Categories Nav Menu */}
+          <div className="bg-white border border-[#EAEAEA] rounded-2xl p-5 shadow-xs space-y-4">
+            <h3 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest">
+              Categories
+            </h3>
+            <div className="space-y-1">
+              {categoryOptions.map((cat) => {
+                const isSelected = selectedCategory === cat.name;
+                return (
+                  <button
+                    key={cat.name}
+                    type="button"
+                    onClick={() => {
+                      setSelectedCategory(cat.name);
+                      setVisibleCount(12);
+                    }}
+                    className={`w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-semibold transition-all ${
+                      isSelected
+                        ? "bg-indigo-50 text-[#6D5DFB] border border-indigo-100 font-bold"
+                        : "text-[#525252] hover:bg-[#FAFAF8] hover:text-[#171717]"
+                    }`}
+                  >
+                    <span className="truncate">{cat.name}</span>
+                    <span
+                      className={`ml-2 px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                        isSelected
+                          ? "bg-[#6D5DFB] text-white"
+                          : "bg-slate-100 text-slate-500"
+                      }`}
+                    >
+                      {cat.count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Technologies Filter Chips */}
+          <div className="bg-white border border-[#EAEAEA] rounded-2xl p-5 shadow-xs space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest">
+                Technologies
+              </h3>
+              {selectedTech && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedTech(null)}
+                  className="text-[10px] font-mono text-[#6D5DFB] hover:underline"
                 >
-                  <div>
-                    {/* Top Bar: Tech Tag Badges */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-indigo-50 to-purple-50 border border-indigo-100 flex items-center justify-center text-[#6D5DFB] font-extrabold text-xs font-mono shadow-sm">
-                        {project.title.substring(0, 2).toUpperCase()}
-                      </div>
-                      <div className="flex flex-wrap gap-1.5 justify-end">
-                        {project.tags.slice(0, 3).map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2 py-0.5 rounded-full bg-[#F4F4F6] border border-[#EAEAEA] text-[10px] font-mono font-semibold text-[#525252]"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <h3 className="text-lg font-bold text-[#171717] group-hover:text-[#6D5DFB] transition-colors mb-1">
-                      {project.title}
-                    </h3>
-
-                    {project.repo && (
-                      <span className="text-[11px] font-mono text-slate-400 mb-3 block">
-                        {project.repo}
-                      </span>
-                    )}
-
-                    <p className="text-[#525252] text-xs leading-relaxed mb-6 flex-1">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  {/* Links Row */}
-                  <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-[#EAEAEA] text-xs font-semibold">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#737373] hover:text-[#171717] transition-colors flex items-center gap-1 font-mono text-[11px]"
-                      >
-                        <span>GitHub ↗</span>
-                      </a>
-                    )}
-
-                    {project.details && (
-                      <Link
-                        href={project.details}
-                        className="text-[#6D5DFB] hover:underline transition-colors flex items-center gap-1 font-mono text-[11px]"
-                      >
-                        <span>Case Study ↗</span>
-                      </Link>
-                    )}
-
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#10B981] hover:underline transition-colors flex items-center gap-1 font-mono text-[11px]"
-                      >
-                        <span>Live App ↗</span>
-                      </a>
-                    )}
-                  </div>
-                </article>
-              ))}
+                  Clear filter
+                </button>
+              )}
             </div>
-          </section>
-        ))
-      )}
+            <div className="flex flex-wrap gap-2">
+              {techOptions.map((tech) => {
+                const isSelected = selectedTech === tech;
+                return (
+                  <button
+                    key={tech}
+                    type="button"
+                    onClick={() => {
+                      setSelectedTech(isSelected ? null : tech);
+                      setVisibleCount(12);
+                    }}
+                    className={`px-3 py-1 rounded-lg text-xs font-mono font-medium transition-all ${
+                      isSelected
+                        ? "bg-[#171717] text-white shadow-xs"
+                        : "bg-[#FAFAF8] text-[#525252] border border-[#EAEAEA] hover:border-slate-400 hover:text-[#171717]"
+                    }`}
+                  >
+                    {tech}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Callout Card: "⚡ Something cool?" */}
+          <div className="rounded-2xl bg-gradient-to-br from-indigo-50/80 via-purple-50/50 to-pink-50/40 border border-indigo-100 p-5 shadow-xs space-y-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#6D5DFB]">
+              <span>⚡</span>
+              <span>Something cool?</span>
+            </div>
+            <p className="text-xs text-[#525252] leading-relaxed font-normal">
+              I'm always open to interesting collaborations, systems architecture discussions, and new projects!
+            </p>
+            <Link
+              href="/hire-me"
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#6D5DFB] hover:underline pt-1"
+            >
+              <span>Let's Connect</span>
+              <span>↗</span>
+            </Link>
+          </div>
+        </aside>
+
+        {/* Right Projects Workspace Grid */}
+        <main className="lg:col-span-9 space-y-8">
+          {filteredProjects.length === 0 ? (
+            <div className="text-center py-16 bg-white border border-[#EAEAEA] rounded-3xl p-8">
+              <p className="text-sm font-mono text-slate-500 mb-3">
+                No projects matched your selected criteria.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedCategory("All Projects");
+                  setSelectedTech(null);
+                }}
+                className="text-xs font-bold text-[#6D5DFB] hover:underline"
+              >
+                Reset all filters
+              </button>
+            </div>
+          ) : (
+            <>
+              {/* Project Items Container (Grid vs List) */}
+              <div
+                className={
+                  viewMode === "grid"
+                    ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+                    : "space-y-4"
+                }
+              >
+                {displayedProjects.map(({ project }) => {
+                  const avatarColor = getAvatarBadgeStyle(project.title);
+                  const initials = getInitials(project.title);
+
+                  return (
+                    <article
+                      key={project.title}
+                      className="group bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-xs hover:shadow-xl hover:border-[#6D5DFB]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                    >
+                      <div>
+                        {/* Card Header: Initial Avatar & Tech Pills */}
+                        <div className="flex items-start justify-between mb-3.5 gap-2">
+                          <div
+                            className={`h-10 w-10 shrink-0 rounded-xl border flex items-center justify-center font-extrabold text-xs font-mono shadow-xs ${avatarColor}`}
+                          >
+                            {initials}
+                          </div>
+
+                          <div className="flex flex-wrap gap-1.5 justify-end">
+                            {project.tags.slice(0, 3).map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-2 py-0.5 rounded-full bg-[#F4F4F6] border border-[#EAEAEA] text-[10px] font-mono font-semibold text-[#525252]"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="text-base font-bold text-[#171717] group-hover:text-[#6D5DFB] transition-colors mb-1">
+                          {project.title}
+                        </h3>
+
+                        {/* Repo / Subtitle */}
+                        {project.repo && (
+                          <span className="text-[11px] font-mono text-slate-400 mb-2.5 block truncate">
+                            {project.repo}
+                          </span>
+                        )}
+
+                        {/* Description */}
+                        <p className="text-[#525252] text-xs leading-relaxed mb-3 line-clamp-3">
+                          {project.description}
+                        </p>
+
+                        {/* ─── OPTIONAL IMAGE CONTAINER (CRITICAL RULE) ─── */}
+                        {/* Only rendered if project.image exists AND loads without error! */}
+                        <SafeProjectImage
+                          src={project.image}
+                          alt={project.title}
+                        />
+                      </div>
+
+                      {/* Card Footer Links */}
+                      <div className="flex flex-wrap items-center justify-between gap-3 pt-3.5 mt-2 border-t border-[#EAEAEA] text-xs font-semibold">
+                        {/* GitHub & Stars */}
+                        <div className="flex items-center gap-2">
+                          {project.github && (
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[#737373] hover:text-[#171717] transition-colors flex items-center gap-1 font-mono text-[11px]"
+                            >
+                              <span>GitHub</span>
+                            </a>
+                          )}
+
+                          {project.stars !== undefined && (
+                            <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1">
+                              <span>★</span>
+                              <span>{project.stars}</span>
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Action Links */}
+                        <div className="flex items-center gap-3">
+                          {project.details && (
+                            <Link
+                              href={project.details}
+                              className="text-[#6D5DFB] hover:underline transition-colors font-mono text-[11px]"
+                            >
+                              Case Study ↗
+                            </Link>
+                          )}
+
+                          {project.live && (
+                            <a
+                              href={project.live}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[#10B981] hover:underline transition-colors font-mono text-[11px]"
+                            >
+                              Live App ↗
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+
+              {/* Commercial Products Showcase Section (Shown when on All Projects view) */}
+              {selectedCategory === "All Projects" && commercialProducts.length > 0 && (
+                <div className="pt-6 space-y-4">
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider">
+                    <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
+                    <span>Featured Commercial Platforms</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {commercialProducts.map((prod) => (
+                      <div
+                        key={prod.title}
+                        className="p-5 rounded-2xl bg-gradient-to-br from-white via-indigo-50/20 to-purple-50/10 border border-indigo-100/80 shadow-xs flex flex-col justify-between space-y-3"
+                      >
+                        <div>
+                          <div className="inline-block px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-700 text-[10px] font-mono font-bold uppercase tracking-wider mb-2">
+                            PRODUCT
+                          </div>
+                          <h4 className="text-sm font-bold text-[#171717]">
+                            {prod.title}
+                          </h4>
+                          <p className="text-xs text-[#525252] leading-relaxed mt-1 line-clamp-3">
+                            {prod.description}
+                          </p>
+
+                          <SafeProjectImage
+                            src={prod.image}
+                            alt={prod.title}
+                          />
+                        </div>
+
+                        <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+                          {prod.live && (
+                            <a
+                              href={prod.live}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs font-mono font-bold text-[#6D5DFB] hover:underline flex items-center gap-1"
+                            >
+                              <span>Explore</span>
+                              <span>↗</span>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Load More Button */}
+              {hasMore && (
+                <div className="text-center pt-6">
+                  <button
+                    type="button"
+                    onClick={() => setVisibleCount((prev) => prev + 12)}
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white border border-[#EAEAEA] text-xs font-mono font-bold text-[#525252] hover:text-[#171717] hover:border-slate-400 shadow-xs transition-all cursor-pointer"
+                  >
+                    <span>↻</span>
+                    <span>Load more projects</span>
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </main>
+      </div>
     </div>
   );
 }
