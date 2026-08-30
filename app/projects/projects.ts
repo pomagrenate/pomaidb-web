@@ -229,6 +229,8 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         title: "Stack Overflow Developer Survey 2025 Analysis",
         repo: "pomagrenate/stackoverflow_2025_analysy",
         github: "https://github.com/pomagrenate/stackoverflow_2025_analysy",
+        live: "https://stackoverflow-2025-analysy.vercel.app/",
+        details: "/case-studies/case-study-stackoverflow-2025-developer-survey",
         description: "Independent business and technical analytics case study of 49,000+ developer responses across 177 countries from the Stack Overflow 2025 survey, exploring AI trust gaps, technology adoption, workforce behavior, and strategic recommendations.",
         tags: ["Data Analysis", "Market Research", "Python", "Next.js", "Strategy", "Survey Analytics"],
       }
