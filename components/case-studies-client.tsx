@@ -165,21 +165,27 @@ export function CaseStudiesClient({ caseStudies }: CaseStudiesClientProps) {
             {/* Pill Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-[11px] font-mono font-bold text-[#6D5DFB]">
               <span className="w-2 h-2 rounded-full bg-[#6D5DFB] animate-pulse" />
-              <span>In-depth Case Studies</span>
+              <span>OBSERVATIONS &amp; ANALYSIS</span>
             </div>
 
             {/* Title */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#171717] tracking-tight">
-              Systems{" "}
+              MY SEE,{" "}
               <span className="bg-gradient-to-r from-[#6D5DFB] via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Case Studies
+                WHAT I SEE
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-sm sm:text-base text-[#525252] leading-relaxed max-w-2xl font-normal">
-              Deep dives into real-world software systems, architecture decisions, performance optimizations, and lessons learned in production.
-            </p>
+            <div className="space-y-1.5 text-sm sm:text-base text-[#525252] leading-relaxed max-w-2xl font-normal">
+              <p>Things I noticed and couldn&apos;t stop thinking about.</p>
+              <p className="text-xs text-slate-500 font-mono">
+                Sometimes it&apos;s data. Sometimes it&apos;s business. Sometimes it&apos;s technology.
+              </p>
+              <p className="pt-1 text-[#171717]">
+                Sometimes it&apos;s just me asking: <strong className="text-[#6D5DFB] font-mono">&quot;Wait... why does this work like that?&quot;</strong>
+              </p>
+            </div>
 
             {/* 3 Highlight Cards */}
             <div className="pt-4 flex flex-wrap gap-4">

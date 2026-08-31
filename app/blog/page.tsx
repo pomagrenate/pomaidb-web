@@ -14,9 +14,9 @@ export default function BlogIndexPage() {
 
   return (
     <PageShell
-      eyebrow="Engineering Journal"
-      title="Technical Writing & Essays"
-      description="Deep dives into low-level database architecture, C++ pattern mining, memory managers, AI mechanics, and systems engineering."
+      eyebrow="ENGINEERING JOURNAL"
+      title="WHAT I LEARNED FROM MY STUPID STUFF"
+      description="I built something. I broke something. I learned something. Here is the evidence. Read this so you don't have to suffer the way I did."
     >
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 space-y-12">
         {/* Blog Manifesto & Introduction Section */}
@@ -26,16 +26,20 @@ export default function BlogIndexPage() {
           <div className="max-w-3xl space-y-6 relative z-10">
             <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-[#6D5DFB] animate-pulse" />
-              <span>THE MANIFESTO &bull; BEYOND THE ABSTRACTION</span>
+              <span>THE MANIFESTO &bull; LESSONS &amp; EVIDENCE</span>
             </div>
 
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#171717] tracking-tight leading-snug">
-              Don&apos;t stop at &quot;it works.&quot; Ask why.
+              WHAT I LEARNED FROM MY STUPID STUFF
             </h2>
 
-            <p className="text-[#525252] text-sm sm:text-base leading-relaxed">
-              Modern software is built on layers of abstractions—from APIs and frameworks down to OS kernels and physical hardware. This space is dedicated to looking beneath those layers: understanding how systems work internally, exploring trade-offs, and dissecting the engineering behind AI, databases, and low-level software.
-            </p>
+            <div className="text-[#525252] text-sm sm:text-base leading-relaxed space-y-2">
+              <p>I built something. I broke something. I learned something.</p>
+              <p className="font-semibold text-[#171717]">Here is the evidence.</p>
+              <p className="text-[#6D5DFB] font-bold">
+                Read this so you don&apos;t have to suffer the way I did.
+              </p>
+            </div>
 
             {/* Focus Pillars */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">

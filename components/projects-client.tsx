@@ -191,21 +191,23 @@ export function ProjectsClient({ projectGroups }: { projectGroups: ProjectGroup[
             {/* Pill Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-[11px] font-mono font-bold text-[#6D5DFB]">
               <span className="w-2 h-2 rounded-full bg-[#6D5DFB] animate-pulse" />
-              <span>Personal Lab & Catalogue</span>
+              <span>EXPERIMENTAL LAB &amp; CODEBASE</span>
             </div>
 
             {/* Title */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#171717] tracking-tight">
-              Projects &{" "}
+              MY STUPID{" "}
               <span className="bg-gradient-to-r from-[#6D5DFB] via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Software Systems
+                STUFF
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-sm sm:text-base text-[#525252] leading-relaxed max-w-2xl font-normal">
-              A curated repository of systems programming, local AI tools, physics mini-games, commercial platforms, and statistical data models — built for curiosity, performance, and real-world impact.
-            </p>
+            <div className="space-y-1 text-sm sm:text-base text-[#525252] leading-relaxed max-w-2xl font-normal">
+              <p>I had an idea.</p>
+              <p>So I built it.</p>
+              <p className="font-semibold text-[#171717]">This is where the consequences live.</p>
+            </div>
 
             {/* 3 Counter Stat Cards */}
             <div className="pt-4 flex flex-wrap gap-4">
