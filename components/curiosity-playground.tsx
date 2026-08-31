@@ -55,6 +55,18 @@ const CURIOSITY_ITEMS: CuriosityItem[] = [
     linkLabel: "View Segmentation Code",
   },
   {
+    id: "the-city-is-a-machine",
+    title: "The City Is a Machine (37M NYC Trips)",
+    subtitle: "Medallion Architecture & PySpark vs DuckDB Benchmark",
+    type: "Data",
+    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    question: "Is distributed Spark actually necessary for 37M records?",
+    answer: "I processed 37+ million NYC taxi trip records across Jan-Dec 2023. By benchmarking Pandas, DuckDB, and PySpark on the same medallion pipeline (Bronze/Silver/Gold), I found DuckDB performed aggregations 14x faster on single-node hardware for datasets under 10GB.",
+    stat: "37+ Million Records • DuckDB vs PySpark",
+    linkHref: "https://the-city-is-a-machine.vercel.app/",
+    linkLabel: "Open Mobility Platform",
+  },
+  {
     id: "stack-overflow-2025",
     title: "Stack Overflow 2025 Developer Trust",
     subtitle: "IC vs PM Salary & Perception Analysis",

@@ -213,6 +213,15 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
     description: "Consulting-grade data analytics case studies, executive decision engines, and customer intelligence platforms.",
     projects: [
       {
+        title: "The City Is a Machine — NYC TLC Urban Mobility Intelligence Platform",
+        repo: "pomagrenate/The-City-Is-a-Machine",
+        github: "https://github.com/pomagrenate/The-City-Is-a-Machine",
+        live: "https://the-city-is-a-machine.vercel.app/",
+        details: "/case-studies/case-study-the-city-is-a-machine",
+        description: "Portfolio-grade Urban Mobility Intelligence Platform built on 37+ Million NYC TLC Taxi Trip records. Features Medallion Architecture (Bronze/Silver/Gold), DuckDB SQL aggregations, PySpark benchmarking, and an interactive executive dashboard.",
+        tags: ["DuckDB", "PySpark", "Python", "Medallion Architecture", "Streamlit", "Next.js", "Data Pipeline", "NYC TLC"],
+      },
+      {
         title: "Shopping Mall Customer Segmentation Data Analysis",
         repo: "pomagrenate/Shopping-Mall-Customer-Segmentation-Data-Analysis",
         github: "https://github.com/pomagrenate/Shopping-Mall-Customer-Segmentation-Data-Analysis",
