@@ -83,15 +83,17 @@ export default function Home() {
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#171717] leading-[1.08]">
-                Building <span className="text-[#6D5DFB]">AI</span> systems.
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#171717] leading-[1.1]">
+                I build some <span className="text-[#6D5DFB]">AI</span>,
                 <br />
-                Deciphering <span className="text-[#10B981]">data</span> &amp; strategy.
+                extract <span className="text-[#10B981]">business insights</span>,
+                <br />
+                and create <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">something crazy</span>.
               </h1>
 
               {/* Description */}
-              <p className="text-lg sm:text-xl text-[#525252] max-w-xl font-normal leading-relaxed">
-                I design high-performance software, build applied AI systems, and transform complex datasets into actionable business strategy.
+              <p className="text-base sm:text-lg text-[#525252] max-w-xl font-normal leading-relaxed">
+                Welcome to my personal learning lab &amp; project portfolio. I like solving real problems, exploring messy datasets, building local AI tools, and documenting what I learn along the way.
               </p>
 
               {/* CTA Buttons */}

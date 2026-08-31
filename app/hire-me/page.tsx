@@ -11,8 +11,8 @@ export default function HireMePage() {
   return (
     <PageShell
       eyebrow="Work With Me"
-      title="Hire Me If You Dare."
-      description="I build software, AI systems, statistical data pipelines, and occasionally things that probably didn't need to exist. I like difficult problems, weird ideas, messy data, and turning vague goals into things that actually work."
+      title="Work With Me."
+      description="I build some AI, extract business insights, and create something crazy. I like difficult problems, weird ideas, messy data, and turning vague goals into code that actually works."
     >
       <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8 space-y-16">
         {/* Core Capability Streams / Persona Cards */}
@@ -23,15 +23,15 @@ export default function HireMePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Persona A: Technical & Systems */}
+            {/* Persona A: Technical & AI */}
             <div className="bg-gradient-to-br from-white to-indigo-50/30 border border-indigo-100 rounded-3xl p-6 sm:p-8 shadow-sm">
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-3">
                 <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
                 <span>FOR SOFTWARE &amp; AI ENGINEERING ROLES</span>
               </div>
-              <h3 className="text-xl font-bold text-[#171717] mb-2">Systems &amp; AI Engineer</h3>
+              <h3 className="text-xl font-bold text-[#171717] mb-2">Software &amp; AI Engineer</h3>
               <p className="text-sm text-[#525252] leading-relaxed mb-4">
-                Targeting Software Engineer, AI/ML Engineer, Backend Developer, and Systems Architect roles.
+                Targeting Software Engineer, AI/ML Developer, Backend Developer, and Product Engineer roles.
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {["C++20", "Rust", "Go", "Local RAG", "Microservices", "Kafka", "Redis"].map((t) => (
