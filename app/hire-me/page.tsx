@@ -492,7 +492,182 @@ export default function HireMePage() {
                   <li>• Performed a sign-language dance routine and hosted interactive games with prizes (Banh Tet, cookies, candies).</li>
                 </ul>
               </div>
-              <span className="text-[10px] font-mono text-slate-400">1 mo · Orphanage Performance &amp; Games</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Honors & Awards Section */}
+        <div>
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
+            <span className="w-2 h-2 rounded-full bg-amber-500" />
+            <span>HONORS &amp; AWARDS</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 1. TOP 3 IT GOT TALENT */}
+            <div className="bg-gradient-to-br from-white to-amber-50/40 border border-amber-200/80 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-100 border border-amber-300 text-amber-800 text-[10px] font-mono font-bold uppercase tracking-wider self-start sm:self-auto">
+                  3rd Prize · IT Competition
+                </span>
+                <span className="text-[11px] font-mono text-amber-700 font-semibold">Dec 2024</span>
+              </div>
+              <h3 className="text-lg font-bold text-[#171717] mb-1">Top 3 IT GOT TALENT (Table D)</h3>
+              <p className="text-xs font-semibold text-amber-700 mb-3">
+                Issued by HCA (Ho Chi Minh City Computer Association) · Associated with HUTECH
+              </p>
+              <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                Participated in the IT GOT TALENT Competition and won the 3rd Prize with the project <strong>ATM SMART SYSTEM</strong>.
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["HCA Association", "ATM Smart System", "3rd Prize", "Software Engineering"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 rounded-full bg-white border border-amber-200 text-[10px] font-mono text-amber-700 font-medium">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* 2. TOP 3 HDBANK HACKATHON */}
+            <div className="bg-gradient-to-br from-white to-amber-50/40 border border-amber-200/80 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-100 border border-amber-300 text-amber-800 text-[10px] font-mono font-bold uppercase tracking-wider self-start sm:self-auto">
+                  3rd Prize · Hackathon
+                </span>
+                <span className="text-[11px] font-mono text-amber-700 font-semibold">Dec 2024</span>
+              </div>
+              <h3 className="text-lg font-bold text-[#171717] mb-1">Top 3 HDBank Hackathon 2024</h3>
+              <p className="text-xs font-semibold text-amber-700 mb-3">
+                Associated with HCM University of Technology (HUTECH)
+              </p>
+              <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                Competed against regional teams and secured 3rd place overall in the HDBank Hackathon 2024.
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["HDBank Hackathon", "3rd Place", "Fintech & Data", "HUTECH Team"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 rounded-full bg-white border border-amber-200 text-[10px] font-mono text-amber-700 font-medium">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* 3. TOP 10 HUTECH CODEWAR 2023 */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-[10px] font-mono font-bold uppercase tracking-wider self-start sm:self-auto">
+                  Top 10 Finalist
+                </span>
+                <span className="text-[11px] font-mono text-slate-400 font-semibold">2023</span>
+              </div>
+              <h3 className="text-lg font-bold text-[#171717] mb-1">Top 10 HUTECH CodeWar 2023</h3>
+              <p className="text-xs font-semibold text-indigo-600 mb-3">
+                Associated with HCM University of Technology (HUTECH)
+              </p>
+              <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                Awarded as one of the Top 10 best competitive programming teams in HUTECH CodeWar 2023.
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["Competitive Programming", "Algorithms", "CodeWar 2023", "Top 10 Team"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* 4. Merit as Active Person in Blood Donation */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <span className="px-2.5 py-0.5 rounded-full bg-red-50 border border-red-200 text-red-700 text-[10px] font-mono font-bold uppercase tracking-wider self-start sm:self-auto">
+                  Humanitarian Recognition
+                </span>
+                <span className="text-[11px] font-mono text-slate-400 font-semibold">Jun 2023</span>
+              </div>
+              <h3 className="text-lg font-bold text-[#171717] mb-1">Merit as Active Person in Blood Donation</h3>
+              <p className="text-xs font-semibold text-red-600 mb-3">
+                Humanitarian Blood Donation Movement
+              </p>
+              <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                Recognized and awarded a certificate of merit for active participation and continuous contributions to voluntary blood donation activities.
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["Blood Donation", "Certificate of Merit", "Community Service", "Humanitarian"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 rounded-full bg-red-50 text-red-700 text-[10px] font-mono border border-red-100">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Languages Section */}
+        <div>
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
+            <span className="w-2 h-2 rounded-full bg-indigo-500" />
+            <span>LANGUAGES &amp; SPOKEN PROTOCOLS</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Vietnamese */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-mono font-semibold">
+                    Native
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400">Primary</span>
+                </div>
+                <h3 className="text-lg font-bold text-[#171717] mb-2">Vietnamese</h3>
+                <p className="text-xs text-[#525252] leading-relaxed font-medium">
+                  Speak like a god.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <span className="text-[10px] font-mono text-slate-400">Mother Tongue</span>
+                <span className="text-[11px] text-emerald-600 font-bold">100%</span>
+              </div>
+            </div>
+
+            {/* English */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-[#6D5DFB] text-[10px] font-mono font-semibold">
+                    Professional
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400">Global Tech</span>
+                </div>
+                <h3 className="text-lg font-bold text-[#171717] mb-2">English</h3>
+                <p className="text-xs text-[#525252] leading-relaxed font-medium">
+                  Fluent enough to argue with Stack Overflow.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <span className="text-[10px] font-mono text-slate-400">Technical &amp; Business</span>
+                <span className="text-[11px] text-[#6D5DFB] font-bold">Fluent</span>
+              </div>
+            </div>
+
+            {/* Japanese */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-pink-50 border border-pink-200 text-pink-700 text-[10px] font-mono font-semibold">
+                    In Progress
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400">日本語</span>
+                </div>
+                <h3 className="text-lg font-bold text-[#171717] mb-2">Japanese</h3>
+                <p className="text-xs text-[#525252] leading-relaxed font-medium">
+                  Learning because of Anime. Still learning.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <span className="text-[10px] font-mono text-slate-400">Motivation: Anime &amp; Curiosity</span>
+                <span className="text-[11px] text-pink-600 font-bold">WIP 🎌</span>
+              </div>
             </div>
           </div>
         </div>
