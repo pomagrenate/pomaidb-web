@@ -297,10 +297,11 @@ export default function HireMePage() {
         </div>
 
         {/* Dedicated Research Experience Timeline */}
+        {/* Research & Publications Timeline */}
         <div>
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
             <span className="w-2 h-2 rounded-full bg-sky-500" />
-            <span>RESEARCH EXPERIENCE</span>
+            <span>RESEARCH EXPERIENCE &amp; PUBLICATIONS</span>
           </div>
 
           <div className="space-y-6">
@@ -324,6 +325,49 @@ export default function HireMePage() {
               <div className="flex flex-wrap gap-1.5">
                 {["Machine Learning", "Deep Learning", "Computer Vision", "NLP", "Data Mining", "Python"].map((t) => (
                   <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Featured Publication: MHOI Data Mining */}
+            <div className="bg-gradient-to-br from-white to-sky-50/40 border border-sky-200/80 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300 text-[10px] font-mono font-bold uppercase tracking-wider">
+                    FEATURED PUBLICATION
+                  </span>
+                  <a
+                    href="https://www.hutech.edu.vn/khcnhtqt/hoi-thao-trong-nuoc/14618849-ky-yeu-hoi-nghi-sinh-vien-nghien-cuu-khoa-hoc-hutech-2024"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2.5 py-0.5 rounded-full bg-white text-sky-700 hover:bg-sky-50 border border-sky-200 text-[10px] font-semibold transition-colors flex items-center gap-1 shadow-xs"
+                  >
+                    <span>HUTECH Scientific Proceedings 2024</span>
+                    <span>↗</span>
+                  </a>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-white text-xs font-mono font-semibold text-sky-700 border border-sky-200 self-start sm:self-auto">
+                  2024 Proceedings
+                </span>
+              </div>
+
+              <h4 className="text-lg sm:text-xl font-bold text-[#171717] mb-2 leading-snug">
+                Mining Maximal High Occupancy Itemsets (MHOI)
+              </h4>
+
+              <p className="text-xs font-mono text-sky-600 mb-4">
+                HUTECH Scientific Research Conference (Hội nghị Sinh viên Nghiên cứu Khoa học HUTECH)
+              </p>
+
+              <div className="bg-white/90 border border-sky-100 rounded-xl p-4 mb-5 text-xs text-[#525252] leading-relaxed italic">
+                &ldquo;This research proposes an efficient approach for mining Maximal High Occupancy Itemsets (MHOI). Unlike traditional frequent itemset mining, MHOI focuses on the contribution of items within their supporting transactions. To address the challenges of high computational costs and memory consumption, the proposed algorithm incorporates advanced pruning strategies and compact data structures. By focusing exclusively on maximal patterns, the method significantly reduces the discovery of redundant information, ensuring that only the most significant and representative patterns are extracted from the dataset.&rdquo;
+              </div>
+
+              <div className="flex flex-wrap gap-1.5">
+                {["MHOI Algorithm", "Data Mining", "Maximal Pattern Mining", "Pruning Strategies", "Memory Optimization", "Python Benchmarking"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 rounded-full bg-white border border-sky-200 text-[10px] font-mono text-sky-700 font-medium">
                     {t}
                   </span>
                 ))}
