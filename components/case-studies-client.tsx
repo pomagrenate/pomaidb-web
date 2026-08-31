@@ -67,6 +67,141 @@ function getCategoryBadgeColor(category?: string) {
   return "bg-slate-100 text-slate-700 border-slate-200";
 }
 
+interface ForensicsTarget {
+  id: string;
+  name: string;
+  badge: string;
+  steps: {
+    thought: string;
+    found: string;
+    waitWhat: string;
+    happened: string;
+    differently: string;
+  };
+}
+
+const FORENSICS_TARGETS: ForensicsTarget[] = [
+  {
+    id: "ecommerce",
+    name: "E-Commerce 50k Session Churn",
+    badge: "50,000 Customer Records",
+    steps: {
+      thought: "I initially assumed users abandoned their carts because prices were too high or coupon codes failed.",
+      found: "Pricing had zero statistical correlation with churn. 78% of abandonments happened at step 3 (shipping selection).",
+      waitWhat: "Night owl sessions (1 AM - 4 AM) had a 42% higher drop-off rate because express shipping options were hidden!",
+      happened: "A simple UI friction in late-night logistics selection caused $120k/mo in estimated revenue leakage.",
+      differently: "Segment session flows by local timezone and device state before running global price sensitivity models."
+    }
+  },
+  {
+    id: "filament",
+    name: "Filament-HQ V2 Solar Segmentation",
+    badge: "1536x1536 Native Imagery",
+    steps: {
+      thought: "Standard Canny edge detection or UNet binary masks will trace solar plasma filaments easily.",
+      found: "Plasma filaments fragment continuously due to intense solar flare background noise and low contrast.",
+      waitWhat: "16D pixel affinity embeddings connected elongated plasma strands far better than binary classification!",
+      happened: "Multi-task learning with 2D affinity graphs resolved 85% of plasma filament fragmentation errors.",
+      differently: "Train pixel affinity embeddings directly on native overlapping tiles from day one instead of upscaling."
+    }
+  },
+  {
+    id: "survey2025",
+    name: "Stack Overflow 2025 Developer Trust",
+    badge: "Developer Community Survey",
+    steps: {
+      thought: "Senior developers use AI coding tools more frequently and trust AI outputs more.",
+      found: "The higher the developer seniority, the lower their confidence and trust in AI-generated code.",
+      waitWhat: "45.7% of surveyed engineers reported distrust toward unverified AI code output!",
+      happened: "Experienced devs use AI for fast boilerplate, but review every line like untrusted third-party code.",
+      differently: "Separate tool adoption frequency from code trust rating in future statistical surveys."
+    }
+  }
+];
+
+function ForensicsBoard() {
+  const [activeTarget, setActiveTarget] = useState<ForensicsTarget>(FORENSICS_TARGETS[0]);
+  const [activeStep, setActiveStep] = useState<"thought" | "found" | "waitWhat" | "happened" | "differently">("thought");
+
+  const stepLabels = [
+    { key: "thought", label: "1. WHAT I THOUGHT" },
+    { key: "found", label: "2. WHAT I FOUND" },
+    { key: "waitWhat", label: "3. WAIT, WHAT?" },
+    { key: "happened", label: "4. WHAT HAPPENED" },
+    { key: "differently", label: "5. WHAT I'D DO DIFFERENTLY" },
+  ] as const;
+
+  return (
+    <div className="bg-gradient-to-br from-white via-indigo-50/20 to-purple-50/20 border border-[#EAEAEA] rounded-3xl p-6 sm:p-8 shadow-xs space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#EAEAEA]">
+        <div>
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-1">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#6D5DFB] animate-pulse" />
+            <span>INTERACTIVE FORENSICS INVESTIGATION</span>
+          </div>
+          <h3 className="text-xl font-bold text-[#171717]">Pick something I probably shouldn&apos;t have built</h3>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {FORENSICS_TARGETS.map((target) => (
+            <button
+              key={target.id}
+              onClick={() => {
+                setActiveTarget(target);
+                setActiveStep("thought");
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+                activeTarget.id === target.id
+                  ? "bg-[#6D5DFB] text-white shadow-sm"
+                  : "bg-white border border-[#EAEAEA] text-slate-600 hover:text-[#171717]"
+              }`}
+            >
+              [{target.name.split(" ")[0].toUpperCase()}]
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Investigation Pipeline Stepper */}
+      <div className="flex flex-wrap gap-2">
+        {stepLabels.map((s) => (
+          <button
+            key={s.key}
+            onClick={() => setActiveStep(s.key)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
+              activeStep === s.key
+                ? "bg-[#171717] text-white shadow-xs"
+                : "bg-white text-slate-500 border border-slate-200 hover:text-[#171717]"
+            }`}
+          >
+            {s.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Active Stage Evidence Display */}
+      <div className="p-6 rounded-2xl bg-white border border-indigo-100 shadow-xs space-y-3 relative overflow-hidden">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-mono font-bold text-[#6D5DFB] uppercase">
+            EVIDENCE &bull; {activeTarget.name}
+          </span>
+          <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-[10px] font-mono font-semibold">
+            {activeTarget.badge}
+          </span>
+        </div>
+
+        <p className="text-base text-[#171717] font-medium leading-relaxed">
+          {activeTarget.steps[activeStep]}
+        </p>
+
+        <div className="pt-2 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+          <span>Click any stage button to step through the investigation</span>
+          <span className="text-[#6D5DFB] font-bold">STAGE: {activeStep.toUpperCase()}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 interface CaseStudiesClientProps {
   caseStudies: CaseStudyData[];
 }
@@ -264,6 +399,9 @@ export function CaseStudiesClient({ caseStudies }: CaseStudiesClientProps) {
           </div>
         </div>
       </div>
+
+      {/* ─── FORENSICS INVESTIGATION BOARD ─── */}
+      <ForensicsBoard />
 
       {/* ─── Search & Category Filter Controls ─── */}
       <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-xs space-y-5">

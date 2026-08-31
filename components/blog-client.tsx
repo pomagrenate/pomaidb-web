@@ -13,26 +13,36 @@ export function BlogClient({ posts }: BlogClientProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState<"newest" | "oldest" | "title">("newest");
 
-  // Extract unique categories and counts
-  const categories = useMemo(() => {
-    const counts: Record<string, number> = {};
-    posts.forEach((post) => {
-      const cat = post.category || "Uncategorized";
-      counts[cat] = (counts[cat] || 0) + 1;
-    });
-    return [
-      { name: "All", count: posts.length },
-      ...Object.keys(counts).map((cat) => ({ name: cat, count: counts[cat] })),
-    ];
-  }, [posts]);
+  // Mood / Rabbit Hole Filter State
+  const MOOD_FILTERS = [
+    "[ EVERYTHING ]",
+    "[ AI ]",
+    "[ BUSINESS ]",
+    "[ PRODUCT ]",
+    "[ RANDOM THOUGHTS ]",
+    "[ WTF WAS I DOING ]",
+  ];
+  const [selectedMood, setSelectedMood] = useState("[ EVERYTHING ]");
 
   // Filter and Sort logic
   const filteredAndSortedPosts = useMemo(() => {
     return posts
       .filter((post) => {
-        // Category filter
-        if (selectedCategory !== "All" && post.category !== selectedCategory) {
-          return false;
+        // Mood / Category filter
+        if (selectedMood !== "[ EVERYTHING ]") {
+          const moodClean = selectedMood.replace(/\[|\]/g, "").trim().toLowerCase();
+          const cat = post.category?.toLowerCase() || "";
+          const tags = post.tags?.map((t) => t.toLowerCase()) || [];
+          const title = post.title.toLowerCase();
+
+          if (moodClean === "wtf was i doing") {
+            // Match experimental or weird posts
+            return cat.includes("experimental") || cat.includes("weird") || tags.some(t => t.includes("wtf") || t.includes("crazy"));
+          }
+          if (moodClean === "random thoughts") {
+            return cat.includes("essay") || cat.includes("journal") || cat.includes("thoughts");
+          }
+          return cat.includes(moodClean) || tags.some(t => t.includes(moodClean)) || title.includes(moodClean);
         }
 
         // Search query filter
@@ -59,11 +69,11 @@ export function BlogClient({ posts }: BlogClientProps) {
         }
         return 0;
       });
-  }, [posts, searchQuery, selectedCategory, sortBy]);
+  }, [posts, searchQuery, selectedMood, sortBy]);
 
   return (
     <div className="space-y-8">
-      {/* Controls Bar: Search, Category Filters, Sort */}
+      {/* Controls Bar: Search, Mood Rabbit Hole Filters, Sort */}
       <div className="bg-white border border-[#EAEAEA] rounded-3xl p-6 shadow-sm space-y-6">
         <div className="flex flex-col md:flex-row items-center gap-4">
           {/* Search Input */}
@@ -77,8 +87,8 @@ export function BlogClient({ posts }: BlogClientProps) {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search articles by title, tags, systems, algorithms..."
-              className="w-full pl-10 pr-10 py-2.5 bg-[#FAFAF8] border border-[#EAEAEA] rounded-xl text-sm text-[#171717] placeholder-[#A3A3A3] focus:outline-none focus:border-[#6D5DFB] transition-colors"
+              placeholder="Search thought stream by keyword, system, or observation..."
+              className="w-full pl-10 pr-10 py-2.5 bg-[#FAFAF8] border border-[#EAEAEA] rounded-xl text-sm text-[#171717] placeholder-[#A3A3A3] focus:outline-none focus:border-[#6D5DFB] transition-colors font-mono text-xs"
             />
             {searchQuery && (
               <button
@@ -94,47 +104,40 @@ export function BlogClient({ posts }: BlogClientProps) {
           {/* Sort Dropdown */}
           <div className="flex items-center gap-2 w-full md:w-auto shrink-0">
             <label htmlFor="sort-select" className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
-              Sort By:
+              Stream Sort:
             </label>
             <select
               id="sort-select"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as "newest" | "oldest" | "title")}
-              className="px-3.5 py-2.5 bg-[#FAFAF8] border border-[#EAEAEA] rounded-xl text-xs font-semibold text-[#171717] focus:outline-none focus:border-[#6D5DFB] transition-colors"
+              className="px-3.5 py-2.5 bg-[#FAFAF8] border border-[#EAEAEA] rounded-xl text-xs font-semibold text-[#171717] focus:outline-none focus:border-[#6D5DFB] transition-colors font-mono"
             >
-              <option value="newest">Newest First</option>
-              <option value="oldest">Oldest First</option>
+              <option value="newest">Newest Entries</option>
+              <option value="oldest">Oldest Entries</option>
               <option value="title">Title (A-Z)</option>
             </select>
           </div>
         </div>
 
-        {/* Category Pills */}
+        {/* Mood / Rabbit Hole Filter Pills */}
         <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-[#EAEAEA]/80">
           <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mr-2">
-            Categories:
+            RABBIT HOLE:
           </span>
-          {categories.map((cat) => {
-            const isSelected = selectedCategory === cat.name;
+          {MOOD_FILTERS.map((mood) => {
+            const isSelected = selectedMood === mood;
             return (
               <button
-                key={cat.name}
+                key={mood}
                 type="button"
-                onClick={() => setSelectedCategory(cat.name)}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                onClick={() => setSelectedMood(mood)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
                   isSelected
                     ? "bg-[#6D5DFB] text-white shadow-sm"
                     : "bg-[#FAFAF8] text-[#525252] border border-[#EAEAEA] hover:border-[#6D5DFB]/40 hover:text-[#171717]"
                 }`}
               >
-                <span>{cat.name}</span>
-                <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                    isSelected ? "bg-white/20 text-white" : "bg-[#EAEAEA] text-[#737373]"
-                  }`}
-                >
-                  {cat.count}
-                </span>
+                {mood}
               </button>
             );
           })}

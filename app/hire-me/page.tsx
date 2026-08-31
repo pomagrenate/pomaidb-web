@@ -977,7 +977,173 @@ export default function HireMePage() {
         </div>
 
         {/* Contact Form Section */}
+        {/* ─── CHARACTER DEVELOPMENT (GAME SAVE) ─── */}
         <div>
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
+            <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
+            <span>CHARACTER DEVELOPMENT &bull; QUAN.EXE</span>
+          </div>
+
+          <div className="bg-[#171717] text-white rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl border border-slate-800 font-mono">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-xs font-bold text-emerald-400">CHARACTER SAVE &bull; QUAN.EXE</span>
+              </div>
+              <span className="text-xs text-slate-400">CLASS: BUILDER / NERD</span>
+            </div>
+
+            <div className="space-y-5 text-xs">
+              <div>
+                <div className="flex justify-between text-slate-300 mb-1.5">
+                  <span>LEVEL 01 &bull; University (HUTECH)</span>
+                  <span className="text-emerald-400 font-bold">COMPLETED [100%]</span>
+                </div>
+                <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-400 w-full rounded-full" />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-slate-300 mb-1.5">
+                  <span>LEVEL 02 &bull; Scientific Research &amp; MHOI Algorithms</span>
+                  <span className="text-emerald-400 font-bold">COMPLETED [100%]</span>
+                </div>
+                <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-400 w-full rounded-full" />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-slate-300 mb-1.5">
+                  <span>LEVEL 03 &bull; Software Systems &amp; APIs</span>
+                  <span className="text-emerald-400 font-bold">COMPLETED [100%]</span>
+                </div>
+                <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-400 w-full rounded-full" />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-slate-300 mb-1.5">
+                  <span>LEVEL 04 &bull; Product &amp; AI Integration (VINAMACHINE / Fixago)</span>
+                  <span className="text-[#6D5DFB] font-bold">LEVEL MAX [100%]</span>
+                </div>
+                <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-[#6D5DFB] to-purple-500 w-full rounded-full" />
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-slate-800">
+                <div className="flex justify-between text-amber-400 font-bold mb-1.5">
+                  <span>CURRENTLY UNLOCKING &bull; Local Vector Engines &amp; Autonomous AI Agents</span>
+                  <span className="animate-pulse">IN PROGRESS...</span>
+                </div>
+                <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-amber-400 to-emerald-400 w-3/4 rounded-full" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── SKILL TREE METAPHOR ─── */}
+        <div>
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
+            <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
+            <span>SKILL TREE ARCHITECTURE</span>
+          </div>
+
+          <div className="bg-white border border-[#EAEAEA] rounded-3xl p-6 sm:p-8 shadow-xs space-y-6">
+            <div className="flex flex-col items-center space-y-3 font-mono text-xs text-center">
+              <div className="px-5 py-2.5 rounded-2xl bg-indigo-600 text-white font-bold shadow-md">
+                BUILDING REAL THINGS
+              </div>
+              <div className="w-0.5 h-4 bg-indigo-300" />
+              <div className="flex items-center gap-6 sm:gap-12">
+                <div className="px-3.5 py-1.5 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200 font-bold">
+                  CODE SYSTEMS
+                </div>
+                <div className="px-3.5 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">
+                  DATA &amp; ANALYTICS
+                </div>
+              </div>
+              <div className="flex items-center gap-16">
+                <div className="w-0.5 h-4 bg-indigo-200" />
+                <div className="w-0.5 h-4 bg-emerald-200" />
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full">
+                <div className="p-3 rounded-xl bg-[#FAFAF8] border border-[#EAEAEA] font-semibold text-[#171717]">
+                  Backend (Go/C++/Rust)
+                </div>
+                <div className="p-3 rounded-xl bg-[#FAFAF8] border border-[#EAEAEA] font-semibold text-[#171717]">
+                  Web (Next.js/TS)
+                </div>
+                <div className="p-3 rounded-xl bg-[#FAFAF8] border border-[#EAEAEA] font-semibold text-[#171717]">
+                  ML / Computer Vision
+                </div>
+                <div className="p-3 rounded-xl bg-[#FAFAF8] border border-[#EAEAEA] font-semibold text-[#171717]">
+                  Analytics &amp; Matrices
+                </div>
+              </div>
+              <div className="w-0.5 h-4 bg-purple-300" />
+              <div className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#6D5DFB] to-purple-600 text-white font-bold shadow-lg">
+                AI WORKFLOWS &amp; INTELLIGENCE
+              </div>
+              <p className="text-slate-400 text-[11px] pt-1">What should I build next?</p>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── OPEN INVITATION CTA ─── */}
+        <div className="bg-gradient-to-br from-indigo-50/70 via-white to-purple-50/40 border border-indigo-100 rounded-3xl p-8 sm:p-10 shadow-md space-y-6">
+          <div className="space-y-2">
+            <span className="text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider">
+              OPEN INVITATION
+            </span>
+            <h2 className="text-3xl font-extrabold text-[#171717]">So... You found your way here.</h2>
+          </div>
+
+          <p className="text-sm sm:text-base text-[#525252] leading-relaxed">
+            Maybe you need someone who can:
+          </p>
+
+          <ul className="space-y-2 text-sm text-[#171717] font-semibold font-mono">
+            <li className="flex items-center gap-2">
+              <span className="text-[#6D5DFB]">&rarr;</span> build real software &amp; AI tools
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-[#6D5DFB]">&rarr;</span> understand actual business requirements
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-[#6D5DFB]">&rarr;</span> investigate weird data problems
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-[#6D5DFB]">&rarr;</span> talk to engineers and non-engineers
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-[#6D5DFB]">&rarr;</span> learn whatever technology is needed
+            </li>
+          </ul>
+
+          <div className="pt-4 flex flex-wrap items-center gap-4">
+            <a
+              href="#contact-form"
+              className="px-6 py-3.5 rounded-xl bg-[#6D5DFB] hover:bg-[#5C4CE5] text-white text-xs font-mono font-bold shadow-lg shadow-[#6D5DFB]/25 transition-all"
+            >
+              [ LET&apos;S TALK ]
+            </a>
+            <a
+              href="/projects"
+              className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#171717] border border-[#EAEAEA] text-xs font-mono font-bold transition-all"
+            >
+              [ GO BACK TO MY STUPID STUFF ]
+            </a>
+          </div>
+        </div>
+
+        {/* ─── GET IN TOUCH ─── */}
+        <div id="contact-form">
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
             <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
             <span>GET IN TOUCH</span>

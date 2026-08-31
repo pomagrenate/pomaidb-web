@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getSortedPostsData } from "@/lib/blog";
 import { HeroVisual } from "@/components/hero-visual";
+import { CuriosityPlayground } from "@/components/curiosity-playground";
 
 export default function Home() {
   const blogPosts = getSortedPostsData().slice(0, 2);
@@ -100,19 +101,16 @@ export default function Home() {
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <Link
                   href="/projects"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#6D5DFB] hover:bg-[#5C4CE5] text-white text-sm font-semibold shadow-lg shadow-[#6D5DFB]/25 hover:shadow-xl hover:shadow-[#6D5DFB]/30 hover:-translate-y-0.5 transition-all duration-200"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#6D5DFB] hover:bg-[#5C4CE5] text-white text-sm font-semibold shadow-lg shadow-[#6D5DFB]/25 hover:shadow-xl hover:shadow-[#6D5DFB]/30 hover:-translate-y-0.5 transition-all duration-200 font-mono tracking-wide"
                 >
-                  <span>Explore my work</span>
+                  <span>[ OPEN THE STUPID STUFF ]</span>
                   <span>→</span>
                 </Link>
                 <Link
-                  href="/blog"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-[#F4F4F6] text-[#171717] border border-[#EAEAEA] text-sm font-semibold shadow-sm hover:-translate-y-0.5 transition-all duration-200"
+                  href="/case-studies"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-[#F4F4F6] text-[#171717] border border-[#EAEAEA] text-sm font-semibold shadow-sm hover:-translate-y-0.5 transition-all duration-200 font-mono"
                 >
-                  <span>Read the blog</span>
-                  <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                  </svg>
+                  <span>[ MY SEE, WHAT I SEE ]</span>
                 </Link>
               </div>
 
@@ -158,6 +156,13 @@ export default function Home() {
               <HeroVisual />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ─── CURIOSITY PLAYGROUND ─── */}
+      <section id="curiosity-wall" className="py-12 border-b border-[#EAEAEA] bg-gradient-to-b from-[#FAFAF8] to-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <CuriosityPlayground />
         </div>
       </section>
 
