@@ -20,6 +20,13 @@ export default function ResearchPage() {
       <div className="mx-auto max-w-5xl px-6 py-12 lg:px-8 space-y-8">
         {/* Funny Research Banner */}
         <div className="bg-gradient-to-br from-emerald-50/50 via-white to-teal-50/30 border border-emerald-100 rounded-3xl p-6 sm:p-8 shadow-xs">
+          {/* Spatial Room Branding Badge */}
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-wider mb-2">
+            <span className="px-2.5 py-0.5 rounded-md bg-emerald-600 text-white">ROOM 06</span>
+            <span className="text-slate-400">&bull;</span>
+            <span className="text-[#171717]">THE RESEARCH PAPERS (PUBLICATIONS)</span>
+          </div>
+
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-wider mb-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>RESEARCH PHILOSOPHY</span>

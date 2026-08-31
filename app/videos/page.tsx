@@ -21,6 +21,13 @@ export default function VideoPage() {
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 space-y-8">
         {/* Funny Intro Banner */}
         <div className="bg-gradient-to-br from-indigo-50/50 via-white to-purple-50/30 border border-indigo-100 rounded-3xl p-6 sm:p-8 shadow-xs">
+          {/* Spatial Room Branding Badge */}
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-2">
+            <span className="px-2.5 py-0.5 rounded-md bg-[#6D5DFB] text-white">ROOM 05</span>
+            <span className="text-slate-400">&bull;</span>
+            <span className="text-[#171717]">THE SCREENING ROOM (VIDEO DEMOS)</span>
+          </div>
+
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-2">
             <span className="w-2 h-2 rounded-full bg-[#6D5DFB] animate-pulse" />
             <span>VIDEO DISCLAIMER</span>
