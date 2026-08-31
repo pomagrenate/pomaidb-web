@@ -111,24 +111,118 @@ export default function HireMePage() {
               </div>
             </div>
 
-            {/* Personal Craft & Mindset (Tài lẻ) */}
+            {/* Personal Craft & Mindset */}
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
               <div>
                 <span className="px-2.5 py-1 rounded-full bg-purple-50 border border-purple-100 text-purple-700 text-[11px] font-semibold mb-4 inline-block">
-                  Personal Crafts &amp; Mindset
+                  Personal Crafts &amp; Obsessions
                 </span>
-                <h3 className="text-lg font-bold text-[#171717] mb-3">Focus &amp; Strategic Arts</h3>
+                <h3 className="text-lg font-bold text-[#171717] mb-3">Beyond Work Mindset</h3>
                 <p className="text-[#525252] text-xs leading-relaxed mb-6">
-                  Beyond software, I train strategic reading through <strong>Go Game (Cờ vây - 囲碁)</strong> and practice artistic focus with the <strong>Recorder Flute (Sáo Recorder)</strong>.
+                  Balancing high-intensity software engineering with tactical <strong>Chess / Go Game (Cờ vây)</strong>, <strong>Recorder Flute (Sáo)</strong>, gaming, building unnecessary tools, and exploring deep internet rabbit holes.
                 </p>
               </div>
               <div className="flex flex-wrap gap-1.5">
-                {["Go Game (Cờ vây)", "Recorder Flute (Sáo)", "Pattern Recognition", "Focus & Discipline"].map((t) => (
+                {["Chess & Go", "Recorder Flute", "Gaming", "Quirky Side Projects"].map((t) => (
                   <span key={t} className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-100 text-[10px] font-mono font-semibold">
                     {t}
                   </span>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Beyond Work Section */}
+        <div>
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-purple-600 uppercase tracking-wider mb-6">
+            <span className="w-2 h-2 rounded-full bg-purple-500" />
+            <span>BEYOND WORK</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* 1. Chess & Go */}
+            <div className="bg-gradient-to-br from-white to-purple-50/30 border border-purple-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="text-2xl mb-3">♟️</div>
+                <h3 className="text-base font-bold text-[#171717] mb-2">Chess &amp; Go (Cờ vây - 囲碁)</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Training tactical patience, positional advantage, and long-term strategic decision making one move at a time.
+                </p>
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 text-[10px] font-mono font-semibold w-fit border border-purple-100">
+                Tactical Thinking
+              </span>
+            </div>
+
+            {/* 2. Recorder Flute */}
+            <div className="bg-gradient-to-br from-white to-pink-50/30 border border-pink-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="text-2xl mb-3">🎵</div>
+                <h3 className="text-base font-bold text-[#171717] mb-2">Recorder Flute (Sáo Recorder)</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Practicing breath control, tone control, and acoustic melody away from computer screens.
+                </p>
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-pink-50 text-pink-700 text-[10px] font-mono font-semibold w-fit border border-pink-100">
+                Acoustic Focus
+              </span>
+            </div>
+
+            {/* 3. Building Unnecessary Things */}
+            <div className="bg-gradient-to-br from-white to-indigo-50/30 border border-indigo-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="text-2xl mb-3">🤖</div>
+                <h3 className="text-base font-bold text-[#171717] mb-2">Building Unnecessary Things</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Hacking together weird scripts, small CLI utilities, experimental AI workflows, and single-purpose micro-tools just because it&apos;s fun.
+                </p>
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-[10px] font-mono font-semibold w-fit border border-indigo-100">
+                Pure Curiosity
+              </span>
+            </div>
+
+            {/* 4. Learning things I probably don't need */}
+            <div className="bg-gradient-to-br from-white to-amber-50/30 border border-amber-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="text-2xl mb-3">📚</div>
+                <h3 className="text-base font-bold text-[#171717] mb-2">Learning Things I Probably Don&apos;t Need</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Diving into niche computer science topics, historical algorithms, esoteric data structures, and random technical documentation.
+                </p>
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[10px] font-mono font-semibold w-fit border border-amber-100">
+                Infinite Learning
+              </span>
+            </div>
+
+            {/* 5. Internet Rabbit Holes */}
+            <div className="bg-gradient-to-br from-white to-sky-50/30 border border-sky-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="text-2xl mb-3">🔍</div>
+                <h3 className="text-base font-bold text-[#171717] mb-2">Going Down Internet Rabbit Holes</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Starting with a simple bug report and ending up reading a 40-page C++ standard paper at 2:00 AM.
+                </p>
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 text-[10px] font-mono font-semibold w-fit border border-sky-100">
+                Deep Research
+              </span>
+            </div>
+
+            {/* 6. Other Questionable Decisions */}
+            <div className="bg-gradient-to-br from-white to-emerald-50/30 border border-emerald-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="text-2xl mb-3">🤷</div>
+                <h3 className="text-base font-bold text-[#171717] mb-2">Other Questionable Decisions</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Testing 15 different dev tools before concluding that a 3-line bash script is all I actually needed.
+                </p>
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-mono font-semibold w-fit border border-emerald-100">
+                Trial &amp; Error
+              </span>
             </div>
           </div>
         </div>
