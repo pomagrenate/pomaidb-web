@@ -297,6 +297,13 @@ export function CaseStudiesClient({ caseStudies }: CaseStudiesClientProps) {
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-indigo-50/30 to-purple-50/20 border border-[#EAEAEA] p-8 lg:p-10 shadow-xs">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-4">
+            {/* Spatial Room Branding Badge */}
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-2">
+              <span className="px-2.5 py-0.5 rounded-md bg-[#6D5DFB] text-white">ROOM 03</span>
+              <span className="text-slate-400">&bull;</span>
+              <span className="text-[#171717]">THE INVESTIGATION ROOM (FORENSICS)</span>
+            </div>
+
             {/* Pill Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-[11px] font-mono font-bold text-[#6D5DFB]">
               <span className="w-2 h-2 rounded-full bg-[#6D5DFB] animate-pulse" />

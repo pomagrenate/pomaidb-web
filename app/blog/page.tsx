@@ -24,6 +24,13 @@ export default function BlogIndexPage() {
           <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#6D5DFB]/10 rounded-full blur-3xl pointer-events-none" />
           
           <div className="max-w-3xl space-y-6 relative z-10">
+            {/* Spatial Room Branding Badge */}
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-2">
+              <span className="px-2.5 py-0.5 rounded-md bg-[#6D5DFB] text-white">ROOM 04</span>
+              <span className="text-slate-400">&bull;</span>
+              <span className="text-[#171717]">THE LIBRARY (THOUGHT STREAM)</span>
+            </div>
+
             <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-[#6D5DFB] animate-pulse" />
               <span>THE MANIFESTO &bull; LESSONS &amp; EVIDENCE</span>
