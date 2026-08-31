@@ -1,5 +1,4 @@
 import React from "react";
-import { WorldMapModal } from "@/components/world-map-modal";
 
 interface PageShellProps {
   eyebrow?: string;
@@ -33,9 +32,6 @@ export function PageShell({ eyebrow, title, description, children }: PageShellPr
 
       {/* Main Page Content Body */}
       <div>{children}</div>
-
-      {/* Global World Map HUD */}
-      <WorldMapModal />
     </div>
   );
 }

@@ -196,14 +196,6 @@ export function ProjectsClient({ projectGroups }: { projectGroups: ProjectGroup[
               <span>EXPERIMENTAL LAB &amp; CODEBASE</span>
             </div>
 
-            {/* Title */}
-            {/* Spatial Room Branding Badge */}
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-2">
-              <span className="px-2.5 py-0.5 rounded-md bg-[#6D5DFB] text-white">ROOM 02</span>
-              <span className="text-slate-400">&bull;</span>
-              <span className="text-[#171717]">THE LAB (OBJECT WALL)</span>
-            </div>
-
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#171717] tracking-tight">
               MY STUPID{" "}
               <span className="bg-gradient-to-r from-[#6D5DFB] via-indigo-600 to-purple-600 bg-clip-text text-transparent">

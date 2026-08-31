@@ -17,13 +17,6 @@ export default function HireMePage() {
       <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8 space-y-16">
         {/* Core Capability Streams / Persona Cards */}
         <div>
-          {/* Spatial Room Branding Badge */}
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
-            <span className="px-2.5 py-0.5 rounded-md bg-[#6D5DFB] text-white">ROOM 05</span>
-            <span className="text-slate-400">&bull;</span>
-            <span className="text-[#171717]">WORKSHOP &amp; HALLWAY (CAREER TRAJECTORY)</span>
-          </div>
-
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
             <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
             <span>ROLE ALIGNMENT &amp; ENGAGEMENT TYPES</span>
@@ -1105,13 +1098,6 @@ export default function HireMePage() {
         {/* ─── OPEN INVITATION CTA ─── */}
         <div className="bg-gradient-to-br from-indigo-50/70 via-white to-purple-50/40 border border-indigo-100 rounded-3xl p-8 sm:p-10 shadow-md space-y-6">
           <div className="space-y-2">
-            {/* Spatial Room Branding Badge */}
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-rose-600 uppercase tracking-wider mb-2">
-              <span className="px-2.5 py-0.5 rounded-md bg-rose-600 text-white">ROOM 06</span>
-              <span className="text-slate-400">&bull;</span>
-              <span className="text-[#171717]">THE EXIT (HIRE ME CTA)</span>
-            </div>
-
             <span className="text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider">
               OPEN INVITATION
             </span>

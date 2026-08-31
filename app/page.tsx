@@ -77,12 +77,6 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-6">
-              {/* Spatial Room Branding Badge */}
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-2">
-                <span className="px-2.5 py-0.5 rounded-md bg-[#6D5DFB] text-white">ROOM 01</span>
-                <span className="text-slate-400">&bull;</span>
-                <span className="text-[#171717]">QUAN&apos;S ROOM (START NODE)</span>
-              </div>
 
               {/* Eyebrow Pill */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-semibold tracking-wide">
