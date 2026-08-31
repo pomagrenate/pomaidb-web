@@ -56,6 +56,12 @@ export async function getPostData(slug: string): Promise<BlogPostData> {
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const matterResult = matter(fileContents);
 
+  // Normalize image paths (e.g., ./images/ or ../images/ or images/ to /images/)
+  const normalizedContent = matterResult.content.replace(
+    /!\[(.*?)\]\(\s*(\.\/|\.\.\/|images\/)/g,
+    '![$1](/images/'
+  );
+
   // Use unified pipeline for mathematical rendering and GFM
   const processedContent = await unified()
     .use(remarkParse)
@@ -64,7 +70,7 @@ export async function getPostData(slug: string): Promise<BlogPostData> {
     .use(remarkRehype)
     .use(rehypeKatex)
     .use(rehypeStringify)
-    .process(matterResult.content);
+    .process(normalizedContent);
 
   const contentHtml = processedContent.toString();
   const readingTime = calculateReadingTime(matterResult.content);

@@ -135,6 +135,32 @@
   @apply text-[#6D5DFB] font-semibold hover:underline underline-offset-4 decoration-2;
 }
 
+/* ─── Images & Figures Styling ─── */
+.industrial-markdown img {
+  @apply max-w-full h-auto rounded-2xl border border-[#EAEAEA] shadow-sm hover:shadow-md transition-shadow my-8 mx-auto block bg-white p-1;
+}
+
+.industrial-markdown figure {
+  @apply my-8 text-center;
+}
+
+.industrial-markdown figcaption {
+  @apply text-xs font-mono text-slate-500 mt-3 italic;
+}
+
+/* ─── KaTeX Math Formula Rendering ─── */
+.industrial-markdown .katex-display {
+  @apply my-6 p-4 sm:p-6 bg-white border border-[#EAEAEA] rounded-2xl overflow-x-auto shadow-xs text-center text-[#171717];
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.industrial-markdown .katex {
+  font-size: 1.08em;
+  color: #171717;
+  padding: 0 0.15em;
+}
+
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
