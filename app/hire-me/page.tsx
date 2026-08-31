@@ -672,6 +672,216 @@ export default function HireMePage() {
           </div>
         </div>
 
+        {/* Licenses & Certifications Section */}
+        <div>
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
+            <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
+            <span>LICENSES &amp; CERTIFICATIONS</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {/* 1. TestDome */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-mono font-semibold">
+                    Verified
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">TestDome</span>
+                </div>
+                <h3 className="text-sm font-bold text-[#171717] mb-1">Software Engineer Certificate</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Verified technical assessment covering core software engineering principles and code quality.
+                </p>
+              </div>
+              <a
+                href="https://www.testdome.com/certificates/74ce9f2b51e64764b2e57e750e36acbe"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-between w-full pt-3 border-t border-slate-100 text-xs font-semibold text-[#6D5DFB] hover:underline"
+              >
+                <span>Verify Credential</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+            {/* 2. LinkedIn Learning */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-[#6D5DFB] text-[10px] font-mono font-semibold">
+                    Verified
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">LinkedIn</span>
+                </div>
+                <h3 className="text-sm font-bold text-[#171717] mb-1">Software Engineering Credential</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Professional development certification focusing on software architecture and design standards.
+                </p>
+              </div>
+              <a
+                href="https://www.linkedin.com/learning/certificates/9f4f06f1bdca233872e5a862dc1d15fa95d1d4de3b270bf6394061eadcbd1def/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-between w-full pt-3 border-t border-slate-100 text-xs font-semibold text-[#6D5DFB] hover:underline"
+              >
+                <span>Verify Credential</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+            {/* 3. freeCodeCamp */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-[10px] font-mono font-semibold">
+                    300 Hours
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">freeCodeCamp</span>
+                </div>
+                <h3 className="text-sm font-bold text-[#171717] mb-1">Responsive Web Design</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Comprehensive mastery of HTML5, CSS3, Flexbox, Grid layout, and accessibility best practices.
+                </p>
+              </div>
+              <a
+                href="https://www.freecodecamp.org/certification/QuanVan/responsive-web-design"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-between w-full pt-3 border-t border-slate-100 text-xs font-semibold text-[#6D5DFB] hover:underline"
+              >
+                <span>Verify Credential</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+            {/* 4. Coursera Specialization */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-[10px] font-mono font-semibold">
+                    Specialization
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">Coursera</span>
+                </div>
+                <h3 className="text-sm font-bold text-[#171717] mb-1">Coursera Specialization</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Multi-course specialization credential demonstrating rigorous technical software competency.
+                </p>
+              </div>
+              <a
+                href="https://www.coursera.org/account/accomplishments/specialization/certificate/2FZZ25FVUEGX"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-between w-full pt-3 border-t border-slate-100 text-xs font-semibold text-[#6D5DFB] hover:underline"
+              >
+                <span>Verify Credential</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+            {/* 5. Coursera Verified Course */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-[10px] font-mono font-semibold">
+                    Verified Course
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">Coursera</span>
+                </div>
+                <h3 className="text-sm font-bold text-[#171717] mb-1">Coursera Certificate</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Verified course completion certificate from leading university and industry partners.
+                </p>
+              </div>
+              <a
+                href="https://www.coursera.org/account/accomplishments/verify/WG6T7ZY94F23"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-between w-full pt-3 border-t border-slate-100 text-xs font-semibold text-[#6D5DFB] hover:underline"
+              >
+                <span>Verify Credential</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+            {/* 6. BCG Virtual Experience */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-mono font-semibold">
+                    Strategy &amp; Tech
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">BCG · Forage</span>
+                </div>
+                <h3 className="text-sm font-bold text-[#171717] mb-1">BCG Virtual Experience</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Digital transformation, software strategy, and technical architecture simulation with Boston Consulting Group.
+                </p>
+              </div>
+              <a
+                href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/BCG%20/Tcz8gTtprzAS4xSoK_BCG_tSrNYiw7LPDwYp7Hr_1703817237186_completion_certificate.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-between w-full pt-3 border-t border-slate-100 text-xs font-semibold text-[#6D5DFB] hover:underline"
+              >
+                <span>View PDF Certificate</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+            {/* 7. British Airways */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-[10px] font-mono font-semibold">
+                    Data Science &amp; Tech
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">British Airways</span>
+                </div>
+                <h3 className="text-sm font-bold text-[#171717] mb-1">British Airways Simulation</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Data science and web engineering virtual experience simulating customer sentiment &amp; booking optimization pipelines.
+                </p>
+              </div>
+              <a
+                href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/British%20Airways/NjynCWzGSaWXQCxSX_British%20Airways_tSrNYiw7LPDwYp7Hr_1702990392905_completion_certificate.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-between w-full pt-3 border-t border-slate-100 text-xs font-semibold text-[#6D5DFB] hover:underline"
+              >
+                <span>View PDF Certificate</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+            {/* 8. HackerRank */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-mono font-semibold">
+                    Verified Skill
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">HackerRank</span>
+                </div>
+                <h3 className="text-sm font-bold text-[#171717] mb-1">HackerRank Developer Cert</h3>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Verified assessment proving problem solving algorithms, data structure efficiency, and code accuracy.
+                </p>
+              </div>
+              <a
+                href="https://www.hackerrank.com/certificates/aa7aa19ea47a"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-between w-full pt-3 border-t border-slate-100 text-xs font-semibold text-[#6D5DFB] hover:underline"
+              >
+                <span>Verify Credential</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* Contact Form Section */}
         <div>
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
