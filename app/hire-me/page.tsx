@@ -63,26 +63,27 @@ export default function HireMePage() {
           </div>
         </div>
 
-        {/* What I Do */}
+        {/* My Superpower Ability */}
         <div>
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
             <span className="w-2 h-2 rounded-full bg-[#6D5DFB]" />
-            <span>CORE COMPETENCIES</span>
+            <span>MY SUPERPOWER ABILITY</span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Tech & AI Superpower */}
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
               <div>
                 <span className="px-2.5 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-[#6D5DFB] text-[11px] font-semibold mb-4 inline-block">
-                  Architecture
+                  Engineering &amp; AI Superpowers
                 </span>
-                <h3 className="text-lg font-bold text-[#171717] mb-3">Microservices Migration</h3>
+                <h3 className="text-lg font-bold text-[#171717] mb-3">AI &amp; Backend Systems</h3>
                 <p className="text-[#525252] text-xs leading-relaxed mb-6">
-                  Transforming fragile monoliths into robust, event-driven microservices. Expertise in outbox pattern data integrity, Kong gateways, and database migrations.
+                  Building local AI RAG workspaces, C++20 vector engines, high-concurrency microservices, prompt engineering (Progressive Refinement), and Redis caching layers.
                 </p>
               </div>
               <div className="flex flex-wrap gap-1.5">
-                {["PostgreSQL", "Kafka", "Kong"].map((t) => (
+                {["C++20", "Rust", "Go", "Python", "Local RAG", "Redis", "Docker", "Node.js"].map((t) => (
                   <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
                     {t}
                   </span>
@@ -90,37 +91,19 @@ export default function HireMePage() {
               </div>
             </div>
 
-            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
-              <div>
-                <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-semibold mb-4 inline-block">
-                  AI Systems
-                </span>
-                <h3 className="text-lg font-bold text-[#171717] mb-3">AI-Driven Observability</h3>
-                <p className="text-[#525252] text-xs leading-relaxed mb-6">
-                  Autonomous Root Cause Analysis (RCA) pipelines. Integrating Flink, Kafka, and CPU-only local LLMs (Llama.cpp) for low-cost log intelligence.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {["RAG", "Qdrant", "Llama.cpp"].map((t) => (
-                  <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-
+            {/* Business & Product Superpower */}
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
               <div>
                 <span className="px-2.5 py-1 rounded-full bg-amber-50 border border-amber-100 text-amber-700 text-[11px] font-semibold mb-4 inline-block">
-                  Data Intelligence
+                  Product &amp; Analytics Superpowers
                 </span>
-                <h3 className="text-lg font-bold text-[#171717] mb-3">Data &amp; Insight Analytics</h3>
+                <h3 className="text-lg font-bold text-[#171717] mb-3">Requirements &amp; Data Insights</h3>
                 <p className="text-[#525252] text-xs leading-relaxed mb-6">
-                  Translating 15k+ record datasets into consulting-grade Business Insight Matrices (Finding → Evidence → Implication) and executive Streamlit dashboards.
+                  Translating vague business requests into groomed backlogs (100+ user stories), K-Means clustering (k=8), Markov journey state transitions, and Business Insight Matrices.
                 </p>
               </div>
               <div className="flex flex-wrap gap-1.5">
-                {["K-Means", "Python", "Streamlit"].map((t) => (
+                {["Agile/Scrum", "User Stories", "K-Means", "Markov Chains", "Insight Matrix", "Streamlit"].map((t) => (
                   <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
                     {t}
                   </span>
@@ -128,19 +111,20 @@ export default function HireMePage() {
               </div>
             </div>
 
+            {/* Personal Craft & Mindset (Tài lẻ) */}
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between">
               <div>
                 <span className="px-2.5 py-1 rounded-full bg-purple-50 border border-purple-100 text-purple-700 text-[11px] font-semibold mb-4 inline-block">
-                  Product Strategy
+                  Personal Crafts &amp; Mindset
                 </span>
-                <h3 className="text-lg font-bold text-[#171717] mb-3">Backlog &amp; Requirements</h3>
+                <h3 className="text-lg font-bold text-[#171717] mb-3">Focus &amp; Strategic Arts</h3>
                 <p className="text-[#525252] text-xs leading-relaxed mb-6">
-                  Groomed 100+ user stories, reduced sprint planning ambiguity by 40%, and partnered with design/engineering squads to boost feature adoption by 35%.
+                  Beyond software, I train strategic reading through <strong>Go Game (Cờ vây - 囲碁)</strong> and practice artistic focus with the <strong>Recorder Flute (Sáo Recorder)</strong>.
                 </p>
               </div>
               <div className="flex flex-wrap gap-1.5">
-                {["Agile/Scrum", "User Stories", "SDLC"].map((t) => (
-                  <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
+                {["Go Game (Cờ vây)", "Recorder Flute (Sáo)", "Pattern Recognition", "Focus & Discipline"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-100 text-[10px] font-mono font-semibold">
                     {t}
                   </span>
                 ))}
@@ -344,6 +328,127 @@ export default function HireMePage() {
                   </span>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Volunteering & Community Impact */}
+        <div>
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-6">
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span>VOLUNTEERING &amp; COMMUNITY IMPACT</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* 1. HUTECH Poverty Alleviation */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-semibold">
+                    Poverty Alleviation
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400">Apr 2023 - Jun 2023</span>
+                </div>
+                <h3 className="text-base font-bold text-[#171717] mb-1">Student Volunteer</h3>
+                <p className="text-xs font-semibold text-emerald-600 mb-3">HCM University of Technology (HUTECH)</p>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Collaborated with fellow students to raise funds within the university community to buy food, clothes, and necessities for homeless individuals and children in need.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-slate-400">3 mos · Community Relief</span>
+            </div>
+
+            {/* 2. HUTECH Environment */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-200 text-teal-700 text-[10px] font-semibold">
+                    Environment
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400">Jul 2022</span>
+                </div>
+                <h3 className="text-base font-bold text-[#171717] mb-1">Student Volunteer</h3>
+                <p className="text-xs font-semibold text-teal-600 mb-3">HCM University of Technology (HUTECH)</p>
+                <ul className="text-xs text-[#525252] leading-relaxed space-y-1 mb-4">
+                  <li>• Cleaned a sub-district street with the volunteer team.</li>
+                  <li>• Inspected local households to eliminate mosquito breeding grounds for community public health.</li>
+                </ul>
+              </div>
+              <span className="text-[10px] font-mono text-slate-400">1 mo · Street Cleanup &amp; Sanitation</span>
+            </div>
+
+            {/* 3. HUTECH Children & Pagoda Meal */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-[10px] font-semibold">
+                    Children &amp; Community
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400">Jul 2022</span>
+                </div>
+                <h3 className="text-base font-bold text-[#171717] mb-1">Student Volunteer</h3>
+                <p className="text-xs font-semibold text-amber-600 mb-3">HCM University of Technology (HUTECH)</p>
+                <ul className="text-xs text-[#525252] leading-relaxed space-y-1 mb-4">
+                  <li>• Assisted monks in cleaning pagoda facilities.</li>
+                  <li>• Prepared and served community meals for visitors and local residents.</li>
+                </ul>
+              </div>
+              <span className="text-[10px] font-mono text-slate-400">1 mo · Pagoda Outreach</span>
+            </div>
+
+            {/* 4. HUTECH Tet Gift Wrapping */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-[10px] font-semibold">
+                    Children &amp; Tet Support
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400">Nov 2022</span>
+                </div>
+                <h3 className="text-base font-bold text-[#171717] mb-1">Student Volunteer</h3>
+                <p className="text-xs font-semibold text-purple-600 mb-3">HCM University of Technology (HUTECH)</p>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Participated in a gift-wrapping initiative to package festive gift boxes for underprivileged families, bringing warmth and care for the Tet holiday.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-slate-400">1 mo · Festive Gift Outreach</span>
+            </div>
+
+            {/* 5. Red Cross COVID-19 Rice Bank */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-red-50 border border-red-200 text-red-700 text-[10px] font-semibold">
+                    Health &amp; Disaster Relief
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400">Nov 2021 - Dec 2021</span>
+                </div>
+                <h3 className="text-base font-bold text-[#171717] mb-1">Volunteer Staff</h3>
+                <p className="text-xs font-semibold text-red-600 mb-3">Red Cross</p>
+                <p className="text-xs text-[#525252] leading-relaxed mb-4">
+                  Operated Rice Bank Machines and supported food supply logistics during the COVID-19 pandemic to deliver essential rice directly to families in need.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-slate-400">2 mos · COVID-19 Food Relief</span>
+            </div>
+
+            {/* 6. High School Orphanage Night */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-[10px] font-semibold">
+                    Children &amp; Orphanage
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400">Jun 2020</span>
+                </div>
+                <h3 className="text-base font-bold text-[#171717] mb-1">Student Volunteer</h3>
+                <p className="text-xs font-semibold text-indigo-600 mb-3">High School Outreach</p>
+                <ul className="text-xs text-[#525252] leading-relaxed space-y-1 mb-4">
+                  <li>• Organized a pre-festive night for children at a local orphanage.</li>
+                  <li>• Performed a sign-language dance routine and hosted interactive games with prizes (Banh Tet, cookies, candies).</li>
+                </ul>
+              </div>
+              <span className="text-[10px] font-mono text-slate-400">1 mo · Orphanage Performance &amp; Games</span>
             </div>
           </div>
         </div>
