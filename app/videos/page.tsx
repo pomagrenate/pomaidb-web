@@ -14,11 +14,24 @@ export default function VideoPage() {
 
   return (
     <PageShell
-      eyebrow="Media & Tutorials"
-      title="Technical Videos"
-      description="Engineering deep-dives, framework demonstrations, and performance benchmarks brought to life through video guides."
+      eyebrow="PROOF I OCCASIONALLY TALK & RECORD STUFF"
+      title="MY VISUAL CHAOS & TALKS"
+      description="I recorded my screen, talked over some code, and uploaded it before I could change my mind. Watch me explain things, break things in 4K, and pretend I knew it was going to work on the first try."
     >
-      <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 space-y-8">
+        {/* Funny Intro Banner */}
+        <div className="bg-gradient-to-br from-indigo-50/50 via-white to-purple-50/30 border border-indigo-100 rounded-3xl p-6 sm:p-8 shadow-xs">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6D5DFB] uppercase tracking-wider mb-2">
+            <span className="w-2 h-2 rounded-full bg-[#6D5DFB] animate-pulse" />
+            <span>VIDEO DISCLAIMER</span>
+          </div>
+          <p className="text-sm text-[#171717] font-semibold leading-relaxed">
+            &quot;Why write a 2,000-word blog post when a 5-minute video can show the exact moment my terminal throws an unhandled exception?&quot;
+          </p>
+          <p className="text-xs text-[#525252] mt-1 font-mono">
+            Recorded live, minimally edited, and powered by pure caffeine.
+          </p>
+        </div>
         {videos && videos.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video: any) => (

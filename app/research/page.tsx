@@ -13,11 +13,24 @@ export default function ResearchPage() {
 
   return (
     <PageShell
-      eyebrow="Academic Publications"
-      title="Scientific Research"
-      description="Driven by scientific inquiry and the practical application of academic algorithms to low-level systems engineering. Below are my published papers, preprints, and technical manuscripts."
+      eyebrow="FANCY MATH &amp; ACADEMIC PAPERS"
+      title="ACADEMIC NERD STUFF"
+      description="This is where I put on a formal suit and pretend to write serious computer science. Math formulas, pruning algorithms, and maximal itemset mining — translated from late-night insomnia into actual published proceedings."
     >
-      <div className="mx-auto max-w-5xl px-6 py-14 lg:px-8">
+      <div className="mx-auto max-w-5xl px-6 py-12 lg:px-8 space-y-8">
+        {/* Funny Research Banner */}
+        <div className="bg-gradient-to-br from-emerald-50/50 via-white to-teal-50/30 border border-emerald-100 rounded-3xl p-6 sm:p-8 shadow-xs">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-wider mb-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>RESEARCH PHILOSOPHY</span>
+          </div>
+          <p className="text-sm text-[#171717] font-semibold leading-relaxed">
+            &quot;I proved it mathematically, so now nobody can accuse me of writing bad code.&quot;
+          </p>
+          <p className="text-xs text-[#525252] mt-1 font-mono">
+            Peer-reviewed papers, Maximal High Occupancy Itemsets (MHOI), algorithm benchmarks &amp; PDF proofs.
+          </p>
+        </div>
         {researchItems.length > 0 ? (
           <div className="space-y-6">
             {researchItems.map((item) => (
