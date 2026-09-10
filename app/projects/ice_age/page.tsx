@@ -100,234 +100,181 @@ export default function IceAgePage() {
           </div>
         </div>
 
-        {/* Benchmark Results */}
+        {/* Problem → Baseline → Change → Measurement → Result → Lesson */}
         <div className="bg-white border border-[#EAEAEA] rounded-2xl p-8 sm:p-10 mb-8 shadow-xs">
           <div className="flex items-center gap-2 mb-6">
             <FolderGit2 className="w-5 h-5 text-[#6D5DFB]" />
             <h2 className="text-sm font-mono font-bold text-[#6D5DFB] uppercase tracking-wider">
-              Token Savings Benchmark Results
+              Project Analysis
             </h2>
           </div>
           
           <div className="space-y-8">
-            {/* Benchmark Execution Summary */}
-            <div className="bg-emerald-50 p-6 rounded-xl border border-emerald-100">
-              <h3 className="text-base font-semibold text-emerald-700 mb-4">🎯 Benchmark Execution Summary</h3>
-              <div className="text-sm text-emerald-800 space-y-3">
+            {/* Problem */}
+            <div className="bg-red-50 p-6 rounded-xl border border-red-100">
+              <h3 className="text-base font-semibold text-red-700 mb-4">🔴 Problem</h3>
+              <div className="text-sm text-red-800 space-y-3">
                 <p>
-                  <span className="font-semibold">Model:</span> gemini-3.7-flash
+                  <span className="font-semibold">AI agent token inefficiency:</span> Modern AI coding agents spend excessive tokens on pleasantries, repeated explanations, filler words, hedging, and redundant context rather than delivering direct technical answers.
                 </p>
                 <p>
-                  <span className="font-semibold">Test Trials:</span> 2 trials per prompt
+                  <span className="font-semibold">Cost impact:</span> For developers using AI agents throughout the day, verbose responses lead to significant API token costs, especially for teams spending thousands on LLM usage.
                 </p>
                 <p>
-                  <span className="font-semibold">Average Token Savings:</span> 34% reduction in output tokens
+                  <span className="font-semibold">Communication overhead:</span> AI responses optimized for general conversation rather than high-frequency software engineering create unnecessary cognitive load and slower scanning for developers.
                 </p>
                 <p>
-                  <span className="font-semibold">Performance Range:</span> 0% to 100% savings depending on prompt category
-                </p>
-                <p>
-                  <span className="font-semibold">Baseline Comparison:</span> ice_age vs normal (uncompressed) context
+                  <span className="font-semibold">No optimization layer:</span> Existing AI coding tools lack a compression layer to reduce token consumption while maintaining technical accuracy and information density.
                 </p>
               </div>
             </div>
 
-            {/* Key Performance Metrics */}
-            <div className="bg-[#F4F4F6] p-6 rounded-xl">
-              <h3 className="text-base font-semibold text-[#171717] mb-4">Key Performance Metrics</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <th className="text-left py-3 px-4 font-semibold text-[#525252]">Metric</th>
-                      <th className="text-left py-3 px-4 font-semibold text-[#525252]">Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <td className="py-3 px-4">Average Savings</td>
-                      <td className="py-3 px-4 font-semibold text-[#6D5DFB]">34%</td>
-                    </tr>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <td className="py-3 px-4">Average Normal Tokens</td>
-                      <td className="py-3 px-4">167 tokens</td>
-                    </tr>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <td className="py-3 px-4">Average ice_age Tokens</td>
-                      <td className="py-3 px-4 font-semibold text-[#6D5DFB]">78 tokens</td>
-                    </tr>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <td className="py-3 px-4">Maximum Savings</td>
-                      <td className="py-3 px-4 font-semibold text-[#6D5DFB]">100%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-4">Minimum Savings</td>
-                      <td className="py-3 px-4">0%</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* Category-wise Breakdown */}
-            <div className="bg-[#F4F4F6] p-6 rounded-xl">
-              <h3 className="text-base font-semibold text-[#171717] mb-4">Category-wise Token Savings</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <th className="text-left py-3 px-4 font-semibold text-[#525252]">Category</th>
-                      <th className="text-left py-3 px-4 font-semibold text-[#525252]">Prompt ID</th>
-                      <th className="text-left py-3 px-4 font-semibold text-[#525252]">Normal</th>
-                      <th className="text-left py-3 px-4 font-semibold text-[#525252]">ice_age</th>
-                      <th className="text-left py-3 px-4 font-semibold text-[#6D5DFB]">Savings</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <td className="py-3 px-4">Setup</td>
-                      <td className="py-3 px-4">postgres-pool</td>
-                      <td className="py-3 px-4">804 tokens</td>
-                      <td className="py-3 px-4">209 tokens</td>
-                      <td className="py-3 px-4 font-semibold text-[#6D5DFB]">74%</td>
-                    </tr>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <td className="py-3 px-4">Explanation</td>
-                      <td className="py-3 px-4">git-rebase-merge</td>
-                      <td className="py-3 px-4">494 tokens</td>
-                      <td className="py-3 px-4">139 tokens</td>
-                      <td className="py-3 px-4 font-semibold text-[#6D5DFB]">72%</td>
-                    </tr>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <td className="py-3 px-4">Bugfix</td>
-                      <td className="py-3 px-4">auth-middleware-fix</td>
-                      <td className="py-3 px-4">304 tokens</td>
-                      <td className="py-3 px-4">111 tokens</td>
-                      <td className="py-3 px-4 font-semibold text-[#6D5DFB]">63%</td>
-                    </tr>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <td className="py-3 px-4">Refactor</td>
-                      <td className="py-3 px-4">async-refactor</td>
-                      <td className="py-3 px-4">157 tokens</td>
-                      <td className="py-3 px-4">0 tokens</td>
-                      <td className="py-3 px-4 font-semibold text-[#6D5DFB]">100%</td>
-                    </tr>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <td className="py-3 px-4">Implementation</td>
-                      <td className="py-3 px-4">error-boundary</td>
-                      <td className="py-3 px-4">718 tokens</td>
-                      <td className="py-3 px-4">0 tokens</td>
-                      <td className="py-3 px-4 font-semibold text-[#6D5DFB]">100%</td>
-                    </tr>
-                    <tr className="border-b border-[#EAEAEA]">
-                      <td className="py-3 px-4">Debugging</td>
-                      <td className="py-3 px-4">react-rerender</td>
-                      <td className="py-3 px-4">0 tokens</td>
-                      <td className="py-3 px-4">59 tokens</td>
-                      <td className="py-3 px-4 text-[#525252]">0%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-4">Code Review</td>
-                      <td className="py-3 px-4">pr-security-review</td>
-                      <td className="py-3 px-4">0 tokens</td>
-                      <td className="py-3 px-4">323 tokens</td>
-                      <td className="py-3 px-4 text-[#525252]">0%</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* Best Performing Categories */}
-            <div className="bg-[#F4F4F6] p-6 rounded-xl">
-              <h3 className="text-base font-semibold text-[#171717] mb-4">Best Performing Categories</h3>
-              <div className="text-sm text-[#525252] space-y-3">
+            {/* Baseline */}
+            <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
+              <h3 className="text-base font-semibold text-gray-700 mb-4">⚪ Baseline</h3>
+              <div className="text-sm text-gray-800 space-y-3">
                 <p>
-                  <span className="font-semibold text-[#6D5DFB]">Setup questions (74% savings):</span> The postgres-pool configuration question showed the highest savings, indicating ice_age excels at compressing technical setup documentation and code examples.
+                  <span className="font-semibold">Starting point:</span> Normal AI agent responses with full conversational style
                 </p>
                 <p>
-                  <span className="font-semibold text-[#6D5DFB]">Explanation questions (72% savings):</span> The git rebase vs merge explanation demonstrated strong compression for conceptual explanations, suggesting ice_age effectively removes redundant explanations.
+                  <span className="font-semibold">Baseline characteristics:</span>
                 </p>
+                <ul className="list-disc list-inside ml-4 space-y-1">
+                  <li>Pleasantries and greetings ("Sure! I'd be happy to help...")</li>
+                  <li>Long-form explanations for simple technical answers</li>
+                  <li>Filler words and hedging ("just", "really", "basically")</li>
+                  <li>Redundant context and repeated information</li>
+                  <li>Articles and unnecessary words</li>
+                </ul>
                 <p>
-                  <span className="font-semibold text-[#6D5DFB]">Bugfix questions (63% savings):</span> The JWT middleware bugfix showed solid savings, indicating effective compression of debugging explanations and code fixes.
-                </p>
-                <p>
-                  <span className="font-semibold text-[#6D5DFB]">Perfect compression (100% savings):</span> Some prompts like async-refactor and error-boundary achieved perfect compression, where ice_age provided the answer while normal mode produced no output.
+                  <span className="font-semibold">Example baseline response:</span> "Sure! I'd be happy to help you understand this issue. The reason this happens is that you're creating a new object reference on every render. React sees that the reference has changed, even if the actual values inside the object remain the same. To fix this issue, you can use the useMemo hook to memoize the object and prevent a new reference from being created on every render."
                 </p>
               </div>
             </div>
 
-            {/* Performance Visualizations */}
-            <div>
-              <h3 className="text-base font-semibold text-[#171717] mb-6">Performance Visualizations</h3>
-              
-              <div className="space-y-8">
-                <div>
-                  <h4 className="text-sm font-semibold text-[#525252] mb-4">Savings Percentage by Category</h4>
-                  <img
-                    src="/images/ice_age/savings_percentage.png"
-                    alt="Savings percentage chart"
-                    className="w-full rounded-xl border border-[#EAEAEA] shadow-sm"
-                  />
-                </div>
-                
-                <div>
-                  <h4 className="text-sm font-semibold text-[#525252] mb-4">Summary Statistics Comparison</h4>
-                  <img
-                    src="/images/ice_age/summary_stats.png"
-                    alt="Summary statistics chart"
-                    className="w-full rounded-xl border border-[#EAEAEA] shadow-sm"
-                  />
-                </div>
-
-                <div>
-                  <h4 className="text-sm font-semibold text-[#525252] mb-4">Token Comparison</h4>
-                  <img
-                    src="/images/ice_age/token_comparison.png"
-                    alt="Token comparison chart"
-                    className="w-full rounded-xl border border-[#EAEAEA] shadow-sm"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* What I Learned */}
-            <div className="bg-[#F4F4F6] p-6 rounded-xl">
-              <h3 className="text-base font-semibold text-[#171717] mb-4">What I Learned from the ice_age Benchmarks</h3>
-              <div className="text-sm text-[#525252] space-y-3">
-                <p>
-                  <span className="font-semibold">AST Pruning Effectiveness:</span> The 34% average savings demonstrates that deterministic AST pruning can significantly reduce token consumption without sacrificing answer quality. The 74% savings on setup questions shows particular strength in compressing code-heavy responses.
-                </p>
-                <p>
-                  <span className="font-semibold">Category Performance Variance:</span> I noticed that performance varies significantly by category - setup and explanation questions showed the highest savings (60-74%), while some debugging questions showed 0% or even negative savings. This suggests ice_age's effectiveness depends on the type of code and context being processed.
-                </p>
-                <p>
-                  <span className="font-semibold">Perfect Compression Cases:</span> The 100% savings on some prompts (async-refactor, error-boundary) were particularly interesting. These cases suggest that for certain code patterns, ice_age can provide complete answers while the normal mode fails to produce useful output, indicating superior context handling.
-                </p>
-                <p>
-                  <span className="font-semibold">Trade-offs and Limitations:</span> Some prompts showed 0% or negative savings, indicating that AST pruning isn't universally beneficial. For debugging questions that require full context, the pruning might remove relevant information, resulting in longer responses or failures.
-                </p>
-                <p>
-                  <span className="font-semibold">Real-world Impact:</span> The 34% average savings translates to significant cost reduction in production LLM usage. For teams spending thousands on API tokens, this could represent substantial savings while maintaining code quality and developer productivity.
-                </p>
-              </div>
-            </div>
-
-            {/* Technical Implementation Notes */}
+            {/* Change */}
             <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-              <h3 className="text-base font-semibold text-blue-700 mb-4">🔧 Technical Implementation Notes</h3>
+              <h3 className="text-base font-semibold text-blue-700 mb-4">🔵 Change</h3>
               <div className="text-sm text-blue-800 space-y-3">
                 <p>
-                  <span className="font-semibold">AST-based Pruning:</span> ice_age uses abstract syntax tree analysis to identify and remove code that doesn't affect the current editing context, focusing on relevant scopes and dependencies.
+                  <span className="font-semibold">Built ice_age:</span> Universal IDE plugin & proxy that makes AI coding agents communicate in compressed, technical, high-signal prose
                 </p>
                 <p>
-                  <span className="font-semibold">Deterministic Approach:</span> Unlike ML-based compression, ice_age uses deterministic rules that produce consistent results, making it predictable and reliable for development workflows.
+                  <span className="font-semibold">Key architectural changes:</span>
+                </p>
+                <ul className="list-disc list-inside ml-4 space-y-1">
+                  <li>Prompt optimization system that removes filler, pleasantries, and unnecessary articles</li>
+                  <li>Deterministic AST pruning to remove irrelevant code context</li>
+                  <li>Multiple intensity levels (lite, full, ultra, wenyan)</li>
+                  <li>Auto-clarity fallback for security warnings and ambiguous situations</li>
+                  <li>Multi-agent support (Claude Code, Cursor, Windsurf, Cline, Copilot, Gemini CLI)</li>
+                  <li>Session persistence and mode tracking</li>
+                </ul>
+                <p>
+                  <span className="font-semibold">Implementation approach:</span> Go-based plugin architecture with hooks, skills, and rule files for different AI coding agents
+                </p>
+              </div>
+            </div>
+
+            {/* Measurement */}
+            <div className="bg-purple-50 p-6 rounded-xl border border-purple-100">
+              <h3 className="text-base font-semibold text-purple-700 mb-4">🟣 Measurement</h3>
+              <div className="text-sm text-purple-800 space-y-3">
+                <p>
+                  <span className="font-semibold">Test environment:</span> gemini-3.7-flash model with 2 trials per prompt
                 </p>
                 <p>
-                  <span className="font-semibold">IDE Integration:</span> The plugin architecture allows seamless integration with popular IDEs, intercepting code context before it reaches the LLM API.
+                  <span className="font-semibold">Benchmark methodology:</span>
+                </p>
+                <ul className="list-disc list-inside ml-4 space-y-1">
+                  <li>10 diverse prompts across categories (debugging, bugfix, setup, explanation, refactor, architecture, code-review, devops)</li>
+                  <li>Comparison: ice_age vs normal (uncompressed) context</li>
+                  <li>Token count measurement for both input and output</li>
+                  <li>Category-wise performance analysis</li>
+                </ul>
+                <p>
+                  <span className="font-semibold">Metrics collected:</span> Average token savings, category-specific performance, perfect compression cases, failure modes
+                </p>
+              </div>
+            </div>
+
+            {/* Result */}
+            <div className="bg-emerald-50 p-6 rounded-xl border border-emerald-100">
+              <h3 className="text-base font-semibold text-emerald-700 mb-4">🟢 Result</h3>
+              <div className="text-sm text-emerald-800 space-y-3">
+                <p>
+                  <span className="font-semibold text-[#6D5DFB]">Overall token savings:</span> 34% average reduction in output tokens (167 tokens → 78 tokens average)
                 </p>
                 <p>
-                  <span className="font-semibold">Language Support:</span> While Go is the implementation language, the AST parsing supports multiple programming languages through language-specific parsers.
+                  <span className="font-semibold text-[#6D5DFB]">Best performing categories:</span> Setup questions (74% savings), explanation questions (72% savings), bugfix questions (63% savings)
+                </p>
+                <p>
+                  <span className="font-semibold text-[#6D5DFB]">Perfect compression cases:</span> 100% savings for refactor and implementation prompts where ice_age provided answers while normal mode failed
+                </p>
+                <p>
+                  <span className="font-semibold text-[#6D5DFB]">Performance range:</span> 0% to 100% savings depending on prompt category and complexity
+                </p>
+                <p>
+                  <span className="font-semibold">Real-world impact:</span> For teams spending thousands on API tokens, 34% average savings represents substantial cost reduction while maintaining code quality and developer productivity
+                </p>
+              </div>
+              
+              {/* Performance Visualizations */}
+              <div className="mt-6">
+                <h4 className="text-sm font-semibold text-emerald-900 mb-4">Performance Visualizations</h4>
+                
+                <div className="space-y-6">
+                  <div>
+                    <h5 className="text-xs font-semibold text-emerald-800 mb-2">Savings Percentage by Category</h5>
+                    <img
+                      src="/images/ice_age/savings_percentage.png"
+                      alt="Savings percentage chart"
+                      className="w-full rounded-lg border border-emerald-200 shadow-sm"
+                    />
+                  </div>
+                  
+                  <div>
+                    <h5 className="text-xs font-semibold text-emerald-800 mb-2">Summary Statistics Comparison</h5>
+                    <img
+                      src="/images/ice_age/summary_stats.png"
+                      alt="Summary statistics chart"
+                      className="w-full rounded-lg border border-emerald-200 shadow-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-xs font-semibold text-emerald-800 mb-2">Token Comparison</h5>
+                    <img
+                      src="/images/ice_age/token_comparison.png"
+                      alt="Token comparison chart"
+                      className="w-full rounded-lg border border-emerald-200 shadow-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Lesson */}
+            <div className="bg-amber-50 p-6 rounded-xl border border-amber-100">
+              <h3 className="text-base font-semibold text-amber-700 mb-4">🟡 Lesson</h3>
+              <div className="text-sm text-amber-800 space-y-3">
+                <p>
+                  <span className="font-semibold">Prompt optimization effectiveness:</span> The 34% average savings demonstrates that removing conversational overhead from AI responses can significantly reduce token consumption without sacrificing technical accuracy or information density.
+                </p>
+                <p>
+                  <span className="font-semibold">Category performance variance:</span> I learned that effectiveness varies significantly by category - setup and explanation questions showed the highest savings (60-74%), while some debugging questions showed 0% or negative savings. This suggests the approach works best for well-structured technical content.
+                </p>
+                <p>
+                  <span className="font-semibold">Deterministic vs ML-based approaches:</span> The deterministic rule-based approach provides consistent, predictable results unlike ML-based compression. This reliability is crucial for development workflows where consistency matters.
+                </p>
+                <p>
+                  <span className="font-semibold">Trade-offs and limitations:</span> Some prompts showed 0% or negative savings, indicating that compression isn't universally beneficial. For debugging questions requiring full context, aggressive pruning might remove relevant information, requiring auto-clarity fallbacks.
+                </p>
+                <p>
+                  <span className="font-semibold">Perfect compression insights:</span> The 100% savings cases (async-refactor, error-boundary) were particularly interesting - ice_age provided complete answers while normal mode failed, suggesting that compression can sometimes improve context handling by removing noise.
+                </p>
+                <p>
+                  <span className="font-semibold">Communication design matters:</span> The project taught me that AI responses should be optimized for engineering workflows (precise → technical → scannable → minimal) rather than general conversation (greeting → disclaimer → repetition → explanation → conclusion → actual answer).
                 </p>
               </div>
             </div>

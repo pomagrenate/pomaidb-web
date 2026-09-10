@@ -126,8 +126,10 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         title: "morsel",
         repo: "pomagrenate/morsel",
         github: "https://github.com/pomagrenate/morsel",
-        description: "A blazing-fast, encrypted, local-first clipboard manager.",
+        description: "A blazing-fast, encrypted, local-first clipboard manager built in Rust. Features secure encryption, instant search, and minimal resource footprint.",
         tags: ["Rust", "Local-First", "Clipboard"],
+        details: "/projects/morsel",
+        image: "/images/morsel/performance_improvement_20240910.png",
       },
       {
         title: "vexona",
