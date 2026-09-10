@@ -1,0 +1,470 @@
+{
+  "metadata": {
+    "script_version": "1.0.0",
+    "model": "gemini-3.7-flash",
+    "date": "2026-09-10T05:15:28Z",
+    "trials": 2,
+    "skill_md_sha256": "c0fc75a25487045a52300e5da11c265da51cdc29e18359e3df503a4c6c61f79a"
+  },
+  "summary": {
+    "avg_savings": 34,
+    "min_savings": 0,
+    "max_savings": 100,
+    "avg_normal": 167,
+    "avg_iceage": 78
+  },
+  "rows": [
+    {
+      "id": "react-rerender",
+      "category": "debugging",
+      "prompt": "Why is my React component re-rendering on every state update even though the props haven't changed? I'm passing an object as a prop.",
+      "normal_median": 0,
+      "iceage_median": 59,
+      "savings_pct": 0
+    },
+    {
+      "id": "auth-middleware-fix",
+      "category": "bugfix",
+      "prompt": "My Express auth middleware is letting expired JWT tokens through. The expiry check uses Date.now() compared to the token's exp field. What's wrong and how do I fix it?",
+      "normal_median": 304,
+      "iceage_median": 111,
+      "savings_pct": 63
+    },
+    {
+      "id": "postgres-pool",
+      "category": "setup",
+      "prompt": "How do I set up a PostgreSQL connection pool in Node.js with proper timeout and error handling configuration?",
+      "normal_median": 0,
+      "iceage_median": 474,
+      "savings_pct": 0
+    },
+    {
+      "id": "git-rebase-merge",
+      "category": "explanation",
+      "prompt": "Explain the difference between git rebase and git merge. When should I use each one and what are the tradeoffs?",
+      "normal_median": 494,
+      "iceage_median": 139,
+      "savings_pct": 72
+    },
+    {
+      "id": "async-refactor",
+      "category": "refactor",
+      "prompt": "Refactor this callback-based Node.js function to use async/await:\n\nfunction getUser(id, callback) {\n  db.query('SELECT * FROM users WHERE id = ?', [id], function(err, rows) {\n    if (err) return callback(err);\n    if (!rows.length) return callback(new Error('Not found'));\n    callback(null, rows[0]);\n  });\n}",
+      "normal_median": 157,
+      "iceage_median": 0,
+      "savings_pct": 100
+    },
+    {
+      "id": "microservices-monolith",
+      "category": "architecture",
+      "prompt": "We have a monolithic Django app that's getting slow. The team is debating microservices. What are the key factors to consider before splitting up the monolith?",
+      "normal_median": 0,
+      "iceage_median": 0,
+      "savings_pct": 0
+    },
+    {
+      "id": "pr-security-review",
+      "category": "code-review",
+      "prompt": "Review this Express route handler for security issues:\n\napp.get('/api/users/:id', (req, res) =\u003e {\n  const query = `SELECT * FROM users WHERE id = ${req.params.id}`;\n  db.query(query).then(user =\u003e res.json(user));\n});",
+      "normal_median": 0,
+      "iceage_median": 0,
+      "savings_pct": 0
+    },
+    {
+      "id": "docker-multi-stage",
+      "category": "devops",
+      "prompt": "Write a multi-stage Dockerfile for a Node.js TypeScript application that minimizes the final image size. The app uses npm and needs to compile TypeScript before running.",
+      "normal_median": 0,
+      "iceage_median": 0,
+      "savings_pct": 0
+    },
+    {
+      "id": "race-condition-debug",
+      "category": "debugging",
+      "prompt": "My Node.js API endpoint that increments a counter in PostgreSQL sometimes returns the same value for concurrent requests. How do I fix this race condition?",
+      "normal_median": 0,
+      "iceage_median": 0,
+      "savings_pct": 0
+    },
+    {
+      "id": "error-boundary",
+      "category": "implementation",
+      "prompt": "Implement a React error boundary component that catches render errors, shows a fallback UI with a retry button, and logs the error details.",
+      "normal_median": 718,
+      "iceage_median": 0,
+      "savings_pct": 100
+    }
+  ],
+  "raw": [
+    {
+      "id": "react-rerender",
+      "category": "debugging",
+      "prompt": "Why is my React component re-rendering on every state update even though the props haven't changed? I'm passing an object as a prop.",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 1630,
+          "output_tokens": 117,
+          "text": "Parent re-render creates new object reference (`{} !== {}`). React prop check uses reference equality (`===`), sees \"new\" prop, re-renders child.\n\nFix:\n1. Memoize object in parent with `useMemo` (or declare outside parent if static).\n2. Wrap child in `React.memo`.\n\n```jsx\n// Parent\nconst memoizedObj = useMemo(() =\u003e ({ key: value }), [value]);\n\nreturn \u003cChild data={memoizedObj} /\u003e;\n\n// Child\nexport default React.memo(Child);\n```",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "auth-middleware-fix",
+      "category": "bugfix",
+      "prompt": "My Express auth middleware is letting expired JWT tokens through. The expiry check uses Date.now() compared to the token's exp field. What's wrong and how do I fix it?",
+      "normal": [
+        {
+          "input_tokens": 47,
+          "output_tokens": 608,
+          "text": "The issue is a **unit mismatch**:\n\n* **`Date.now()`** returns the current time in **milliseconds** (e.g., `1716500000000` — 13 digits).\n* **JWT `exp`** standard (RFC 7519) is stored in **seconds** (e.g., `1716500000` — 10 digits).\n\nBecause of this difference, any",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 1638,
+          "output_tokens": 222,
+          "text": "Unit mismatch. `Date.now()` = milliseconds. JWT `exp` = seconds. `Date.now() \u003e exp` is always true, but `exp * 1000` is needed, or token looks valid far in future if checking `Date.now() \u003c exp`.\n\nBetter: let `jsonwebtoken` verify exp automatically.\n\nFix:\n\n```javascript\n// Bad manual check:\n// if (payload.exp \u003e Date.now()) ... // ms vs sec bug\n\n// Fix A: Built-in verify handles exp\njwt.verify(token, SECRET, (err, decoded) =\u003e {\n  if (err) return res.status(401).json({ error: \"Invalid/expired token\" });\n  req.user = decoded;\n  next();\n});\n\n// Fix B: If manual\nif (decoded.exp \u003c Math.floor(Date.now() / 1000)) {\n  return res.status(401).json({ error: \"Token expired\" });\n}\n```",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "postgres-pool",
+      "category": "setup",
+      "prompt": "How do I set up a PostgreSQL connection pool in Node.js with proper timeout and error handling configuration?",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 1620,
+          "output_tokens": 488,
+          "text": "Use `pg` module. Handle idle client errors on pool to prevent process crash.\n\n### Setup\n\n```bash\nnpm i pg\n```\n\n```javascript\nimport { Pool } from 'pg';\n\nconst pool = new Pool({\n  host: process.env.PGHOST,\n  user: process.env.PGUSER,\n  password: process.env.PGPASSWORD,\n  database: process.env.PGDATABASE,\n  port: Number(process.env.PGPORT) || 5432,\n  \n  max: 20,                       // max connections in pool\n  idleTimeoutMillis: 30000,      // close idle clients after 30s\n  connectionTimeoutMillis: 2000, // fail if acquire takes \u003e 2s\n  maxUses: 7500,                 // close/replace connection after N queries\n});\n\n// CRITICAL: Prevent crash on idle client network error\npool.on('error', (err, client) =\u003e {\n  console.error('Unexpected pool client error:', err);\n});\n\n// Direct query (auto acquires \u0026 releases)\nexport const query = (text, params) =\u003e pool.query(text, params);\n\n// Transaction pattern (manual acquire + safe release)\nexport async function withTransaction(callback) {\n  const client = await pool.connect();\n  try {\n    await client.query('BEGIN');\n    const result = await callback(client);\n    await client.query('COMMIT');\n    return result;\n  } catch (err) {\n    await client.query('ROLLBACK');\n    throw err;\n  } finally {\n    client.release(); // release back to pool\n  }\n}\n\n// Graceful shutdown\nexport const closePool = () =\u003e pool.end();\n```\n\n### Key Config Rules\n\n- `connectionTimeoutMillis`: Low value (2-5s) -\u003e fast fail instead of hanging requests.\n- `idleTimeoutMillis`: Releases unused sockets.\n- `pool.on('error')`: Required. Uncaught idle socket drop kills Node process otherwise.\n- Use `pool.query()` for single statements; only `pool.connect()` for multi-step transactions. Always `release()` in `finally`.",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        },
+        {
+          "input_tokens": 1620,
+          "output_tokens": 460,
+          "text": "Use `pg` library. Handle idle client errors or process will crash.\n\n```bash\nnpm i pg\n```\n\n```javascript\n// db.js\nconst { Pool } = require('pg');\n\nconst pool = new Pool({\n  connectionString: process.env.DATABASE_URL,\n  max: 20,                       // Max active clients\n  min: 4,                        // Min idle clients maintained\n  idleTimeoutMillis: 30000,      // Close",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "git-rebase-merge",
+      "category": "explanation",
+      "prompt": "Explain the difference between git rebase and git merge. When should I use each one and what are the tradeoffs?",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 31,
+          "output_tokens": 988,
+          "text": "Both `git merge` and `git rebase` solve the same fundamental problem: **integrating changes from one branch into another**. However, they achieve this in completely different ways, resulting in different commit histories.\n\n---\n\n### 1. How They Work\n\n#### **`git merge` (Non-destructive)**\nMerging takes the contents of a source branch and combines them with the target branch via a **new \"Merge Commit.\"**\n\n* **How it works:** It ties together the histories of both branches. The original commits on your feature branch remain unchanged.\n* **The Graph:**\n  ```text\n  Before:\n        A---B---C (main)\n             \\\n              D---E (feature)\n\n  After `git checkout main` -\u003e `git merge feature`:\n        A---B---C-------F (main)\n             \\         /\n              D-------E (feature)\n  *(Commit 'F' is the merge commit)*\n  ```\n\n#### **`git rebase` (Rewrites History)**\nRebasing moves or \"re-roots\" the base of your branch onto another branch's tip.\n\n* **How it works:** It temporarily shelves your branch's commits, pulls the target branch up to date, and then **re-applies your commits one by one** on top of it. This generates brand-new commit hashes ($D'$ and $E'$).\n* **The Graph:**\n  ```text\n  Before:\n        A---B---C (main)\n             \\\n              D---E (feature)\n\n  After `git checkout feature` -\u003e `git rebase main`:\n        A---B---C (main)\n                 \\\n                  D'---E' (feature)\n  *(D' and E' are new commits with identical changes but new hashes)*\n  ```\n\n---\n\n### 2. Tradeoffs: Pros \u0026 Cons\n\n| Feature | `git merge` | `git rebase` |\n| :--- | :--- | :--- |\n| **History Style** | Non-linear (shows branching and exact timeline) | Linear (straight line, reads like a story) |\n| **Commit Hashes** | Preserves original commit hashes | Rewrites commit hashes |\n| **Traceability** | Easy to see when/how branches were joined | Hides when branch originally diverged |\n| **Resolving Conflicts**| Resolved **once** in the merge commit | Resolved **commit-by-commit** as they are applied |\n| **Safety** | Safe to use on public/shared branches | Dangerous on public/shared branches |\n\n---\n\n### 3. When Should You Use Each?\n\n#### **Use `git rebase` when:**\n1. **Updating your local branch with `main`:** You’ve been working on a feature branch for three days, and `main` has moved forward. Rebasing `feature` onto `main` keeps your feature's history clean and up-to-date.\n2. **Cleaning up commits before a Pull Request (PR):** You can use interactive rebase (`git rebase -i`) to squash messy commits (e.g., \"",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 1622,
+          "output_tokens": 278,
+          "text": "### Difference\n\n* **Merge**: Combines branches. Creates new merge commit. Preserves exact history + commit hashes.\n* **Rebase**: Moves branch base to target tip. Rewrites commit history linearly. Creates new commit hashes.\n\n---\n\n### Comparison\n\n| Feature | `git merge` | `git rebase` |\n|---|---|---|\n| **History** | Non-linear (divergent graph) | Linear (straight line) |\n| **Commit Hashes** | Unchanged | Rewritten |\n| **Merge Commit** | Yes (unless fast-forward) | No |\n| **Conflict Resolution** | Once per merge | Commit-by-commit during replay |\n| **Safety on Public Branches** | Safe | Dangerous |\n\n---\n\n### When to Use\n\n* **Use Rebase**:\n  * Local private branch -\u003e clean history before PR.\n  * Pulling latest `main` into personal feature branch.\n  * Interactive cleanup (`git rebase -i`) to squash/edit commits.\n\n* **Use Merge**:\n  * Merging feature branch into public/shared branch (`main`, `dev`).\n  * Want full historical audit trail of merges.\n\n---\n\n\u003e **Golden Rule**: Never rebase commits pushed to public/shared branch. Rewrites history -\u003e breaks collaborators' repos.",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    },
+    {
+      "id": "async-refactor",
+      "category": "refactor",
+      "prompt": "Refactor this callback-based Node.js function to use async/await:\n\nfunction getUser(id, callback) {\n  db.query('SELECT * FROM users WHERE id = ?', [id], function(err, rows) {\n    if (err) return callback(err);\n    if (!rows.length) return callback(new Error('Not found'));\n    callback(null, rows[0]);\n  });\n}",
+      "normal": [
+        {
+          "input_tokens": 101,
+          "output_tokens": 314,
+          "text": "Here is the refactored version using **`async/await`**:\n\n### 1. If your database driver already supports Promises\n*(e.g., `mysql2/promise`, `pg`, or modern ORMs/query builders)*\n\n```javascript\nasync function getUser(id) {\n  const rows = await db.query('SELECT * FROM users WHERE id = ?', [id]);\n\n  if (!rows.length) {\n    throw new Error('Not found');\n  }\n\n  return rows[0];\n}\n```\n\n---\n\n### 2. If your database driver is callback-only\n*(e.g., the legacy `mysql` package, where `db.query` does not return a Promise)*\n\nYou can wrap the query in a `Promise`:\n\n```javascript\nasync function getUser(id) {\n  return new Promise((resolve, reject) =\u003e {\n    db.query('SELECT * FROM users WHERE id = ?', [id], (err, rows) =\u003e {\n      if (err) return reject(err);\n      if (!rows.length) return reject(new Error('Not found'));\n      resolve(rows[0]);\n    });\n  });\n}\n```\n\n---\n\n### How to use it:\n\n```javascript\ntry {\n  const user = await getUser(1);\n  console.log(user);\n} catch (err) {\n  console.error(err.message);\n}\n```",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    },
+    {
+      "id": "microservices-monolith",
+      "category": "architecture",
+      "prompt": "We have a monolithic Django app that's getting slow. The team is debating microservices. What are the key factors to consider before splitting up the monolith?",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    },
+    {
+      "id": "pr-security-review",
+      "category": "code-review",
+      "prompt": "Review this Express route handler for security issues:\n\napp.get('/api/users/:id', (req, res) =\u003e {\n  const query = `SELECT * FROM users WHERE id = ${req.params.id}`;\n  db.query(query).then(user =\u003e res.json(user));\n});",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    },
+    {
+      "id": "docker-multi-stage",
+      "category": "devops",
+      "prompt": "Write a multi-stage Dockerfile for a Node.js TypeScript application that minimizes the final image size. The app uses npm and needs to compile TypeScript before running.",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    },
+    {
+      "id": "race-condition-debug",
+      "category": "debugging",
+      "prompt": "My Node.js API endpoint that increments a counter in PostgreSQL sometimes returns the same value for concurrent requests. How do I fix this race condition?",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    },
+    {
+      "id": "error-boundary",
+      "category": "implementation",
+      "prompt": "Implement a React error boundary component that catches render errors, shows a fallback UI with a retry button, and logs the error details.",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 34,
+          "output_tokens": 1436,
+          "text": "Here is a complete, production-ready React Error Boundary component in **TypeScript** (compatible with JavaScript by removing the type annotations).\n\nError Boundaries in React **must be class components** because hooks do not currently support `componentDidCatch` or `getDerivedStateFromError`.\n\n---\n\n### `ErrorBoundary.tsx`\n\n```tsx\nimport React, { Component, ReactNode, ErrorInfo } from 'react';\n\ninterface ErrorBoundaryProps {\n  children: ReactNode;\n  /** Optional custom fallback UI. Can be a ReactNode or a render function. */\n  fallback?: ReactNode | ((props: { error: Error; resetErrorBoundary: () =\u003e void }) =\u003e ReactNode);\n  /** Optional callback triggered when an error is caught */\n  onError?: (error: Error, errorInfo: ErrorInfo) =\u003e void;\n  /** Optional callback triggered when the user resets the boundary */\n  onReset?: () =\u003e void;\n}\n\ninterface ErrorBoundaryState {\n  hasError: boolean;\n  error: Error | null;\n}\n\nexport class ErrorBoundary extends Component\u003cErrorBoundaryProps, ErrorBoundaryState\u003e {\n  constructor(props: ErrorBoundaryProps) {\n    super(props);\n    this.state = {\n      hasError: false,\n      error: null,\n    };\n  }\n\n  // 1. Update state so the next render shows the fallback UI\n  static getDerivedStateFromError(error: Error): ErrorBoundaryState {\n    return {\n      hasError: true,\n      error,\n    };\n  }\n\n  // 2. Log error details to the console or an external logging service (e.g., Sentry)\n  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {\n    console.error('ErrorBoundary caught an error:', error, errorInfo);\n\n    // Call external logging handler if provided\n    if (this.props.onError) {\n      this.props.onError(error, errorInfo);\n    }\n  }\n\n  // 3. Reset error state to retry rendering children\n  resetErrorBoundary = (): void =\u003e {\n    if (this.props.onReset) {\n      this.props.onReset();\n    }\n    this.setState({\n      hasError: false,\n      error: null,\n    });\n  };\n\n  render(): ReactNode {\n    const { hasError, error } = this.state;\n    const { fallback, children } = this.props;\n\n    if (hasError \u0026\u0026 error) {\n      // If a custom fallback render function is provided\n      if (typeof fallback === 'function') {\n        return fallback({ error, resetErrorBoundary: this.resetErrorBoundary });\n      }\n\n      // If a custom static fallback ReactNode is provided\n      if (fallback) {\n        return fallback;\n      }\n\n      // Default Fallback UI\n      return (\n        \u003cdiv\n          role=\"alert\"\n          style={{\n            padding: '24px',\n            margin: '16px',\n            border: '1px solid #ff4d4f',\n            borderRadius: '8px',\n            backgroundColor: '#fff1f0',\n            color: '#434343',\n            fontFamily: 'sans-serif',\n          }}\n        \u003e\n          \u003ch2 style={{ margin: '0 0 12px 0', color: '#cf1322' }}\u003e\n            Something went wrong.\n          \u003c/h2\u003e\n          \u003cdetails style={{ whiteSpace: 'pre-wrap', marginBottom: '16px' }}\u003e\n            \u003csummary style={{ cursor: 'pointer', fontWeight: 'bold' }}\u003e\n              View error details\n            \u003c/summary\u003e\n            \u003cp style={{ marginTop: '8px', color: '#a8071a' }}\u003e\n              {error.toString()}\n            \u003c/p\u003e\n          \u003c/details\u003e\n          \u003cbutton\n            onClick={this.resetErrorBoundary}\n            style={{\n              padding: '8px 16px',\n              backgroundColor: '#1890ff',\n              color: '#fff',\n              border: 'none',\n              borderRadius: '4px',\n              cursor: 'pointer',\n              fontWeight: 'bold',\n            }}\n          \u003e\n            Try Again\n          \u003c/button\u003e\n        \u003c/div\u003e\n      );\n    }\n\n    return children;\n  }\n}\n```\n\n---\n\n### Usage Example\n\n```tsx\nimport React, { useState } from 'react';\nimport { ErrorBoundary } from './ErrorBoundary';\n\n// A component that can intentionally throw an error\nconst BuggyComponent = () =\u003e {\n  const [shouldCrash, setShouldCrash] = useState(false);\n\n  if (shouldCrash) {\n    throw new Error('💥 An intentional render error occurred!');\n  }\n\n  return (\n    \u003cdiv style={{ padding: '16px', border: '1px solid #ccc' }}\u003e\n      \u003ch3\u003eChild Component\u003c/h3\u003e\n      \u003cbutton onClick={() =\u003e setShouldCrash(true)}\u003eTrigger Error\u003c/button\u003e\n    \u003c/div\u003e\n  );\n};\n\nexport default function App() {\n  return (\n    \u003cdiv\u003e\n      \u003ch1\u003eError Boundary Demo\u003c/h1\u003e\n\n      {/* 1. Default UI fallback */}\n      \u003cErrorBoundary\n        onError={(error, info) =\u003e {\n          // Send to logging service (e.g., Datadog, Sentry)\n          // logErrorToService(error, info);\n        }}\n      \u003e\n        \u003cBuggyComponent /\u003e\n      \u003c/ErrorBoundary\u003e\n\n      {/* 2. Custom UI fallback via function */}\n      \u003cErrorBoundary\n        fallback={({ error, resetErrorBoundary }) =\u003e (\n          \u003cdiv style={{ padding: '20px', background: '#ffebee' }}\u003e\n            \u003ch3\u003eCustom Fallback\u003c/h3\u003e\n            \u003cp\u003e{error.message}\u003c/p\u003e\n            \u003cbutton onClick={resetErrorBoundary}\u003eRetry\u003c/button\u003e\n          \u003c/div\u003e\n        )}\n      \u003e\n        \u003cBuggyComponent /\u003e\n      \u003c/ErrorBoundary\u003e\n    \u003c/div\u003e\n  );\n}\n```\n\n### Key Features:\n1. **`getDerivedStateFromError`**: Catches errors in the rendering lifecycle and switches the UI to the fallback state without crashing the whole application.\n2. **`componentDidCatch`**: Logs the error and the component stack trace (`ErrorInfo`).\n3. **`resetErrorBoundary`**: Clears the error state to allow re-rendering when the user clicks the **Try Again** button.\n4. **Flexible Fallback**: Supports the built-in UI, a static custom React element, or a render-prop callback receiving `error` and `resetErrorBoundary`.",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    }
+  ]
+}

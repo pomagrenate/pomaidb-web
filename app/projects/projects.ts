@@ -18,6 +18,44 @@ export interface ProjectGroup {
   projects: ProjectItem[];
 }
 
+// Helper function to find a project by slug
+export function getProjectBySlug(slug: string): { project: ProjectItem; category: string } | null {
+  for (const group of PROJECT_GROUPS) {
+    const project = group.projects.find(p => {
+      // Check if the project has a details field that matches the slug
+      if (p.details) {
+        const detailsSlug = p.details.split('/').pop();
+        return detailsSlug === slug;
+      }
+      // Also check if the title (lowercased with hyphens) matches the slug
+      const titleSlug = p.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+      return titleSlug === slug;
+    });
+    if (project) {
+      return { project, category: group.category };
+    }
+  }
+  return null;
+}
+
+// Helper function to get all project slugs for static generation
+export function getAllProjectSlugs(): string[] {
+  const slugs: string[] = [];
+  for (const group of PROJECT_GROUPS) {
+    for (const project of group.projects) {
+      if (project.details) {
+        const slug = project.details.split('/').pop();
+        if (slug) slugs.push(slug);
+      } else {
+        // Generate slug from title if no details field
+        const slug = project.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        slugs.push(slug);
+      }
+    }
+  }
+  return slugs;
+}
+
 export const PROJECT_GROUPS: ProjectGroup[] = [
   {
     category: "Side Projects",
@@ -58,6 +96,8 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         github: "https://github.com/pomagrenate/ice_age",
         description: "Universal IDE plugin & proxy that cuts LLM token consumption by up to 70% using deterministic AST pruning & context compression. Written in Go.",
         tags: ["Go", "AST Pruning", "IDE Plugin"],
+        details: "/projects/ice_age",
+        image: "/images/ice_age/savings_percentage.png",
       },
       {
         title: "palloc",
@@ -65,6 +105,8 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         github: "https://github.com/pomagrenate/palloc",
         description: "An ultra-fast, lightweight, and thread-safe general-purpose memory allocator. Drop-in malloc replacement built for high throughput and low latency.",
         tags: ["C", "Memory Allocator", "Low Latency"],
+        details: "/projects/palloc",
+        image: "/images/palloc/speedup_comparison.png",
       },
       {
         title: "pomai-diagram-app",

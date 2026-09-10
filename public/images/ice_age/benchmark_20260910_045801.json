@@ -1,0 +1,470 @@
+{
+  "metadata": {
+    "script_version": "1.0.0",
+    "model": "gemini-3.7-flash",
+    "date": "2026-09-10T04:58:01Z",
+    "trials": 2,
+    "skill_md_sha256": "c0fc75a25487045a52300e5da11c265da51cdc29e18359e3df503a4c6c61f79a"
+  },
+  "summary": {
+    "avg_savings": 22,
+    "min_savings": 0,
+    "max_savings": 74,
+    "avg_normal": 241,
+    "avg_iceage": 120
+  },
+  "rows": [
+    {
+      "id": "react-rerender",
+      "category": "debugging",
+      "prompt": "Why is my React component re-rendering on every state update even though the props haven't changed? I'm passing an object as a prop.",
+      "normal_median": 0,
+      "iceage_median": 54,
+      "savings_pct": 0
+    },
+    {
+      "id": "auth-middleware-fix",
+      "category": "bugfix",
+      "prompt": "My Express auth middleware is letting expired JWT tokens through. The expiry check uses Date.now() compared to the token's exp field. What's wrong and how do I fix it?",
+      "normal_median": 251,
+      "iceage_median": 156,
+      "savings_pct": 38
+    },
+    {
+      "id": "postgres-pool",
+      "category": "setup",
+      "prompt": "How do I set up a PostgreSQL connection pool in Node.js with proper timeout and error handling configuration?",
+      "normal_median": 804,
+      "iceage_median": 209,
+      "savings_pct": 74
+    },
+    {
+      "id": "git-rebase-merge",
+      "category": "explanation",
+      "prompt": "Explain the difference between git rebase and git merge. When should I use each one and what are the tradeoffs?",
+      "normal_median": 1106,
+      "iceage_median": 293,
+      "savings_pct": 74
+    },
+    {
+      "id": "async-refactor",
+      "category": "refactor",
+      "prompt": "Refactor this callback-based Node.js function to use async/await:\n\nfunction getUser(id, callback) {\n  db.query('SELECT * FROM users WHERE id = ?', [id], function(err, rows) {\n    if (err) return callback(err);\n    if (!rows.length) return callback(new Error('Not found'));\n    callback(null, rows[0]);\n  });\n}",
+      "normal_median": 250,
+      "iceage_median": 168,
+      "savings_pct": 33
+    },
+    {
+      "id": "microservices-monolith",
+      "category": "architecture",
+      "prompt": "We have a monolithic Django app that's getting slow. The team is debating microservices. What are the key factors to consider before splitting up the monolith?",
+      "normal_median": 0,
+      "iceage_median": 0,
+      "savings_pct": 0
+    },
+    {
+      "id": "pr-security-review",
+      "category": "code-review",
+      "prompt": "Review this Express route handler for security issues:\n\napp.get('/api/users/:id', (req, res) =\u003e {\n  const query = `SELECT * FROM users WHERE id = ${req.params.id}`;\n  db.query(query).then(user =\u003e res.json(user));\n});",
+      "normal_median": 0,
+      "iceage_median": 323,
+      "savings_pct": 0
+    },
+    {
+      "id": "docker-multi-stage",
+      "category": "devops",
+      "prompt": "Write a multi-stage Dockerfile for a Node.js TypeScript application that minimizes the final image size. The app uses npm and needs to compile TypeScript before running.",
+      "normal_median": 0,
+      "iceage_median": 0,
+      "savings_pct": 0
+    },
+    {
+      "id": "race-condition-debug",
+      "category": "debugging",
+      "prompt": "My Node.js API endpoint that increments a counter in PostgreSQL sometimes returns the same value for concurrent requests. How do I fix this race condition?",
+      "normal_median": 0,
+      "iceage_median": 0,
+      "savings_pct": 0
+    },
+    {
+      "id": "error-boundary",
+      "category": "implementation",
+      "prompt": "Implement a React error boundary component that catches render errors, shows a fallback UI with a retry button, and logs the error details.",
+      "normal_median": 0,
+      "iceage_median": 0,
+      "savings_pct": 0
+    }
+  ],
+  "raw": [
+    {
+      "id": "react-rerender",
+      "category": "debugging",
+      "prompt": "Why is my React component re-rendering on every state update even though the props haven't changed? I'm passing an object as a prop.",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 1630,
+          "output_tokens": 107,
+          "text": "New object created each parent render -\u003e new reference (`{}` !== `{}`). Shallow comparison fails.\n\n**Fix:**\n1. Wrap object in `useMemo` in parent:\n```jsx\nconst config = useMemo(() =\u003e ({ id: 1 }), []);\n```\n2. Or move static object outside component:\n```jsx\nconst CONFIG = { id: 1 };\n```\n3. Wrap child in `React.memo`:\n```jsx\nexport default React.memo(ChildComponent);\n```",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    },
+    {
+      "id": "auth-middleware-fix",
+      "category": "bugfix",
+      "prompt": "My Express auth middleware is letting expired JWT tokens through. The expiry check uses Date.now() compared to the token's exp field. What's wrong and how do I fix it?",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 47,
+          "output_tokens": 502,
+          "text": "The issue is a **unit mismatch**:\n\n* **`Date.now()`** returns the current timestamp in **milliseconds**.\n* **JWT `exp` claim** (per RFC 7519) is stored in **seconds**.\n\nBecause of this, `Date.now()` is ~1,000 times larger than `exp`. Depending on how your comparison was structured, the logic breaks completely.\n\n---\n\n### Option 1: Fix the manual comparison\n\nConvert `Date.now()` to seconds (or `exp` to milliseconds):\n\n```javascript\n// Convert Date.now() to seconds:\nconst isExpired = token.exp \u003c Math.floor(Date.now() / 1000);\n\nif (isExpired) {\n  return res.status(401).json({ message: 'Token has expired' });\n}\n```\n\n---\n\n### Option 2: The Recommended Way (Use `jwt.verify`)\n\nIf you are manually decoding the token (e.g., using `jwt.decode()` or `JSON.parse(atob(...))`), **your app is vulnerable to token tampering** because manual checks do not verify the cryptographic signature.\n\nUse `jsonwebtoken`’s `jwt.verify()` method instead. It automatically validates both the **signature** and the **expiration time (`exp`)**:\n\n```javascript\nconst jwt = require('jsonwebtoken');\n\nfunction authMiddleware(req, res, next) {\n  const authHeader = req.headers.authorization;\n  if (!authHeader || !authHeader.startsWith('Bearer ')) {\n    return res.status(401).json({ message: 'No token provided' });\n  }\n\n  const token = authHeader.split(' ')[1];\n\n  try {\n    // jwt.verify automatically checks 'exp' against Date.now()\n    const decoded = jwt.verify(token, process.env.JWT_SECRET);\n    req.user = decoded;\n    next();\n  } catch (err) {\n    if (err.name === 'TokenExpiredError') {\n      return res.status(401).json({ message: 'Token has expired' });\n    }\n    return res.status(403).json({ message: 'Invalid token' });\n  }\n}\n\nmodule.exports = authMiddleware;\n```",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 1638,
+          "output_tokens": 200,
+          "text": "Unit mismatch + likely using `jwt.decode()` instead of `jwt.verify()`.\n\n- JWT `exp` = **seconds**\n- `Date.now()` = **milliseconds**\n\n### Fix 1: Use `jwt.verify()` (Best)\n`jwt.verify` checks signature and `exp` automatically.\n\n```js\ntry {\n  const user = jwt.verify(token, process.env.JWT_SECRET);\n  req.user = user;\n  next();\n} catch (err) {\n  return res.status(401).json({ error: 'Invalid or expired token' });\n}\n```\n\n### Fix 2: Convert units (Manual check)\n```js\nif (decoded.exp \u003c Math.floor(Date.now() / 1000)) {\n  return res.status(401).json({ error: 'Token expired' });\n}\n```",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        },
+        {
+          "input_tokens": 1638,
+          "output_tokens": 112,
+          "text": "Unit mismatch. `Date.now()` = milliseconds. JWT `exp` = seconds.  \n`Date.now() \u003e exp` always true (ms is 1000x larger).\n\nFix:\n\n```js\n// Option 1: Convert ms to sec\nconst isExpired = Math.floor(Date.now() /",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "postgres-pool",
+      "category": "setup",
+      "prompt": "How do I set up a PostgreSQL connection pool in Node.js with proper timeout and error handling configuration?",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 29,
+          "output_tokens": 1607,
+          "text": "To set up a robust PostgreSQL connection pool in Node.js, the official and most widely used driver is **`pg` (node-postgres)**. \n\nHere is a production-ready setup that includes proper **pool sizing**, **timeouts**, **pool-level error handling**, and **graceful shutdown**.\n\n---\n\n### 1. Installation\n\n```bash\nnpm install pg dotenv\n```\n\n---\n\n### 2. Connection Pool Configuration (`db.js`)\n\nCreate a database module (e.g., `db.js`) that initializes the pool and exports query utilities.\n\n```javascript\n// db.js\nconst { Pool } = require('pg');\nrequire('dotenv').config();\n\nconst pool = new Pool({\n  // Connection credentials (can also use: connectionString: process.env.DATABASE_URL)\n  user: process.env.PGUSER,\n  host: process.env.PGHOST,\n  database: process.env.PGDATABASE,\n  password: process.env.PGPASSWORD,\n  port: Number(process.env.PGPORT) || 5432,\n\n  // --- POOL SIZING ---\n  max: 20, // Max number of clients in the pool (default is 10)\n  min: 2,  // Minimum number of idle clients kept open (default is 0)\n\n  // --- TIMEOUT CONFIGURATIONS ---\n  // How long to wait before timing out when acquiring a client from the pool (5 seconds)\n  connectionTimeoutMillis: 5000,\n\n  // How long a client is allowed to remain idle before being closed (30 seconds)\n  idleTimeoutMillis: 30000,\n\n  // Max query execution time allowed by PostgreSQL before canceling it (10 seconds)\n  // Passed as a postgres server-side setting\n  statement_timeout: 10000,\n\n  // --- NETWORK \u0026 SECURITY ---\n  keepAlive: true, // Prevents firewalls/proxies from dropping idle connections\n  ssl: process.env.NODE_ENV === 'production' \n    ? { rejectUnauthorized: false } // Adjust based on your certificate configuration\n    : false,\n});\n\n// --- CRITICAL ERROR HANDLING ---\n// Catches errors on idle clients that occur in the background (e.g., network drop, DB restart).\n// Without this handler, unhandled errors here will CRASH your Node.js process.\npool.on('error', (err, client) =\u003e {\n  console.error('Unexpected error on idle PostgreSQL client:', err);\n  // Do NOT rethrow or exit here; the pool removes the broken client automatically.\n});\n\n// Helper for single queries (automatically handles client acquire \u0026 release)\nconst query = async (text, params) =\u003e {\n  const start = Date.now();\n  try {\n    const res = await pool.query(text, params);\n    const duration = Date.now() - start;\n    // Optional query logging (disable in high-throughput production)\n    // console.log('Executed query', { text, duration, rows: res.rowCount });\n    return res;\n  } catch (error) {\n    console.error('Database query error:', { text, error: error.message });\n    throw error; // Re-throw to be handled by application/route controller\n  }\n};\n\n// Helper for transactions (requires manual checkout and release)\nconst getClient = async () =\u003e {\n  const client = await pool.connect();\n  const query = client.query;\n  const release = client.release;\n\n  // Set a timeout to flag checkout leaks in development\n  const timeout = setTimeout(() =\u003e {\n    console.error('A client has been checked out for more than 5 seconds!');\n    console.error(`Last query executed on this client was: ${client.lastQuery}`);\n  }, 5000);\n\n  // Monkey-patch the query method to keep track of the last query\n  client.query = (...args) =\u003e {\n    client.lastQuery = args;\n    return query.apply(client, args);\n  };\n\n  // Ensure release clears the leak-tracking timeout\n  client.release = () =\u003e {\n    clearTimeout(timeout);\n    client.query = query;\n    client.release = release;\n    return release.apply(client);\n  };\n\n  return client;\n};\n\n// --- GRACEFUL SHUTDOWN ---\nconst closePool = async () =\u003e {\n  console.log('Closing PostgreSQL pool...');\n  await pool.end();\n  console.log('PostgreSQL pool closed.');\n};\n\nprocess.on('SIGINT', async () =\u003e {\n  await closePool();\n  process.exit(0);\n});\n\nprocess.on('SIGTERM', async () =\u003e {\n  await closePool();\n  process.exit(0);\n});\n\nmodule.exports = {\n  query,\n  getClient,\n  closePool,\n};\n```\n\n---\n\n### 3. Usage Examples\n\n#### A. Standard Query (Most Common)\nFor isolated queries, always use `query()`. It handles fetching a connection from the pool and automatically releasing it, even if an error occurs.\n\n```javascript\nconst db = require('./db');\n\nasync function getUser(id) {\n  try {\n    const result = await db.query('SELECT * FROM users WHERE id = $1', [id]);\n    return result.rows[0];\n  } catch (err) {\n    // Handle error (e.g., pass to Express next(err))\n    throw err;\n  }\n}\n```\n\n#### B. Transactions (Manual Client Checkout)\nWhen you need a transaction (`BEGIN`, `COMMIT`, `ROLLBACK`), checkout a client manually and **always release it inside a `finally` block**.\n\n```javascript\nconst db = require('./db');\n\nasync function transferFunds(fromUser, toUser, amount) {\n  const client = await db.getClient(); // Acquire dedicated connection\n\n  try {\n    await client.query('BEGIN');\n\n    await client.query('UPDATE accounts SET balance = balance - $1 WHERE user_id = $2', [amount, fromUser]);\n    await client.query('UPDATE accounts SET balance = balance + $1 WHERE user_id = $2', [amount, toUser]);\n\n    await client.query('COMMIT');\n  } catch (error) {\n    await client.query('ROLLBACK');\n    console.error('Transaction failed, rolling back.', error);\n    throw error;\n  } finally {\n    // CRITICAL: Always release the client back to the pool\n    client.release();\n  }\n}\n```\n\n---\n\n### Key Takeaways for Production:\n\n1. **`pool.on('error')` is non-negotiable:** Without this, your entire Node process will crash if a connection drops in the background while idle.\n2. **`connectionTimeoutMillis`:** Prevents your API requests from hanging indefinitely if the database is overloaded and can't grant a connection.\n3. **`statement_timeout`:** Prevents runaway/unindexed queries from locking rows and eating up database CPU.\n4. **Always use `try...finally` with `pool.connect()`:** Failing to call `client.release()` creates a connection leak that will eventually exhaust your pool and freeze the application.",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 1620,
+          "output_tokens": 417,
+          "text": "Use `pg` library (`npm i pg`).\n\n### Setup \u0026 Config\n\n```javascript\nconst { Pool } = require('pg');\n\nconst pool = new Pool({\n  connectionString: process.env.DATABASE_URL,\n  max: 20,                          // max active connections\n  idleTimeoutMillis: 30000,         // close idle client after 30s\n  connectionTimeoutMillis: 2000,    // fail fast if pool full / db down (2s)\n  statement_timeout: 5000           // cancel query if running \u003e 5s\n});\n\n// Catch errors on idle clients (critical: prevents process crash)\npool.on('error', (err, client) =\u003e {\n  console.error('Unexpected idle client error', err);\n});\n```\n\n### Usage Pattern\n\n```javascript\n// Single query via pool root (auto checkout \u0026 release)\nasync function query(text, params) {\n  try {\n    return await pool.query(text, params);\n  } catch (err) {\n    console.error('Query error:', err.message);\n    throw err;\n  }\n}\n\n// Transaction (manual checkout, must release in finally)\nasync function executeTx(callback) {\n  const client = await pool.connect();\n  try {\n    await client.query('BEGIN');\n    const res = await callback(client);\n    await client.query('COMMIT');\n    return res;\n  } catch (err) {\n    await client.query('ROLLBACK');\n    throw err;\n  } finally {\n    client.release(); // Avoid connection leak\n  }\n}\n```\n\n### Key Flags\n- `connectionTimeoutMillis`: stops thread lock when pool exhausted.\n- `pool.on('error')`: prevents backend crash on network drop.\n- `client.release()`: always put in `finally`.",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "git-rebase-merge",
+      "category": "explanation",
+      "prompt": "Explain the difference between git rebase and git merge. When should I use each one and what are the tradeoffs?",
+      "normal": [
+        {
+          "input_tokens": 31,
+          "output_tokens": 1053,
+          "text": "Both `git merge` and `git rebase` solve the same fundamental problem: **integrating changes from one branch into another**. However, they do it in completely different ways, resulting in different commit histories.\n\nHere is a breakdown of how they work, when to use them, and their tradeoffs.\n\n---\n\n### 1. `git merge` (Preserving History)\n\n`git merge` takes the contents of a source branch and integrates them into a target branch. If the branches have diverged, it creates a new **\"merge commit\"** that ties the two histories together.\n\n#### How it looks visually:\nBefore merge:\n```text\n          D---E  (feature)\n         /\nA---B---C        (main)\n```\nAfter running `git merge feature` on `main`:\n```text\n          D---E\n         /     \\\nA---B---C-------F  (main - F is the merge commit)\n```\n\n* **Pros:**\n  * **Non-destructive:** It does not alter existing commit history. Commit hashes (`SHA`s) remain the same.\n  * **Accurate historical record:** Preserves the exact chronological order of what happened and when branches were created/merged.\n  * **Easy conflict resolution:** You resolve conflicts once inside the merge commit.\n* **Cons:**\n  * **Cluttered history:** Generates a lot of \"Merge branch 'xyz' into...\" commits.\n  * **Spaghetti graphs:** In large teams, the Git log can become hard to read with many branching and merging lines.\n\n---\n\n### 2. `git rebase` (Rewriting History)\n\n`git rebase` takes the commits from your current branch and **replays them on top of another branch**. Git achieves this by creating brand new commits (with new commit hashes) and discarding the old ones.\n\n#### How it looks visually:\nBefore rebase:\n```text\n          D---E  (feature)\n         /\nA---B---C        (main)\n```\nAfter running `git rebase main` on `feature`:\n```text\nA---B---C---D'---E'  (feature - D' and E' are new commits)\n```\n\n* **Pros:**\n  * **Clean, linear history:** Your project history reads like a straight line, making it much easier to read with `git log`.\n  * **Easier debugging:** Tools like `git bisect` (used to find bug-introducing commits) work much better on linear histories.\n  * **Cleaner PRs/Code Reviews:** Reviewers can see your changes cleanly applied to the latest version of the target branch.\n* **Cons:**\n  * **Rewrites history:** It changes commit IDs, which can cause severe problems if other people are working on the same branch.\n  * **Repetitive conflict resolution:** If `D` and `E` have conflicts with `C`, you may have to resolve conflicts commit-by-commit rather than all at once.\n  * **Loses context:** You lose the exact historical timeline of when features were branched off.\n\n---\n\n### The Golden Rule of Rebasing\n\n\u003e **Never rebase a branch that is public and shared with other developers.**\n\nIf you rebase a shared remote branch (like `main` or a shared feature branch), you change the commit history that your teammates are building on. When they try to pull, Git will get confused, leading to duplicate commits and messy merge conflicts for the whole team.\n\n---\n\n### Summary: When Should You Use Which?\n\n| Scenario | Recommended Tool | Why? |\n| :--- | :--- | :--- |\n| **Updating your private local feature branch with `main`** | **Rebase** | Keeps your local branch up to date without adding useless merge commits. |\n| **Final integration of a feature branch into `main` (team settings)** | **Merge** (or Squash \u0026 Merge) | Preserves the context that a cohesive feature was completed and integrated. |\n| **Working on a shared branch with other teammates** | **Merge** | Prevents rewriting history that others depend on. |\n| **Cleaning up your own messy commits before opening a PR** | **Interactive Rebase** (`rebase -i`) | Allows you to squash, rename, or reorder commits to present a clean PR. |\n\n### The Standard Industry Workflow\nA very popular approach used by modern teams:\n1. While working on your local `feature` branch, **rebase** onto `origin/main` frequently to stay up-to-date:\n   ```bash\n   git checkout feature\n   git fetch origin\n   git rebase origin/main\n   ```\n2. When the feature is complete, push it and open a **Pull Request / Merge Request**.\n3. Use **Merge** (or GitHub/GitLab's \"Squash and Merge\") to integrate the PR into `main`.",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        },
+        {
+          "input_tokens": 31,
+          "output_tokens": 1159,
+          "text": "Both `git merge` and `git rebase` solve the same fundamental problem: **integrating changes from one branch into another**. However, they do it in completely different ways, leading to different commit histories.\n\n---\n\n### 1. `git merge` (Preserving History)\n\n`git merge` takes the contents of a source branch and integrates them into a target branch. It creates a **new commit** (a \"merge commit\") that ties the two histories together.\n\n#### How it works visually:\nBefore merge:\n```text\n      D---E (feature)\n     /\nA---B---C (main)\n```\nAfter `git checkout main \u0026\u0026 git merge feature`:\n```text\n      D-------E\n     /         \\\nA---B---C-------F (main)  \u003c-- F is the merge commit\n```\n\n* **Pros:**\n  * **Non-destructive:** Existing commits and their unique IDs (hashes) are never changed.\n  * **Accurate historical context:** Shows exactly when branches were created, diverged, and brought back together chronologically.\n  * **Easy conflict resolution:** You resolve conflicts once inside the merge commit.\n* **Cons:**\n  * **Messy history:** If many developers create short-lived branches, the `git log` graph can become cluttered with dozens of \"Merge branch 'xyz'\" commits (often called \"railroad tracks\").\n\n---\n\n### 2. `git rebase` (Rewriting History)\n\n`git rebase` takes all the commits from your current branch, temporarily sets them aside, moves the branch's starting point (base) to the tip of another branch, and then **re-applies your commits one by one**.\n\n#### How it works visually:\nBefore rebase:\n```text\n      D---E (feature)\n     /\nA---B---C (main)\n```\nAfter `git checkout feature \u0026\u0026 git rebase main`:\n```text\nA---B---C (main)\n         \\\n          D'---E' (feature)  \u003c-- Commits are re-created with new hashes\n```\n\n* **Pros:**\n  * **Clean, linear history:** History reads like a single, straight line without unnecessary merge commits.\n  * **Easier navigation:** Tools like `git log`, `git bisect` (debugging), and `git revert` are easier to use because of the linear flow.\n* **Cons:**\n  * **Destructive (Rewrites History):** The commit hashes change (`D` becomes `D'`). \n  * **Tedious conflict resolution:** If there are conflicts, you may have to resolve them commit-by-commit for every commit being replayed.\n  * **Loses context:** You lose the historical timeline of when the branch was originally created.\n\n---\n\n### Summary Comparison\n\n| Feature | `git merge` | `git rebase` |\n| :--- | :--- | :--- |\n| **Commit History** | Braided, branching, preserves true chronology | Linear, clean, modified timeline |\n| **Commit Hashes** | Unchanged | New hashes created for rebased commits |\n| **Safety** | Very safe | Can cause issues if used on shared branches |\n| **Conflict Resolution**| Done once in the merge commit | Done step-by-step for each conflicting commit |\n\n---\n\n### The Golden Rule of Rebasing\n\n\u003e **Never rebase a branch that has been pushed to a public/shared repository.**\n\nIf you rebase a branch that other developers have already pulled, their local branch history will conflict with the rewritten history on the remote branch. This leads to confusion, duplicate commits, and merge headaches. **Only rebase branches that you alone are working on.**\n\n---\n\n### When Should You Use Which?\n\n#### Use `git rebase` when:\n1. **Updating your local feature branch:** You are working on a feature and `main` has moved forward. You want to pull the latest changes into your feature branch to keep your work up-to-date and linear.\n   ```bash\n   git checkout feature\n   git fetch origin\n   git rebase origin/main\n   ```\n2. **Cleaning up your local commits before making a Pull Request:** Using `git rebase -i` (interactive rebase) to squash small \"typo fix\" or \"wip\" commits into clean, logical commits.\n\n#### Use `git merge` when:\n1. **Merging a completed feature into `main`:** You want to preserve the history of the entire feature being integrated at a specific point in time.\n2. **Working on a shared branch:** When multiple people are collaborating on the same branch, merging avoids rewriting history out from under your teammates.\n3. **You want simple conflict resolution:** When a branch has drifted significantly and resolving conflicts commit-by-commit with rebase would take too long.\n\n---\n\n### Recommended Best Practice Workflow\n\nA common industry standard is to use **both**:\n\n1. While developing, **rebase** your local feature branch against `main` regularly to stay up-to-date with a clean history.\n2. When the feature is done, open a Pull Request.\n3. Use your Git platform (GitHub/GitLab/Bitbucket) to either **Squash and Merge** (creates one clean commit on main) or **Merge Commit** (preserves the branch history explicitly), depending on your team's policy.",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 1622,
+          "output_tokens": 306,
+          "text": "### Core Difference\n\n* **`git merge`**: Combines branches. Creates new merge commit. Preserves exact history + branch shapes.\n* **`git rebase`**: Moves branch base to target tip. Rewrites commit history. Linear history.\n\n---\n\n### Tradeoffs\n\n| Feature | `git merge` | `git rebase` |\n| :--- | :--- | :--- |\n| **History** | Non-linear, true-to-life | Linear, clean, modified |\n| **Commit IDs** | Kept intact | Rewritten (new hashes) |\n| **Traceability** | Easy to see branch context | Hard to see original branch lifetime |\n| **Conflict fix** | Resolve once in merge commit | Resolve per-commit during replay |\n\n---\n\n### When to Use\n\n#### Use `git merge`\n* Merging feature branch into `main` / `master` (via PR)\n* Shared/public branches (no history rewriting)\n* Want full history of *when* and *how* branches converged\n\n#### Use `git rebase`\n* Syncing local feature branch with latest `main` before PR\n* Cleaning up local WIP commits (`git rebase -i`)\n* Want single straight-line `git log`\n\n---\n\n### Golden Rule\n\n\u003e **Never rebase commits pushed to shared public branch.**  \n\u003e Rewrites hashes -\u003e breaks teammates' local trees -\u003e requires messy force pulls.",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        },
+        {
+          "input_tokens": 1622,
+          "output_tokens": 279,
+          "text": "### Difference\n\n* **`git merge`**: Combines branches with new 2-parent merge commit. Preserves exact history + context.\n* **`git rebase`**: Replays branch commits on top of target tip. Rewrites commit SHA-1s. Linear history.\n\n---\n\n### Comparison\n\n| Feature | `git merge` | `git rebase` |\n|---|---|---|\n| **History** | Branching / graph | Clean / linear |\n| **Commit IDs** | Preserved | Rewritten (new hashes) |\n| **Traceability** | High (true timeline) | High (readable story) |\n| **Conflict fix** | Once per merge | Per rewritten commit |\n| **Safety** | Safe on shared | Dangerous on shared |\n\n---\n\n### When to Use\n\n#### Use Rebase\n* Local feature branch -\u003e pull latest `main` under your work.\n* Cleanup messy local commits (`rebase -i`) before opening PR.\n* Team enforces strict linear history.\n\n#### Use Merge\n* Merging completed PR into `main` / `develop`.\n* Shared/public branches.\n* Must preserve exact historical merge points.\n\n---\n\n### Critical Rule\n\n\u003e **Never rebase public/shared branches.** Rewrites history -\u003e breaks collaborator forks. Rebase local only.",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "async-refactor",
+      "category": "refactor",
+      "prompt": "Refactor this callback-based Node.js function to use async/await:\n\nfunction getUser(id, callback) {\n  db.query('SELECT * FROM users WHERE id = ?', [id], function(err, rows) {\n    if (err) return callback(err);\n    if (!rows.length) return callback(new Error('Not found'));\n    callback(null, rows[0]);\n  });\n}",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 101,
+          "output_tokens": 499,
+          "text": "Here are the standard ways to refactor this depending on whether your database library supports Promises natively or is callback-only.\n\n---\n\n### Option 1: If your DB library supports Promises (Modern / Recommended)\n*(e.g., `mysql2/promise`, `pg`, `sqlite3`, etc.)*\n\n```javascript\nasync function getUser(id) {\n  const rows = await db.query('SELECT * FROM users WHERE id = ?', [id]);\n\n  if (!rows.length) {\n    throw new Error('Not found');\n  }\n\n  return rows[0];\n}\n```\n\n\u003e **Note for `mysql2/promise` users:** If using `mysql2/promise`, `query` returns `[rows, fields]`, so destructure it like `const [rows] = await db.query(...)`.\n\n---\n\n### Option 2: If `db.query` only supports callbacks\nIf your DB client does not return a Promise, you can wrap it manually using a `Promise`:\n\n```javascript\nasync function getUser(id) {\n  return new Promise((resolve, reject) =\u003e {\n    db.query('SELECT * FROM users WHERE id = ?', [id], (err, rows) =\u003e {\n      if (err) return reject(err);\n      if (!rows.length) return reject(new Error('Not found'));\n      resolve(rows[0]);\n    });\n  });\n}\n```\n\nAlternatively, you can use Node.js's built-in `util.promisify`:\n\n```javascript\nconst util = require('util');\nconst query = util.promisify(db.query).bind(db);\n\nasync function getUser(id) {\n  const rows = await query('SELECT * FROM users WHERE id = ?', [id]);\n  \n  if (!rows.length) {\n    throw new Error('Not found');\n  }\n\n  return rows[0];\n}\n```\n\n---\n\n### How to use the refactored function:\n\n```javascript\nasync function main() {\n  try {\n    const user = await getUser(1);\n    console.log('User found:', user);\n  } catch (err) {\n    console.error('Error fetching user:', err.message);\n  }\n}\n```",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 1692,
+          "output_tokens": 183,
+          "text": "Assumes DB client supports promises (e.g. `mysql2/promise`):\n\n```javascript\nasync function getUser(id) {\n  const [rows] = await db.query('SELECT * FROM users WHERE id = ?', [id]);\n  if (!rows.length) throw new Error('Not found');\n  return rows[0];\n}\n```\n\nIf legacy callback driver, wrap with Promise:\n\n```javascript\nasync function getUser(id) {\n  return new Promise((resolve, reject) =\u003e {\n    db.query('SELECT * FROM users WHERE id = ?', [id], (err, rows) =\u003e {\n      if (err) return reject(err);\n      if (!rows.length) return reject(new Error('Not found'));\n      resolve(rows[0]);\n    });\n  });\n}\n```",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        },
+        {
+          "input_tokens": 1692,
+          "output_tokens": 153,
+          "text": "```js\nasync function getUser(id) {\n  const rows = await db.query('SELECT * FROM users WHERE id = ?', [id]);\n  if (!rows.length) throw new Error('Not found');\n  return rows[0];\n}\n```\n\nIf `db.query` lacks native Promise support:\n\n```js\nconst util = require('util');\nconst query = util.promisify(db.query).bind(db);\n\nasync function getUser(id) {\n  const rows = await query('SELECT * FROM users WHERE id = ?', [id]);\n  if (!rows.length) throw new Error('Not found');\n  return rows[0];\n}\n```",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "microservices-monolith",
+      "category": "architecture",
+      "prompt": "We have a monolithic Django app that's getting slow. The team is debating microservices. What are the key factors to consider before splitting up the monolith?",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    },
+    {
+      "id": "pr-security-review",
+      "category": "code-review",
+      "prompt": "Review this Express route handler for security issues:\n\napp.get('/api/users/:id', (req, res) =\u003e {\n  const query = `SELECT * FROM users WHERE id = ${req.params.id}`;\n  db.query(query).then(user =\u003e res.json(user));\n});",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 1666,
+          "output_tokens": 347,
+          "text": "### Issues\n\n1. **SQL Injection (Critical)**\n   * String interpolation in SQL query.\n   * Attacker can manipulate query via `:id`.\n\n2. **Missing Error Handling**\n   * Unhandled Promise rejection if DB fails. Request hangs or server crashes.\n\n3. **Data Exposure**\n   * `SELECT *` leaks sensitive fields (e.g., password hashes).\n\n4. **Missing Input Validation**\n   * No type or format check on `req.params.id`.\n\n---\n\n### Fix\n\nUse parameterized queries, select specific fields, validate input, and handle errors:\n\n```js\napp.get('/api/users/:id', async (req, res) =\u003e {\n  const userId = parseInt(req.params.id, 10);\n  if (Number.isNaN(userId)) {\n    return res.status(400).json({ error: 'Invalid user ID' });\n  }\n\n  try {\n    const query = 'SELECT id, username, email FROM users WHERE id = $1';\n    const result = await db.query(query, [userId]);\n\n    if (!result.rows[0]) {\n      return res.status(404).json({ error: 'User not found' });\n    }\n\n    res.json(result.rows[0]);\n  } catch (err) {\n    res.status(500).json({ error: 'Internal server error' });\n  }\n});\n```\n\n*(Note: Parameter placeholder syntax varies by driver: `$1` for PostgreSQL, `?` for MySQL/SQLite).*",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        },
+        {
+          "input_tokens": 1666,
+          "output_tokens": 298,
+          "text": "SQL Injection + missing error handling.\n\n### Issues\n\n1. **SQL Injection (High)**: Direct string interpolation of `req.params.id`.\n2. **Unhandled Promise Rejection**: No `.catch()` on `db.query()`.\n3. **Data Exposure**: `SELECT *` may expose sensitive fields (e.g., password hashes).\n\n---\n\n### Fix\n\nUse parameterized query, select specific fields, handle errors:\n\n```javascript\napp.get('/api/users/:id', async (req, res, next) =\u003e {\n  try {\n    const { id } = req.params;\n    \n    // Validate input type\n    if (!/^\\d+$/.test(id)) {\n      return res.status(400).json({ error: 'Invalid ID format' });\n    }\n\n    // Parameterized query (Postgres syntax shown; use ? for MySQL/SQLite)\n    const query = 'SELECT id, username, email FROM users WHERE id = $1';\n    const result = await db.query(query, [id]);\n\n    if (!result.rows[0]) {\n      return res.status(404).json({ error: 'User not found' });\n    }\n\n    res.json(result.rows[0]);\n  } catch (err) {\n    next(err);\n  }\n});\n```",
+          "stop_reason": "STOP",
+          "provider": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "docker-multi-stage",
+      "category": "devops",
+      "prompt": "Write a multi-stage Dockerfile for a Node.js TypeScript application that minimizes the final image size. The app uses npm and needs to compile TypeScript before running.",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    },
+    {
+      "id": "race-condition-debug",
+      "category": "debugging",
+      "prompt": "My Node.js API endpoint that increments a counter in PostgreSQL sometimes returns the same value for concurrent requests. How do I fix this race condition?",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    },
+    {
+      "id": "error-boundary",
+      "category": "implementation",
+      "prompt": "Implement a React error boundary component that catches render errors, shows a fallback UI with a retry button, and logs the error details.",
+      "normal": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ],
+      "iceage": [
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        },
+        {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "text": "",
+          "stop_reason": "",
+          "provider": ""
+        }
+      ]
+    }
+  ]
+}
