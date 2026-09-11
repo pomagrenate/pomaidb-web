@@ -82,6 +82,8 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         github: "https://github.com/pomagrenate/pomaidb",
         description: "Predictable, embedded multimodal vector database & offline RAG engine for Edge AI (ARM64 / Zero-OOM). Built in C++20.",
         tags: ["C++20", "Vector DB", "Edge AI"],
+        details: "/projects/pomaidb",
+        image: "/images/pomaidb/08_pomaidb_pomegranate_architecture.png",
       },
       {
         title: "rust-studio",
