@@ -75,6 +75,8 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         github: "https://github.com/pomagrenate/cheesepath",
         description: "A lightweight, zero-dependency local AI agent framework in pure Go. Turn any OpenAI-compatible local LLM into an autonomous agent with LCEL-style pipelines.",
         tags: ["Go", "Local AI", "Agent Framework"],
+        details: "/projects/cheesepath",
+        image: "/images/cheesepath/cheesepath_vs_langgraph_overview.png",
       },
       {
         title: "pomaidb",
