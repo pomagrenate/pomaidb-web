@@ -88,11 +88,13 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         image: "/images/pomaidb/08_pomaidb_pomegranate_architecture.png",
       },
       {
-        title: "rust-studio",
+        title: "pomai-studio",
         repo: "pomagrenate/rust-studio",
         github: "https://github.com/pomagrenate/rust-studio",
-        description: "A fast, hackable Rust IDE powered by Tauri & rust-analyzer. Instant compiler diagnostics, AST refactoring, Cargo tools, and zero-AI deterministic fixes.",
-        tags: ["Rust", "Tauri", "IDE", "rust-analyzer"],
+        description: "A fast, hackable Rust IDE powered by Tauri, Tree-sitter & rust-analyzer. Instant compiler diagnostics, AST refactoring, sub-15µs typing latency, and sub-10MB RAM footprint.",
+        tags: ["Rust", "Tauri", "IDE", "rust-analyzer", "Tree-sitter", "Low Memory"],
+        details: "/projects/pomai-studio",
+        image: "/images/rust-studio/rust_studio_benchmark_dashboard.png",
       },
       {
         title: "ice_age",
