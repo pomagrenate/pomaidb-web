@@ -35,20 +35,19 @@ function GithubIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
 import { ProjectGroup, ProjectItem } from "@/app/projects/projects";
 
 // Helper component to strictly handle image display:
-// Only displays if image exists AND loads successfully without 404 or error.
+// Displays image cleanly and hides container if error occurs.
 function SafeProjectImage({ src, alt }: { src?: string; alt: string }) {
   const [hasError, setHasError] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   if (!src || hasError) return null;
 
   return (
-    <div className={`my-3 overflow-hidden rounded-xl border border-[#EAEAEA] bg-slate-50 transition-all duration-300 ${isLoaded ? "block opacity-100" : "hidden opacity-0"}`}>
+    <div className="my-3 overflow-hidden rounded-xl border border-[#EAEAEA] bg-slate-50 transition-all duration-300">
       <img
         src={src}
         alt={alt}
+        loading="lazy"
         onError={() => setHasError(true)}
-        onLoad={() => setIsLoaded(true)}
         className="w-full h-36 object-cover object-top hover:scale-105 transition-transform duration-500"
       />
     </div>
