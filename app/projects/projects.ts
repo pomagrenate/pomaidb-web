@@ -216,6 +216,8 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
       {
         title: "Fixago",
         live: "https://www.fixago.vn/",
+        details: "/projects/fixago",
+        image: "/images/fixago/landing.png",
         description: "Book fast & reliable home repair services in Vietnam with Fixago. From AC & appliance repairs to plumbing & maintenance, enjoy 24/7 AI-powered instant booking.",
         tags: ["Marketplace", "24/7 AI Booking", "Vietnam"],
       },
@@ -229,12 +231,16 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
       {
         title: "Esolutions",
         live: "https://www.esolutions.vn/",
+        details: "/projects/esolutions",
+        image: "/images/esolutions/esolutions.png",
         description: "Esolutions - Delivering smart, efficient, and comprehensive solutions for modern homes and buildings. Discover sustainable living and facility enhancements today.",
         tags: ["Smart Buildings", "Facility Management", "PropTech"],
       },
       {
         title: "VGC-User",
         live: "https://user.vgcnews24.com/vi/login",
+        details: "/projects/vgc-user",
+        image: "/images/vgc/vgc.png",
         description: "VGC-User - The main platform use to manage post, news, businesses from others VGC websites.",
         tags: ["Dashboard", "Admin", "React", "NextJS", "TypeScript", "Firebase"],
       }
