@@ -88,6 +88,15 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
         image: "/images/pomaidb/08_pomaidb_pomegranate_architecture.png",
       },
       {
+        title: "pomaikache",
+        repo: "pomagrenate/pomaikache",
+        github: "https://github.com/pomagrenate/pomaikache",
+        description: "An ultra-high-throughput in-memory vector cache and ingestion engine built exclusively for dense embeddings in pure C. Achieves 5.9M+ ops/s throughput, sub-3ms tail latency, and >99% recall.",
+        tags: ["C", "Vector Cache", "Low Latency", "Ring Buffer", "SIMD"],
+        details: "/projects/pomaikache",
+        image: "/images/pomaikache/chart_throughput.png",
+      },
+      {
         title: "pomai-studio",
         repo: "pomagrenate/rust-studio",
         github: "https://github.com/pomagrenate/rust-studio",
