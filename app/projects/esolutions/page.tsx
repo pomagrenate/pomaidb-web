@@ -1,5 +1,22 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Esolutions - Smart Building Platform & Headless CMS Showcase",
+  description:
+    "A responsive corporate landing platform and administrative content management system for smart building engineering, architectural lighting, and facility automation.",
+  alternates: {
+    canonical: "/projects/esolutions",
+  },
+  openGraph: {
+    title: "Esolutions - Smart Building Platform & CMS | Quan Van",
+    description:
+      "Modern corporate showcase and administrative control plane for facility automation and smart building solutions.",
+    url: "/projects/esolutions",
+    images: [{ url: "/images/esolutions/home.png" }],
+  },
+};
 import {
   ExternalLink,
   Code2,

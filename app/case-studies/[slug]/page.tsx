@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getCaseStudyData, getSortedCaseStudiesData } from "@/lib/case-studies";
 import { notFound } from "next/navigation";
@@ -7,6 +8,42 @@ import { SeriesNavigator, PostContext } from "@/components/case-studies/SeriesNa
 export async function generateStaticParams() {
   const caseStudies = getSortedCaseStudiesData();
   return caseStudies.map((cs) => ({ slug: cs.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const cs = await getCaseStudyData(slug);
+    return {
+      title: cs.title,
+      description: cs.excerpt || `In-depth case study on ${cs.title} by Quan Van.`,
+      alternates: {
+        canonical: `/case-studies/${slug}`,
+      },
+      openGraph: {
+        title: cs.title,
+        description: cs.excerpt || `In-depth case study on ${cs.title} by Quan Van.`,
+        url: `/case-studies/${slug}`,
+        type: "article",
+        publishedTime: cs.date,
+        authors: [cs.author || "Quan Van"],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: cs.title,
+        description: cs.excerpt || `In-depth case study on ${cs.title} by Quan Van.`,
+      },
+    };
+  } catch {
+    return {
+      title: "Case Study",
+      description: "Engineering case study by Quan Van.",
+    };
+  }
 }
 
 export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {

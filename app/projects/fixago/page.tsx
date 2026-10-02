@@ -1,5 +1,22 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Fixago - On-Demand Home Services & 24/7 Multilingual AI Dispatch",
+  description:
+    "An on-demand home repair and technician dispatch marketplace featuring Fixie, a 24/7 multilingual conversational AI with 99% uptime and zero-hallucination structured booking.",
+  alternates: {
+    canonical: "/projects/fixago",
+  },
+  openGraph: {
+    title: "Fixago - Home Services & Multilingual AI Dispatch | Quan Van",
+    description:
+      "On-demand home services platform with 24/7 AI dispatch assistant supporting 10 languages and >1,000 concurrent requests.",
+    url: "/projects/fixago",
+    images: [{ url: "/images/fixago/banner.png" }],
+  },
+};
 import {
   ExternalLink,
   Code2,
@@ -34,7 +51,7 @@ const fixagoProject = {
 };
 
 const SUPPORTED_LANGUAGES = [
-  { name: "Tiếng Việt", localized: "Vietnamese", code: "vi" },
+  { name: "Vietnamese", localized: "Vietnamese", code: "vi" },
   { name: "English", localized: "English", code: "en" },
   { name: "Français", localized: "French", code: "fr" },
   { name: "中文", localized: "Chinese", code: "zh" },
@@ -206,7 +223,7 @@ export default function FixagoPage() {
                     <span className="font-semibold">High Concurrency (&gt;1,000 concurrent requests):</span> Decoupled the conversational ingestion layer so the assistant can converse with more than 1,000 users simultaneously during city-wide weather events (such as sudden heatwaves causing surges in AC servicing demand).
                   </li>
                   <li>
-                    <span className="font-semibold">10-Language Native Support:</span> Configured native multilingual understanding covering Tiếng Việt, English, Français, 中文, Deutsch, Italiano, Español, 日本語, 한국어, and Русский. Expatriates can describe plumbing issues in German, French, or Japanese, and the system correctly maps their request.
+                    <span className="font-semibold">10-Language Native Support:</span> Configured native multilingual understanding covering Vietnamese, English, Français, 中文, Deutsch, Italiano, Español, 日本語, 한국어, and Русский. Expatriates can describe plumbing issues in German, French, or Japanese, and the system correctly maps their request.
                   </li>
                   <li>
                     <span className="font-semibold">Deterministic Zero-Hallucination Extraction:</span> Rather than letting an LLM generate unconstrained text confirmations, I implemented a strict JSON schema function-calling protocol:
@@ -291,7 +308,7 @@ export default function FixagoPage() {
                     className="w-full rounded-lg border border-emerald-200 shadow-sm"
                   />
                   <p className="text-xs text-emerald-700/80 mt-1.5 leading-relaxed">
-                    The Fixie conversational AI widget presenting 10 supported languages (Tiếng Việt, English, Français, 中文, Deutsch, Italiano, Español, 日本語, 한국어, Русский). Operates 24/7 with 99% uptime and zero-hallucination structured booking extraction.
+                    The Fixie conversational AI widget presenting 10 supported languages (Vietnamese, English, Français, 中文, Deutsch, Italiano, Español, 日本語, 한국어, Русский). Operates 24/7 with 99% uptime and zero-hallucination structured booking extraction.
                   </p>
                 </div>
               </div>

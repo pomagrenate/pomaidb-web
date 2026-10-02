@@ -5,8 +5,18 @@ import { PageShell } from "@/components/page-shell";
 import { BlogClient } from "@/components/blog-client";
 
 export const metadata: Metadata = {
-  title: "Blog | Quan Van",
-  description: "Technical writings on systems engineering, data mining algorithms, and database design by Quan Van.",
+  title: "Engineering Blog & Technical Journal",
+  description:
+    "Technical writings on systems engineering, data mining algorithms, database internals, and software design by Quan Van.",
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    title: "Engineering Blog & Technical Journal | Quan Van",
+    description:
+      "Technical writings on systems engineering, data mining algorithms, database internals, and software design by Quan Van.",
+    url: "/blog",
+  },
 };
 
 export default function BlogIndexPage() {

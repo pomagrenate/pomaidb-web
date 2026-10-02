@@ -1,7 +1,17 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getSortedPostsData } from "@/lib/blog";
 import { HeroVisual } from "@/components/hero-visual";
 import { CuriosityPlayground } from "@/components/curiosity-playground";
+
+export const metadata: Metadata = {
+  title: "Quan Van | AI Systems, Databases & High-Performance Engineering",
+  description:
+    "Personal portfolio and engineering lab of Quan Van. Documenting deep dives into local-first AI systems, vector databases, high-throughput caching, and data mining research.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
   const blogPosts = getSortedPostsData().slice(0, 2);

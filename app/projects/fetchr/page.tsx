@@ -1,5 +1,22 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Fetchr - High-Performance HTTP & Network Fetching Engine",
+  description:
+    "A zero-dependency, high-throughput HTTP client and network engine built for extreme connection concurrency and predictable low memory overhead.",
+  alternates: {
+    canonical: "/projects/fetchr",
+  },
+  openGraph: {
+    title: "Fetchr - High-Performance HTTP Engine | Quan Van",
+    description:
+      "High-performance, zero-dependency HTTP client and network engine with connection pooling and high-concurrency benchmarks.",
+    url: "/projects/fetchr",
+    images: [{ url: "/images/fetchr/benchmarks.png" }],
+  },
+};
 import {
   ArrowUpRight,
   ExternalLink,

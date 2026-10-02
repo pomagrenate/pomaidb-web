@@ -1,5 +1,22 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "CheesePath - Unified High-Performance AI Agent & Workflow Framework",
+  description:
+    "An all-in-one, low-memory AI agent framework uniting Chains, Graphs, and ReAct with built-in retry and streaming telemetry.",
+  alternates: {
+    canonical: "/projects/cheesepath",
+  },
+  openGraph: {
+    title: "CheesePath - High-Performance AI Agent Framework | Quan Van",
+    description:
+      "All-in-one AI agent runtime combining Chains, Graphs, and ReAct with low memory consumption and high execution throughput.",
+    url: "/projects/cheesepath",
+    images: [{ url: "/images/cheesepath/chart_comparison.png" }],
+  },
+};
 import {
   ArrowUpRight,
   ExternalLink,

@@ -1,5 +1,22 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "ice_age - Deterministic AST Context Compressor for LLMs in Go",
+  description:
+    "Universal IDE plugin and proxy written in Go that cuts LLM token consumption by up to 70% using deterministic AST pruning and context compression.",
+  alternates: {
+    canonical: "/projects/ice_age",
+  },
+  openGraph: {
+    title: "ice_age - Deterministic AST Context Compressor | Quan Van",
+    description:
+      "Universal IDE proxy cutting LLM token usage by up to 70% using Go and Tree-sitter AST pruning.",
+    url: "/projects/ice_age",
+    images: [{ url: "/images/ice_age/hero.png" }],
+  },
+};
 import {
   ArrowUpRight,
   ExternalLink,

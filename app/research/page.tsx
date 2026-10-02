@@ -4,8 +4,18 @@ import { getResearchItems } from "@/lib/research";
 import { PageShell } from "@/components/page-shell";
 
 export const metadata: Metadata = {
-  title: "Research | Quan Van",
-  description: "Research papers and technical publications by Quan Van on data mining, vector indexing, and oblivious trees.",
+  title: "Research & Academic Publications",
+  description:
+    "Peer-reviewed research papers and technical publications by Quan Van on data mining, high-occupancy itemsets, vertical bitset mining, and pattern algorithms.",
+  alternates: {
+    canonical: "/research",
+  },
+  openGraph: {
+    title: "Research & Academic Publications | Quan Van",
+    description:
+      "Peer-reviewed research papers and technical publications by Quan Van on data mining, high-occupancy itemsets, and pattern mining algorithms.",
+    url: "/research",
+  },
 };
 
 export default function ResearchPage() {

@@ -3,8 +3,18 @@ import { getSortedCaseStudiesData } from "@/lib/case-studies";
 import { CaseStudiesClient } from "@/components/case-studies-client";
 
 export const metadata: Metadata = {
-  title: "Systems Case Studies | Quan Van",
-  description: "Deep dives into real-world software systems, architecture decisions, performance optimizations, and lessons learned in production.",
+  title: "Systems Case Studies & Architecture Analysis",
+  description:
+    "Deep dives into real-world software systems, architecture trade-offs, performance optimizations, and empirical benchmarks by Quan Van.",
+  alternates: {
+    canonical: "/case-studies",
+  },
+  openGraph: {
+    title: "Systems Case Studies & Architecture Analysis | Quan Van",
+    description:
+      "Deep dives into real-world software systems, architecture trade-offs, performance optimizations, and empirical benchmarks by Quan Van.",
+    url: "/case-studies",
+  },
 };
 
 export default function CaseStudiesIndexPage() {

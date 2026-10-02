@@ -23,9 +23,45 @@ function GithubIcon({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
+import type { Metadata } from "next";
+
 export async function generateStaticParams() {
   const slugs = getAllProjectSlugs();
   return slugs.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const projectData = getProjectBySlug(slug);
+  if (!projectData) {
+    return {
+      title: "Project Not Found",
+    };
+  }
+  const { project, category } = projectData;
+  return {
+    title: `${project.title} - ${category}`,
+    description: project.description,
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
+    openGraph: {
+      title: `${project.title} | Quan Van`,
+      description: project.description,
+      url: `/projects/${slug}`,
+      images: project.image ? [{ url: project.image }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Quan Van`,
+      description: project.description,
+      images: project.image ? [project.image] : undefined,
+    },
+  };
 }
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {

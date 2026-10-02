@@ -1,5 +1,22 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Morsel - Blazing-Fast Encrypted Local-First Clipboard Manager in Rust",
+  description:
+    "A blazing-fast, encrypted, local-first clipboard manager built in Rust featuring instant fuzzy search, secure key encryption, and minimal memory footprint.",
+  alternates: {
+    canonical: "/projects/morsel",
+  },
+  openGraph: {
+    title: "Morsel - Local-First Clipboard Manager in Rust | Quan Van",
+    description:
+      "Encrypted, local-first clipboard manager built with Rust, zero telemetry, and instant fuzzy lookup.",
+    url: "/projects/morsel",
+    images: [{ url: "/images/morsel/preview.png" }],
+  },
+};
 import {
   ArrowUpRight,
   ExternalLink,

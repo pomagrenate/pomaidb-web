@@ -1,6 +1,22 @@
 import React from "react";
+import type { Metadata } from "next";
 import { PROJECT_GROUPS } from "./projects";
 import { ProjectsClient } from "@/components/projects-client";
+
+export const metadata: Metadata = {
+  title: "Projects & Engineering Experiments",
+  description:
+    "Explore open-source systems, databases, AI agent engines, vector caches, and web architectures engineered by Quan Van.",
+  alternates: {
+    canonical: "/projects",
+  },
+  openGraph: {
+    title: "Projects & Engineering Experiments | Quan Van",
+    description:
+      "Explore open-source systems, databases, AI agent engines, vector caches, and web architectures engineered by Quan Van.",
+    url: "/projects",
+  },
+};
 
 export default function ProjectsIndexPage() {
   return (

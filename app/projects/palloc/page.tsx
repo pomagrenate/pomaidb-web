@@ -1,5 +1,21 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Palloc - Ultra-Fast Thread-Safe Memory Allocator in C++",
+  description:
+    "An ultra-fast, lightweight, and thread-safe general-purpose memory allocator. Drop-in malloc replacement built for high throughput and low latency.",
+  alternates: {
+    canonical: "/projects/palloc",
+  },
+  openGraph: {
+    title: "Palloc - Ultra-Fast Memory Allocator in C++ | Quan Van",
+    description:
+      "Drop-in malloc replacement and general-purpose memory allocator built for high throughput and predictable low latency.",
+    url: "/projects/palloc",
+  },
+};
 import { notFound } from "next/navigation";
 import {
   ArrowUpRight,

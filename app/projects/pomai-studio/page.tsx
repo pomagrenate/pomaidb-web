@@ -1,5 +1,22 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Pomai Studio - Native Rust IDE & Engineering Studio with Tauri",
+  description:
+    "A lightweight, native development studio built in Rust and Tauri with instantaneous cold boot times, low memory overhead, and integrated benchmarking.",
+  alternates: {
+    canonical: "/projects/pomai-studio",
+  },
+  openGraph: {
+    title: "Pomai Studio - Native Rust IDE with Tauri | Quan Van",
+    description:
+      "A lightweight, native development studio engineered in Rust and Tauri for ultra-fast startup and responsive editing.",
+    url: "/projects/pomai-studio",
+    images: [{ url: "/images/rust-studio/preview.png" }],
+  },
+};
 import {
   ExternalLink,
   Code2,

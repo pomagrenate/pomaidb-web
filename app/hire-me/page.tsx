@@ -3,8 +3,18 @@ import { PageShell } from "@/components/page-shell";
 import { ContactForm } from "@/components/contact-form";
 
 export const metadata: Metadata = {
-  title: "Hire Me If You Dare | Quan Van",
-  description: "I build software, AI systems, statistical analytics, and occasionally things that probably didn't need to exist. Available for full-time roles & contract work.",
+  title: "Work With Me & Experience",
+  description:
+    "Engineering experience, background, capabilities, and contact information for Quan Van. Systems Developer and AI Engineer available for technical roles and contracts.",
+  alternates: {
+    canonical: "/hire-me",
+  },
+  openGraph: {
+    title: "Work With Me & Experience | Quan Van",
+    description:
+      "Engineering experience, background, capabilities, and contact information for Quan Van. Systems Developer and AI Engineer.",
+    url: "/hire-me",
+  },
 };
 
 export default function HireMePage() {
@@ -119,7 +129,7 @@ export default function HireMePage() {
                 </span>
                 <h3 className="text-lg font-bold text-[#171717] mb-3">Beyond Work Mindset</h3>
                 <p className="text-[#525252] text-xs leading-relaxed mb-6">
-                  Balancing high-intensity software engineering with tactical <strong>Chess / Go Game (Cờ vây)</strong>, <strong>Recorder Flute (Sáo)</strong>, gaming, building unnecessary tools, and exploring deep internet rabbit holes.
+                  Balancing high-intensity software engineering with tactical <strong>Chess &amp; Go</strong>, <strong>Recorder Flute</strong>, gaming, building unnecessary tools, and exploring deep internet rabbit holes.
                 </p>
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -145,7 +155,7 @@ export default function HireMePage() {
             <div className="bg-gradient-to-br from-white to-purple-50/30 border border-purple-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div>
                 <div className="text-2xl mb-3">♟️</div>
-                <h3 className="text-base font-bold text-[#171717] mb-2">Chess &amp; Go (Cờ vây - 囲碁)</h3>
+                <h3 className="text-base font-bold text-[#171717] mb-2">Chess &amp; Go</h3>
                 <p className="text-xs text-[#525252] leading-relaxed mb-4">
                   Training tactical patience, positional advantage, and long-term strategic decision making one move at a time.
                 </p>
@@ -159,7 +169,7 @@ export default function HireMePage() {
             <div className="bg-gradient-to-br from-white to-pink-50/30 border border-pink-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div>
                 <div className="text-2xl mb-3">🎵</div>
-                <h3 className="text-base font-bold text-[#171717] mb-2">Recorder Flute (Sáo Recorder)</h3>
+                <h3 className="text-base font-bold text-[#171717] mb-2">Recorder Flute</h3>
                 <p className="text-xs text-[#525252] leading-relaxed mb-4">
                   Practicing breath control, tone control, and acoustic melody away from computer screens.
                 </p>
@@ -261,7 +271,7 @@ export default function HireMePage() {
                 </span>
               </div>
               <ul className="space-y-2 text-[#525252] text-sm leading-relaxed mb-6">
-                <li>• Làm app, theme Shopify cho hệ sinh thái e-commerce (Shopify applications and storefront theme development).</li>
+                <li>• Building custom Shopify apps and responsive storefront themes for e-commerce merchants.</li>
                 <li>• Engineered scalable backend services, webhook handlers, and merchant automation workflows for the ShopSideK startup platform.</li>
               </ul>
               <div className="flex flex-wrap gap-1.5">
@@ -436,7 +446,7 @@ export default function HireMePage() {
                     <div className="flex items-center gap-2 flex-wrap">
                       <h3 className="text-xl font-bold text-[#171717]">Product Owner</h3>
                       <a href="https://www.facebook.com/congdongcrosstech/?locale=vi_VN" target="_blank" rel="noopener noreferrer" className="px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 text-[10px] font-semibold transition-colors flex items-center gap-1">
-                        <span>Cộng Đồng CrossTech</span>
+                        <span>CrossTech Community</span>
                         <span>↗</span>
                       </a>
                     </div>
@@ -573,7 +583,7 @@ export default function HireMePage() {
               </h4>
 
               <p className="text-xs font-mono text-sky-600 mb-4">
-                HUTECH Scientific Research Conference (Hội nghị Sinh viên Nghiên cứu Khoa học HUTECH)
+                HUTECH Student Scientific Research Conference
               </p>
 
               <div className="bg-white/90 border border-sky-100 rounded-xl p-4 mb-5 text-xs text-[#525252] leading-relaxed italic">

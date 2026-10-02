@@ -1,5 +1,22 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "PomaiDB - Embedded Multimodal Vector Database in C++20",
+  description:
+    "Predictable, embedded multimodal vector database and offline RAG engine for Edge AI and resource-constrained devices with zero-OOM memory model and SIMD acceleration.",
+  alternates: {
+    canonical: "/projects/pomaidb",
+  },
+  openGraph: {
+    title: "PomaiDB - Embedded Multimodal Vector Database | Quan Van",
+    description:
+      "Predictable, embedded multimodal vector database and offline RAG engine for Edge AI built in C++20.",
+    url: "/projects/pomaidb",
+    images: [{ url: "/images/pomaidb/benchmark_chart.png" }],
+  },
+};
 import {
   ArrowUpRight,
   ExternalLink,

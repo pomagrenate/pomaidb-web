@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getPostData, getSortedPostsData } from "@/lib/blog";
 import { notFound } from "next/navigation";
@@ -7,6 +8,42 @@ import { SocialShare } from "@/components/social-share";
 export async function generateStaticParams() {
   const posts = getSortedPostsData();
   return posts.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const post = await getPostData(slug);
+    return {
+      title: post.title,
+      description: post.excerpt || `Read ${post.title} by ${post.author}.`,
+      alternates: {
+        canonical: `/blog/${slug}`,
+      },
+      openGraph: {
+        title: post.title,
+        description: post.excerpt || `Read ${post.title} by ${post.author}.`,
+        url: `/blog/${slug}`,
+        type: "article",
+        publishedTime: post.date,
+        authors: [post.author || "Quan Van"],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: post.title,
+        description: post.excerpt || `Read ${post.title} by ${post.author}.`,
+      },
+    };
+  } catch {
+    return {
+      title: "Blog Post",
+      description: "Engineering blog article by Quan Van.",
+    };
+  }
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {

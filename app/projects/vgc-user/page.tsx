@@ -1,5 +1,22 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "VGC-User - Centralized Identity & Data Hub for Viet Global Connect",
+  description:
+    "A unified identity, authentication, and content management control plane built for the Viet Global Connect ecosystem to unify distributed sub-portals.",
+  alternates: {
+    canonical: "/projects/vgc-user",
+  },
+  openGraph: {
+    title: "VGC-User - Centralized Identity & Data Hub | Quan Van",
+    description:
+      "Unified user identity, content moderation, and business directory management for the Viet Global Connect multi-portal network.",
+    url: "/projects/vgc-user",
+    images: [{ url: "/images/vgc-user/home.png" }],
+  },
+};
 import {
   ExternalLink,
   Code2,
@@ -172,7 +189,7 @@ export default function VgcUserPage() {
                     <span className="font-semibold">Real-Time Activity Analytics:</span> Embedded real-time view counts, click-through rates, and message inquiries directly in the user dashboard.
                   </li>
                   <li>
-                    <span className="font-semibold">Bilingual Accessibility:</span> Designed native dual-language support (Tiếng Việt & English) to accommodate domestic users as well as the global Vietnamese diaspora.
+                    <span className="font-semibold">Bilingual Accessibility:</span> Designed native dual-language support (Vietnamese & English) to accommodate domestic users as well as the global Vietnamese diaspora.
                   </li>
                 </ul>
               </div>

@@ -1,6 +1,22 @@
 import fs from "fs";
 import path from "path";
+import type { Metadata } from "next";
 import { PageShell } from "@/components/page-shell";
+
+export const metadata: Metadata = {
+  title: "Engineering Talks & Video Demos",
+  description:
+    "Technical walkthroughs, live coding recordings, system architecture talks, and software demos by Quan Van.",
+  alternates: {
+    canonical: "/videos",
+  },
+  openGraph: {
+    title: "Engineering Talks & Video Demos | Quan Van",
+    description:
+      "Technical walkthroughs, live coding recordings, system architecture talks, and software demos by Quan Van.",
+    url: "/videos",
+  },
+};
 
 function getLocalVideos() {
   const filePath = path.join(process.cwd(), "content", "videos", "videos.json");
