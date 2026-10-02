@@ -355,7 +355,7 @@ export default function HireMePage() {
               </div>
             </div>
 
-            {/* 4. Founding AI Engineer - VINAMACHINES / Fixago */}
+            {/* 4. Founding AI Engineer - VINAMACHINES */}
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
                 <div className="flex items-start gap-3.5">
@@ -369,10 +369,9 @@ export default function HireMePage() {
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
                       <h3 className="text-xl font-bold text-[#171717]">Founding AI Engineer</h3>
-                      <a href="https://www.fixago.vn/" target="_blank" rel="noopener noreferrer" className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 text-[10px] font-semibold transition-colors flex items-center gap-1">
-                        <span>Fixago (VINAMACHINES)</span>
-                        <span>↗</span>
-                      </a>
+                      <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold">
+                        VINAMACHINES
+                      </span>
                     </div>
                     <p className="text-emerald-600 text-xs font-mono font-semibold">VINAMACHINES · Part-time · Vietnam (Remote)</p>
                   </div>
@@ -399,8 +398,12 @@ export default function HireMePage() {
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
                 <div className="flex items-start gap-3.5">
-                  <div className="w-12 h-12 rounded-xl border border-indigo-100 bg-indigo-50/80 flex items-center justify-center shrink-0 overflow-hidden shadow-xs font-mono font-bold text-sm text-[#6D5DFB]">
-                    SK
+                  <div className="w-12 h-12 rounded-xl border border-[#EAEAEA] bg-white p-1.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                    <img
+                      src="/experience_logos/skpli.jpg"
+                      alt="SKIPLI"
+                      className="w-full h-full object-contain rounded-lg"
+                    />
                   </div>
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
@@ -477,8 +480,12 @@ export default function HireMePage() {
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
                 <div className="flex items-start gap-3.5">
-                  <div className="w-12 h-12 rounded-xl border border-amber-100 bg-amber-50/80 flex items-center justify-center shrink-0 overflow-hidden shadow-xs font-mono font-bold text-sm text-amber-700">
-                    MO
+                  <div className="w-12 h-12 rounded-xl border border-[#EAEAEA] bg-white p-1.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                    <img
+                      src="/experience_logos/mochimin.png"
+                      alt="MOCHIMIN"
+                      className="w-full h-full object-contain rounded-lg"
+                    />
                   </div>
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
