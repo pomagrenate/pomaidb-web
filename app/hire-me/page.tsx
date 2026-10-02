@@ -235,15 +235,99 @@ export default function HireMePage() {
           </div>
 
           <div className="space-y-6">
-            {/* 1. Freelance Software Developer */}
+            {/* 1. ShopSideK - Shopify Software Engineer */}
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                <div>
-                  <h3 className="text-xl font-bold text-[#171717]">Freelance Software Developer</h3>
-                  <p className="text-[#6D5DFB] text-xs font-mono font-semibold">Self-employed · Self-employed · Vietnam (Remote)</p>
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-12 h-12 rounded-xl border border-[#EAEAEA] bg-white p-1.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                    <img
+                      src="/experience_logos/ShopSideK-logo-transparent-scaled.png"
+                      alt="ShopSideK"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-xl font-bold text-[#171717]">Shopify Software Engineer</h3>
+                      <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold">
+                        Startup
+                      </span>
+                    </div>
+                    <p className="text-emerald-600 text-xs font-mono font-semibold">ShopSideK · Startup · Ho Chi Minh City, Vietnam (Remote / Hybrid)</p>
+                  </div>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto">
-                  Aug 2023 - Present · 3 yrs 1 mo
+                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto shrink-0">
+                  Oct 2026 - Present
+                </span>
+              </div>
+              <ul className="space-y-2 text-[#525252] text-sm leading-relaxed mb-6">
+                <li>• Làm app, theme Shopify cho hệ sinh thái e-commerce (Shopify applications and storefront theme development).</li>
+                <li>• Engineered scalable backend services, webhook handlers, and merchant automation workflows for the ShopSideK startup platform.</li>
+              </ul>
+              <div className="flex flex-wrap gap-1.5">
+                {["Shopify Apps", "Theme Development", "Liquid", "React", "Node.js", "Startup"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* 2. HUTECH University - Software Engineer */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-12 h-12 rounded-xl border border-[#EAEAEA] bg-white p-1.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                    <img
+                      src="/experience_logos/hutech.png"
+                      alt="HUTECH University"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-xl font-bold text-[#171717]">Software Engineer</h3>
+                      <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-semibold">
+                        University
+                      </span>
+                    </div>
+                    <p className="text-blue-600 text-xs font-mono font-semibold">HUTECH University · Ho Chi Minh City, Vietnam (On-site)</p>
+                  </div>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto shrink-0">
+                  Oct 2026 - Present
+                </span>
+              </div>
+              <ul className="space-y-2 text-[#525252] text-sm leading-relaxed mb-6">
+                <li>• Building internal projects.</li>
+              </ul>
+              <div className="flex flex-wrap gap-1.5">
+                {["Software Engineering", "Internal Projects", "System Architecture", "TypeScript", "Python"].map((t) => (
+                  <span key={t} className="px-2 py-0.5 rounded-full bg-[#F4F4F6] text-[10px] font-mono text-[#525252]">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* 3. Freelance Software Developer */}
+            <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-12 h-12 rounded-xl border border-[#EAEAEA] bg-white p-1.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                    <img
+                      src="/experience_logos/logo.ico"
+                      alt="Freelance"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-[#171717]">Freelance Software Developer</h3>
+                    <p className="text-[#6D5DFB] text-xs font-mono font-semibold">Self-employed · Self-employed · Vietnam (Remote)</p>
+                  </div>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto shrink-0">
+                  Aug 2023 - Present · 3 yrs 2 mos
                 </span>
               </div>
               <ul className="space-y-2 text-[#525252] text-sm leading-relaxed mb-6">
@@ -261,20 +345,29 @@ export default function HireMePage() {
               </div>
             </div>
 
-            {/* 2. AI Engineer - VINAMACHINE / Fixago */}
+            {/* 4. Founding AI Engineer - VINAMACHINES / Fixago */}
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-xl font-bold text-[#171717]">AI Engineer</h3>
-                    <a href="https://www.fixago.vn/" target="_blank" rel="noopener noreferrer" className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 text-[10px] font-semibold transition-colors flex items-center gap-1">
-                      <span>Fixago (VINAMACHINE)</span>
-                      <span>↗</span>
-                    </a>
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-12 h-12 rounded-xl border border-[#EAEAEA] bg-white p-1.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                    <img
+                      src="/experience_logos/vinamachines.png"
+                      alt="VINAMACHINES"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
-                  <p className="text-emerald-600 text-xs font-mono font-semibold">VINAMACHINE · Part-time · Vietnam (Remote)</p>
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-xl font-bold text-[#171717]">Founding AI Engineer</h3>
+                      <a href="https://www.fixago.vn/" target="_blank" rel="noopener noreferrer" className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 text-[10px] font-semibold transition-colors flex items-center gap-1">
+                        <span>Fixago (VINAMACHINES)</span>
+                        <span>↗</span>
+                      </a>
+                    </div>
+                    <p className="text-emerald-600 text-xs font-mono font-semibold">VINAMACHINES · Part-time · Vietnam (Remote)</p>
+                  </div>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto">
+                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto shrink-0">
                   Nov 2025 - Aug 2026 · 10 mos
                 </span>
               </div>
@@ -292,20 +385,25 @@ export default function HireMePage() {
               </div>
             </div>
 
-            {/* 3. Website Development Engineer - SKIPLI */}
+            {/* 5. Website Development Engineer - SKIPLI */}
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-xl font-bold text-[#171717]">Website Development Engineer</h3>
-                    <a href="https://user.vgcnews24.com/vi/login" target="_blank" rel="noopener noreferrer" className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-[#6D5DFB] hover:bg-indigo-100 border border-indigo-200 text-[10px] font-semibold transition-colors flex items-center gap-1">
-                      <span>Login | VGC User</span>
-                      <span>↗</span>
-                    </a>
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-12 h-12 rounded-xl border border-indigo-100 bg-indigo-50/80 flex items-center justify-center shrink-0 overflow-hidden shadow-xs font-mono font-bold text-sm text-[#6D5DFB]">
+                    SK
                   </div>
-                  <p className="text-[#6D5DFB] text-xs font-mono font-semibold">SKIPLI · Full-time · United States (Remote)</p>
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-xl font-bold text-[#171717]">Website Development Engineer</h3>
+                      <a href="https://user.vgcnews24.com/vi/login" target="_blank" rel="noopener noreferrer" className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-[#6D5DFB] hover:bg-indigo-100 border border-indigo-200 text-[10px] font-semibold transition-colors flex items-center gap-1">
+                        <span>Login | VGC User</span>
+                        <span>↗</span>
+                      </a>
+                    </div>
+                    <p className="text-[#6D5DFB] text-xs font-mono font-semibold">SKIPLI · Full-time · United States (Remote)</p>
+                  </div>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto">
+                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto shrink-0">
                   Nov 2025 - Apr 2026 · 6 mos
                 </span>
               </div>
@@ -323,20 +421,29 @@ export default function HireMePage() {
               </div>
             </div>
 
-            {/* 4. Product Owner - CrossTech */}
+            {/* 6. Product Owner - CrossTech */}
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-xl font-bold text-[#171717]">Product Owner</h3>
-                    <a href="https://www.facebook.com/congdongcrosstech/?locale=vi_VN" target="_blank" rel="noopener noreferrer" className="px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 text-[10px] font-semibold transition-colors flex items-center gap-1">
-                      <span>Cộng Đồng CrossTech</span>
-                      <span>↗</span>
-                    </a>
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-12 h-12 rounded-xl border border-[#EAEAEA] bg-white p-1.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                    <img
+                      src="/experience_logos/crosstech.jfif"
+                      alt="CrossTech"
+                      className="w-full h-full object-contain rounded-lg"
+                    />
                   </div>
-                  <p className="text-purple-600 text-xs font-mono font-semibold">CrossTech · Part-time · Ho Chi Minh City, Vietnam (Hybrid)</p>
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-xl font-bold text-[#171717]">Product Owner</h3>
+                      <a href="https://www.facebook.com/congdongcrosstech/?locale=vi_VN" target="_blank" rel="noopener noreferrer" className="px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 text-[10px] font-semibold transition-colors flex items-center gap-1">
+                        <span>Cộng Đồng CrossTech</span>
+                        <span>↗</span>
+                      </a>
+                    </div>
+                    <p className="text-purple-600 text-xs font-mono font-semibold">CrossTech · Part-time · Ho Chi Minh City, Vietnam (Hybrid)</p>
+                  </div>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto">
+                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto shrink-0">
                   Jul 2025 - Dec 2025 · 6 mos
                 </span>
               </div>
@@ -356,20 +463,25 @@ export default function HireMePage() {
               </div>
             </div>
 
-            {/* 5. Product Development Intern - MOCHIMIN */}
+            {/* 7. Product Development Intern - MOCHIMIN */}
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-xl font-bold text-[#171717]">Product Development Intern</h3>
-                    <a href="https://lazyprompter.com/" target="_blank" rel="noopener noreferrer" className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 text-[10px] font-semibold transition-colors flex items-center gap-1">
-                      <span>Lazy Prompter</span>
-                      <span>↗</span>
-                    </a>
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-12 h-12 rounded-xl border border-amber-100 bg-amber-50/80 flex items-center justify-center shrink-0 overflow-hidden shadow-xs font-mono font-bold text-sm text-amber-700">
+                    MO
                   </div>
-                  <p className="text-amber-600 text-xs font-mono font-semibold">MOCHIMIN · Internship · Singapore (Remote)</p>
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-xl font-bold text-[#171717]">Product Development Intern</h3>
+                      <a href="https://lazyprompter.com/" target="_blank" rel="noopener noreferrer" className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 text-[10px] font-semibold transition-colors flex items-center gap-1">
+                        <span>Lazy Prompter</span>
+                        <span>↗</span>
+                      </a>
+                    </div>
+                    <p className="text-amber-600 text-xs font-mono font-semibold">MOCHIMIN · Internship · Singapore (Remote)</p>
+                  </div>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto">
+                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto shrink-0">
                   Aug 2025 - Oct 2025 · 3 mos
                 </span>
               </div>
@@ -401,12 +513,21 @@ export default function HireMePage() {
           <div className="space-y-6">
             {/* Scientific Research Assistant - HUTECH */}
             <div className="bg-white border border-[#EAEAEA] rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                <div>
-                  <h3 className="text-xl font-bold text-[#171717]">Scientific Research Assistant</h3>
-                  <p className="text-sky-600 text-xs font-mono font-semibold">HUTECH - Ho Chi Minh City University of Technology · Self-employed · Ho Chi Minh City, Vietnam (Hybrid)</p>
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-12 h-12 rounded-xl border border-[#EAEAEA] bg-white p-1.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                    <img
+                      src="/experience_logos/hutech.png"
+                      alt="HUTECH University"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-[#171717]">Scientific Research Assistant</h3>
+                    <p className="text-sky-600 text-xs font-mono font-semibold">HUTECH - Ho Chi Minh City University of Technology · Self-employed · Ho Chi Minh City, Vietnam (Hybrid)</p>
+                  </div>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto">
+                <span className="px-3 py-1 rounded-full bg-[#F4F4F6] text-xs font-mono font-semibold text-[#525252] self-start sm:self-auto shrink-0">
                   Jul 2022 - Nov 2025 · 3 yrs 5 mos
                 </span>
               </div>
